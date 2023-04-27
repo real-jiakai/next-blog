@@ -11,8 +11,8 @@ dependencies:
     specifier: ^0.8.0
     version: 0.8.0
   '@marsidev/react-turnstile':
-    specifier: ^0.1.2
-    version: 0.1.2(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.2.1
+    version: 0.2.1(react-dom@18.2.0)(react@18.2.0)
   '@mdx-js/loader':
     specifier: ^2.3.0
     version: 2.3.0(webpack@5.77.0)
@@ -472,8 +472,8 @@ packages:
       unist-util-visit: 2.0.3
     dev: false
 
-  /@marsidev/react-turnstile@0.1.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-aL1/AdES53yxPJKodT20qwJ9Fs0ZcnYRS+Z7yA8iGGFAi4roOS9iB12Ss7GJrm896hXW/YnW1aAPxc079Sad7A==}
+  /@marsidev/react-turnstile@0.2.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-W/jxe6nn55wvbAwCOAtrm+tIg90/1oqBlbWwWaWJ2zuo3pmEBoaz3cnkU5PO5Hhi7NL51H46qL1syrkq/5CN0Q==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
