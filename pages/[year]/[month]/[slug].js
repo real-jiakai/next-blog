@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import readingTime from 'reading-time'
+import { useState, useEffect } from 'react'
+import Script from 'next/script'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import ArticleIcon from '@mui/icons-material/Article'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
@@ -14,13 +16,39 @@ import ScrollToTop from 'components/ScrollToTop'
 import { getAllPostMetadata, getPostDataByFileName } from 'lib/posts'
 
 
-export default function Post({ postData, params,stats }) { 
+export default function Post({ postData, params, stats }) { 
+	const [ap, setAp] = useState(null)
+
+	useEffect(() => {
+		const initializeAPlayer = () => {
+		  if (typeof window !== 'undefined' && window.APlayer && postData.audio && !ap) {
+				const player = new APlayer({
+			  container: document.getElementById('aplayer'),
+			  audio: [postData.audio],
+				})
+	
+				setAp(player)
+		  }
+		}
+	
+		initializeAPlayer()
+	
+		return () => {
+		  if (ap) {
+				ap.destroy()
+		  }
+		}
+	  }, [ap, postData])
+	
+
 	return (
 		<ArticleLayout>
 			{/* 标题 */}
 			<Head>
 				<title>{postData.title}</title>
 			</Head>
+
+			<Script src="/js/APlayer.min.js" strategy="beforeInteractive" />
 
 			{/* 主体 */}
 			<div className="flex flex-col md:grid md:grid-cols-6 md:gap-2">
@@ -50,12 +78,12 @@ export default function Post({ postData, params,stats }) {
 								</div>
 								<div className="text-right flex-1 hidden lg:block">
 									<a href={`${process.env.NEXT_PUBLIC_GITHUB_REPO}/edit/main/posts/${encodeURIComponent(postData.filename)}`} className='hover:text-blue-800' target='_blank'>
-							Edit This Page
+										Edit This Page
 									</a>
 								</div>
 							</div>
 
-							<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+							<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} className='tracking-wide leading-loose'/>
 							<div className="my-3">
 								<span className="font-bold">Tags:{' '}</span>
 								{postData.tags.map((tag, index) => (

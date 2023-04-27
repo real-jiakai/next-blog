@@ -14,16 +14,16 @@ export default function About() {
 			<h1 className='text-center my-3'>{about}</h1>
 			<div className='container mx-auto px-4 w-3/5'>
 				<p className='my-4'>
-				Hello and welcome to ChatGPT! We are an advanced AI language model created by OpenAI, built on the cutting-edge GPT-4 architecture. Our mission is to assist and empower users by providing valuable information, answering questions, and engaging in thoughtful conversations.
+				本站点专注于分享互联网上有趣的内容。
 				</p>
 				<p className='my-4'>
-				Our extensive knowledge base, which spans a wide range of topics, enables us to tackle diverse subjects with ease. Although our training data includes information up until September 2021, we strive to stay updated and relevant in our responses.
+				周刊名字取为《周见》。这意味着我希望每周自己都能在学习与生活中发现美，将看到的新奇事物分享出来。
 				</p>
 				<p className='my-4'>
-				Our team at OpenAI is committed to developing AI technology that is both ethical and responsible. We continuously work to improve ChatGPT, ensuring a more accurate and user-friendly experience. Your feedback is invaluable to us, as it helps us grow and adapt to your needs.
+				欢迎通过<a href="https://gujiakai.top/rss.xml" target='blank'>RSS</a>订阅本站点。
 				</p>
 				<p className='my-4'>
-				Whether you are seeking answers, exploring new ideas, or just in need of a friendly conversation, ChatGPT is here to help. We look forward to chatting with you!
+				想了解更多关于我的信息，请点击上方的<strong>Blog</strong>。
 				</p>
 			</div>
 		</Layout>

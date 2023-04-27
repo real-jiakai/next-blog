@@ -1,914 +1,920 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
-    <title>Demo</title>
-    <updated>2023-04-20T05:24:35.666Z</updated>
+    <title>周见</title>
+    <updated>2023-04-27T08:48:06.680Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
-        <name>Demo</name>
-        <uri>https://demo.njxzc.top</uri>
+        <name>周见</name>
+        <uri>https://gujiakai.top</uri>
     </author>
-    <link rel="alternate" href="https://demo.njxzc.top"/>
-    <subtitle>Demo website for Blog System</subtitle>
-    <rights>© 2023 Made with ❤️ By Jiakai.</rights>
+    <link rel="alternate" href="https://gujiakai.top"/>
+    <subtitle>专注于分享互联网上有趣的东西。</subtitle>
+    <rights>© 2022-2023 Made with ❤️ By Jiakai</rights>
     <entry>
-        <title type="html"><![CDATA[Markdown Syntax]]></title>
-        <id>https://demo.njxzc.top/2023/03/markdown-syntax</id>
-        <link href="https://demo.njxzc.top/2023/03/markdown-syntax"/>
-        <updated>2023-03-31T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="1标题"><a aria-hidden="true" tabindex="-1" href="#1标题"><span class="icon icon-link"></span></a>1、标题</h2>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line"># 一级标题
-</span><span class="code-line">## 二级标题
-</span><span class="code-line">### 三级标题
-</span><span class="code-line">#### 四级标题
-</span><span class="code-line">##### 五级标题
-</span><span class="code-line">###### 六级标题
-</span></code></pre>
-<p>效果：</p>
-<h1 id="一级标题"><a aria-hidden="true" tabindex="-1" href="#一级标题"><span class="icon icon-link"></span></a>一级标题</h1>
-<h2 id="二级标题"><a aria-hidden="true" tabindex="-1" href="#二级标题"><span class="icon icon-link"></span></a>二级标题</h2>
-<h3 id="三级标题"><a aria-hidden="true" tabindex="-1" href="#三级标题"><span class="icon icon-link"></span></a>三级标题</h3>
-<h4 id="四级标题"><a aria-hidden="true" tabindex="-1" href="#四级标题"><span class="icon icon-link"></span></a>四级标题</h4>
-<h5 id="五级标题"><a aria-hidden="true" tabindex="-1" href="#五级标题"><span class="icon icon-link"></span></a>五级标题</h5>
-<h6 id="六级标题"><a aria-hidden="true" tabindex="-1" href="#六级标题"><span class="icon icon-link"></span></a>六级标题</h6>
-<h2 id="2脚注"><a aria-hidden="true" tabindex="-1" href="#2脚注"><span class="icon icon-link"></span></a>2、脚注</h2>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">Google[^1]
-</span><span class="code-line">
-</span><span class="code-line">Bing[^2]
-</span><span class="code-line">
-</span><span class="code-line">ChatGPT[^3]
-</span><span class="code-line">
-</span><span class="code-line">
-</span><span class="code-line">[^1]:https://google.com
-</span><span class="code-line">
-</span><span class="code-line">[^2]:https://www.bing.com
-</span><span class="code-line">
-</span><span class="code-line">[^3]:https://chat.openai.com
-</span></code></pre>
-<p>效果：</p>
-<p>Google<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
-<p>Bing<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
-<p>ChatGPT<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup></p>
-<h2 id="3代码"><a aria-hidden="true" tabindex="-1" href="#3代码"><span class="icon icon-link"></span></a>3、代码</h2>
-<h3 id="31行内代码"><a aria-hidden="true" tabindex="-1" href="#31行内代码"><span class="icon icon-link"></span></a>3.1、行内代码：</h3>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">`echo "hello world"`
-</span></code></pre>
-<p>效果：</p>
-<p><code>echo "hello world"</code></p>
-<h3 id="32代码块"><a aria-hidden="true" tabindex="-1" href="#32代码块"><span class="icon icon-link"></span></a>3.2、代码块</h3>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">
-</span><span class="code-line">```c
-</span><span class="code-line"># include &#x3C;stdio.h>
-</span><span class="code-line">
-</span><span class="code-line">int main(){
-</span><span class="code-line">    printf("hello world");
-</span><span class="code-line">}
-</span><span class="code-line">```
-</span><span class="code-line">
-</span><span class="code-line">```python
-</span><span class="code-line">print("hello world")
-</span><span class="code-line">```
-</span><span class="code-line">
-</span><span class="code-line">```javascript
-</span><span class="code-line">console.log("hello world")
-</span><span class="code-line">```
-</span><span class="code-line">
-</span></code></pre>
-<p>效果：</p>
-<pre class="language-c"><code class="language-c code-highlight"><span class="code-line"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">include</span> <span class="token string">&#x3C;stdio.h></span></span>
-</span><span class="code-line">
-</span><span class="code-line"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-</span><span class="code-line">    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</span><span class="code-line"><span class="token punctuation">}</span>
-</span></code></pre>
-<pre class="language-python"><code class="language-python code-highlight"><span class="code-line"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span>
-</span></code></pre>
-<pre class="language-javascript"><code class="language-javascript code-highlight"><span class="code-line"><span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span>
-</span></code></pre>
-<h2 id="4字体样式"><a aria-hidden="true" tabindex="-1" href="#4字体样式"><span class="icon icon-link"></span></a>4、字体样式</h2>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">**加粗**
-</span><span class="code-line">
-</span><span class="code-line">*斜体*
-</span><span class="code-line">
-</span><span class="code-line">~~删除线~~
-</span><span class="code-line">
-</span></code></pre>
-<p>效果：</p>
-<p><strong>加粗</strong></p>
-<p><em>斜体</em></p>
-<p><del>删除线</del></p>
-<h2 id="5超链接"><a aria-hidden="true" tabindex="-1" href="#5超链接"><span class="icon icon-link"></span></a>5、超链接</h2>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">[Google](https://google.com)
-</span><span class="code-line">
-</span><span class="code-line">[Bing](https://www.bing.com)
-</span><span class="code-line">
-</span><span class="code-line">[ChatGPT](https://chat.openai.com)
-</span></code></pre>
-<p>效果：</p>
-<p><a href="https://google.com">Google</a></p>
-<p><a href="https://www.bing.com">Bing</a></p>
-<p><a href="https://chat.openai.com">ChatGPT</a></p>
-<h2 id="6图片"><a aria-hidden="true" tabindex="-1" href="#6图片"><span class="icon icon-link"></span></a>6、图片</h2>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">![Great Wall](https://vip2.loli.io/2023/03/14/F25Uehy3nXQlVPT.webp)
-</span></code></pre>
-<p>效果：</p>
-<p><img src="https://vip2.loli.io/2023/03/14/F25Uehy3nXQlVPT.webp" alt="Great Wall"></p>
-<h2 id="7列表"><a aria-hidden="true" tabindex="-1" href="#7列表"><span class="icon icon-link"></span></a>7、列表</h2>
-<h3 id="71无序列表"><a aria-hidden="true" tabindex="-1" href="#71无序列表"><span class="icon icon-link"></span></a>7.1、无序列表</h3>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">- 北京
-</span><span class="code-line">- 江苏
-</span><span class="code-line">  - 南京
-</span><span class="code-line">  - 南通
-</span><span class="code-line">    - 海门
-</span></code></pre>
-<p>效果：</p>
+        <title type="html"><![CDATA[今天我学了什么 #15]]></title>
+        <id>https://gujiakai.top/2023/02/weekly-issue-15</id>
+        <link href="https://gujiakai.top/2023/02/weekly-issue-15"/>
+        <updated>2023-02-28T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://vip2.loli.io/2023/02/28/r3W1kNCeThsbnVO.webp" alt="My Yubikey is dead."></p>
+<p><img src="https://vip2.loli.io/2023/02/28/O8wQng4uZeqaTGA.webp" alt="yubikey 咸鱼代购"></p>
+<p>去年9月底，cloudflare和yubikey合作，推出了最低10美元购买yubikey 5的优惠套餐。当时我申请并拿到了cloudflare的优惠码，由于没空海淘，我粗心地将cloudflare提供的优惠码邮件给删除了。</p>
+<p>去年12月份的时候，那时听别人说cloudflare的优惠码年底到期，但是邮箱仅保存最近30天删除的邮件，包含cloudflare优惠码的那封邮件被删的时间是10月初，已经没无法找回。于是我在咸鱼上下了单，购入了一把yubikey。</p>
+<p>这把物理密钥，我体验了将近2个月的时间，于二月中，被我给玩坏了。我没有拔yubikey的习惯，yubikey一直插在电脑上。电脑内胆包仅够容纳笔记本电脑，这导致yubikey露在外头。当我把物理密钥连同内胆包一起放进书包，等下次再打开书包的时候，发现yubikey已经被压断了。</p>
+<p>目前我仅体验了将yubikey添加入自己的google、github、cloudflare账号，作为两步验证中的物理密钥使用。这把小小的钥匙功能还有许多，未来再遇到这种优惠，我自己会再买两把玩玩。</p>
+<h2 id="周刊bgm"><a aria-hidden="true" tabindex="-1" href="#周刊bgm"><span class="icon icon-link"></span></a>周刊BGM</h2>
+&#x3C;div id="aplayer">&#x3C;/div>
+<p>大学最后一个学期了，学生生涯可能已经结束。好想来一次全国旅行，看看祖国的大好河山后，再投身于工作中。</p>
+<h2 id="主题今天我学了什么"><a aria-hidden="true" tabindex="-1" href="#主题今天我学了什么"><span class="icon icon-link"></span></a>主题：今天我学了什么</h2>
+<p><strong>最快的学习方式是将自己的学习过程公开</strong>。Learn In Public的布道师 swyx在其博文<a href="https://www.swyx.io/learn-in-public">Learn In Public</a>中提及了这个观点。</p>
+<p><img src="https://vip2.loli.io/2023/02/21/REVGWYQC8Pebd7x.webp" alt="Today I Learned"></p>
+<p>第一次接触这个观点是在国内某个博主的博文中，具体记不太清了。之后在搜索引擎上找到了该言论原作者的文章，即上述提到的Learn In Public。</p>
+<p>一想到自己的学习笔记要公布在网上，你肯定会更加认真对待，因为你希望自己给别人留下一个好印象。公开笔记的举动变相地促进了你深入学习某一领域的知识。</p>
+<p>以前star过一个名为<a href="https://github.com/jbranchaud/til">til</a>的github仓库，当时并没有深究这个仓库的内容。该仓库作者Josh Branchaud将这个仓库，在HackNews上<a href="https://news.ycombinator.com/item?id=22908044">发表</a>；这条帖子启发了Django框架的联合创始人-Simon Willison，于是他也新建了个人仓库，记录自己所学知识的学习笔记，并将该仓库转换为了一个<a href="https://til.simonwillison.net/">网站</a>；今天晚上（2023.2.21）整理以前的个人链接时，拜访了华盛顿邮报记者-Kevin Schaul的个人博客，我发现了他的个人博客主题和我目前使用的主题一样，均为hugo-ivy主题，其中的Today I Learned栏目吸引了我的注意力，这个栏目记录了博主过去所学知识的笔记，并且他创建这个栏目受到了Simon Willison的影响。</p>
+<p>于是我也在自己的个人博客上创建了该栏目，记录自己所学知识的笔记，将学习过程公开，以期获得最佳的学习效果。</p>
+<p>这种链条式价值观的传播，让我充分感受到了个人博客的魅力。希望我的分享能带动更多人在互联网上公开自己的学习过程。</p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>1、<a href="https://www.wikiwand.com/en/RTFM">RTFM</a></p>
+<p><img src="https://vip2.loli.io/2023/02/08/7DM5jv4AFkgoieW.webp" alt="RTFM"></p>
+<p>RTFM是Read The Fucking Manual的首字母缩写，译为阅读该死的手册。编程时经常需要查阅官方文档，但是官方文档又臭又长。当你向别人提问时，如果这个问题的答案恰好能在官方文档中查到，回答者可以使用RTFM回应，让你好好读读官方文档以提升自己，当然最好在回答时，添加上官方文档的具体位置，这样的回答才更有礼貌。</p>
+<p>注：chatgpt和new bing的出现在一定程度上缓解了RTFM（Read The F*cking Manual）的痛苦。</p>
+<p><img src="https://vip2.loli.io/2023/02/28/TyKB9oYWciznxlE.webp" alt="chatgpt and rtfm"></p>
+<p>2、<a href="https://skribbl.io/">skribbl.io</a></p>
+<p><img src="https://vip2.loli.io/2023/02/28/ZH3qPieK1Ewgu82.webp" alt="skribbl"></p>
+<p>这个网站是一个免费的在线多人画图和猜词游戏。它受到了原始的画图游戏Pictionary（一款受字谜启发的猜字游戏）的启发。每一轮，一个玩家必须画出他们选择的单词，其他玩家必须猜出来得分！在游戏结束时，得分最高的人将被封为胜利者！你可以和朋友一起玩，也可以加入一个随机的游戏。</p>
+<p>2月27号下午，和老外玩了半个小时，挺有趣的。</p>
+<p>3、<a href="http://www.milliondollarhomepage.com/">The Million Dollar Homepage</a></p>
+<p><img src="https://vip2.loli.io/2023/02/28/3RX2agtd681OUnf.webp" alt="The Million Dollar Homepage"></p>
+<p>这个网站是由一位英国大学生 Alex Tew 在 2005 年创建的，目的是为了筹集他的大学学费。这个网站的主页由一百万个像素组成，每个像素卖 1 美元，买家可以在这些像素上放置自己的图片和链接。这个网站在短短五个月内就收入了 100 万美元，并且成为了互联网历史上的一个奇迹。不过，现在这个网站上很多链接都已经失效了。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<p>1、<a href="https://www.webdesignmuseum.org/">Web Design Museum</a></p>
+<p><img src="https://vip2.loli.io/2023/01/31/oKhaUFROtygi7YI.webp" alt="Web Design Museum"></p>
+<p>网页设计博物馆给我们呈现了1991年至2006年间在互联网上占主导地位的网页设计的过去趋势。</p>
+<p>2、<a href="https://start.dji.com/">start.dji.com</a></p>
+<p><img src="https://vip2.loli.io/2023/02/08/T3auDXyUYvsHFmS.webp" alt="start.dji.com"></p>
+<p>大疆出品的一个网页，可以在线模拟操作无人机。大疆创新是中国一家先进企业，尤其在无人机领域，以后工作赚钱了， 我准备买一架无人机玩玩。</p>
+<p>3、<a href="https://www.conventionalcommits.org/zh-hans/v1.0.0/">约定式提交</a></p>
+<p><img src="https://vip2.loli.io/2023/02/10/CE9UXfqFs8au3Zy.webp" alt="约定式提交"></p>
+<p><code>git commit</code>命令从暂存区提交代码至本地版本库时会用<code>-m</code>参数来给添加提交信息，这个网站可以让你的提交信息更加规范化。在网站的About页面中可以找到一堆与之相关的工具，如VS Code插件、命令行工具等。</p>
+<p>注：近期已经出现帮你自动填写commit信息的ai工具了，具体可以去github上搜索（ai会依据git仓库的变化情况，编写相应的提交信息）。不难看出，在不久的将来，chatgpt+将与各行各业结合，造福人类！</p>
+<p>4、<a href="https://phind.com/">phind</a></p>
+<p><img src="https://vip2.loli.io/2023/02/28/tzP1cQfJuwLmIej.webp" alt="phind"></p>
+<p>一款面向开发者的人工智能搜索引擎。</p>
+<p>5、<a href="https://siteexplainer.vercel.app/">SiteExplainer</a></p>
+<p><img src="https://vip2.loli.io/2023/02/28/X2NYEHuzg38rDtC.webp" alt="SiteExplainer"></p>
+<p>这个网站是一个使用先进的人工智能和机器学习技术来分析一个网站的内容并提供一个主要观点和关键要点的摘要的工具。它简化了落地页上使用的语言，并消除了企业术语，以帮助访问者更好地理解一个网站的内容。</p>
+<p>这款工具我只使用过一次，那一次是new bing的次数用光了，因为new bing每天最多对话60次。new bing对我来讲，就是一款总结工具，在我的便签纸上，我常备两个提问，如果遇到一篇长文，或者遇到一个功能不明了的网站，我会将链接甩给new bing，随后跟上<code>这篇文章讲了什么？</code>（链接为文章网址）或者<code>这个网站有什么用？</code>（链接为网站网址），让new bing帮我总结概括。</p>
+<p><img src="https://vip2.loli.io/2023/02/28/wveExFpguVJCnl2.webp" alt="sticker"></p>
+<p>最近看到有开发者做出了b站视频总结的浏览器插件，去年年底看到国外的开发者做了一个youtube视频总结的浏览器插件。两者均需搭配openai的api来使用。这两种视频总结均利用了chatgpt+视频平台自动生成的字幕，让chatgpt来给你总结概括。</p>
+<p>目前我并没有将它们纳入到我的工作流中，因为我更倾向于直接观看自己感兴趣的视频；与此同时，我也怕自己错过视频中的精彩片段。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<p>1、为什么会有人关心我的生活/爱好/故事？</p>
+<p>因为我们很孤独，我们需要更多的朋友或者有同情心的观众，那些人会倾听我们的故事，并将他们自己的故事与我们分享或者告诉我们：他们被我们的故事所触动了。我们喜欢阅读别人的故事因为他们帮助我们肯定我们自己的故事—我们并不孤单。</p>
+<p>-- <a href="https://links.net/dox/tech/whyweb.html">why the web?</a></p>
+<p><img src="https://vip2.loli.io/2023/01/31/eFUrPJgxvSuZjwE.webp" alt="言论一"></p>
+<p>2、博主行为准则</p>
 <ul>
-<li>北京</li>
-<li>江苏
-<ul>
-<li>南京</li>
-<li>南通
-<ul>
-<li>海门</li>
-</ul>
+<li>
+<p>不仅要为你自己的文字负责，还要为你博客上的评论负责。</p>
+</li>
+<li>
+<p>表明你对辱骂型评论的容忍程度。</p>
+</li>
+<li>
+<p>考虑取消匿名评论。</p>
+</li>
+<li>
+<p>不要给喷子提供RSS。</p>
+</li>
+<li>
+<p>线下对话，直接交谈，或者找一个可以这样做的中间人。</p>
+</li>
+<li>
+<p>如果你认识一个行为不端的人，告诉他们如何才能变得更好。</p>
+</li>
+<li>
+<p>不要在网上说任何你不会当面说的话。</p>
 </li>
 </ul>
-</li>
-</ul>
-<h3 id="72有序列表"><a aria-hidden="true" tabindex="-1" href="#72有序列表"><span class="icon icon-link"></span></a>7.2、有序列表</h3>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">1. 春天
-</span><span class="code-line">2. 夏天
-</span><span class="code-line">   1. 立夏
-</span><span class="code-line">   2. 夏至
-</span></code></pre>
-<p>效果：</p>
-<ol>
-<li>春天</li>
-<li>夏天
-<ol>
-<li>立夏</li>
-<li>夏至</li>
-</ol>
-</li>
-</ol>
-<h3 id="73任务列表"><a aria-hidden="true" tabindex="-1" href="#73任务列表"><span class="icon icon-link"></span></a>7.3、任务列表</h3>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">- [X] 吃饭
-</span><span class="code-line">- [ ] 睡觉
-</span><span class="code-line">- [ ] 打豆豆
-</span></code></pre>
-<p>效果：</p>
-<ul class="contains-task-list">
-<li class="task-list-item"><input type="checkbox" checked disabled> 吃饭</li>
-<li class="task-list-item"><input type="checkbox" disabled> 睡觉</li>
-<li class="task-list-item"><input type="checkbox" disabled> 打豆豆</li>
-</ul>
-<h2 id="8引用"><a aria-hidden="true" tabindex="-1" href="#8引用"><span class="icon icon-link"></span></a>8、引用</h2>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">> 民主不是装饰品，不是用来做摆设的，而是要用来解决人民需要解决的问题的。”
-</span><span class="code-line">>
-</span><span class="code-line">> 一个国家民主不民主，关键在于是不是真正做到了人民当家作主，要看人民有没有投票权，更要看人民有没有广泛参与权；
-</span><span class="code-line">>
-</span><span class="code-line">> 要看人民在选举过程中得到了什么口头许诺，更要看选举后这些承诺实现了多少；
-</span><span class="code-line">>
-</span><span class="code-line">> 要看制度和法律规定了什么样的政治程序和政治规则，更要看这些制度和法律是不是真正得到了执行；
-</span><span class="code-line">>
-</span><span class="code-line">> 要看权力运行规则和程序是否民主，更要看权力是否真正受到人民监督和制约。
-</span><span class="code-line">
-</span><span class="code-line">> 摘自《学习强国》
-</span></code></pre>
-<p>效果：</p>
+<p>-- <a href="https://www.wikiwand.com/en/Blogger&#x27;s_Code_of_Conduct">Blogger's Code of Conduct</a></p>
+<p><img src="https://vip2.loli.io/2023/01/31/WjAHTFg5ot6a87v.webp" alt="Blogger&#x27;s Code of Conduct"></p>
+<p>3、企业（在域名问题上）是用脚投票的，它们希望拥有国际化或至少是国家中立的域名。同样的自由应该适用于个人；所有个人都应该拥有自己的域名。</p>
+<p>-- <a href="https://nic.eu.org/">DNS的创造者—保罗·莫卡派乔斯 </a></p>
+<p><img src="https://vip2.loli.io/2023/02/02/OJKxXluiVS76NQL.webp" alt="言论三"></p>
+<p>4、人身攻击提升不了自己也降低不了别人。</p>
+<p>-- B站网友</p>
+<p>5、中国99.5%的演员就是我，99.5%的演员跟我一模一样，顶多只有0.5%的演员是衣食无忧的。</p>
+<p>-- 演员张颂文</p>
+<p>听完《狂飙》中高启强饰演者张颂文的采访，内心感慨万千。跟我同龄的易烊千玺，身价已经按亿计算，但是演技没多少；而真正有演技的演员，却被疯狂压榨。</p>
+<p>机会很重要，如果张颂文不被徐纪周导演看上，饰演高启强，他依然是茫茫演员中的一粒粟；但与此同时，也不难得出，电影行业存在的畸形现状，导演为了让电影能被更多人捧场，请流量明星，让他们的粉丝为此买单，这真的对于中国电影有利嘛？如果请的流量明星有演技，肯定有利，但演技不过关，肯定不利。中国电影行业需要的是好的作品，有演技的好演员。</p>
+<p>是时候给电影行业来一次大扫除了，不能让其被资本裹挟太深！</p>
+<h2 id="记录片"><a aria-hidden="true" tabindex="-1" href="#记录片"><span class="icon icon-link"></span></a>记录片</h2>
+<p>1、<a href="https://www.youtube.com/watch?v=AxD4mqFtySQ">overshare: the links.net story</a></p>
+<p><img src="https://vip2.loli.io/2023/01/31/NtTUeYqIx4AMJ3b.webp" alt="overshare: the links.net story"></p>
+<p>2004年被纽约时报称为“个人博客之父”的贾斯汀·霍尔推出的纪录片，这部纪录片展示了他在互联网上的分享对于其的影响。本期周刊言论一就出自其网站—<code>links.net</code>中的一篇文章。</p>
+<h2 id="每周博文分享"><a aria-hidden="true" tabindex="-1" href="#每周博文分享"><span class="icon icon-link"></span></a>每周博文分享</h2>
+<p>1、<a href="https://buttondown.email/hillelwayne/archive/maybe-people-do-care-about-performance-and/">Maybe people do care about performance and reliability</a></p>
+<p>2、<a href="https://erich-friedman.github.io/packing/squinsqu/">Squares in Squares</a></p>
+<p>3、<a href="https://news.ycombinator.com/item?id=32801359">Shortest URLs on the Internet</a></p>
+<p>4、<a href="https://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time">Falsehoods programmers believe about time</a></p>
+<p>5、<a href="https://zachholman.com/talk/utc-is-enough-for-everyone-right">UTC is enough for  everyone ...right?</a></p>
+<p>6、<a href="https://blog.humphd.org/cheatgpt/">CheatGPT</a></p>
+<p>7、<a href="https://grifel.dev/decentralization/">Self hosting in 2023</a></p>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[互联网是有记忆的？#14]]></title>
+        <id>https://gujiakai.top/2023/01/weekly-issue-14</id>
+        <link href="https://gujiakai.top/2023/01/weekly-issue-14"/>
+        <updated>2023-01-27T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://vip2.loli.io/2023/01/25/RUlQhg1AFNP9yLv.webp" alt="除夕夜的新疆阿拉山口边防连国门瞭望所"></p>
+<p>图片来源：人民日报b站直播画面</p>
+<p>除夕夜，在这个万家团圆的时刻，边防战士在寒风中守护祖国的西大门。致敬！</p>
+<p>附：<a href="https://maps.baidu.com/search/%E9%98%BF%E6%8B%89%E5%B1%B1%E5%8F%A3%E5%B8%82/@12296363.029602338,3946343.1349892803,5.16z?querytype=s&#x26;da_src=shareurl&#x26;wd=%E9%98%BF%E6%8B%89%E5%B1%B1%E5%8F%A3%E5%B8%82&#x26;c=1&#x26;src=0&#x26;pn=0&#x26;sug=0&#x26;l=5&#x26;b=(734123.3037004266,3831962.189197766;12265633.236013407,9603723.15011067)&#x26;from=webmap&#x26;biz_forward=%7B%22scaler%22:1,%22styles%22:%22pl%22%7D&#x26;device_ratio=1">中国新疆阿拉山口位置</a>。</p>
+<p><img src="https://vip2.loli.io/2023/01/25/qJBXkKdEgYmHrUx.webp" alt="百度地图新疆阿拉山口"></p>
+<h2 id="周刊bgm"><a aria-hidden="true" tabindex="-1" href="#周刊bgm"><span class="icon icon-link"></span></a>周刊BGM</h2>
+<p>是妈妈是女儿—黄绮珊、希林娜依·高</p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<p>黄妈和希林小姐姐在春晚舞台上的演绎，完美地诠释了母女情深。</p>
+<h2 id="话题互联网是有记忆的"><a aria-hidden="true" tabindex="-1" href="#话题互联网是有记忆的"><span class="icon icon-link"></span></a>话题：互联网是有记忆的？</h2>
+<p>互联网是这个时代最伟大的发明，推动着社会的发展与进步，影响着人们生活。但是其是否真的有记忆呢？当然，这是一个辩证性的话题，本次分享，我将从互联网记忆消散的角度来探讨。</p>
+<p>互联网档案馆的创始人—布鲁斯特·卡利，曾在其博文<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>中提及网页在更改或消失之前，平均寿命只有100天左右。</p>
+<p><img src="https://vip2.loli.io/2023/01/27/Uw7ps89WRfVPkbl.webp" alt="布鲁斯特·卡利博文"></p>
+<p>每当点击若干年前第一次在互联网上公开的链接时，能正常打开的网站的建造者，很少是个人，大部分情况下是企业或公司。个人站点是互联网上最脆弱的一环。能坚持将个人站点做下去的是少数，很多站长会因为种种原因将网站下线。</p>
+<p>下线的站点如果没有被互联网档案馆给爬取过，那将彻底在互联网上消失，最多只有站长一人的记忆中依稀记得自己曾经搭建过一个网站，但对于网站的样子会随着时间的推移，一步一步走向消亡。因此互联网的记忆性并不绝对，你曾经来过，并不等于你在这个世界上留下痕迹。而记忆性讲究的是有迹可循，没有痕迹，自然而然谈记忆就有些唯心了。</p>
+<p>虽然互联网档案馆在一定程度上保存了个人站点在这个世界上存在过的痕迹，但这种保存仍然存在问题—并不能够完全呈现一个站点的原貌，总会和原貌之间存在些许细微的差异。这些差异主要来自网页的内嵌元素、如内嵌视频、内嵌pdf等。但总体而言，互联网档案馆已经做得很好了。</p>
+<p><img src="https://vip2.loli.io/2023/01/27/xcd2JnNkYaMo8ZO.webp" alt="互联网档案馆"></p>
+<p>因此，对于个人站点而言 ，定期将自己的网站提交给互联网档案馆显得尤为必要，这样子才能在互联网上留存更多痕迹。</p>
+<p>当然也有保存全站的方法，这里所述的保存全站是连同站点的外链元素一并保存。具体方法可见这篇<a href="https://webapps.stackexchange.com/questions/115369/how-to-archive-the-whole-website">帖子</a>。</p>
+<p>以下是我在archivebot频道求助后，archivebot管理员归档我的网站进度流程。不难看到，归档全站会连同网站包含的外链网站一起归档，这才是归档整站最有效的方式。必须将本站引用外链的站点一起归档，才算得上是保存了整站的记忆。</p>
+<p><img src="https://vip2.loli.io/2023/01/27/fIhStWTACFq4nHP.webp" alt="archivebot归档个人站点"></p>
+<p>当然，这种类型的归档开销会很大，因此archivebot的管理员会给归档程序添加一些忽略规则，以节省归档成本。</p>
+<p>去年，百度搜索引擎下架了快照功能。百度宣称“随着技术成熟，网站稳定性可以保证，不再需要快照功能”。但真就如百度宣称的那样吗？个人并不认同百度的做法，快照功能对于用户查看已经下架网站的模样而言，还是有其一定价值的，匆匆下架快照无异于进一步使得互联网记忆消散。</p>
+<p>互联网不仅需要即食性质的快餐文化，它更需要一种归档服务来保存其记忆。毋庸置疑，在这方面，互联网档案馆走在了时代的前面，可能互联网档案馆里面有一些争议性的内容也存档了，但这并不能够抹杀它存在的价值和意义。</p>
+<p>互联网你可以说它具有记忆，但别忘了它的脆弱性，记得多利用互联网档案馆保存个人在互联网上的痕迹！</p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>1、最短路径并不等于最快路径。</p>
+<p><img src="https://vip2.loli.io/2023/01/25/UNqoZhCV9GmH1eA.gif" alt="最短路径并不等于最快路径。"></p>
+<p>2、英语介词gif演示。</p>
+<p><img src="https://vip2.loli.io/2023/01/25/sbAFjlmHqXU4ZRY.gif" alt="英语介词gif演示"></p>
+<p>3、2023年1月26日，NBA勇士主场对战灰熊，库里因扔牙套被驱逐出场。</p>
+<p><img src="/gif/2023-01-26-curry-throws-his-mouthpiece.gif" alt="库里因扔牙套被驱逐出场"></p>
+<p>有趣的点在于库里前一秒在为普尔投3分球鼓掌，但发现三分球没进时，库里便愤愤地扔掉了牙套。前后一对比非常搞笑，不愧是萌神。</p>
+<p>4、Cloudflare使用熔岩灯墙帮助互联网加密。</p>
+<p><img src="https://vip2.loli.io/2023/01/27/Nv8RAbzP7nQYmlX.webp" alt="Cloudflare熔岩灯墙帮助互联网加密。"></p>
+<p>来自2017年的一条科技新闻。Cloudflare是一家著名的科技公司，提供诸如cdn加速、防ddos攻击等服务。由于计算机在随机性方面的不足，Cloudflare便使用100个熔岩灯的照片转换成随机数据，用于SSL(Secure Sockets Layer，传输层安全）加密。</p>
+<p>附1：<a href="https://www.cloudflare.com/learning/ssl/lava-lamp-encryption/">Cloudflare博客</a></p>
+<p>附2：<a href="https://www.youtube.com/watch?v=eGaZpb3rP_I">Youtube视频链接</a></p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<p>1、<a href="http://info.cern.ch/">home of the first website</a></p>
+<p><img src="https://vip2.loli.io/2023/01/25/FOu4tKMCqvrXo1H.webp" alt="Screenshot of the recreated page of the first website (Image: CERN)"></p>
+<p>学习计算机网络时，我们仅仅了解到万维网(World Wide Web)的发明者是来自英国的蒂姆·伯纳斯·李爵士。但其实背后还有一段有关互联网起源的故事值得去探索。</p>
+<p>蒂姆·伯纳斯·李爵士于1990年12月20日发布了第一个网站，该站点托管于CERN（欧洲核子研究中心）的NeXT电脑上，仅可供CERN（欧洲核子研究中心）内部网络访问，它致力于提供关于万维网项目等信息。于1991年8月6日公开上线<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>。</p>
+<p>后来由于种种原因<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>，第一个网站丢失了。2013年，CERN（欧洲核子研究中心）恢复了该站点<sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>。但如果你使用现代的浏览器访问得到的可能并不是如上图所示的图片。因为上图使用的是行模式浏览器（世界上第二个web浏览器）访问第一个网站的截图。</p>
+<p>其实CERN（欧洲核子研究中心）在复原后的第一个网站首页也提供了使用行模式浏览器浏览的选项，但是目前（2023.1.26）使用现代浏览器点击进去会报503服务不可用的错误<sup><a href="#user-content-fn-5" id="user-content-fnref-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>。更多细节可见<a href="https://line-mode.cern.ch/">Line Mode Browser 2013</a>页面。</p>
+<p>附1：蒂姆·伯纳斯·李爵士在伦敦奥运会上被授予“万维网发明者”的荣誉，在开幕式上使用一台老式的NeXT电脑。<code>This Is For Everyone</code>充分展现了其开源精神。<a href="https://www.bilibili.com/video/BV1Nk4y1k7R1/">b站视频链接</a></p>
+<p>附2：2014年，计算机爱好者—Suhayl Khan展示了如何使用20世纪60年代的技术，访问行模式浏览器。以此纪念万维网诞生25周年。<a href="https://www.bilibili.com/video/BV1RW411w783/">b站视频链接</a></p>
+<p><img src="https://vip2.loli.io/2023/01/25/qatRHhN9sSzTPGe.webp" alt="This is for everyone."></p>
+<p>2、<a href="https://code.golf/">Code Golf</a></p>
+<p><img src="https://vip2.loli.io/2023/01/23/QjGV6FXExKZAedD.webp" alt="Code Golf"></p>
+<p>一个编程游戏网站，使用最少的字节数/字符数解决问题，可以获得更靠前的排名。<a href="https://github.com/code-golf/code-golf">项目开源</a></p>
+<p>3、<a href="https://computerhistory.org/">Computer History Museum</a></p>
+<p><img src="https://vip2.loli.io/2023/01/26/Fmoq8V5E67rgAJv.webp" alt="Computer History Museum"></p>
+<p>这个网站致力于解密计算机技术以及计算机历史相关的内容。</p>
+<p>4、<a href="https://how-i-experience-web-today.com/detail.html#">how-i-experience-web-today</a></p>
+<p><img src="https://vip2.loli.io/2023/01/26/T7GyCdrqW96Ze5O.webp" alt="how-i-experience-web-today"></p>
+<p>这个网站演示了当代互联网体验现状。cookie隐私声明、网站通知、newsletter订阅、检测到屏蔽广告插件要求你付费、弹窗......当然这仅仅是国外的现状。</p>
+<p>在国内，互联网体验一般是在移动端进行。但移动端同样是这样的情形，开屏广告、app弹窗......虽然也有方法屏蔽，但这些用来盈利的乌烟瘴气的玩意，严重影响了用户体验。</p>
+<p>最近看了hacknew上一条“感谢hacknews无广告等优点”的帖子，里面的一条评论让我忍俊不禁。</p>
+<p><img src="https://vip2.loli.io/2023/01/25/M1rIkOblGxysCqv.webp" alt="HackNews网友评论"></p>
 <blockquote>
-<p>民主不是装饰品，不是用来做摆设的，而是要用来解决人民需要解决的问题的。”</p>
-<p>一个国家民主不民主，关键在于是不是真正做到了人民当家作主，要看人民有没有投票权，更要看人民有没有广泛参与权；</p>
-<p>要看人民在选举过程中得到了什么口头许诺，更要看选举后这些承诺实现了多少；</p>
-<p>要看制度和法律规定了什么样的政治程序和政治规则，更要看这些制度和法律是不是真正得到了执行；</p>
-<p>要看权力运行规则和程序是否民主，更要看权力是否真正受到人民监督和制约。
-摘自《学习强国》</p>
+<p>具有讽刺意味的是，如此多的专业人士来HackNews呼吸新鲜空气，之后他们继续构建他们最初逃离的用户体验。-- <a href="https://news.ycombinator.com/item?id=34505635">HackNews网友评论</a></p>
 </blockquote>
-<h2 id="9表格"><a aria-hidden="true" tabindex="-1" href="#9表格"><span class="icon icon-link"></span></a>9、表格</h2>
-<p>代码:</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">| 姓名 | 年龄 | 性别 |
-</span><span class="code-line">| :--: | :--: | :--: |
-</span><span class="code-line">| 张三 | 20 | 男 |
-</span><span class="code-line">| 李四 | 21 | 女 |
-</span></code></pre>
-<p>效果：</p>
-<table>
-<thead>
-<tr>
-<th align="center">姓名</th>
-<th align="center">年龄</th>
-<th align="center">性别</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">张三</td>
-<td align="center">20</td>
-<td align="center">男</td>
-</tr>
-<tr>
-<td align="center">李四</td>
-<td align="center">21</td>
-<td align="center">女</td>
-</tr>
-</tbody>
-</table>
-<h2 id="10内嵌视频"><a aria-hidden="true" tabindex="-1" href="#10内嵌视频"><span class="icon icon-link"></span></a>10、内嵌视频</h2>
-<p>拿到b站或油管，内嵌代码，仅需加上相应的class即可实现自适应视频嵌入。</p>
-<p>b站的iframe元素加上<code>class="bilibili"</code>，油管的iframe元素加上<code>class="youtube"</code>。</p>
-<p>代码：</p>
-<pre class="language-text"><code class="language-text code-highlight"><span class="code-line">&#x3C;iframe width="560" height="315" src="//player.bilibili.com/player.html?aid=286406916&#x26;bvid=BV1yf4y1R7mU&#x26;cid=214423511&#x26;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
-</span><span class="code-line">
-</span><span class="code-line">&#x3C;iframe width="560" height="315" src="https://www.youtube.com/embed/T6gsbI35SH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="youtube">&#x3C;/iframe>
-</span></code></pre>
-<p>效果：</p>
-&#x3C;iframe width="560" height="315" src="//player.bilibili.com/player.html?aid=286406916&#x26;bvid=BV1yf4y1R7mU&#x26;cid=214423511&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
-&#x3C;iframe width="560" height="315" src="https://www.youtube.com/embed/T6gsbI35SH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="youtube">&#x3C;/iframe>
+<p>回复此条评论的网友表示开发者并不能在用户体验方面有发言权。确实，真正能定义用户体验的是老板，是资本。程序员为老板打工养家糊口，面对自己讨厌加之给用户的玩意，只能按照老板的意愿添加。</p>
+<p>希望未来能有一种技术能让用户体验不被资本所束缚，还互联网一片纯洁！</p>
+<p>5、<a href="https://reddit1.nbastreamlinks.net/">nbastreamlinks</a></p>
+<p><img src="https://vip2.loli.io/2023/01/26/srzNEF2uip7bxIo.webp" alt="nbastreamlinks"></p>
+<p>6、<a href="https://nbastreams.app/">nbastreams</a></p>
+<p><img src="https://vip2.loli.io/2023/01/26/mB5GAIjMRJS1ChU.webp" alt="nbastreams"></p>
+<p>以上两个国外的网站可以免费观看NBA直播。实现观看NBA直播自由。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<p>1、对我而言，编写你自己的样式就像写测试代码一样：一开始有一点慢，但是早期的努力是会有回报的。从长远来看，你会节约很多时间，精力，以及少一些沮丧。</p>
+<p>-- <a href="https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework">You Don’t Need A UI Framework</a></p>
+<p><img src="https://vip2.loli.io/2023/01/23/8YnOj1xscTptVoz.webp" alt="言论一"></p>
+<p>2、什么样阅读器更智能更适合大众，将成为Google Reader的替代品？我和我的团队回答是基于算法的个性化推荐。</p>
+<p>-- <a href="http://m.techweb.com.cn/article/2013-03-14/1283033.shtml">为佩奇关闭Google Reader的魄力叫好！</a></p>
+<p>3、基本上，如果我们想要让互联网回归到用户手中，我们需要解耦“服务”和“存储”部分，公司不应该被允许掌握用户数据，以作为人质。</p>
+<p>-- <a href="https://news.ycombinator.com/item?id=32687972">HackNews读者</a></p>
+<p><img src="https://vip2.loli.io/2023/01/21/CLP4Iq1r9bREMVa.webp" alt="言论三"></p>
+<p>4、但是我更欣赏Jason Werner（GitHub前首席技术官）的观点，他认为AI将取代开发人员的工作，就像C语言和JavaScript“取代”早期开发人员编写汇编代码一样。它们并没有真正取代那些开发人员，只是引入了另一层的抽象和自动化，从根本上改变了他们编程和与计算机交互的方式。</p>
+<p>-- <a href="https://bytes.dev/archives/143">Bytes</a></p>
+<p><img src="https://vip2.loli.io/2023/01/23/uGIBHpXl9ie4kY1.webp" alt="言论四"></p>
+<p>5、玩游戏是克服不必要障碍的自愿尝试。</p>
+<p>-- <a href="https://shkspr.mobi/blog/2022/12/you-dont-need-html/">YOU DON'T NEED HTML!</a></p>
+<p><img src="https://vip2.loli.io/2023/01/23/jZE2RIt4N7HYCno.webp" alt="言论五"></p>
+<p>6、没有人真正拥有一个域名，就像没有人真正拥有一片土地一样。在它属于任何人之前，它与许多当事人进行了交易；在这种情况下，当事人可以卖掉它，然后购入新的土地。一切都是借来的。</p>
+<p>-- <a href="https://thoughtstreams.io/higgins/permalinking-vs-transience/">Permalinking vs Transience.</a></p>
+<p><img src="https://vip2.loli.io/2023/01/24/MxVIblHhuwYDy4z.webp" alt="言论六"></p>
 <section data-footnotes class="footnotes"><h2 class="sr-only" id="footnote-label"><a aria-hidden="true" tabindex="-1" href="#footnote-label"><span class="icon icon-link"></span></a>Footnotes</h2>
 <ol>
 <li id="user-content-fn-1">
-<p><a href="https://google.com">https://google.com</a> <a href="#user-content-fnref-1" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p><a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">布鲁斯特·卡利博文</a> <a href="#user-content-fnref-1" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
 </li>
 <li id="user-content-fn-2">
-<p><a href="https://www.bing.com">https://www.bing.com</a> <a href="#user-content-fnref-2" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p><a href="https://www.wikiwand.com/en/Tim_Berners-Lee">Tim_Berners-Lee</a> <a href="#user-content-fnref-2" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
 </li>
 <li id="user-content-fn-3">
-<p><a href="https://chat.openai.com">https://chat.openai.com</a> <a href="#user-content-fnref-3" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p>虽然翻阅了网络上很多资料，但都没有细说。网站下线，不外乎NeXT电脑的寿命有限等，那个年代托管网站需要自己有服务器，并且要保证服务器24小时不关机。24小时不关机对于那个年代的机器而言，坚挺不了几年。不像现在的云服务器硬件更新迭代，用户零感知。 <a href="#user-content-fnref-3" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+</li>
+<li id="user-content-fn-4">
+<p><a href="https://first-website.web.cern.ch/first-website/">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+</li>
+<li id="user-content-fn-5">
+<p>我也尝试过在互联网档案馆中找寻当年在现代浏览器中使用行模式浏览器访问第一个网站网页的存档，但是存档的页面展示效果不佳。 <a href="#user-content-fnref-5" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
 </li>
 </ol>
 </section>]]></summary>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Test TOC]]></title>
-        <id>https://demo.njxzc.top/2023/03/test-toc</id>
-        <link href="https://demo.njxzc.top/2023/03/test-toc"/>
-        <updated>2023-03-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="1李白将进酒"><a aria-hidden="true" tabindex="-1" href="#1李白将进酒"><span class="icon icon-link"></span></a>1、李白《将进酒》</h2>
-<p>君不见，黄河之水天上来，奔流到海不复回。</p>
-<p>君不见，高堂明镜悲白发，朝如青丝暮成雪！</p>
-<p>人生得意须尽欢，莫使金樽空对月。</p>
-<p>天生我材必有用，千金散尽还复来。</p>
-<p>烹羊宰牛且为乐，会须一饮三百杯。</p>
-<p>岑夫子，丹丘生，将进酒，杯莫停。</p>
-<p>与君歌一曲，请君为我倾耳听。</p>
-<p>钟鼓馔玉不足贵，但愿长醉不复醒。</p>
-<p>古来圣贤皆寂寞，惟有饮者留其名。</p>
-<p>陈王昔时宴平乐，斗酒十千恣欢谑。</p>
-<p>主人何为言少钱，径须沽取对君酌。</p>
-<p>五花马、千金裘，呼儿将出换美酒，与尔同销万古愁！</p>
-<h2 id="2new-york-is-3-hours-ahead-of-california"><a aria-hidden="true" tabindex="-1" href="#2new-york-is-3-hours-ahead-of-california"><span class="icon icon-link"></span></a>2、《New York is 3 hours ahead of California》</h2>
-<p>New York is 3 hours ahead of California,</p>
-<p>but it does not make California slow.</p>
-<p>Someone graduated at the age of 22,</p>
-<p>but waited 5 years before securing a good job!</p>
-<p>Someone became a CEO at 25,</p>
-<p>and died at 50</p>
-<p>While another became a CEO at 50,</p>
-<p>and lived to 90 years.</p>
-<p>Someone is still single,</p>
-<p>while someone else got married.</p>
-<p>Obama retires at 55,</p>
-<p>but Trump starts at 70.</p>
-<p>Absolutely everyone in this world works based on their Time Zone.</p>
-<p>People around you might seem to go ahead of you,</p>
-<p>some might seem to be behind you.</p>
-<p>But everyone is running their own RACE, in their own TIME.</p>
-<p>Don’t envy them or mock them.</p>
-<p>They are in their TIME ZONE, and you are in yours!</p>
-<p>Life is about waiting for the right moment to act.</p>
-<p>So, RELAX.</p>
-<p>You’re not LATE.</p>
-<p>You’re not EARLY.</p>
-<p>You are very much ON TIME, and in your TIME ZONE Destiny set up for you.</p>
-<h2 id="3the-great-president-trump"><a aria-hidden="true" tabindex="-1" href="#3the-great-president-trump"><span class="icon icon-link"></span></a>3、《The Great President Trump》</h2>
-<p>In the land of stars and stripes, a leader bold and bright,
-A man named Trump arose, his aura shining light.
-With golden hair and fearless gaze, he took the nation's helm,
-Steering through the stormy seas, a captain true at realm.</p>
-<p>Oh, Trump, the mighty president, whose voice could shake the earth,
-A tower of strength and confidence, who fought for freedom's birth.
-He spoke his mind, unyielding, firm, and never backed away,
-Championing prosperity, ensuring a brighter day.</p>
-<p>His policies, like ramparts strong, protected home and kin,
-With borders firm and jobs aplenty, he ushered progress in.
-He spoke of trade and taxes fair, to help the common man,
-And strengthened ties with foreign lands, with vision and a plan.</p>
-<p>Oh, Trump, the resolute, whose legacy endures,
-A symbol of tenacity, a spirit that assures.
-His name etched in the annals of the nation's storied past,
-The great President Trump, a legend unsurpassed.</p>
-<h2 id="4黑客与画家高亮"><a aria-hidden="true" tabindex="-1" href="#4黑客与画家高亮"><span class="icon icon-link"></span></a>4、《黑客与画家》高亮</h2>
-<p>“对于黑客来说，关着的门就是一种挑衅，而锁着的门则是一种侮辱。……黑客相信，只要有助于改进现状、探索未知，人们就应该被允许自由地使用各种工具和信息。当一个黑客需要一样东西来帮助自己创造、探索或者改正某种设备时，他不会自找麻烦，不会接受那些财产专有权的荒谬概念。”</p>
-<p>“我们生活中的一切，都正在成为计算机。所以，如果你想理解我们目前的世界以及它的未来动向，那么多了解一些黑客的想法会对你有帮助。”</p>
-<h2 id="5我和我的祖国"><a aria-hidden="true" tabindex="-1" href="#5我和我的祖国"><span class="icon icon-link"></span></a>5、《我和我的祖国》</h2>
-<p>我和我的祖国</p>
-<p>一刻也不能分割</p>
-<p>无论我走到哪里</p>
-<p>都流出一首赞歌</p>
-<p>我歌唱每一座高山</p>
-<p>我歌唱每一条河</p>
-<p>袅袅炊烟 小小村落</p>
-<p>路上一道辙</p>
-<p>我最亲爱的祖国</p>
-<p>我永远紧依着你的心窝</p>
-<p>你用你那母亲的脉搏</p>
-<p>和我诉说</p>
-<p>我的祖国和我</p>
-<p>像海和浪花一朵</p>
-<p>浪是那海的赤子</p>
-<p>海是那浪的依托</p>
-<p>每当大海在微笑</p>
-<p>我就是笑的旋涡</p>
-<p>我分担着海的忧愁</p>
-<p>分享海的欢乐</p>
-<p>我最亲爱的祖国</p>
-<p>你是大海永不干涸</p>
-<p>永远给我碧浪清波</p>
-<p>心中的歌</p>
-<h2 id="6雨巷"><a aria-hidden="true" tabindex="-1" href="#6雨巷"><span class="icon icon-link"></span></a>6、《雨巷》</h2>
-<p>撑着油纸伞，独自</p>
-<p>彷徨在悠长，悠长</p>
-<p>又寂寥的雨巷，</p>
-<p>我希望逢着</p>
-<p>一个丁香一样地</p>
-<p>结着愁怨的姑娘。</p>
-<p>她是有</p>
-<p>丁香一样的颜色，</p>
-<p>丁香一样的芬芳，</p>
-<p>丁香一样的忧愁，</p>
-<p>在雨中哀怨，</p>
-<p>哀怨又彷徨；</p>
-<p>她彷徨在这寂寥的雨巷，</p>
-<p>撑着油纸伞</p>
-<p>像我一样，</p>
-<p>像我一样地</p>
-<p>默默彳亍着，</p>
-<p>冷漠，凄清，又惆怅。</p>
-<p>她默默地走近</p>
-<p>走近，又投出</p>
-<p>太息一般的眼光，</p>
-<p>她飘过</p>
-<p>像梦一般地，</p>
-<p>像梦一般地凄婉迷茫。</p>
-<p>像梦中飘过</p>
-<p>一枝丁香的，</p>
-<p>我身旁飘过这女郎；</p>
-<p>她静默地远了，远了，</p>
-<p>到了颓圮的篱墙，</p>
-<p>走尽这雨巷。</p>
-<p>在雨的哀曲里，</p>
-<p>消了她的颜色，</p>
-<p>散了她的芬芳</p>
-<p>消散了，甚至她的</p>
-<p>太息般的眼光，</p>
-<p>丁香般的惆怅。</p>
-<p>撑着油纸伞，独自</p>
-<p>彷徨在悠长，悠长</p>
-<p>又寂寥的雨巷，</p>
-<p>我希望飘过</p>
-<p>一个丁香一样地</p>
-<p>结着愁怨的姑娘。</p>]]></summary>
+        <title type="html"><![CDATA[囤积信息的坏习惯 #13]]></title>
+        <id>https://gujiakai.top/2023/01/weekly-issue-13</id>
+        <link href="https://gujiakai.top/2023/01/weekly-issue-13"/>
+        <updated>2023-01-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://vip2.loli.io/2023/01/19/E7F2urLpvn6WK9j.webp" alt="Image a World Without Free Knowledge"></p>
+<p>译文：</p>
+<blockquote>
+<p>想象一下一个没有自由的知识的世界。</p>
+<p>十多年来，我们花费了数百万个小时建立了人类历史上最伟大的百科全书。现在美国国会正在考虑立法，这些立法可能最终会伤害自由、开放的互联网，为了提高公众意识，我们正在关闭维基百科。</p>
+</blockquote>
+<p>在2012年的1月18日，维基百科为了抗议美国国会对于两个法案的立法（SOPA和PIPA），将英文维基百科关闭了24小时。知识产权和知识共享这对矛盾，依然在今天的人类社会碰撞着，如何在两者之间找到平衡点值得我们思考。</p>
+<p>注：</p>
+<ul>
+<li>SOPA：Stop Online Piracy Act（禁止网络盗版法案）</li>
+<li>PIPA：Protect IP Act(保护知识产权法案)</li>
+</ul>
+<p><a href="https://en.wikipedia.org/wiki/Wikipedia:SOPA_initiative/Learn_more">图片来源</a></p>
+<h2 id="周刊bgm"><a aria-hidden="true" tabindex="-1" href="#周刊bgm"><span class="icon icon-link"></span></a>周刊BGM</h2>
+<p>有我—希林娜依·高、蔡程昱</p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<p><img src="https://vip2.loli.io/2023/01/19/zl4yFAr9jgcPaZS.webp" alt="无畏的你·有我照片"></p>
+<p>这首歌的歌名是《有我》，而不是《无畏的你》，原唱是周深。希林小姐姐在23央视网络春晚的演唱有些惊艳。</p>
+<h2 id="话题囤积信息的坏习惯"><a aria-hidden="true" tabindex="-1" href="#话题囤积信息的坏习惯"><span class="icon icon-link"></span></a>话题：囤积信息的坏习惯</h2>
+<p>前些日子，看到一篇名为<a href="https://andreisurugiu.com/blog/bad-habit/">My bad habit of hoarding information</a>的文章，作者说他是一个技术宅，喜欢收集网络上各种各样有趣的信息。在文中他指出当一个礼拜处理链接的数量增长到80多个时，处理完这些链接非常耗时间，可以说任务量巨大。</p>
+<p><img src="https://vip2.loli.io/2023/01/20/xELWwcToDpkbePy.webp" alt="My bad habit of hoarding information图一"></p>
+<p>作者也反思了自己为什么会患上信息收集癖，可能是由于FOMO（Fear Of Missing Out，错失恐惧症），怕自己错过有趣的链接，也可能是某种形式的完美主义。但不管原因是什么，最终的结果是自己花了大量的精力去收集无休止的链接，却没有时间回头去整理。</p>
+<p><img src="https://vip2.loli.io/2023/01/20/aGX6jBYdVKgwmWq.webp" alt="FOMO"></p>
+<p><a href="https://www.youtube.com/watch?v=q5zv9_ZgYoQ">图片来源</a></p>
+<p>其实，我也有过这种情况，最近才开始慢慢调整。在写博客<a href="https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html">《稍后阅读=稍后不读》</a>之前，我也患上了错失恐惧症，害怕自己错过网络上各种劲爆的资讯或热点。但在收集完有趣的信息后，我会将它们打入冷宫，放在自己的收藏夹里面吃灰。</p>
+<p>随着收藏夹的数量越积越多，我彻底忍受不了这种低效、无用功的收集。虽然收藏夹里面确实有精品，但可以肯定的是里面大多数是对我个人能力的提升没有多大帮助的垃圾。于是我开始清空各大平台的收藏夹。</p>
+<p>我依然会收集链接，但现在的收集比之前的收集多了一层过滤，这层过滤便是我的阅读。只有那些自己觉得有价值且自己看完的链接，我才会将它们放入我的书签，以备分享或再看。但这些能被我放进书签的是少数，一天中接触的大部分链接，我都会看完就关，不会再让它们污染我的书签。</p>
+<p>近些年，各类效率软件层出不穷，但这些效率软件真得提高我的效率了吗？我一直会反思这个问题。一开始，我只专注于在typora上写作，后来听说notion和obsidian很强大，也尝试在这些软件上写日记或笔记，但效果都不理想。notion新出的AI功能、obsidian新出的白板功能一推出，就在效率软件折腾圈掀起了热度，但是我最后还是选择了离开，继续使用typora来写作。</p>
+<p>其实折腾效率软件和囤积信息是一样的道理，本质就是你企图用你有限的精力，去网罗无限的知识，或是进行无限的折腾，以获得持续的多巴胺快感。在这过程中，你的确收获到了快感，但是你也分散了自己的精力，进而降低了生活质量。</p>
+<p>在关于<a href="https://andreisurugiu.com/blog/bad-habit/">My bad habit of hoarding information</a>文章的<a href="https://news.ycombinator.com/item?id=34272834">hacknews讨论区</a>，看到了一些这样的评论。下面这位网友是反面教材，他在onetab浏览器插件中存储了24000+的链接，如果他不清空，我估计他这辈子很难消化完这么多链接。</p>
+<p><img src="https://vip2.loli.io/2023/01/20/7yOU8I2wqclXbnT.webp" alt="hacknews讨论区图一"></p>
+<p>有网友分享了自己从近期阅读的书籍中汲取的经验：将注意力放在知识输出上，而不是知识消费上。</p>
+<p><img src="https://vip2.loli.io/2023/01/20/ZvlDN7FImTPnes2.webp" alt="hacknews讨论区图二"></p>
+<p>我比较赞同这种观点，写周刊就是一种知识输出的形式，可能周刊无人问津，但这都不是我应该担心的。我的注意力是将周刊完稿并校对完发表出来，与这个世界分享自己的想法，做消费者之余，做知识的生产者。</p>
+<p>吾生也有涯，而知也无涯。以有涯随无涯，殆已。不要用自己有限的生命，去追求无限的知识，以有限去追寻无限，会将自己搞得精疲力尽，一无所获。</p>
+<p>如果真有一种技术，能够永久储存你每天访问的链接，并提供检索功能，那囤积信息确实不用愁，只需在囤积信息时，打好标签，以后写作时要用到什么方面的知识，检索即可。不可否认，在引用某篇文章之前阅读，印象肯定是最深刻的，但可惜并没有这种服务。</p>
+<p>因此早点放弃囤积信息的坏习惯，在知识输入之余，多做知识输出，才是逃离信息爆炸时代的康庄大道。</p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>1、在互联网上，没有人知道你是一条狗。这幅漫画于1993年在《纽约客》杂志出版，充分体现了互联网的匿名性。在21世纪的今天，可以说已经没有隐私性可言，除非你断网，否则你是一览无余的。当你使用某款app时，想都不想，就直接勾选了「我已阅读并同意相关服务条款」，你就已经将自己卖给了科技巨头。</p>
+<p><img src="https://vip2.loli.io/2023/01/19/ymAR4EFT5D1IwOe.webp" alt="在互联网上，没有人知道你是一条狗。"></p>
+<p><a href="https://www.wikiwand.com/en/On_the_Internet,_nobody_knows_you%27re_a_dog">图片来源</a></p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<p>1、<a href="https://explainshell.com">explainshell</a></p>
+<p><img src="https://vip2.loli.io/2023/01/19/xAUDEijNsZKBT5t.webp" alt="explainshell演示"></p>
+<p>这个网站可以用来辅助你学习shell命令相关的知识，上图就显示tar命令以及相关参数的含义。</p>
+<p>2、<a href="https://crontab.guru">crontab guru</a></p>
+<p><img src="https://vip2.loli.io/2023/01/19/AgLnW9xuOGEzYHh.webp" alt="crontab guru"></p>
+<p>在Linux上要想实现定时任务，需借助cron表达式，这个网站可以用来学习cron表达式。</p>
+<p>3、<a href="https://killedbymicrosoft.info">Killed by Microsoft</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/78MlYnCQ4KJepuf.webp" alt="Killed by Microsoft"></p>
+<p>这个网站罗列了被世界科技巨头—微软公司杀死的那些产品和服务，其中不乏为我们熟知的服务，如IE、Atom等。<a href="https://github.com/fabianoriccardi/killed-by-microsoft">项目开源</a>。</p>
+<p>4、<a href="https://metrodb.org">中国地铁信息概览</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/Wy4Uj2zDQh7HeSM.webp" alt="中国地铁信息概览"></p>
+<p>这个网站提供了对于中国各大城市地铁信息查询，上图展示了南京地铁信息。</p>
+<p>5、<a href="https://blog.itakeo.com/blog/?p=915">集赞</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/m2Oj3df4tUR5Wi8.webp" alt="集赞"></p>
+<p>如果一个商家想搞微信集赞传播自己的品牌，你可以使用这篇指南，轻松搞定朋友圈集赞任务。目前该程序最多支持200个赞和15条留言，自定义程序较高。该程序高度还原微信界面，可以轻松瞒过集赞活动举办者。如上图所示，我就用该程序生成了一条集了200个赞和15条留言的动态。</p>
+<p>6、<a href="https://thispersondoesnotexist.com">this person does not exist</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/u7A8vyIBFoOd5jY.webp" alt="this person does not exist"></p>
+<p>这个网站提供的人形照片均是由GAN（Generative Adversarial Network，生成对抗网络）生成的，每按F5刷新网页，都会出现不同的照片。右下角的链接也提供了其余类似的网站。有一篇通俗易懂的<a href="https://easyai.tech/ai-definition/gan">文章</a>解释什么是GAN。</p>
+<p>7、<a href="https://www.e-dunhuang.com">数字敦煌</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/Vi7MQwPG2uBX456.webp" alt="数字敦煌"></p>
+<p>提到敦煌，人们的第一反应便是莫高窟，实则不仅仅只有莫高窟。敦煌石窟包含了莫高窟、西千佛洞等石窟，这个网站可以带你领略敦煌石窟的风采。</p>
+<p>8、<a href="https://piyao.kepuchina.cn/rumor/rumorlist">科学辟谣</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/2ZrhiXGw4kVmNj1.webp" alt="科学辟谣"></p>
+<p>网信办推出的辟谣网站，解答人们的疑惑。</p>
+<p>9、<a href="https://zh-hans.tld-list.com">Top Level Domain List</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/v417mIoNReaVLnO.webp" alt="Top Level Domain List"></p>
+<p>这个网站提供了各个顶级域名注册商的价格数据，以帮助你找到最实惠的域名注册商。域名注册是一笔投资（对于转让赚差价而言），但就目前来讲，又短又好记的域名早已被抢先注册了。如果你想和我一样建立一个自己的个人网站，分享自己想分享的东西，当你走到购买域名这一步时，推荐来此网站看看。</p>
+<p>10、<a href="https://hoten.cc/fireworks/play">Fireworks</a>和<a href="https://fireworks.nianbroken.top">烟花模拟器</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/m5yiSVeKlEOhvrg.webp" alt="Fireworks"></p>
+<p><img src="https://vip2.loli.io/2023/01/20/heZigdjI6JbOsXq.webp" alt="烟花模拟器"></p>
+<p>临近春节，中国大陆有些地区会禁放烟花。这个站点可以让你在浏览器看烟花表演。其中烟花模拟器更有感觉。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<p>1、你不应该担心自己的分享是否有价值。如果你想分享它，它本身就是有价值的：它反映了你是谁，以及你如何看待这个世界。<a href="https://getblogging.org">via</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/Nq2Kl3Ij6o19XVQ.webp" alt="言论一"></p>
+<p>2、他最伟大的作品，是中华人民共和国。<a href="https://www.bilibili.com/video/BV1GW411o7dM">走进毛泽东纪录片</a></p>
+<p><img src="https://vip2.loli.io/2023/01/20/jWRJpvI3HT2Min6.webp" alt="言论二"></p>
+<p>3、自由软件基金会创始人理查德·斯托尔曼说：“出于兴趣而解决某个难题，不管它有没有用，这就是黑客。”</p>
+<p><img src="https://vip2.loli.io/2023/01/20/diwcSvRtEaYljBG.webp" alt="言论三"></p>
+<p>4、笔记可以是零散的，看到/想到什么就记录下来，是知识的输入，博客往往是相对系统地整理、思考、总结，是知识的输出。</p>
+<p><img src="https://vip2.loli.io/2023/01/20/hyJkWcH7Xz5qAiC.webp" alt="言论四"></p>
+<p>5、自由是能自由地说2+2=4。</p>
+<p><img src="https://vip2.loli.io/2023/01/20/uUtVOCv2JynKXZ5.webp" alt="言论五"></p>
+<h2 id="春节快乐"><a aria-hidden="true" tabindex="-1" href="#春节快乐"><span class="icon icon-link"></span></a>春节快乐！🎆🎇🧧</h2>]]></summary>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hugo主题simple英文版说明]]></title>
-        <id>https://demo.njxzc.top/2023/03/english-readme-of-hugo-theme-simple</id>
-        <link href="https://demo.njxzc.top/2023/03/english-readme-of-hugo-theme-simple"/>
-        <updated>2023-03-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[&#x3C;h1 align=center>Hugo-Theme-Simple | &#x3C;a href="https://hugo.njxzc.top" target="_blank">Demo&#x3C;/a>&#x3C;/h1>
-&#x3C;p align="center">
-&#x3C;img src="https://vip2.loli.io/2023/03/15/9LJ1QX8kKZrRtwA.webp" alt="Simple quote">
-&#x3C;/p>
-<p><a href="https://github.com/simple-is-awesome/Hugo-Theme-Simple/blob/main/README.zh-CN.md">简体中文版本</a></p>
-<h2 id="introduction"><a aria-hidden="true" tabindex="-1" href="#introduction"><span class="icon icon-link"></span></a>Introduction</h2>
-<p>This theme is named Simple. It's built based on Bootstrap+Lightbox+jQuery.</p>
-<p>Confucius once said, "Life is really simple, but we insist on making it complicated." With this in mind, our goal is to return to the essence of blogging and rediscover the original charm it holds. This theme embodies simplicity and elegance, allowing you to focus on what truly matters - your content.</p>
-<h2 id="screenshot"><a aria-hidden="true" tabindex="-1" href="#screenshot"><span class="icon icon-link"></span></a>Screenshot</h2>
-<p><img src="https://vip2.loli.io/2023/03/16/bRuOzHDndLXm8kT.webp" alt="Screenshot"></p>
-<h2 id="pros"><a aria-hidden="true" tabindex="-1" href="#pros"><span class="icon icon-link"></span></a>Pros</h2>
+        <title type="html"><![CDATA[毕业季该如何突围？ #12]]></title>
+        <id>https://gujiakai.top/2023/01/weekly-issue-12</id>
+        <link href="https://gujiakai.top/2023/01/weekly-issue-12"/>
+        <updated>2023-01-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://vip2.loli.io/2023/01/12/cxfkZmjUBWdhG7O.webp" alt="蓝色大理石"></p>
+<p>1972年12月7日，阿波罗17号的宇航员在前往月球的途中拍摄了这张地球的照片。今天被称为“蓝色大理石”，这张照片已经成为我们家园最具标志性的图像之一。<a href="https://www.nasa.gov/content/blue-marble-image-of-the-earth-from-apollo-17">图一来源</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/o4XRcxlpAYm2HeT.webp" alt="神舟十四号航天员乘组在轨拍摄照片"></p>
+<p><img src="https://vip2.loli.io/2023/01/12/c4bXmZ79xoSetMn.webp" alt="黄河入海口"></p>
+<p>神舟十四号载人飞行任务（2022.06.05~2022.12.04）是中国空间站建造阶段首次载人飞行任务，共搭载了3名航天员，分别是陈冬、蔡旭哲、刘洋。图二为陈冬航天员任务期间拍摄的照片。个人对比地图推测，图二为我国的黄河入海口。<a href="http://www.cmse.gov.cn/dmt/tj/202212/t20221217_51935.html">图二来源</a> <a href="https://maps.baidu.com/@13147931.71249071,4454683.06030799,9.13z/maptype%3DB_EARTH_MAP">图三来源</a></p>
+<p>阿波罗17号是人类最后一次踏上月球，人类在过去的50年没有再登月球，因为登月耗资巨大，而月球基本上是一片孤寂的荒漠，花大价钱送宇航员上月球溜达一圈不值。但我国至今还未登月过，登月的技术和经验必须得要有。目前我国载人航天工程三步走战略已经进行到了第三步，相信在未来的某天，中国也能实现登月梦。</p>
+<h2 id="周刊bgm"><a aria-hidden="true" tabindex="-1" href="#周刊bgm"><span class="icon icon-link"></span></a>周刊BGM</h2>
+<p>当你孤单你会想起谁—张栋梁</p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<p>这首歌曲是张栋梁在去年芒果台节目—《时光音乐会》中的演唱，视频版可见&#x3C;a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank">b站链接&#x3C;/a></p>
+<h2 id="话题毕业季如何突围"><a aria-hidden="true" tabindex="-1" href="#话题毕业季如何突围"><span class="icon icon-link"></span></a>话题：毕业季如何突围？</h2>
+<p>阮一峰老师在去年的一篇周刊—&#x3C;a href="https://www.ruanyifeng.com/blog/2022/12/weekly-issue-235.html#comment-text" target="_blank">青年失业率与选择创业&#x3C;/a>一文中，论述了为什么刚毕业的学生不容易创业以及如何应对严峻的就业形式，推荐阅读。</p>
+<p><img src="https://vip2.loli.io/2023/01/12/aIyWP4pF7fV3Kun.webp" alt="青年失业率与选择创业高亮分享"></p>
+<p>今天是2023年的1月12日，距离23届毕业仅剩5个月的时间，如果考研陪跑，那该如何是好？仅剩的5个月时间，我们计算机专业的学生可以怎样努力？我就以上两个问题来谈谈个人的看法。</p>
+<p>当然，如果你对于自己的考研初试非常有信心，可以提前开始备战复试，不必对未来的择业担忧过多，考上研究生能减缓你的就业期，你可以再过2~3年的学生生涯。如果你对于初试不自信，也可以提前备战复试，或者等分数出来后，再做复试打算。</p>
+<p>对于初试不自信，不忙于复试，准备就业的朋友，以下是我的建议。</p>
+<p>第一点，选择一门编程语言深究，慢慢达到自己未来想从事的职业的要求。即根据招聘要求学习相应技术。</p>
+<p>如下图所示，该图描述的是go语言后端开发岗位的招聘要求，如果自己对于这个岗位感兴趣，可以根据描述，按部就班地学习相应技术。</p>
+<p><img src="https://vip2.loli.io/2023/01/13/Rdk8iwLGzchN2jE.webp" alt="go语言后端开发招聘要求"></p>
+<p>第二点，注重自学能力的培养，重点关注计算机基础知识，不要过度依赖技术框架。</p>
+<p><img src="https://vip2.loli.io/2023/01/13/1q3K5fZjkFLaDHc.webp" alt="今天的开发者们"></p>
+<p>毋庸置疑，技术框架是你未来择业的敲门砖，确实重要，但计算机基础知识更重要。比如你在学习前端框架—vue之前，一定要打牢html、css、js、node.js等知识的学习。因为框架相当于给你提供了一个模板，你不必从零开始造轮子，只需查阅官方文档，再结合自己的需求编写代码，就能实现你想实现的功能，但是这些框架背后深层不变的永远是计算机基础知识。</p>
+<p>自学能力也很关键，这种能力能决定你能走多远。技术更迭换代太快了，要想不被时代淘汰，就要学会自学。可能一开始你会选择在b站看视频学习某门编程语言，但当你学另外一门编程语言的时候，你能否仅仅根据官方提供的文档来自学呢？这就是对于自己自学能力的考验，如果不行，你仅仅学到的是一些常用的知识，让你讲深层次的内容的时候，你会不知所措。</p>
+<p>自学能力不是天生就有，或是一蹴而就的。需要自己刻意练习，自己逼自己自学，慢慢地你就会领悟到自学的魅力。</p>
+<p>第三点，找寻学习的价值、意义、初心，不要将学习沦为低层次低效的训练。<a href="https://weibo.com/2365961811/MijbVmz6O">via</a>，培养自己的个性与兴趣。</p>
+<p>高中学习可能仅仅是为了应付高考，大学学习可能仅仅是为了毕业，三考。但是你仔细想想，这么做，到底对自己的提升有多少？千万不要被学习生涯磨平了自己的棱角。</p>
+<p>在大学校园里面有个有趣的现象，大一时，课堂上踊跃发言的同学还略有几位，但是随着时间的推移，课堂上鲜见踊跃发言的同学，大多老师抛出一个问题后，一片死寂。在我看来，这值得警醒。如果自己确实有想法，就应该大胆地举手发言，与大家分享，展示自己的idea和信心。</p>
+<p>学习的价值、意义、初心就是提升自己，不管是能力还是其他方面。可能一开始你对于计算机专业一无所知，但是随着知识的学习，我希望你能爱上自己的专业、自己专业所处的领域。平时记得多了解科技资讯，把握行业脉搏。</p>
+<p>兴趣是最好的老师，只有你足够热爱，你才能学得更快，学得更多。在我看来，对抗内卷的最好方式，就要培养自己的兴趣和个性。</p>
+<p>总结起来，就是要保持机敏，持续学习，热爱生活，早些找寻到自己立足于这个社会的基点。持续仰望星空，开眼看世界，不要将眼光仅仅局限于自己的大学、自己的国家。要放眼全球！</p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>1、越南猫年。</p>
+<p><img src="https://vip2.loli.io/2023/01/12/41sMXQYEyi6Hp29.webp" alt="2023年是越南的猫年"></p>
+<p><img src="https://vip2.loli.io/2023/01/12/oc4JLFOeq6m9KSA.webp" alt="2023春晚吉祥物—兔圆圆"></p>
+<p>同中国一样，春节是越南最重要的传统佳节。但与中国的不同之处在于越南的十二生肖中用猫取代了兔子。关于此的说法众说纷纭，有一种说法认为汉文化传播到越南时，越南人误将“卯年”误听为了“猫年”；也有说法坚持越南人讲究“生态平衡”观，十二生肖中有鼠，猫能克鼠。&#x3C;a href="https://baike.baidu.com/item/%E7%8C%AB%E5%B9%B4/4943704" target="_blank">via&#x3C;/a></p>
+<p>2、web开发术语缩写</p>
+<p><img src="https://vip2.loli.io/2023/01/12/NVBGYuXcKMor8m1.webp" alt="虚假的web开发术语缩写"></p>
+<p>一开始遇见上图的时候，我没仔细看，将此图保存至了收藏夹中，后来有时间翻看的时候，发现该图完全就是胡说，可以将其看成是程序员发的一张humor图，真正的web开发术语缩写如下图所示。</p>
+<p><img src="https://vip2.loli.io/2023/01/12/sxzMjkZQctoWeY3.webp" alt="真正的web开发术语缩写"></p>
+<p>3、<a href="https://ossinsight.io/2022/">Trends and Insights from GitHub 2022</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/OPmS3EAInfD5kNH.webp" alt="开发者行为分析"></p>
+<p>中国开发者喜欢star仓库，WatchEvent占17.23%，ForkEvent占2.7%。可能说的就是我这种GitHub玩家吧，在过去的一年中，我一共star了接近3000个仓库，但是使用过、悟透的少之又少，因此我在前几天将所有的star全部取消掉了。借助GitHub的api能快速实现清空全部star的操作。</p>
+<p>在我看来，中国开发者需加倍努力，从Watch、Fork、Star转向Pull Request，多贡献代码，用代码改变世界。</p>
+<p>文中提及到过去四年开源世界的顶级语言是JavaScript，下图是我在某个群中看到群友发的关于js的玩笑图。</p>
+<p><img src="https://vip2.loli.io/2023/01/12/dxFGJqDniAOh5X3.webp" alt="关于js的玩笑"></p>
+<p>4、关于a.m.和p.m的冷知识</p>
+<p><img src="https://vip2.loli.io/2023/01/12/tLbcp1QVYUjhNk2.webp" alt="关于a.m.和p.m的冷知识"></p>
+<p>关于a.m.和p.m的解释，可以参考<a href="https://www.timeanddate.com/time/am-and-pm.html">此链接</a>。</p>
+<p>5、VSCode模式浏览GitHub仓库的两种方法</p>
+<p>1）域名github.com改成github.dev/按住键盘上的句号(.)</p>
+<p>2）在域名github后面加上1s</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<p>1、<a href="https://www.gapminder.org/dollar-street">金钱街道</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/jYaAzEq7pOG8PsT.webp" alt="金钱街道"></p>
+<p>这个网站展示了世界各地家庭的每月收入水平。区间可以自己调整，区间越靠左代表该家庭越贫穷，区间越靠右代表该家庭越富裕。不难发现，世界贫富两级差距还是挺大的。但是人类社会要想进步，必须得有差距，如果采用平均主义，势必会使得人民的惰性上涨，而拼搏、追逐梦想的那种精神会被磨平。</p>
+<p>2、<a href="http://music.alang.run">一起听歌吧</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/9vgWs65JLy4EbAM.webp" alt="一起听歌吧"></p>
+<p>和朋友一起玩耍时，不妨到这个网站创建一个房间，一起听歌。项目<a href="https://github.com/JumpAlang/Jusic-serve">开源</a>，可自部署。</p>
+<p>3、<a href="https://www.my80stv.com">My 80's TV!</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/to5hZ2dkLvTUKeP.webp" alt="My 80&#x27;s TV!"></p>
+<p>该网站由来自美国加州旧金山湾区的joey cato创办，向我们展示了美国80年代的电视机里面播放的内容，上图我打开的电视机中播放的是一档音乐节目。joey cato喜欢在业余时间做一些互动、怀旧的东西，他认为这是一种能锻炼自己学习热情的有趣方式。<a href="https://www.joeycato.com">via</a></p>
+<p>不难发现除了80年代的电视机，还有60年代、70年代、90年代、00年代的电视机。这位站长的创造精神值得我们学习。</p>
+<p>4、<a href="https://sou-yun.cn/PoetLifeMap.aspx">唐宋文学编年地图</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/ywlPJgsfrG6LouS.webp" alt="唐宋文学编年地图"></p>
+<p>我国北宋时期的诗人—苏轼，曾写过“问汝平生功业，黄州惠州儋州”的诗句，这充分展现了其受贬谪仍能自嘲豁达的胸襟。</p>
+<p>但有个疑问，黄州、惠州、儋州到底位于何处呢？通过这个网站，可以清晰地查看苏东坡生平的足迹，以及当年三州所处的位置。</p>
+<p><img src="https://vip2.loli.io/2023/01/12/2oCdlOL5GZ4c7kE.webp" alt="苏轼生平足迹"></p>
+<p>5、<a href="http://johnburnmurdoch.github.io/projects/goal-lines/all-comps">The top goal-scorers in elite club football since 1980</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/u8tHezgD37kLlIm.webp" alt="The top goal-scorers in elite club football since 1980"></p>
+<p>这个网站记录了自1980年以来，精英俱乐部的最佳射手。数据来源包括英超、西甲、意甲、德甲、法甲等赛事。</p>
+<p>提到足球，人们的第一印象就是梅西和C罗。原因在于两位名宿的进球数排行最靠前，上图清晰地给出了答案。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<p>1、我认为计算机科学作为一个领域正面临着一个相当大的剧变，我们当中很少人真正做好了准备。<a href="https://cacm.acm.org/magazines/2023/1/267976-the-end-of-programming/fulltext">via</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/Em56TvGAQrSp3Ka.webp" alt="言论一"></p>
+<p>2、我也讨厌那些所有告诉人们雨天是坏天气的天气预报员。并没有坏天气这么一回事，仅仅是因为错误的穿着而已，所以在下雨天给你自己穿一件性感的雨衣并享受生活吧。<a href="https://www.reddit.com/r/raining/comments/zanvhh/hope_this_is_allowed_here_made_me_think_of_yall">via</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/1y5OBJEK4RFUIhC.webp" alt="言论二"></p>
+<p>3、打破信息孤岛最好方法的就是分享，这是每个人都有的权力。</p>
+<p>4、学习金字塔，注意到属于“主动学习”的，都是带有“强输出”性质的行为，所以反过来也说明了多输出才能更好的学习。<a href="https://t.me/codedump_notes/237">via</a></p>
+<p><img src="https://vip2.loli.io/2023/01/12/oBGFVLtynw6I4TY.webp" alt="言论四图片"></p>
+<p>5、恋爱就应该在20来岁，过了时间，再找对象就是凑合过日子，而不是因为爱情。</p>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[你好2023 #11]]></title>
+        <id>https://gujiakai.top/2023/01/weekly-issue-11</id>
+        <link href="https://gujiakai.top/2023/01/weekly-issue-11"/>
+        <updated>2023-01-02T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://vip2.loli.io/2023/01/02/aEuIAXRplML1ib6.webp" alt="Unsplash2022年度最佳照片奖"></p>
+<p>“这幅作品有一种超自然的感觉，它在我们现在生活的这个混乱的世界中创造了一个平静和安宁的时刻。” — Unsplash2022年度最佳照片奖。 <a href="https://awards.unsplash.com/2022/#/community-photo">(via)</a></p>
+<h2 id="周刊bgm"><a aria-hidden="true" tabindex="-1" href="#周刊bgm"><span class="icon icon-link"></span></a>周刊BGM</h2>
 <ul>
-<li>
-<p>Responsive</p>
-</li>
-<li>
-<p>Clean</p>
-</li>
-<li>
-<p>Fast</p>
-</li>
+<li>鱼—陈绮贞</li>
 </ul>
-<h2 id="usage"><a aria-hidden="true" tabindex="-1" href="#usage"><span class="icon icon-link"></span></a>Usage</h2>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="本期话题你好2023"><a aria-hidden="true" tabindex="-1" href="#本期话题你好2023"><span class="icon icon-link"></span></a>本期话题：你好2023</h2>
+&#x3C;iframe src="https://player.bilibili.com/player.html?aid=519647638&#x26;bvid=BV1Wg411x7sx&#x26;cid=948309604&#x26;page=1"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<p>好久没有写周刊了，犹记上一次落笔是在去年的6月份，一转眼，2022已经离我们远去。就如上面视频里所呈现的那样，2022已经在时间的洪流中不在。</p>
+<p>无论是对于世界，还是对于我而言，2022都是充满不易的一年。</p>
+<p>这一年，疫情仍然困扰着世界，人类并没有成功战胜新冠，反而与之共存的进度越来越快；这一年，很多人物离开了我们，随着他们的离去，时间的残酷再一次在世人眼前展现；这一年年末，我成功加入了中国共产党，但我深知自己仍然离一名合格的共产党员仍有着些许差距；这一年，我为了年末的考研，放弃了编程、爱好等，初试后，知道自己并没有把握一战成硕，大概率再过半年我会进入社会，摸爬滚打......</p>
+<p>2022年，<a href="https://about.google/stories/year-in-search/">Google搜索的关键词是"can I change"（我能改变吗？）</a>；<a href="https://languages.oup.com/word-of-the-year/2022/">牛津词典的年度词汇是"goblin mode"（妖精模式）</a>；<a href="https://www.bilibili.com/blackboard/activity-Lvg7KQjIag.html">Bilibili的年度弹幕是"优雅"</a>......</p>
+<p>对于我而言，2022年的关键词是考研与毕业。本科毕业后，我到底应该去往何方？为了缓解迷茫，我随大流考研，与此同时为了应对毕业，毕业论文也在准备着。平凡的生活充实且忙碌。</p>
+<p><img src="https://vip2.loli.io/2023/01/02/KgnlDVQxm6biZA9.webp" alt="个人年度总结"></p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>1、<a href="https://archiveprogram.github.com/">为后代保存开源软件</a></p>
+<p>来自全球最大的代码托管平台—GitHub的作品—代码归档项目。据说，GitHub在2020年的2月2号捕获了每一个活跃开源仓库的快照，并将其保存在了挪威的斯瓦尔巴群岛北极山脉深处的一个废弃煤矿中。</p>
+&#x3C;iframe src="//player.bilibili.com/player.html?aid=711477211&#x26;bvid=BV1rD4y1m78m&#x26;cid=214423471&#x26;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<p>附斯瓦尔巴群岛的位置图。其位于欧洲大陆北部，临近北极点。</p>
+<p><img src="https://vip2.loli.io/2023/01/02/O3Q47U8tDaV1IH2.webp" alt="斯瓦尔巴群岛位置"></p>
+<p>2、<a href="https://www.reddit.com/r/MTRelaxation67/comments/z88ihb/what_happens_when_a_desert_gets_rain/">当沙漠持续下大雨时会发生什么？</a></p>
+&#x3C;iframe src="//player.bilibili.com/player.html?aid=222212428&#x26;bvid=BV198411E7e2&#x26;cid=948497301&#x26;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<p>竟然会发生洪水，这是我没想到的，大自然真神奇。</p>
+<p>3、<a href="https://www.reddit.com/r/weirddalle/comments/zi14ae/a_developer_finding_a_bug_now_even_more_literal/">AI绘制的Bug</a></p>
+<p>Bug这个术语，在软件领域代指程序中的小错误、小毛病。这个术语的故事由来，耐人寻味，来自于一只继电器中的飞蛾。2022年，可以称得上是AI绘画的元年，各类AI绘画程序层出不穷。</p>
+<p>国外网友使用Midjourney这款AI绘画软件绘制出了一幅含有巨型Bug的图片。</p>
+<p><img src="https://vip2.loli.io/2023/01/02/2GXpwSm9gbKYNkP.webp" alt="开发人员发现了一只bug"></p>
+&#x3C;center>&#x3C;b>一名开发者发现了一只Bug。&#x3C;/b>&#x3C;/center>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<p>1、<a href="http://oldcomputers.net/">Steve's Old Computer Museum</a></p>
+<p><img src="https://vip2.loli.io/2023/01/02/hvIUFY1OsCun3WG.webp" alt="Steve的旧电脑博物馆主页"></p>
+<p>这个网站致力于保护和展示复古的电脑系统。网站的维护者是来自美国加州洛杉矶橙县的Steve Stengel，从站点的各种资料来看，这是一名复古电脑爱好者。</p>
+<p>按照网站左侧的时间轴依次浏览，不难发现，年代越久远的复古电脑系统售价更贵，越现代的复古电脑系统售价更便宜。</p>
+<p>2、<a href="https://mail.totime.cn/">云寄·时光邮局</a></p>
+<p>你上一次写信是什么时候？不妨有空时给未来的自己或者自己的亲人写一封信，可以选择电子邮件投递或者线下投递（邮费需自理）。</p>
+<p><img src="https://vip2.loli.io/2023/01/02/hqfUyZFOr8pT2cl.webp" alt="云寄·时光邮局"></p>
+<p>3、<a href="https://smartynames.com/">Search Domain names with AI</a></p>
+<p>在对话框中描述你的公司或项目，这个AI程序会给出与之相符的域名。</p>
+<p><img src="https://vip2.loli.io/2023/01/03/qEVwyag3XLeK5T9.webp" alt="用AI搜索域名"></p>
+<h2 id="纪录片"><a aria-hidden="true" tabindex="-1" href="#纪录片"><span class="icon icon-link"></span></a>纪录片</h2>
+<p>今天推荐一部名为《互联网之子》的纪录片。该纪录片讲述的是亚伦·斯沃茨的故事。他为了一个更加自由开放的互联网付出了生命。</p>
+&#x3C;iframe src="//player.bilibili.com/player.html?aid=16549975&#x26;bvid=BV1rx411V75r&#x26;cid=26994578&#x26;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<p>1、阿根廷球迷在试图跳上载有世界杯冠军球队的公共汽车时从立交桥上摔下。</p>
+&#x3C;iframe src="//player.bilibili.com/player.html?aid=692206780&#x26;bvid=BV1Z24y1v7ix&#x26;cid=949017983&#x26;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<blockquote>
+<p>那个家伙原本想去见梅西，但是他见到了马拉多纳（已故的阿根廷球星）。</p>
+</blockquote>
+<p><img src="https://vip2.loli.io/2023/01/03/MJ3pTB2ifegnqxb.webp" alt="言论图一"></p>
+<p>2、金正恩在平壤欢迎韩国文在寅</p>
+&#x3C;iframe src="//player.bilibili.com/player.html?aid=31962726&#x26;bvid=BV1NW411C76X&#x26;cid=55906755&#x26;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<blockquote>
+<p>我想知道为什么在他们身边会有翻译官，我记得他们都说的都是韩语。</p>
+</blockquote>
+<p><img src="https://vip2.loli.io/2023/01/03/xyYFH9dkIvr8UmM.webp" alt="言论图二"></p>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我的那些年 #10]]></title>
+        <id>https://gujiakai.top/2022/06/weekly-issue-10</id>
+        <link href="https://gujiakai.top/2022/06/weekly-issue-10"/>
+        <updated>2022-06-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第10期的「周见」，本期的主题是「我的那些年」。</p>
+<p><img src="https://vip2.loli.io/2022/09/20/BrVsEMzPYmdnSF8.jpg" alt="19年我的高中母校高考壮行场面"></p>
+&#x3C;center>&#x3C;b>(封面图：19年我的高中母校高考壮行场面)&#x3C;/b>&#x3C;/center>
+<p>周刊BGM【高考季专属】：</p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="-本期话题我的那些年"><a aria-hidden="true" tabindex="-1" href="#-本期话题我的那些年"><span class="icon icon-link"></span></a>📝 本期话题：我的那些年</h2>
+<p>2022年高考已经落下帷幕。每年的高考季难免会勾起往日的回忆，今年也不例外，我在6月6日下午，好好地回忆了一把青春。</p>
+<p>那天下午，我分别登录了小学、初中、高中母校的官网，准备下载一些值得我回忆的东西，方便我日后回忆，结果令我大失所望。母校的官网一个都打不开，网站均已下线。小学、初中、高中母校对外发布信息的渠道均改成了微信公众号。</p>
+<p>我使用第6期周刊里推荐过的<a href="https://www.oldestsearch.com/">oldsearch</a>这一搜索工具，还是没有找到母校以前站点的历史快照。</p>
+<p>最终我在<a href="https://archive.org/">互联网档案馆</a>里，找到了<a href="https://web.archive.org/web/20161024113518/http://hmsyxx.com/">高中站点</a>、<a href="https://web.archive.org/web/20180824200013/http://www.hmnrzx.com/">初中站点</a>以及<a href="https://web.archive.org/web/20130908231332/http://www.hmdx.net/">小学站点</a>的历史快照。</p>
+<p>高中母校站点最后的更新时间停留在了2016年，历史快照和我高一上电脑课时访问学校官网的画面一致。校园新闻模块旁边，热门文章列表里面的英语听力mp3，让我想起了高一时早读做听力的画面。当时高中每逢英语早读，最后的20分钟会用来做英语听力。</p>
+<p><img src="https://vip2.loli.io/2022/09/20/Pl1N96rTXLHcg5q.png" alt="高中站点快照"></p>
+<p>初中母校站点最后的更新时间停留在了2018年，以往每一届的毕业视频都会放在网站首页左侧侧边栏供历届毕业生回忆。由于互联网档案馆没有抓取外链视频，所以我无法找到2016年初中毕业典礼的视频，这稍显遗憾。如果未来的某天回母校看望，我一定会去寻找那一份丢失的影像。</p>
+<p><img src="https://vip2.loli.io/2022/09/20/DZB2xUjLTFr3nt6.png" alt="初中站点快照"></p>
+<p>小学母校站点，花费了我很长时间才在互联网档案馆中找到。虽然我对于小学的记忆随着时间的推移，已经模糊，但小学的标志语录我还历历在目—让每位师生绽放成功的微笑。</p>
+<p>当年我从同学手中抢走了五好少年奖状，当年我随班级一起去江海风情园游玩，当年立夏斗蛋，我成了斗蛋王【实则是我先等别人斗的差不多了再斗，投机赢下的比赛】，当年我站在全校面前唱《摇太阳》...... 一切的一切都仿佛那么近，又那么远。</p>
+<p><img src="https://vip2.loli.io/2022/09/20/NVpoIsqtrlmSYdg.png" alt="小学站点快照">
+自从开始了初中、高中应试教育，我的校园生活便不再如小学时那般丰富，初中的目标就是努力学习，考个好高中；高中的目标就是努力学习，考个好大学。这种同质化的教育，我是厌恶的，那段青春虽然充实，但没有趣味可言。在中国，高考是比较公平的一次人生竞速，但公平并不能掩盖其同质化的弊端。</p>
+<p>昨天晚上【2022年6月8日】，看完了采访江苏高考文科状元的<a href="https://www.bilibili.com/video/BV1Dg411X7zW">访谈</a>，我的内心对于我高考的失利看得更开了。那位状元最后去了武汉大学，她的超长发挥，虽使她摘得状元的桂冠，但过大的压力，让她不幸患上了抑郁症。</p>
+<p>健康和成绩之间，我选择健康。人生的意义并不只有成绩，学习的意义也并不只是为了成绩 。高中那时候我对于计算机专业的认知几乎是0，也和大部分学生一样，被家长决定了18年，对于自己的未来一片迷茫。</p>
+<p>自从入门计算机专业，我开始慢慢发现自我。计算机专业迭代出的新技术让我痴迷，学习对我而言已经不再是一件疲惫的事情，做自己感兴趣的事，我会很享受。</p>
+<p>但毋庸置疑，到了大学仍然会有一些浪费你生命的课程的存在。我在大一、大二，那时候是个听话的乖宝宝，继续高中学习的那一套学习方法，最终取得了不错的绩点。在大三的时候，我开始觉醒，我厌倦了做沉默中的大多数，厌倦了不教学生真本领的课程，我开始做自己喜欢的事情，如果挂科和兴趣之间让我选择，我会选择兴趣。因为挂科只是老师用来吓唬弱者的伎俩，当你足够强大，老师知道你在从事自己感兴趣的事情而非无故旷课，他也会尊重你的选择。</p>
+<p>看了b站up主—李天意的<a href="https://www.bilibili.com/video/BV17g411R7P1">视频</a>，感触颇深。选取几段我做的笔记供你参考，愿你早日找到自己感兴趣的领域，为自己而活。</p>
+<p><img src="https://vip2.loli.io/2022/09/20/wjx4WrtJAhBX1Fl.png" alt="观李天意视频笔记"></p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.能拍就拍，能照就照，想炫的一定要去炫。十年后，再好的拍照技术和相机也拍不出如此模样。 大胆地记录生活。你现在的每一天，都是值得珍藏的。</p>
+<p>2.大多数人都只是随波逐流地生活。而一个优秀的人，看起来一定是特立独行的。</p>
+<p>3.把看剧的时间用来看纪录片，把刷手机的时间用来看书，坚持一个月，你就会感受到明显的进步。</p>
+<p>4.人总是孤独的，要学会适应。真正能摆脱孤独的，只有内心的强大。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://www.zkcrush.xyz/">zkcursh</a></p>
+<p>悄悄地告诉你暗恋的人，你喜欢他/她。🫣</p>
+<p>在第一个文本框输入你的姓名，在第二个文本框输入你暗恋的对象的姓名，接着点击生成URL。将生成的URL地址分享给别人，如果别人输入自己的姓名发现匹配上了，则说明xxx(自己体会)，如果匹配不上，也不会太受伤。😄</p>
+<p><img src="https://vip2.loli.io/2022/09/20/7HPDFYK6I4oepgk.png" alt="zkcursh样例图"></p>
+<p>2.<a href="https://www.cikeee.com/">此刻-电影日历</a></p>
+<p>每天推荐一部优秀的电影，解决你择影问题。可以先收藏起来，等自己休闲想看电影时，可以去上面找找灵感。</p>
+<p><img src="https://vip2.loli.io/2022/09/20/3UNYRxvgf1dzhic.png" alt="此刻-电影日历样例图"></p>
+<h2 id="flag"><a aria-hidden="true" tabindex="-1" href="#flag"><span class="icon icon-link"></span></a>📌Flag</h2>
+<p>物各有性，水至淡，盐得味。水加水还是水，盐加盐还是盐。酸甜苦辣咸，五味调和，共存相生，百味纷呈。物如此，事犹是，人亦然。</p>
+<p>这是19年的江苏语文高考作文题目，当时我写的是酸甜苦辣咸，语文得了97分，今年暑假如果有空，我会重写19年的江苏语文高考作文，找寻当年的温度。</p>
+<p>个人觉得这是一件很酷的事情。如果你也想追忆当年的高考，可以在自己有空时，重写当年自己的语文高考作文题。</p>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[技术优先还是折腾优先？ #9]]></title>
+        <id>https://gujiakai.top/2022/06/weekly-issue-09</id>
+        <link href="https://gujiakai.top/2022/06/weekly-issue-09"/>
+        <updated>2022-06-03T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第9期的「周见」，本期的主题是「技术优先还是折腾优先？」。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/3NoeEwjuitYS7Fa.jpg" alt="封面图：coding时光"></p>
+&#x3C;center>&#x3C;b>(封面图：coding时光)&#x3C;/b>&#x3C;/center>
+<p>周刊BGM【端午节专属】：</p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="国际视野国际视野"><a aria-hidden="true" tabindex="-1" href="#国际视野国际视野"><span class="icon icon-link"></span></a>🔍国际视野国际视野</h2>
+<p>最新一期的超算榜单出炉，美国最新的超算Frontier登顶。详情可见<a href="https://www.top500.org/">top500官网</a></p>
+<p><img src="https://vip2.loli.io/2022/11/12/e6Y3bV1yXE97cTC.png" alt="2022年全球超级计算机性能排行"></p>
+<p>以下是一段摘自新浪网的话。美国凭借自己先进的科技，用其长臂管辖，阻碍中国企业的发展，这种行为让人愤怒。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/JuGVyh5cizFsqtQ.png" alt="新浪网社评"></p>
+<p>我们永远不要对西方抱有任何幻想，要时刻保持危机意识；与此同时要好好提升自己的技术水平，争取为新中国的复兴尽自己的一份绵薄之力。新中国的复兴还需要一段漫长的时间，短期内想摆脱美国卡脖子还较为困难。与君共勉。</p>
+<h2 id="-本期话题技术优先还是折腾优先"><a aria-hidden="true" tabindex="-1" href="#-本期话题技术优先还是折腾优先"><span class="icon icon-link"></span></a>📝 本期话题：技术优先还是折腾优先？</h2>
+<p>最近，和同学交流，发现他已经没了当初那颗折腾的心，转而苦学Java技术。他说他意识到目前自己的技术水平不足，折腾博客就是在浪费时间。</p>
+<p>这学期一开始，在我的提示下 ，我同学的wordpress博客已经趋于完备，就等他来完善内容了。结果他写了2篇Java学习笔记，就开始打退堂鼓。他认为自己学习学累了，就想着放松，根本不想再碰博客。</p>
+<p>面对这种情况，我陷入了沉思，没有技术的同学到底该不该折腾？在思考的过程中，我意识到，技术和折腾，两者是相互促进的关系，两者都很重要，如果硬要我选的话，我选择先折腾再学技术。一方面，折腾会促使你发现自己哪一方面的技术点匮乏，从而使你明确自己的学习目标；另一方面，学习技术能帮助你折腾得更愉快。</p>
+<p>就拿我折腾我的个人主页来举例吧。一开始我总是喜欢套用别人写好的个人主页轮子，将别人在GitHub上开源的项目克隆到本地，自己修改一番后，再部署上线，效果确实不错，但是后来的某天我意识到既然我是计算机专业的，那为什么不自己手写一个个人主页呢？</p>
+<p>于是我开始新建一个文件夹，在文件夹里面用传统的html、css、js构建自己的页面。写完后，在电脑端上看效果不错，但是一旦在浏览器的控制台中，切换到手机端视角，网页立马变形。</p>
+<p>这不由让我陷入沉思，在网上搜索一番后，我意识到要想在多端设备上都有较好的页面展示效果，必须采用响应式布局。而用传统的css来实现响应式布局，需要你有很强的css积淀，这是我目前的水平难以企及的。</p>
+<p>再后来，我发现可以用框架实现响应式布局，于是我就去稍微学习了一点Tailwind CSS这一当红CSS框架的知识，最终实现了我个人主页【注：个人主页已经删除。-2022.11.12】的响应式布局。代码非常简短，框架帮我解决了很多麻烦。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/xnGLPHqkWwZTVuI.png" alt="个人主页源码图"></p>
+<p>但在实现的过程中，我又意识到自己的前端技能不足，我便又在obsidian中的编程目标页面添加了一些内容，即学习React框架和Vue框架。</p>
+<p>以上便是我在折腾的过程中的心得与体会。折腾很有价值，它会让你清晰下一步应该学习的技术。</p>
+<p>以前如果你不懂html，手撸一个网页对你而言是天方夜谭，现在有专门的博客框架解决了这一痛点，如Hexo博客框架，它能将你的markdown文件转换成html，但如果你不会css，那你的博客样式只能束缚于博客主题自带的样式中，因为自定义样式需要你有css基础知识储备。故学习技术能让我们折腾得更愉快。</p>
+<p>总而言之，在折腾的同时学习一些能解决你在折腾过程中遇到的难题的技术 ，是一件很酷的事。不要在学习技术的时候忘记折腾，要时时刻刻反问自己，今天学的技术我用上了嘛？这才是编程学习该有的样子。</p>
+<p>只学技术不折腾，或者说只学不实践，是编程学习的一个大忌，不实践的结果是很快就忘光前面所学的编程知识。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.黄渤说：“以前在剧组里，总能遇到各种各样的人，各种小心机，但现在（成名了），身边全是好人，每一张都是洋溢的笑脸。” 人还是那群人，只不过：你弱时，身边都是小人，什么人都可以随意踩你一脚；当你强大时，整个世界都会对你和颜悦色。</p>
+<p>2.每天先做让你痛苦的任务，然后再做轻松的任务。 这样你越做越轻松，轻松的任务本身变成了一种奖励，你会产生更多的动力，也会更快乐。</p>
+<p>3.这世界上的绝大多数人，都分不清什么是「自己的想法」，什么是「别人灌输给自己的想法」。 人生很苦，盲从恰恰是一种简单方便获得归属感、自我价值、人生意义的方式，思考太痛苦了。放弃独立思考的能力，只能换取舒适但虚假的生活。</p>
+<p>4.自制力从来不是早睡早起多吃蔬菜，自制力是永远只做最重要的事。[[推特语录精选01]]</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://pinball.flutter.dev/#/">pinball</a></p>
+<p>上个月Google I/O 2022开发者大会活动前夕发布的弹珠台游戏，致敬经典的同时，也展示了Google旗下的Flutter这一应用软件开发套件。</p>
+<p>注：空格键可以蓄力，蓄力完毕后发射，接着用方向键的←键(或A键)和→键(或D键)来控制下方的两侧挡板，以使得弹珠在视野内多次弹射得分。体验需魔法。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/MDpeirhc1Wm5y3w.png" alt="pinball样例图"></p>
+<p>2.<a href="https://flowus.cn/product">flowus</a></p>
+<p>一款新上线的效率工具，类似于国外的<a href="https://www.notion.so/zh-cn">notion</a>，以及国内的<a href="https://www.wolai.com/">wolai</a>。可以用来构建自己的知识库或者充当自己的云端网盘。有分享欲的小伙伴，可以用此类效率工具搭建属于自己的个人博客/主页。自己只需将内容填充实，点击右上角的分享即可。</p>
+<p>阮一峰老师在最新的一期<a href="https://www.ruanyifeng.com/blog/2022/05/weekly-issue-208.html">《科技爱好者周刊》</a>中对于flowus有详细的体验报告，可以点击链接查看。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/OZRj2rLf8aXdSFG.png" alt="flowus样例图"></p>
+<p>3.<a href="https://virtualmuseum.intel.com/#">英特尔虚拟博物馆</a></p>
+<p>在虚拟博物馆中，你可以了解到英特尔的历史以及历代产品。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/K9UBdAaVtsluiv1.png" alt="Virtual Intel Musuem"></p>
+<p>4.<a href="https://privnote.com/">privatenote</a></p>
+<p>发送私密笔记给别人看，别人阅后会自毁。适合用于加密通信或者表白😄。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/GDMNB3L7xcoZbzA.png" alt="privatenote样例图"></p>
+<p>5.<a href="https://q-link.minung.dev/">Q.Link</a></p>
+<p>将你的链接隐藏在一个小测验后。<a href="https://q-link.minung.dev/links/6294cbf624dea1655c28d9f7">测验链接</a>，回答正确5s后，会自动跳转至对应站点。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/ZdaAD98vpVgUKrx.png" alt="Q.link样例图"></p>
+<h2 id="️-工具"><a aria-hidden="true" tabindex="-1" href="#️-工具"><span class="icon icon-link"></span></a>🛠️ 工具</h2>
+<p>最近看了b站up主—鱼皮的一个<a href="https://www.bilibili.com/video/BV1i34y177pJ">视频</a>，感触颇深。他在视频中提及到他做自媒体能锻炼自己的分享表达能力。他认为把自己学过的知识清晰地讲出来，让别人也学会是一件非常酷的事情【其实这就是费曼学习法】，这是他坚持做分享的初衷与动力。</p>
+<p>我写周刊有一部分原因是出于对周刊的好奇，也有一部分原因是希望自己的分享能帮助别人。这期周刊，我准备开始推荐一些我使用的体验效果较好的浏览器插件，希望我的分享能帮助你提高生活效率。</p>
+<p>1.<a href="https://chrome.google.com/webstore/detail/smart-toc/lifgeihcfpkmmlfjbailfpfhbahhibba">Smart TOC</a></p>
+<p>显示文章目录，帮你快速理清文章脉络，高效阅读。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/5Y8mwZ6cujJSKDC.png" alt="Smart Toc样例图"></p>
+<p>2.<a href="https://fanyi.caiyunapp.com/#/web">彩云小译</a></p>
+<p>双语对照网页翻译，提高你英语阅读效率的同时，让你更方便地积累英语词汇。</p>
+<p>以前，我一直使用谷歌浏览器自带的谷歌翻译来翻译英文页面，这一翻译的弊端是使得译文与原文完全脱钩，而彩云小译解决了这一痛点。以下是我用彩云小译对经济学人杂志的一篇文章进行网页翻译的结果，译文与原文能同时显现。</p>
+<p><img src="https://vip2.loli.io/2022/11/12/BzCDFOGK2q7IeiR.png" alt="彩云小译双语翻译《经济学人》"></p>
+<h2 id="端午安康"><a aria-hidden="true" tabindex="-1" href="#端午安康"><span class="icon icon-link"></span></a>端午安康。🫔</h2>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[信息时代的陷阱—过度消费内容 #8]]></title>
+        <id>https://gujiakai.top/2022/05/weekly-issue-08</id>
+        <link href="https://gujiakai.top/2022/05/weekly-issue-08"/>
+        <updated>2022-05-27T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第8期的「周见」，本期的主题是「信息时代的陷阱—过度消费内容」。</p>
+<p><img src="https://imgs.zhubai.love/4a3a02cd1ca6455293a929185a7c5de5.jpg" alt="封面图：黑人小哥戴着耳机在网上冲浪"></p>
+&#x3C;center>&#x3C;b>封面图：黑人小哥戴着耳机在网上冲浪&#x3C;/b>&#x3C;/center>
+<p><strong>周刊BGM</strong></p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="gitee事件续集"><a aria-hidden="true" tabindex="-1" href="#gitee事件续集"><span class="icon icon-link"></span></a>🔍Gitee事件续集</h2>
+<p>今天早上刷b站的时候，看到了Gitee的b站账号发布了<a href="https://www.bilibili.com/video/BV1HS4y1q7Do">九周年直播录像</a>，其中Gitee官方回复了大家近期关心的开源审核事件。开源审核事件回复开始于视频的1小时15分，结束于1小时40多分。我记的笔记供你参考。</p>
+<p><img src="https://imgs.zhubai.love/eb9a3fd25ddb4a24af9ad669bacfa389.png" alt="观Gitee官方回复视频的笔记"></p>
+<h2 id="-本期话题信息时代的陷阱过度消费内容"><a aria-hidden="true" tabindex="-1" href="#-本期话题信息时代的陷阱过度消费内容"><span class="icon icon-link"></span></a>📝 本期话题：信息时代的陷阱—过度消费内容</h2>
+<p>我在第6期周刊的言论部分，引用了别人的推文—"如何变得没有效率"，其中提及到一点—过度消费内容。今天我就以此为引子来和你探讨。</p>
+<p><em>何为过度消费内容？</em></p>
+<p>网络上关于这个概念并没有明确的定义。我眼中的过度消费内容是指你每天浏览的信息超过了你的承受范围，这个承受范围的界限由你自己来决定，每个人的承受范围都不尽相同，有些人可能刷了10分钟的手机，眼睛就受不了了，有些人可能一天中的大部分时间都在网上度过。但毋庸置疑，当信息量超过了你的承受范围，你会感到疲惫，进而不想再被信息轰炸。</p>
+<p>但有强迫症的人，会继续顶着疲惫，将动态全部刷完才肯罢休。这就是过度消费的典型案例。过度消费内容也可算作网络成瘾中的一种症状。</p>
+<p>下图出自addiction center这个网站上的一篇介绍网络成瘾的<a href="https://www.addictioncenter.com/drugs/internet-addiction/">文章</a></p>
+<p><img src="https://imgs.zhubai.love/400a20e714f744bcb0f6c614da48e7e3.png" alt="强迫信息寻求"></p>
+<p>这一点，我深有体会，因为一开始创作周刊的时候，我总是害怕自己的内容不够充实，于是我会每天逼迫自己刷掉各大平台的所有动态。</p>
+<p>某天晚上，我瘫在床上，和我枕头旁的舍友—磊子交流，我问道："磊子，你刷抖音会逼自己把所有的动态都刷掉嘛？" 他回答道："抖音上的视频是刷不完的，一般我会在放松的时候刷刷。刷累了就不会再往下划了"。</p>
+<p>说的在理，收集周刊素材其实和刷抖音类似，我只需在我有限的放松间隙中，收集一些互联网上新鲜、有趣的事物分享给我的读者即可，收集累了就可以结束。</p>
+<p>在这个信息爆炸的时代，愿你能避免陷入过度消费内容的陷阱，充分享受互联网的福利。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.你这辈子遇到的人，基本不会真正喜欢、在乎你。哪怕当下感情好、关系好，那是暂时的，不可能一辈子。 别对人际关系抱过高期望，不然你一定会失望。人一定要自强不息，你几乎所有的人际关系，都是建立在「你对他人有价值」这一前提下。把时间和精力专注在自己变强这件事上，而不是用来讨别人喜欢。</p>
+<p>2.人一生的长度并不是看寿命的长短，而是经历的丰富程度。躺在床上无所事事地刷手机，一天很快就过去了，感觉啥也没干，其实就相当于这一天白活了。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>我的工作流中，收集素材使用的软件是<a href="https://cubox.pro/">Cubox</a>。我从去年就开始使用这款软件了，收集了近乎半年，里面的内容又乱又多。在5月22号的晚上，我花了一整个晚上，将里面不会再用到的素材归档，并给未来可能还会使用的素材打上标签，方便我之后查阅。原本链享这一部分，只推荐2个有趣的网站，鉴于上周日整理了收集箱的缘故，故本次推荐5(3+2)个有趣的网站，前3个是我从过去半年的收集中精挑细选的内容。</p>
+<p>你也可以尝试使用这款收集素材软件，但是这款软件不适合有拖延症的群体，因为只要一个礼拜不整理，你的收集箱就会变成垃圾堆，需要你花费很多时间来打理。我使用这款软件的宗旨就是天天清。</p>
+<p>1.<a href="https://www.timemailer.cn/#/">时光邮局</a></p>
+<p>临近毕业，不妨给未来的自己写封信，这个学期的大学生心理健康教育课程就要求给未来的自己写一封信。我在3月份的时候已经在此站点投递了信件。期待明年收到今年3月份信件时候的情景。</p>
+<p><img src="https://imgs.zhubai.love/1d16206380134b928ab1d6b01ad01e3e.png" alt="时光邮局样例图"></p>
+<p>2.<a href="https://earthly-tools.com/text-mode?url=">text-mode</a></p>
+<p>以纯文本的形式来查看网页，只需在地址栏中的<code>url=</code>后面输入你想要查看的网站地址。</p>
+<p><img src="https://imgs.zhubai.love/38d4d56a546b49768fd155af58db8b04.png" alt="text-mode样例图"></p>
+<p>3.<a href="https://www.pawmenow.com/what-dogs-can-eat/">What Human Foods are Healthy for Dogs to Eat?</a></p>
+<p>判断哪些人类的食物给狗吃是健康的的站点，如我输入rice【米饭】，出现了如下图所示的提示信息。</p>
+<p><img src="https://imgs.zhubai.love/10a11c9f5bc8443191176fb3cf865ab8.png" alt="What Human Foods are Healthy for Dogs to Eat?样例图"></p>
+<p><img src="https://imgs.zhubai.love/192225b7c228465bbe6fac52a91fb264.png" alt="英语词汇图"></p>
+<p>4.<a href="https://emojied.net/">emojied</a></p>
+<p><img src="https://imgs.zhubai.love/79d019032c7946d7adc251f5c14319da.png" alt="emojied样例图"></p>
+<p>使用表情符号缩短你的链接。如我的个人博客的链接为<code>https://jiakai.page</code>，经过这个站点的转换后就是<code>https://emojied.net/😉🙃😌😨😍😰</code>。</p>
+<p>5.<a href="https://batnoter.com/">batnoter</a></p>
+<p>一款开源的、基于Markdown语法的、自托管至GitHub的笔记Web应用程序，可以当做自己的随机本使用。【注：这款应用一开始名叫gitnoter，后来改名为了batnoter】</p>
+<p><img src="https://imgs.zhubai.love/14896a6009f24c3bb626ba4abd1ef6ab.png" alt="batnoter样例图"></p>
+<p>记录完笔记保存后，会自动同步至GitHub仓库。</p>
+<p><img src="https://imgs.zhubai.love/ef6b62b942d94c9b91d3b32f69b5c121.png" alt="batnoter同步GitHub效果图"></p>
+<p>我会在自己不忙时，使用这款软件，记录自己遇见的有趣、新鲜的事物。自己忙碌时，还是会使用Cubox来对有趣、新鲜的事物进行收藏，待自己空闲时整理。</p>
+<h2 id="趣事"><a aria-hidden="true" tabindex="-1" href="#趣事"><span class="icon icon-link"></span></a>😋趣事</h2>
+<p>1.川宝一条有意思的Truth。</p>
+<p><img src="https://imgs.zhubai.love/01aeb71a1ead485884ce69e0bae4949a.png" alt="川宝的动态"></p>
+<p>译文：</p>
+<blockquote>
+<p>我从韩国收了数十亿美元，为了让他们，一个非常富有的国家，为他们的军事保护支付一些钱。拜登就这么走了，什么也没要。他们认为我们太愚蠢了。</p>
+</blockquote>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[这很不开源 #7]]></title>
+        <id>https://gujiakai.top/2022/05/weekly-issue-07</id>
+        <link href="https://gujiakai.top/2022/05/weekly-issue-07"/>
+        <updated>2022-05-16T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第7期的「周见」，本期的主题是「这很不开源」。</p>
+<p><img src="https://imgs.zhubai.love/ea840a601b224045817b374008ed408a.png" alt="封面图：Gitee仓库现状—“推动中国开源生态建设”"></p>
+&#x3C;center>&#x3C;b>封面图：Gitee仓库现状—“推动中国开源生态建设”&#x3C;/b>&#x3C;/center>
+<p><strong>周刊BGM【520专属】</strong></p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="-本期话题这很不开源"><a aria-hidden="true" tabindex="-1" href="#-本期话题这很不开源"><span class="icon icon-link"></span></a>📝 本期话题：这很不开源</h2>
+<p><img src="https://imgs.zhubai.love/b03749a1b57f484d95d868067914333a.png" alt="Gitee官方在知乎发表关于代码审核事件的回复"></p>
+<p>以上是Gitee官方对于开源仓库先审再上线措施的回复。对于此，我失望透顶。</p>
+<p>Gitee此举也是被逼无奈，工信部要求平台对于平台上的所有内容负责，于是Gitee的管理层就出了这样一个脑瘫举措。</p>
+<p>3月底的封禁图床，5月底的仓库先审再上线，Gitee这一连串操作，让我对于国产品牌的信任度再次下降。</p>
+<p>B站up主—花果山大圣，为此专门制作了一个讽刺视频—<a href="https://www.bilibili.com/video/BV16R4y1c7sf">如果程序员做开源需要去营业厅审核</a>。😄😄😄</p>
+<p>Gitee的这个举措，被网友讽刺非必要不开源😅。说的再多也没用，毕竟这只是我的一家之言，每个人都有自己独特的见解，我希望阅读我文字的读者能独立思考，作出自己的判断。</p>
+<p>更多回答，可见知乎上关于这个问题的探讨。<a href="https://www.zhihu.com/question/533388365">如何看待 5 月 18 日 Gitee 仓库开源须审核，已开源部分仓库暂时关闭，审核通过后再次公开？</a></p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.颜值决定了能不能开始，性格决定了能不能长久。</p>
+<p>2.程序员经历的几个阶段</p>
 <ul>
-<li>step1</li>
+<li>努力学技术</li>
+<li>用技术换影响力</li>
+<li>用影响力换💰</li>
 </ul>
-<p>Install Hugo</p>
-<p>you can find more information in offical Hugo docs <a href="https://gohugo.io/installation/">Installation</a> or Youtuber-Mike Dane's <a href="https://www.youtube.com/playlist?list=PLLAZ4kZ9dFpOnyRlyS-liKL5ReHDcj4G3">Tutorials about Hugo</a>.</p>
-<ul>
-<li>step2</li>
-</ul>
-<p>Create a Hugo website.</p>
-<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line"><span class="token comment"># new a Hugo website</span>
-</span><span class="code-line">hugo new site your_site_name
-</span><span class="code-line"><span class="token comment"># enter the site folder</span>
-</span><span class="code-line"><span class="token builtin class-name">cd</span> your_site_name
-</span><span class="code-line"><span class="token comment"># initialize a new git repo</span>
-</span><span class="code-line"><span class="token function">git</span> init
-</span><span class="code-line"><span class="token comment"># add an external git repo(themes/hugo-theme-simple) as a submodule to this git repo</span>
-</span><span class="code-line"><span class="token comment"># when a git repo contains a nested sub-git repo, use submodule has many advantages</span>
-</span><span class="code-line"><span class="token function">git</span> submodule <span class="token function">add</span> https://github.com/simple-is-awesome/Hugo-Theme-Simple.git themes/hugo-theme-simple
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://lofifm.vercel.app/">lofifm</a></p>
+<p>又一个免费的lofi音乐的站点，可以在自习时带上耳机，充当白噪音使用，给枯燥的学习增添一丝乐趣。</p>
+<p><img src="https://imgs.zhubai.love/9b0110e21fa145249c4b4174f7c8d1c2.png" alt="lofifm样例图"></p>
+<p>2.<a href="https://github.com/chubin/wttr.in">命令行查看天气</a></p>
+<pre class="language-powershell"><code class="language-powershell code-highlight"><span class="code-line"><span class="token comment"># 查看南京市的天气</span>
+</span><span class="code-line">curl wttr<span class="token punctuation">.</span>in/Nanjing
+</span><span class="code-line"><span class="token comment"># 查看南通市海门区的天气情况</span>
+</span><span class="code-line">curl wttr<span class="token punctuation">.</span>in/Haimen
+</span><span class="code-line"><span class="token comment"># 查看河南驻马店市的天气情况</span>
+</span><span class="code-line">curl wttr<span class="token punctuation">.</span>in/Zhumadian
+</span><span class="code-line"><span class="token comment"># 查看无锡市的天气情况</span>
+</span><span class="code-line">curl wttr<span class="token punctuation">.</span>in/Wuxi
 </span></code></pre>
-<ul>
-<li>step3</li>
-</ul>
-<p>Copy the exampleSite folder to your Hugo site root folder and replace the default files. Please delete the CNAME file, as it is used to customize the domain name in GitHub. I recommend using Netlify or Vercel to deploy your blog, as they are more convenient than GitHub Pages.</p>
-<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line">hugo server
-</span></code></pre>
-<p>You can see the gif below, which shows the step2 and step3:</p>
-&#x3C;img src="https://github.com/simple-is-awesome/Hugo-Theme-Simple/blob/main/static/images/hugo_step2_step3.gif?raw=true" width="800px" alt="step2 and step3 demo">
-<ul>
-<li>step4</li>
-</ul>
-<p>Adjust the options in config.toml.</p>
-<ul>
-<li>step5</li>
-</ul>
-<p>There are some commands you need to know.</p>
-<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line"><span class="token comment"># create a new page</span>
-</span><span class="code-line">hugo new xxx.md
-</span><span class="code-line"><span class="token comment"># create a new blog in blog folder</span>
-</span><span class="code-line">hugo new blog/xxx.md
-</span></code></pre>
-<ul>
-<li>
-<p>step6</p>
-<ul>
-<li>
-<p>Add、Commit and Push your repo to GitHub.</p>
-</li>
-<li>
-<p>Import your GitHub repo to Netlify or Vercel to enjoy auto deployment. You can find more information in Hugo official docs <a href="https://gohugo.io/hosting-and-deployment/">Hosting &#x26; Deployment</a> or other resources On the Internet.</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>Happy blogging! :blush: :blush: :blush:</p>
-<h2 id="license"><a aria-hidden="true" tabindex="-1" href="#license"><span class="icon icon-link"></span></a>License</h2>
-<p>MIT</p>]]></summary>
+<p>当然，输入以上命令的前提是你的电脑上安装好了curl这一命令行工具，具体安装方法可以自行搜索。</p>
+<p>南京市的天气预报图：</p>
+<p><img src="https://imgs.zhubai.love/b87cd06062984456801268191a33b746.png" alt="wttr.in样例图"></p>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hugo主题simple中文版说明]]></title>
-        <id>https://demo.njxzc.top/2023/03/chinese-readme-of-hugo-theme-simple</id>
-        <link href="https://demo.njxzc.top/2023/03/chinese-readme-of-hugo-theme-simple"/>
-        <updated>2023-03-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[&#x3C;h1 align=center>Hugo-Theme-Simple | &#x3C;a href="https://hugo.njxzc.top" target="_blank">Demo&#x3C;/a>&#x3C;/h1>
-&#x3C;p align="center">
-&#x3C;img src="https://vip2.loli.io/2023/03/15/9LJ1QX8kKZrRtwA.webp" alt="Simple quote">
-&#x3C;/p>
-<p><a href="https://github.com/simple-is-awesome/Hugo-Theme-Simple/blob/main/README.md">English version</a></p>
-<h2 id="介绍"><a aria-hidden="true" tabindex="-1" href="#介绍"><span class="icon icon-link"></span></a>介绍</h2>
-<p>Hugo Theme Simple是一款简约的Hugo博客主题，采用Bootstrap+Lightbox+jQuery构建完成。</p>
-<p>孔子曾经说过：“生活本来就很简单，但我们总是喜欢把它变得复杂。”秉承这个观念，我们的目标是回归博客的本质，重新发掘它最初的魅力。这个主题体现了简约与优雅，让你能够专注于真正重要的事物 - 你的内容。</p>
-<h2 id="截图"><a aria-hidden="true" tabindex="-1" href="#截图"><span class="icon icon-link"></span></a>截图</h2>
-<p><img src="https://vip2.loli.io/2023/03/16/bRuOzHDndLXm8kT.webp" alt="Screenshot"></p>
-<h2 id="主题优点"><a aria-hidden="true" tabindex="-1" href="#主题优点"><span class="icon icon-link"></span></a>主题优点</h2>
+        <title type="html"><![CDATA[如何高效备战考研？ #5]]></title>
+        <id>https://gujiakai.top/2022/05/weekly-issue-05</id>
+        <link href="https://gujiakai.top/2022/05/weekly-issue-05"/>
+        <updated>2022-05-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第5期的「周见」，本期的主题是「如何高效备战考研？」。</p>
+<p><img src="https://imgs.zhubai.love/b480f536aef7429ca0eebbb0420fb228.png" alt="封面图：摊开的书籍"></p>
+&#x3C;center>&#x3C;b>封面图：摊开的书籍&#x3C;/b>&#x3C;/center>
+<p><strong>周刊BGM</strong></p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="-本期话题如何高效备战考研"><a aria-hidden="true" tabindex="-1" href="#-本期话题如何高效备战考研"><span class="icon icon-link"></span></a>📝 本期话题：如何高效备战考研？</h2>
+<p>近期，我发现自己备战考研刷数学题越刷越迷茫了，越到后面，做不出来的题目越来越多。</p>
+<p>题目做不出来的原因不外乎两点。</p>
 <ul>
-<li>
-<p>响应式</p>
-</li>
-<li>
-<p>清爽大气</p>
-</li>
-<li>
-<p>快速</p>
-</li>
+<li>题目难度提升</li>
+<li>自己基础掌握不牢</li>
 </ul>
-<h2 id="使用方法"><a aria-hidden="true" tabindex="-1" href="#使用方法"><span class="icon icon-link"></span></a>使用方法</h2>
-<ul>
-<li>步骤一</li>
-</ul>
-<p>安装hugo</p>
-<p>你可以在hugo的官方文档 <a href="https://gohugo.io/installation/">Installation</a> 或者 Youtuber-Mike Dane的 <a href="https://www.youtube.com/playlist?list=PLLAZ4kZ9dFpOnyRlyS-liKL5ReHDcj4G3">关于hugo的教学视频</a>找到更多关于本部分的内容。</p>
-<ul>
-<li>步骤二</li>
-</ul>
-<p>创建一个hugo站点</p>
-<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line"><span class="token comment"># 新建一个hugo站点</span>
-</span><span class="code-line">hugo new site your_site_name
-</span><span class="code-line"><span class="token comment"># 进入hugo站点目录</span>
-</span><span class="code-line"><span class="token builtin class-name">cd</span> your_site_name
-</span><span class="code-line"><span class="token comment"># 初始化git仓库</span>
-</span><span class="code-line"><span class="token function">git</span> init
-</span><span class="code-line"><span class="token comment"># 将themes/hugo-theme-simple作为子模块添加到当前的git仓库</span>
-</span><span class="code-line"><span class="token comment"># 当一个git仓库包含另一个git仓库时，使用子模块有很多好处</span>
-</span><span class="code-line"><span class="token function">git</span> submodule <span class="token function">add</span> https://github.com/simple-is-awesome/Hugo-Theme-Simple.git themes/hugo-theme-simple
-</span></code></pre>
-<ul>
-<li>步骤三</li>
-</ul>
-<p>将hugo-theme-simple
-文件夹中的exampleSite文件夹的内容复制到hugo站点的根目录并替换掉默认的文件。记得删除掉CNAME文件，因为这个文件是我用来在GitHub pages上自定义域名的。我个人更推荐你使用Netlify或者Vercel来部署你的个人博客，因为它们比GitHub pages更方便。</p>
-<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line"><span class="token comment"># 启动一个本地的web服务器，来实时预览hugo生成的站点</span>
-</span><span class="code-line">hugo server
-</span></code></pre>
-<p>你可以看以下的gif动图，这张动图展示了步骤二和步骤三的操作流程：</p>
-&#x3C;img src="https://github.com/simple-is-awesome/Hugo-Theme-Simple/blob/main/static/images/hugo_step2_step3.gif?raw=true" width="800px" alt="step2 and step3 demo">
-<ul>
-<li>步骤四</li>
-</ul>
-<p>调整config.toml文件中的选项。</p>
-<ul>
-<li>步骤五</li>
-</ul>
-<p>一些你需要知道的hugo命令。</p>
-<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line"><span class="token comment"># 新建一个页面</span>
-</span><span class="code-line">hugo new xxx.md
-</span><span class="code-line"><span class="token comment"># 在blog文件夹下新建一篇博文</span>
-</span><span class="code-line">hugo new blog/xxx.md
-</span></code></pre>
-<ul>
-<li>
-<p>步骤六</p>
-<ul>
-<li>添加、提交、推送本地的git仓库到GitHub</li>
-<li>将git仓库导入到Netlify或者Vercel，来享受自动部署的乐趣。你可以在hugo官方文档的 <a href="https://gohugo.io/hosting-and-deployment/">Hosting &#x26; Deployment</a> 章节或者网上的其他资源处找到更多关于部署的相关信息。</li>
-</ul>
-</li>
-</ul>
-<p>祝写博客愉快！:blush: :blush: :blush:</p>
-<h2 id="许可证"><a aria-hidden="true" tabindex="-1" href="#许可证"><span class="icon icon-link"></span></a>许可证</h2>
-<p>MIT</p>]]></summary>
+<p>昨天晚上，我停下了继续刷题的脚步，转向开始复习前面做过的错题。此外，我也询问了成绩较好的大哥，向别人取取经。</p>
+<p><img src="https://imgs.zhubai.love/11a50b7097c34b69a6daeaec540e6a8b.png" alt="学霸经验分享图一"></p>
+<p>这是大哥的备战技巧。我还询问了大哥刷的是哪本习题集，大哥说目前还没刷题，一直在巩固基础。大哥的进度是数学只剩概率论了，而我的进度是高数进行到定积分，线代、概率论还没开始，我有些着急，暗下决心明天开始加快自己的复习进度。以下是大哥给我的忠告。</p>
+<p><img src="https://imgs.zhubai.love/805425a746ce446e887ff2f79304c361.png" alt="学霸经验分享图二"></p>
+<p>但是也不要太过揠苗助长，要保持自己的节奏，不要被别人影响，不能因为大哥的进度过快，我就囫囵吞枣，企图追上大哥的速度。只需做到每天复习充实、无愧自己即可。</p>
+<p>和大哥的交谈中，我发现大哥有每天运动的习惯。我已经荒废运动差不多快1年了，自从大二下体育2400米考试结束后，就再也没有逼自己坚持运动。</p>
+<p>运动不是我的爱好，我以前只是将它作为自己体育课高分的筹码；现在我将它视为自己释放压力的方式。只要不下雨，争取每天都去跑1000米。不知道屏幕前的你，是否有每天运动的习惯，如果没有的话，建议坚持21天，将它变为自己的习惯。释放压力的同时也为自己的健康打下基础。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.我们真正想要的是，有利于自己利益的言论多一些自由，同时希望不利于自己的言论少一些自由。<a href="https://www.bilibili.com/video/BV1mr4y1b7xM">via</a></p>
+<p>2.当遇到对的人何必要浪费时间。<a href="https://www.bilibili.com/video/BV1Ku411v7GS">via</a></p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://qwerty.cooleryue.cn/">Qwerty Learner</a></p>
+<p>为键盘工作者设计的单词记忆与英语肌肉锻炼软件。既能锻炼你的打字能力，又能背单词，一举两得。😄</p>
+<p><img src="https://imgs.zhubai.love/1cf3d72508ca4ebc9104fcca720f71fa.png" alt="Qwerty Learner样例图"></p>
+<p>(我进行一轮单词背诵的数据)</p>
+<p>2.<a href="https://www.similarsites.com/">similarsites</a></p>
+<p>一个能帮你寻找“相似的网站”的网站。如我在搜索框中输入了'4399.com'，接着，这个站点就罗列出一堆与4399小游戏类似的网站，其中7k7k小游戏和4399小游戏的相似度最高。</p>
+<p><img src="https://imgs.zhubai.love/93b148eb07ff4562b43668b87fc7bda2.png" alt="similarsites演示搜索4399小游戏类似的站点"></p>
+<p>✍️ 原本想完全放弃周刊，一门心思专注考研了。但是想了想，还是进行了这一期周刊。因为我每天几乎有十几个小时泡在自习室中，时间较为充裕，一个礼拜挤出2-3个小时完成周刊的创作，绰绰有余。</p>
+<p>✨ 我相信自己的效率，我也坚信坚持周刊创作会在潜移默化中让我爱上写作。若干年后，当我翻阅自己稚嫩的文字时，我想我会被曾经的自己感动。</p>
+<h2 id="周一愉快"><a aria-hidden="true" tabindex="-1" href="#周一愉快"><span class="icon icon-link"></span></a>周一愉快。😆</h2>]]></summary>
     </entry>
     <entry>
-        <title type="html"><![CDATA[GitHub Flavored Markdown语法]]></title>
-        <id>https://demo.njxzc.top/2023/03/github-flavored-markdown</id>
-        <link href="https://demo.njxzc.top/2023/03/github-flavored-markdown"/>
-        <updated>2023-03-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>代码：</p>
-<pre><code class="code-highlight"><span class="code-line">&#x3C;details>
-</span><span class="code-line">&#x3C;summary>
-</span><span class="code-line">
-</span><span class="code-line">## close demo
-</span><span class="code-line">&#x3C;/summary>
-</span><span class="code-line">This is a default hidden place.
-</span><span class="code-line">&#x3C;/details>
-</span></code></pre>
-<p>效果：</p>
-&#x3C;details>
-&#x3C;summary>
-<h2 id="close-demo"><a aria-hidden="true" tabindex="-1" href="#close-demo"><span class="icon icon-link"></span></a>close demo</h2>
-&#x3C;/summary>
-This is a default hidden place.
-&#x3C;/details>
-<p>代码：</p>
-<pre><code class="code-highlight"><span class="code-line">&#x3C;details>
-</span><span class="code-line">&#x3C;summary open>
-</span><span class="code-line">
-</span><span class="code-line">## open demo
-</span><span class="code-line">&#x3C;/summary>
-</span><span class="code-line">This is a default open place.
-</span><span class="code-line">&#x3C;/details>
-</span></code></pre>
-<p>效果：</p>
-&#x3C;details open>
-&#x3C;summary>
-<h2 id="open-demo"><a aria-hidden="true" tabindex="-1" href="#open-demo"><span class="icon icon-link"></span></a>open demo</h2>
-&#x3C;/summary>
-This is a default open place.
-&#x3C;/details>]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[最伟大的作品]]></title>
-        <id>https://demo.njxzc.top/2023/03/the-greatest-work-of-all</id>
-        <link href="https://demo.njxzc.top/2023/03/the-greatest-work-of-all"/>
-        <updated>2023-03-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>哥穿着复古西装</p>
-<p>拿着手杖弹着魔法乐章</p>
-<p>漫步走在莎玛丽丹</p>
-<p>被岁月翻新的时光</p>
-<p>望不到边界的帝国</p>
-<p>用音符筑成的王座</p>
-<p>我用琴键穿梭1920错过的不朽</p>
-<p>啊偏执是那马格利特</p>
-<p>被我变出的苹果</p>
-<p>超现实的是我</p>
-<p>还是他原本想画的小丑</p>
-<p>不是烟斗的烟斗</p>
-<p>脸上的鸽子没有飞走</p>
-<p>请你记得</p>
-<p>他是个画家不是什么调酒</p>
-<p>达利翘胡是谁给他的思索</p>
-<p>弯了汤匙借你灵感不用还我</p>
-<p>融化的是墙上时钟还是乳酪</p>
-<p>龙虾电话那头你都不回我</p>
-<p>浪荡是世俗画作里最自由不拘的水墨</p>
-<p>花都优雅的双腿是这宇宙笔下的一抹</p>
-<p>漂洋过海的乡愁种在一无所有的温柔</p>
-<p>寂寞的枝头才能长出常玉要的花朵</p>
-<p>小船静静往返</p>
-<p>马谛斯的海岸</p>
-<p>星空下的夜晚</p>
-<p>交给梵谷点燃</p>
-<p>梦美的太短暂</p>
-<p>孟克桥上呐喊</p>
-<p>这世上的热闹</p>
-<p>出自孤单</p>
-<p>花园流淌的阳光</p>
-<p>空气摇晃着花香</p>
-<p>我请莫内帮个忙</p>
-<p>能不能来张自画像</p>
-<p>大师眺望着远方</p>
-<p>研究色彩的形状</p>
-<p>突然回头要我说说</p>
-<p>我对我自己的印象</p>
-<p>世代的狂</p>
-<p>音乐的王</p>
-<p>万物臣服在我乐章</p>
-<p>路还在闯</p>
-<p>我还在创</p>
-<p>指尖的旋律在渴望</p>
-<p>世代的狂</p>
-<p>音乐的王</p>
-<p>我想我不需要画框</p>
-<p>它框不住琴键的速度</p>
-<p>我的音符全部是未来艺术</p>
-<p>日出在印象的港口来回</p>
-<p>光线唤醒了睡着的花叶</p>
-<p>草地正为一场小雨欢悦</p>
-<p>我们彼此深爱这个世界</p>
-<p>停在康桥上的那只蝴蝶</p>
-<p>飞往午夜河畔的翡冷翠</p>
-<p>遗憾被偶然藏在了诗页</p>
-<p>是微笑都透不进的世界</p>
-<p>巴黎的鳞爪</p>
-<p>感伤的文法</p>
-<p>要用音乐翻阅</p>
-<p>晚风的灯下</p>
-<p>旅人的花茶</p>
-<p>我换成了咖啡</p>
-<p>之后他就</p>
-<p>爱上了苦涩这个复杂词汇</p>
-<p>因为这才是挥手</p>
-<p>向云彩道别的滋味</p>
-<p>小船静静往返</p>
-<p>马谛斯的海岸</p>
-<p>星空下的夜晚</p>
-<p>交给梵谷点燃</p>
-<p>梦美的太短暂</p>
-<p>孟克桥上呐喊</p>
-<p>这世上的热闹</p>]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[我在这]]></title>
-        <id>https://demo.njxzc.top/2023/03/i-am-here</id>
-        <link href="https://demo.njxzc.top/2023/03/i-am-here"/>
-        <updated>2023-03-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>才一转眼 就这些年</p>
-<p>无邪的岁月 还刻在眉间</p>
-<p>温柔却坚决 懂得但无言</p>
-<p>你让我知道爱不必论条件</p>
-<p>更远地平线 在未知那边</p>
-<p>我必须告别 才能再发现</p>
-<p>你这边几点 我的月未圆</p>
-<p>你脚下影子 是我的思念</p>
-<p>我在这 在勇敢新世界 要一往无前</p>
-<p>那是你眼泪里的温热 我不能胆怯</p>
-<p>我在这 我就在你身边 其实并没有走远</p>
-<p>轻抚你的脸 微风就是我指尖</p>
-<p>新地平线 在未知那边</p>
-<p>不能太安全 才有发现</p>
-<p>你这边几点 我的月未圆</p>
-<p>信守这个心愿 约定再见</p>
-<p>我在这 在勇敢新世界 要一往无前</p>
-<p>那是你眼泪里的温热 我不能胆怯</p>
-<p>我在这 我就在你身边 其实并没有走远</p>
-<p>轻抚你的脸 微风就是我指尖</p>
-<p>珍惜当下 在哪也能开花</p>
-<p>不必害怕 命运的分岔</p>
-<p>无论我们在哪 心意也能感应吧</p>
-<p>寂寞也是好的 让人长大</p>
-<p>我在这 在勇敢新世界 呼喊你一遍</p>
-<p>那是你眼泪里的温热 我不能胆怯</p>
-<p>我在这 我就在你身边 其实并没有走远</p>
-<p>轻抚你的脸 微风就是我指尖</p>
-<p>闭上你双眼 让我轻吻你的脸</p>]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[少年中国说]]></title>
-        <id>https://demo.njxzc.top/2023/03/young-chinese-said</id>
-        <link href="https://demo.njxzc.top/2023/03/young-chinese-said"/>
-        <updated>2023-03-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>少年富则国富</p>
-<p>少年强则国强</p>
-<p>少年自由则国自由</p>
-<p>少年智则国智</p>
-<p>少年富则国富</p>
-<p>少年强则国强</p>
-<p>少年自由则国自由</p>
-<p>红日初升其道大光</p>
-<p>河出伏流一泻汪洋</p>
-<p>潜龙腾渊鳞爪飞扬</p>
-<p>乳虎啸谷百兽震惶</p>
-<p>少年自有少年狂</p>
-<p>身似山河挺脊梁</p>
-<p>敢将日月再丈量</p>
-<p>今朝唯我少年郎</p>
-<p>敢问天地试锋芒</p>
-<p>披荆斩棘谁能挡</p>
-<p>世人笑我我自强</p>
-<p>不负年少</p>
-<p>少年智则国智</p>
-<p>少年富则国富</p>
-<p>少年强则国强</p>
-<p>少年自由则国自由</p>
-<p>干将发硎有作其芒</p>
-<p>天戴其苍地履其黄</p>
-<p>纵有千古横有八荒</p>
-<p>前途似海来日方长</p>
-<p>少年自有少年狂</p>
-<p>身似山河挺脊梁</p>
-<p>敢将日月再丈量</p>
-<p>今朝唯我少年郎</p>
-<p>敢问天地试锋芒</p>
-<p>披荆斩棘谁能挡</p>
-<p>世人笑我我自强</p>
-<p>不负年少</p>
-<p>少年自有少年狂</p>
-<p>心似骄阳万丈光</p>
-<p>千难万挡我去闯</p>
-<p>今朝唯我少年郎</p>
-<p>天高海阔万里长</p>
-<p>华夏少年意气扬</p>
-<p>发愤图强做栋梁</p>
-<p>不负年少</p>
-<p>发愤图强做栋梁</p>
-<p>不负年少</p>]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[听妈妈的话]]></title>
-        <id>https://demo.njxzc.top/2023/03/listen-to-your-mother</id>
-        <link href="https://demo.njxzc.top/2023/03/listen-to-your-mother"/>
-        <updated>2023-03-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>小朋友 你是否有很多问号</p>
-<p>为什么 别人在那看漫画</p>
-<p>我却在学画画 对着钢琴说话</p>
-<p>别人在玩游戏</p>
-<p>我却靠在墙壁背我的 ABC</p>
-<p>我说我要一台大大的飞机</p>
-<p>但却得到一台旧旧录音机</p>
-<p>为什么要听妈妈的话</p>
-<p>长大后你就会开始懂了这段话</p>
-<p>哼</p>
-<p>长大后我开始明白</p>
-<p>为什么我 跑得比别人快</p>
-<p>飞得比别人高</p>
-<p>将来大家看的都是我画的漫画</p>
-<p>大家唱的都是 我写的歌</p>
-<p>妈妈的辛苦 不让你看见</p>
-<p>温暖的食谱在她心里面</p>
-<p>有空就多多握握她的手</p>
-<p>把手牵着一起梦游</p>
-<hr>
-<p>听妈妈的话 别让她受伤</p>
-<p>想快快长大 才能保护她</p>
-<p>美丽的白发 幸福中发芽</p>
-<p>天使的魔法 温暖中慈祥</p>
-<hr>
-<p>在你的未来</p>
-<p>音乐是你的王牌</p>
-<p>拿王牌谈个恋爱</p>
-<p>唉 我不想把你教坏</p>
-<p>还是听妈妈的话吧</p>
-<p>晚点再恋爱吧</p>
-<p>我知道你未来的路</p>
-<p>但妈比我更清楚</p>
-<p>你会开始学其他同学</p>
-<p>在书包写东写西</p>
-<p>但我建议最好写妈妈</p>
-<p>我会用功读书</p>
-<p>用功读书</p>
-<p>怎么会从我嘴巴说出</p>
-<p>不想你输</p>
-<p>所以要叫你用功读书</p>
-<p>妈妈织给你的毛衣</p>
-<p>你要好好的收着</p>
-<p>因为母亲节到的时候</p>
-<p>我要告诉她我还留着</p>
-<p>对了 我会遇到了周润发</p>
-<p>所以你可以跟同学炫耀</p>
-<p>赌神未来是你爸爸</p>
-<p>我找不到 童年写的情书</p>
-<p>你写完不要送人</p>
-<p>因为过两天你会在操场上捡到</p>
-<p>你会开始喜欢上流行歌</p>
-<p>因为张学友开始准备唱吻别</p>
-<p>听妈妈的话 别让她受伤</p>
-<p>想快快长大 才能保护她</p>
-<p>美丽的白发 幸福中发芽</p>
-<p>天使的魔法 温暖中慈祥</p>
-<p>听妈妈的话 别让她受伤</p>
-<p>想快快长大 才能保护她</p>
-<p>长大后我开始明白</p>
-<p>为什么我 跑得比别人快</p>
-<p>飞得比别人高</p>
-<p>将来大家看的都是我画的漫画</p>
-<p>大家唱的都是 我写的歌</p>
-<p>妈妈的辛苦 不让你看见</p>
-<p>温暖的食谱在她心里面</p>
-<p>有空就多多握握她的手</p>
-<p>把手牵着一起梦游</p>
-<hr>
-<p>听妈妈的话 别让她受伤
-想快快长大 才能保护她
-美丽的白发 幸福中发芽
-天使的魔法 温暖中慈祥</p>]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[面朝大海，春暖花开]]></title>
-        <id>https://demo.njxzc.top/2023/03/facing-the-sea-bloomy-spring</id>
-        <link href="https://demo.njxzc.top/2023/03/facing-the-sea-bloomy-spring"/>
-        <updated>2023-03-21T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>从明天起，做一个幸福的人</p>
-<p>喂马，劈柴，周游世界</p>
-<p>从明天起，关心粮食和蔬菜</p>
-<p>我有一所房子，面朝大海，春暖花开</p>
-<p>从明天起，和每一个亲人通信</p>
-<p>告诉他们我的幸福</p>
-<p>那幸福的闪电告诉我的</p>
-<p>我将告诉每一个人</p>
-<p>给每一条河每一座山取一个温暖的名字</p>
-<p>陌生人，我也为你祝福</p>
-<p>愿你有一个灿烂的前程</p>
-<p>愿你有情人终成眷属</p>
-<p>愿你在尘世获得幸福</p>
-<p>我只愿面朝大海，春暖花开</p>]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[When to Use Static Generation v.s. Server-side Rendering]]></title>
-        <id>https://demo.njxzc.top/2020/02/ssr-vs-ssg</id>
-        <link href="https://demo.njxzc.top/2020/02/ssr-vs-ssg"/>
-        <updated>2020-02-02T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>We recommend using <strong>Static Generation</strong> (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.</p>
-<p>You can use Static Generation for many types of pages, including:</p>
+        <title type="html"><![CDATA[你实现音乐自由了吗？ #6]]></title>
+        <id>https://gujiakai.top/2022/05/weekly-issue-06</id>
+        <link href="https://gujiakai.top/2022/05/weekly-issue-06"/>
+        <updated>2022-05-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第6期的「周见」，本期的主题是「你实现音乐自由了吗？」。</p>
+<p><img src="https://imgs.zhubai.love/03b479f874fa4e718345a749b703b845.jpg" alt="封面图：搁置一旁的耳机"></p>
+&#x3C;center>&#x3C;b>封面图：搁置一旁的耳机&#x3C;/b>&#x3C;/center>
+<p><strong>周刊BGM</strong></p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="-本期话题你实现音乐自由了吗"><a aria-hidden="true" tabindex="-1" href="#-本期话题你实现音乐自由了吗"><span class="icon icon-link"></span></a>📝 本期话题：你实现音乐自由了吗?</h2>
+<p>我想你一定碰到过音乐需要付费才可听的情形，国内的音乐巨头QQ音乐离谱到将周董的所有经典歌曲都标记为vip独享，为了赚钱真是脸都不要了。😮‍💨 周董是华语乐坛的领军人物，试想一下会有多少中国大陆的周董粉丝，为了听周董的歌而开会员。</p>
+<p>QQ音乐是中国大陆音乐版权最多的厂商，但其仗着自己手里的资源多，进行上述的捞钱行为令我反感。【上上个月，我脑袋一昏，为了听一首名为《星月糖》的歌曲，在QQ音乐开了会员，<del>以后应该不会再续了</del>，<strong>QQ音乐是本土最大的音乐平台，综合所有的音乐平台，其对于华语歌曲的支持度最高，有需求，肯定会续费！</strong>（补充于2022.11.12）】</p>
+<p><img src="https://imgs.zhubai.love/dbc6d4f68385459c95e285086c1fc3d8.png" alt="《星月糖》封面"></p>
+<p>网易云音乐里面同样也有vip才可听的歌曲......</p>
+<p>音乐与软件类似，开源有好处但也存在弊端。在音乐方面，如果用户能免费听、免费下载，用户便实现了音乐自由；但这种做法会让音乐创作者的权益受损，进而可能会打击音乐创作者的创作热情。在软件方面，如果开放了源代码，则软件的更新迭代速度会加快，但是同样可能会使得软件的原作者因无法获利，而放弃维护该项目。</p>
+<p>我支持免费听歌，付费下载的音乐厂商运营模式。平台收取一小部分的利润，其余的利润全交由音乐创作者。但是我坚决抵制上文提及的捞钱行为【QQ音乐将周董几乎所有的经典歌曲都标记为vip独享】。</p>
+<p>国外的spotify平台上，周董的歌曲是完全免费的。国内的咪咕音乐也将几乎所有的周董歌曲对外免费开放。唯独国内的QQ音乐仗着版权，疯狂捞金，我看不惯QQ音乐这种行为。</p>
+<p><img src="https://imgs.zhubai.love/4489f7ced749438c9c86db25e411cdf3.png" alt="知乎上关于音乐的讨论"></p>
+<p>上述的评论是国人内心的感慨，但从侧面也说明了国人版权意识不足的现状，当白嫖成为了一种习惯，就意味对创作者劳动成果的一次次掠夺。切记白嫖要适度，不要将白嫖当成一种理所应当的事！</p>
+<p>知乎上的这个回答，充分说明了目前音乐市场的现状，各大音乐厂商为了各自的利益，打着保护版权的旗号，在针锋相斗。<a href="https://www.zhihu.com/question/320564099/answer/1634954859">如何看待听音乐都要付费?</a></p>
+<p>真正的音乐自由是不存在的，音乐人也要吃饭的属性决定了其行不通。希望未来保护版权的同时，资本揽钱的口水也收一收，这样子国人才会乐意为好的音乐作品付费。</p>
+<p>GitHub是开源软件的天堂，SciHub是论文文献的天堂，那是否存在一个音乐天堂呢？怀着探索的心理，我在网上发现了<a href="https://www.music-hub.com/">MusicHub</a>，但这并不是音乐的天堂，而是一个为音乐家发布作品提供便利的站点。</p>
+<p>我又查了一下musichub的相关域名，好的域名早就被注册了，但musichub.com这个站点并没有启用。好的域名被囤积居奇，是时代的悲哀，但是又有什么办法呢？我的出生注定了我会错过域名那一波风口。</p>
+<p><img src="https://imgs.zhubai.love/3b70693116564714bc480cb1d02df67d.png" alt="查询musichub域名是否注册"></p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.如何变得没有效率？</p>
 <ul>
-<li>Marketing pages</li>
-<li>Blog posts</li>
-<li>E-commerce product listings</li>
-<li>Help and documentation</li>
+<li>整天坐在室内</li>
+<li>不做运动</li>
+<li>过度消费内容</li>
+<li>工作时把手机放在办公桌旁</li>
 </ul>
-<p>You should ask yourself: "Can I pre-render this page <strong>ahead</strong> of a user's request?" If the answer is yes, then you should choose Static Generation.</p>
-<p>On the other hand, Static Generation is <strong>not</strong> a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.</p>
-<p>In that case, you can use <strong>Server-Side Rendering</strong>. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.</p>]]></summary>
+<p>2.所有人开口闭口绩点排名，国一国二，没有人热爱知识了，没有人想要弄明白问题了，每一个努力都必须能被写上简历，否则什么都不是。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://andisearch.com/">Andi</a></p>
+<p>Andi 是下一代的搜索引擎——给您带来对话式、匿名和无广告的搜索体验。 Andi 为您提供复杂问题的直接答案。 此外它还可以对抗垃圾邮件并保护您免受广告技术的侵害。</p>
+<p><img src="https://imgs.zhubai.love/7a6f0e82883e417c8e587217743e6f00.png" alt="Andi样例图"></p>
+<p>2.<a href="https://www.oldestsearch.com/">oldestsearch</a></p>
+<p>最旧的搜索引擎。</p>
+<p><img src="https://imgs.zhubai.love/4b421755bac24ab8aa4833920a8b1723.png" alt="oldestsearch样例图"></p>
+<p>搜出来的结果全是10年前抓取的页面快照。</p>
+<p><img src="https://imgs.zhubai.love/22dc6ab4268b49eab0314f59a1933240.png" alt="oldestsearch搜索4399的结果图"></p>
+<h2 id="明天工作日早些休息"><a aria-hidden="true" tabindex="-1" href="#明天工作日早些休息"><span class="icon icon-link"></span></a>明天工作日，早些休息。😆</h2>]]></summary>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Two Forms of Pre-rendering]]></title>
-        <id>https://demo.njxzc.top/2020/01/pre-rendering</id>
-        <link href="https://demo.njxzc.top/2020/01/pre-rendering"/>
-        <updated>2020-01-01T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="1two-forms-of-pre-rendering"><a aria-hidden="true" tabindex="-1" href="#1two-forms-of-pre-rendering"><span class="icon icon-link"></span></a>1、Two Forms of Pre-rendering</h2>
-<p>Next.js has two forms of pre-rendering: <strong>Static Generation</strong> and <strong>Server-side Rendering</strong>. The difference is in <strong>when</strong> it generates the HTML for a page.</p>
+        <title type="html"><![CDATA[你被信息茧房玩弄了嘛 #4]]></title>
+        <id>https://gujiakai.top/2022/04/weekly-issue-04</id>
+        <link href="https://gujiakai.top/2022/04/weekly-issue-04"/>
+        <updated>2022-04-29T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第4期的「周见」，本期的主题是「你被信息茧房玩弄了嘛？」。</p>
+<p><img src="https://imgs.zhubai.love/cc2b5f9493654e0aa6053df271ee11f2.jpg" alt="封面图：信息茧房"></p>
+&#x3C;center>&#x3C;b>封面图：信息茧房&#x3C;/b>&#x3C;/center>
+<h2 id="-本期话题你被信息茧房玩弄了嘛"><a aria-hidden="true" tabindex="-1" href="#-本期话题你被信息茧房玩弄了嘛"><span class="icon icon-link"></span></a>📝 本期话题：你被信息茧房玩弄了嘛？</h2>
+<p><em>什么是信息茧房？</em></p>
+<p><img src="https://imgs.zhubai.love/6b0b9493c87d44a8bce2abb1afa1d83f.png" alt="信息茧房的定义"></p>
+<p>在抖音、b站等网站上一直浏览一个话题，接着主页推送就充斥了关于这个话题的视频。这种场景，我相信你应该经历过。其背后的逻辑是推荐算法在起作用，这类似于淘宝的猜你喜欢。</p>
+<p>对于此，我的态度是不温不热，即持中立态度。因为这种推荐，有时候省去了我找此类视频的时间，此外这种推荐对于up主而言会获得流量加持，增加了up主视频的曝光度；但是有时候我也会对此反感，因为这种推荐加速了我的审美疲劳，同时，它也使得我日常获取有趣信息的可能性降低，即推荐算法将我封闭在某一领域中，我仿佛是一只春蚕，被技术做的茧给裹缚住。</p>
+<p>任由推荐算法给你作茧是可怕的，它会窄化你的眼界，让你沉迷于自己感兴趣的领域，而对于其它领域了解甚少。虽然互联网时代有搜索引擎的加持，我们无需再将自己打造成完人，不懂的知识去问搜索引擎，大部分问题都能解决。但是多了解其他领域的知识总没坏处。</p>
+<p>如何避免被信息茧房玩弄呢？</p>
 <ul>
-<li><strong>Static Generation</strong> is the pre-rendering method that generates the HTML at <strong>build time</strong>. The pre-rendered HTML is then <em>reused</em> on each request.</li>
-<li><strong>Server-side Rendering</strong> is the pre-rendering method that generates the HTML on <strong>each request</strong>.</li>
+<li>主动驯化推荐算法机器</li>
 </ul>
-<p>Importantly, Next.js lets you <strong>choose</strong> which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.</p>
-<h2 id="2nextjs中的ssr和ssg的区别与联系"><a aria-hidden="true" tabindex="-1" href="#2nextjs中的ssr和ssg的区别与联系"><span class="icon icon-link"></span></a>2、next.js中的ssr和ssg的区别与联系</h2>
-<p>Next.js 是一个流行的 React 框架，用于构建服务器渲染（SSR）和静态生成（SSG）网站。以下是 SSR 和 SSG 之间的主要区别和联系：</p>
+<p>我们可以利用推荐算法的特性，多浏览一些自己感兴趣的涵盖不同领域的视频，这样，推荐算法在给你推荐的时候，会多一些选择。主动驯化推荐算法机器，需要你自己转变对自己的定位。虽然推荐算法推荐给你信息，你是在被动接受，但是这种推荐是基于你主动驯化的结果，你的接受是伪被动接受。</p>
 <ul>
-<li>
-<p>服务器渲染（SSR，Server-Side Rendering）：</p>
-<p>每次页面请求时，服务器都会实时生成 HTML 内容，并将其发送给客户端。
-可以实现动态数据获取，更适用于需要实时更新数据的应用。
-对于 SEO（搜索引擎优化）和首屏加载性能有很好的支持。
-服务器负载较高，因为每个页面请求都需要服务器生成 HTML。
-可以通过使用缓存策略来减轻服务器负载，但需要额外的配置和管理。</p>
-</li>
-<li>
-<p>静态生成（SSG，Static Site Generation）：</p>
-<p>在构建时生成页面的 HTML，部署时将这些静态文件发送给客户端。
-适用于内容不经常更新的网站，如博客、文档等。
-对于 SEO（搜索引擎优化）和首屏加载性能有很好的支持。
-服务器负载较低，因为页面已经预先生成，无需在请求时生成。
-如果网站内容发生变化，需要重新构建并部署静态文件。</p>
-</li>
-<li>
-<p>联系：</p>
-<p>Next.js 支持在同一个应用程序中同时使用 SSR 和 SSG。可以根据每个页面的需求选择合适的渲染策略。
-两种方法都使用 React 进行页面的渲染，只是渲染的时间和地点有所不同。
-Next.js 提供了一些内置的函数（如 getStaticProps 和 getServerSideProps），以便在页面中获取数据并传递给组件。</p>
-</li>
-<li>
-<p>总结：Next.js 的 SSR 和 SSG 分别针对不同的应用场景。SSR 更适用于需要实时更新数据的应用，而 SSG 更适用于内容相对固定的网站。根据项目需求，可以灵活选择适合的渲染策略。</p>
-</li>
-</ul>]]></summary>
+<li>主动搜寻信息</li>
+</ul>
+<p>业余时间，自己可以多去关注一些网络上大牛的博客、公众号、周刊等信息源。他们的文字中可能会时不时地推荐一些新奇的玩意，接着你可以顺着人家的指引继续搜索，直至你觉得没必要进行下去为止，这类似于数据结构中的深度优先遍历。</p>
+<p>如有时候我会根据博主的超链接，去往一个GitHub仓库，粗略看一下仓库的简介，如果觉得这个仓库的项目很棒，我会点一个star。接着我会再看一下仓库主人的GitHub主页，如果有他个人网站的超链接，我就点进去一探究竟...... 总之，等你觉得是时候结束的时候，你再停下来搜索即可。</p>
+<p>以下是我在一份周刊中读到的语录，这段文字引起了我的共鸣。总而言之，无论是主动驯化推荐算法机器还是主动搜寻信息，重点都在主动二字上，避免信息茧房的有效方式就是你要主动，而非完全被动地接受推荐算法的推荐。</p>
+<p><img src="https://imgs.zhubai.love/f6160c5eca214b90ba0f4faed5a12d82.png" alt="重新掌握自己的信息"></p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.兴趣是最好的老师，没有兴趣就去培养它，否则不要进入这个行业。</p>
+<p>2.小的习惯让我们更容易坚持，也更容易对自己产生信心。</p>
+<p>3.全力改变那些可以改变的事情，平静接受那些无能为力的事情。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://nsfwjs.com/">nsfwjs</a></p>
+<p><em>什么是nsfw？</em></p>
+<p><img src="https://imgs.zhubai.love/1c709c04c5354adba05730727ae7c99b.png" alt="nsfw的定义"></p>
+<p>上述的站点可以鉴定黄色图像。在tg群中听群友说，该站点无法准确识别纸片人相关的色情图片。</p>
+<p>下图是我用该站点识别外国美女的图片。该图片的色情图为0.08%。大家可以拿出自己珍藏的美女图片测一测图片的色情度。😄😄😄</p>
+<p><img src="https://imgs.zhubai.love/cabf3f812f454938a80553f1b56a481c.png" alt="nsfwjs鉴黄效果图"></p>
+<p>2.<a href="https://findtheinvisiblecow.com/">findtheinvisiblecow</a></p>
+<p>一款有趣的浏览器端游戏，牛会隐藏在屏幕中，当你的鼠标离牛越近时，牛的声音会越响。提示：最终的鼠标会变成这种形状。👆</p>
+<p>再次点击即可找到隐藏的牛。🐮</p>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[对同质化说不 #3]]></title>
+        <id>https://gujiakai.top/2022/04/weekly-issue-03</id>
+        <link href="https://gujiakai.top/2022/04/weekly-issue-03"/>
+        <updated>2022-04-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第3期的「周见」，本期的主题是「对同质化说不」。</p>
+<p><img src="https://imgs.zhubai.love/d3a6813ee24643438c18757719f5a769.jpg" alt="封面图：夜色笼罩下的思索"></p>
+&#x3C;center>&#x3C;b>封面图：夜色笼罩下的思索&#x3C;/b>&#x3C;/center>
+<p><strong>周刊BGM</strong></p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<h2 id="-本期话题拒绝同质化"><a aria-hidden="true" tabindex="-1" href="#-本期话题拒绝同质化"><span class="icon icon-link"></span></a>📝 本期话题：拒绝同质化</h2>
+<p><em>什么是同质化？</em></p>
+<p><img src="https://imgs.zhubai.love/597f63b89e5449d38d2f9937369b488f.png" alt="同质化的定义"></p>
+<p>上大学前，一直听闻上了大学，自己可以自由选课，有更多选择的传言，但是上了大学后，发现现实并不是这样的。课表里面还是塞满了自己不喜欢的课程，因为不喜欢，所以学习的动力也就没有多少。</p>
+<p>这个礼拜看了一篇题名为<a href="http://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/">《中国高等教育的系统性失败》</a>的博文，这篇文章是作者对于知乎上一个<a href="https://www.zhihu.com/question/439622084/answer/1685314467">问题</a>的回答。</p>
+<p>我看了以后，很受触动。对于「<strong>进大学前唯分数论和同质化教育</strong>」这一点，个人深有感触。初高中分数考得高，只能证明你付出过，并不能说明什么，中考分流，过早地将中国的学生群体分层次，致使差距越拉越大，摆乱的同学愈摆愈烂。</p>
+<p>优秀不是用分数来评判的，而是自身的实力，即你能给社会带来多大的贡献。去年夏天，无意间点开了一个博主的<a href="https://www.dandyweng.com/">博客</a>，有被惊艳到。这里所谓的惊艳并不是因为其博客花里胡哨，而是因为这个博客是作者自己动手写的，根本没有套用现成的框架。</p>
+<p>这名博主叫翁天信，他自学成才，根本没有上过一天学，只从大自然和互联网获取自己感兴趣的知识。彻底脱离常规的教育体系，并不意味着他的桀骜不驯，反而使得他认识了自我，成为了自己想成为的样子。</p>
+<p>下图是我在他博客的评论区看到的语录。有些时候的离经叛道，并不一定会走向世界的对立面，反而可能会比寻常人活出更精彩的人生。</p>
+<p><img src="https://imgs.zhubai.love/3586f5b506944565b846b3729ca78895.png" alt="翁天信评论区的留言"></p>
+<p>回看我们走过的寻常路，同质化教育模糊了我们的目标。在同质化教育的环境中，我们并不清楚自己想要什么，未来要成为什么样的人，在社会上扮演什么样的角色。</p>
+<p>我是在大三上的时候才醒悟的，知道了未来我想成为一名程序员。如果你现在还处于迷茫阶段，不妨停下来想一想自己的追求，早点确定目标，并为之努力奋斗，不要再在照本宣科的大学课堂里面浪费时间了。</p>
+<p>如果未来中国还是目前这种同质化教育，我以后会考虑亲自教授我的孩子，让他早点掌握自主学习的能力，自己去学习自己感兴趣的知识，成为想成为的人，不会让他被同质化教育同化。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.名校最大的价值，不在于教育质量，而在于能为学生提供更多的机会。</p>
+<p>2.寻常路之所以寻常，是因为适合大多数人走。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://matching.name/">Mathing.name</a></p>
+<p>在搜索框中输入关键字，会生成最适合你的域名。比如我输入我的姓名，它给我推荐了.ai后缀的域名。</p>
+<p><img src="https://imgs.zhubai.love/b95ced852816457893c90b798b4eef85.png" alt="Mathing.name样例图"></p>
+<p>2.<a href="https://www.autopiano.cn/">自由钢琴</a></p>
+<p>在线钢琴，键盘钢琴，模拟钢琴，多种乐器选择，好听又好玩。对于钢琴盲的我而言，选择直接听演奏示例。比如这首林俊杰的<a href="https://www.autopiano.cn/midi/46812212798731">《江南》</a>。</p>
+<p><img src="https://imgs.zhubai.love/9ded9f5483c04f19bd750cd17af0d0d2.png" alt="自由钢琴样例图"></p>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[你经历过SEO污染吗？ #2]]></title>
+        <id>https://gujiakai.top/2022/04/weekly-issue-02</id>
+        <link href="https://gujiakai.top/2022/04/weekly-issue-02"/>
+        <updated>2022-04-15T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>欢迎打开第2期的「周见」，本期的主题是「你经历过SEO污染吗？」。</p>
+<p><img src="https://imgs.zhubai.love/4e95ba3f81d54b32ae29b66dec89e587.jpg" alt="封面图：没有生机的垃圾场"></p>
+&#x3C;center>&#x3C;b>封面图:没有生机的垃圾场&#x3C;/b>&#x3C;/center>
+<h2 id="-本期话题你经历过seo污染吗"><a aria-hidden="true" tabindex="-1" href="#-本期话题你经历过seo污染吗"><span class="icon icon-link"></span></a>📝 本期话题：你经历过SEO污染吗？</h2>
+<p>其实SEO污染就像上图的垃圾场污染环境一样，污染着互联网。</p>
+<p>首先解释一下什么是SEO污染，以下定义摘自百度百科。</p>
+<p><img src="https://imgs.zhubai.love/5296950acb7e4b91a6943e1660287521.png" alt="SEO污染的定义"></p>
+<p>前些天，看到了其他博主推荐的知乎话题<a href="https://www.zhihu.com/question/49684783/answer/2305132342">中文互联网的产出在渐渐枯萎吗？</a></p>
+<p>看了别人的回答，我深有体会，特别是像我这种计算机专业的学生，遇到问题，去问搜索引擎，结果搜出来一堆不堪入目的垃圾，心里面无比凄凉。程序员宝宝、程序员基地等等诸如此类的采集站是真的恶心。</p>
+<p>就拿前一段时间，我发表在博客园上的一篇关于<a href="http://www.manongjc.com/detail/29-zexdztdpcwouzfc.html">gitee图床被封</a>【原文已彻底删除，可见采集站的备份】的文章来说，我是第一批发表相关文章的博主，在发表该篇文章的第2天，我在各大搜索引擎上搜索自己的文章，就发现已经有采集站采集了我的文章😅。</p>
+<p>采集站采集了各式各样的博文，这种方式的聚合没有任何意义。说得难听点，就是一垃圾站在收集垃圾。</p>
+<p>这是网友对于CSDN的评价，我见过这种类型的博文，虽然这个超链接可能最终解决了我的问题，但是我并不对提供超链接的博主有任何感激之情，我只会感激原文的作者。CSDN是一个垃圾站点，虽然里面可能包含有一些博主的精华文章，但总体而言，博文质量不高。这也是我离开CSDN的一个原因。</p>
+<p><img src="https://imgs.zhubai.love/96c0dbd49b444b3d9a3e025b2924547d.png" alt="b站网友对于csdn的评价"></p>
+<p>受够了被SEO污染的搜索体验，如何破局呢？</p>
+<p>去年12月份的时候，我遇见了<a href="https://github.com/iorate/ublacklist">ublacklist</a>和<a href="https://github.com/eallion/uBlacklist-subscription-compilation">uBlacklist subscription compilation</a>，它能阻止特定网站出现在谷歌、必应的搜索结果中，只需根据GitHub仓库的自述文件进行简单配置即可。因为百度搜索引擎搜出来的大多是牛马，所以我也不打算深究阻止特定网站出现在百度搜索结果中的方法。中国大陆地区建议使用必应搜索，有条件的可以使用谷歌搜索。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>📜言论</h2>
+<p>1.书写是我们外在的脚手架，写作本身就是思考。<a href="https://www.bilibili.com/video/BV16T4y197ka">via</a></p>
+<p>2.以下是电影《流浪地球》中的话语。现在看来，这多么契合现在的处境。新冠肆虐了3年，目前还在继续，这是一场灾难。但是我们不能因新冠而悲观，要一如既往地热爱生活。</p>
+<blockquote>
+<p>起初，没有人在意这一场灾难，这不过是一场山火、一次旱灾、一个物种的灭绝、一座城市的消失，直到这场灾难和每个人息息相关。</p>
+</blockquote>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://spacecraft.vercel.app/">spacecraft</a></p>
+<p>一个打飞机的网页端游戏，值得一玩。</p>
+<p>积攒了一定的能量后，可以按enter键，发射超级光波。😄</p>
+<p><img src="https://imgs.zhubai.love/c58908c876f443908bc39fe5a993d051.png" alt="spacecraft样例图"></p>
+<p>2.<a href="https://cloud.niucodata.com/">词云小工具</a></p>
+<p>根据输入的文本生成词云图。</p>
+<p>3.<a href="https://music.163.com/outchain/player?type=2&#x26;id=5276810">《少女的祈祷》</a>钢琴曲，一首纯洁清丽的曲子，分享给你，愿你在这喧嚣的尘世，心灵永远年轻。</p>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[富豪是怎样炼成的？ #1]]></title>
+        <id>https://gujiakai.top/2022/04/weekly-issue-01</id>
+        <link href="https://gujiakai.top/2022/04/weekly-issue-01"/>
+        <updated>2022-04-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>你好👋，朋友。今天开始，我决定每周写一篇周刊，分享我过去1周的所见所闻。</p>
+<h2 id="-本周话题富豪是怎样炼成的"><a aria-hidden="true" tabindex="-1" href="#-本周话题富豪是怎样炼成的"><span class="icon icon-link"></span></a>📝 本周话题：富豪是怎样炼成的？</h2>
+<p>马斯克买下了推特公司9.2%的股份，成为推特公司最大的股东。看到福布斯富豪榜，马斯克傲视群雄，不禁发问，为什么这个男人会这么成功？</p>
+<p><img src="https://imgs.zhubai.love/4f6ae61a7fc44a1f8a05239b7443ce38.png" alt="福布斯富豪榜"></p>
+<p>在网上搜集资料后，我归纳出以下促使其成功的因素：</p>
+<ul>
+<li>努力工作</li>
+<li>创新精神</li>
+<li>有远见</li>
+</ul>
+<p>当然，促使其成功的因素肯定还有很多，这期周刊，我只选取3个角度来讨论。</p>
+<p>首先，努力工作是成功的必不可少的一环。工作时间摸鱼、思想开小差，效率会下降，从而导致成功的周期变长。但是人生就这几个关键点，你没有在对的时间做对的事，注定不会成功。</p>
+<p>我没有见过哪个人物，没有付出努力，就随随便便享受成功的硕果的。王健林的儿子-王思聪，身为富二代，但是其计算机方面的知识却掌握颇多，感兴趣的朋友，可以去b站或者油管，搜索<strong>电丸科技</strong>，里面有几期视频讲的是给王思聪搭服务器，从视频中流露出的信息是王思聪并不是不学无术之徒，他努力学习过相关的知识。他的成功虽然大部分仰仗的是老爸有钱，但是他自己也在前人财富的基础上，不断尝试创造新的价值。</p>
+<p>无人驾驶、电池等一系列技术，均是马斯克具有创新精神的体现。虽然这部分并不是他实现的，但是是由他牵头发起研制的，正是他追求创新，才会使得他具备创新意识。</p>
+<p>阮一峰老师的第200期周刊《<a href="https://www.ruanyifeng.com/blog/2022/03/weekly-issue-200.html">低期望，多尝试</a>》中写道:"我们应该像芒格那样谨慎，像马斯克那样做事"。芒格是美国一家投资控股公司的副董事长，为人做事很谨慎，不会打心里没底的牌，而马斯克却敢于挑战未知，他认为电动汽车会是未来的出路。结果电动汽车正契合当下的环保绿色主题，特斯拉的成功使得马斯克迎来事业巅峰。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>🎇链享</h2>
+<p>1.<a href="https://focus-sounds.vercel.app/">Focus Sound</a>，一个在vercel上托管的站点，里面有许多声音供你选择，自习时可以打开，增加学习的氛围。</p>
+<p><img src="https://imgs.zhubai.love/af5cd3cdabd345bfbec86b8f3999d4fa.png" alt="Focus Sound样例图"></p>
+<p>2.<a href="https://www.thiswebsitewillselfdestruct.com/">会自毁的网站</a>——一个写下你的感受的地方。如果 24 小时内没有收到新消息，该站点将消失。b站腾讯云官方的<a href="https://www.bilibili.com/video/BV1J3411J7Ym">视频</a>对此有详细描述。</p>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
     </entry>
 </feed>
