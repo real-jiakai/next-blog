@@ -128,7 +128,7 @@ export default function Navbar({ RenderThemeChanger }) {
 						)}
 					</li>
 
-					<li className="md:hidden relative">
+					<li className="md:hidden relative z-50">
 						<button
 							onClick={handleMobileMenuClick}
 							aria-expanded={mobileMenuVisible ? 'true' : 'false'}>
@@ -143,7 +143,7 @@ export default function Navbar({ RenderThemeChanger }) {
 									</Link>
 								</li>
 								<li>
-									<a href="https://blog.gujiakai.top" className="flex items-center dark:text-gray-100" target='blank'>
+									<a href="https://blog.gujiakai.top" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700" target='blank'>
 										<span className='mx-auto'>{blog}</span>
 									</a>
 								</li>
