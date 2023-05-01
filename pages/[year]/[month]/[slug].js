@@ -51,7 +51,7 @@ export default function Post({ postData, params, stats }) {
 			<Script src="/js/APlayer.min.js" strategy="beforeInteractive" />
 
 			{/* 主体 */}
-			<div className="flex flex-col md:grid md:grid-cols-6 md:gap-2">
+			<div className="flex flex-col lg:grid lg:grid-cols-6 lg:gap-2">
 				{/* chatgpt总结 */}
 				<div className="hidden xl:block md:col-span-1 order-1 md:order-1">
 					{process.env.NEXT_PUBLIC_OPENAI_API_KEY_AVAILABLE && (
