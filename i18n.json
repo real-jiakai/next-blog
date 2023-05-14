@@ -6,6 +6,7 @@
       "/": ["home"],
       "/about": ["about"],
       "/gallery": ["gallery"],
-      "/search": ["search"]
+      "/search": ["search"],
+      "/douban": ["douban"]
     }
   }

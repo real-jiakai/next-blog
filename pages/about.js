@@ -20,7 +20,7 @@ export default function About() {
 				周刊名字取为《周见》。这意味着我希望每周自己都能在学习与生活中发现美，将看到的新奇事物分享出来。
 				</p>
 				<p className='my-4'>
-				欢迎通过<a href="https://gujiakai.top/rss.xml" target='blank'>RSS</a>订阅本站点。
+				欢迎通过<a href="https://gujiakai.top/index.xml" target='blank' className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'>RSS</a>订阅本站点。
 				</p>
 				<p className='my-4'>
 				想了解更多关于我的信息，请点击上方的<strong>Blog</strong>。

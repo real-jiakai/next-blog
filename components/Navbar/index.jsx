@@ -23,6 +23,7 @@ export default function Navbar({ RenderThemeChanger }) {
 	const home = t('Home')
 	const blog = t('Blog')
 	const about = t('About')
+	const movies = t('Movies')
 	const gallery = t('Gallery')
 	const rss = t('RSS')
 
@@ -69,6 +70,12 @@ export default function Navbar({ RenderThemeChanger }) {
 						<Link href="/about" className="flex items-center dark:text-gray-100">
 							<InfoIcon />
 							<span>{about}</span>
+						</Link>
+					</li>
+					<li className="hidden md:block">
+						<Link href="/douban" className="flex items-center dark:text-gray-100">
+							<ImageIcon />
+							<span>{movies}</span>
 						</Link>
 					</li>
 					<li className="hidden md:block">
@@ -150,6 +157,11 @@ export default function Navbar({ RenderThemeChanger }) {
 								<li>
 									<Link href="/about" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
 										<span className='mx-auto'>{about}</span>
+									</Link>
+								</li>
+								<li>
+									<Link href="/douban" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
+										<span className='mx-auto'>{movies}</span>
 									</Link>
 								</li>
 								<li>

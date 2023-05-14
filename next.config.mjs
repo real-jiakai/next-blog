@@ -36,6 +36,14 @@ export default nextTranslate(withBundleAnalyzer(
 					locale: false
 			  },
 			]
+		},
+		images: {
+			remotePatterns: [
+			  {
+					protocol: 'https',
+					hostname: 'img2.doubanio.com'
+			  },
+			],
 		}
 	})
 ))
