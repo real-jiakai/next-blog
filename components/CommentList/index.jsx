@@ -21,10 +21,19 @@ export default function CommentList({ quoteComment, updateList}) {
 	}, [updateList])
 
 	async function fetchComments() {
-		const res = await fetch('/api/comSelect')
-		const data = await res.json()
-		setComments(data)
+		try {
+			const res = await fetch('/api/comSelect')
+			if (!res.ok) { // if HTTP status is not ok
+				throw new Error(`HTTP error! status: ${res.status}`)
+			}
+			const data = await res.json()
+			setComments(data)
+		} catch (error) {
+			console.error('Fetching comments failed: ', error)
+			// you may want to set an error state here to provide feedback to the user
+		}
 	}
+	
 
 	return (
 		<>

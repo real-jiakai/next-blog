@@ -8,7 +8,6 @@ export default function CommentForm({quote, setQuote, setUpdateList,parentCommen
 	const turnstileRef = useRef()
 	const [emailError, setEmailError] = useState('')
 	const [buttonText, setButtonText] = useState('Submit')
-	const contentRef = useRef()
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -56,13 +55,8 @@ export default function CommentForm({quote, setQuote, setUpdateList,parentCommen
 	}
 
 	useEffect(() => {
-		formRef.current.content.value = quote
-
-		// 将光标移动到 textarea 的末尾
-		const textarea = contentRef.current
-		textarea.focus()
-		textarea.setSelectionRange(textarea.value.length, textarea.value.length)
-	  }, [quote])
+		formRef.current.content.value = quote 
+	}, [quote])
 
 	return (
 		<>
@@ -111,7 +105,6 @@ export default function CommentForm({quote, setQuote, setUpdateList,parentCommen
 				您的留言 (HTML标签部分可用):
 			  </label>
 					<textarea
-						ref={contentRef}
 						type="text"
 						id="content"
 						name="content"
