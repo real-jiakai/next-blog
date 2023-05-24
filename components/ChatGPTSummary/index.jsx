@@ -11,7 +11,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 
 	const fetchSummary = () => {
 		setIsFetching(true)
-		let truncatedContentMarkdown = contentMarkdown.slice(0, 2000)
+		let truncatedContentMarkdown = contentMarkdown.slice(0, 1000)
 		truncatedContentMarkdown = truncatedContentMarkdown.replace(/"/g, '\\"') // 对双引号进行转义
 		const message = `using Chinese to summary this article. The article content is: "${truncatedContentMarkdown}".
 				Please summary this article within 100 chinese words.`
