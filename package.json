@@ -11,7 +11,8 @@
     "prepare": "husky install",
     "pre-commit": "pnpm lint --fix && git add -A .",
     "lint-staged": "lint-staged",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "clear": "rm -rf .next"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

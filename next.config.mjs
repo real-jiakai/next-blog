@@ -31,9 +31,9 @@ export default nextTranslate(withBundleAnalyzer(
 		async rewrites() {
 			return [
 			  {
-					source: '/:locale/rss.xml',
-					destination: '/rss.xml',
-					locale: false
+					source: '/:locale/index.xml',
+					destination: '/index.xml',
+					locale: false,
 			  },
 			]
 		},
