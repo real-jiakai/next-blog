@@ -59,8 +59,8 @@ dependencies:
     specifier: ^2.3.3
     version: 2.3.3
   marked:
-    specifier: ^4.2.12
-    version: 4.3.0
+    specifier: ^5.0.4
+    version: 5.0.4
   next:
     specifier: latest
     version: 13.4.3(react-dom@18.2.0)(react@18.2.0)
@@ -148,8 +148,8 @@ devDependencies:
     specifier: ^6.0.3
     version: 6.0.3(semantic-release@21.0.0)
   '@semantic-release/commit-analyzer':
-    specifier: ^9.0.2
-    version: 9.0.2(semantic-release@21.0.0)
+    specifier: ^10.0.0
+    version: 10.0.0(semantic-release@21.0.0)
   '@semantic-release/git':
     specifier: ^10.0.1
     version: 10.0.1(semantic-release@21.0.0)
@@ -992,6 +992,24 @@ packages:
       fs-extra: 11.1.1
       lodash: 4.17.21
       semantic-release: 21.0.0
+    dev: true
+
+  /@semantic-release/commit-analyzer@10.0.0(semantic-release@21.0.0):
+    resolution: {integrity: sha512-/Uolz2+G+VRjP0eudAn0ldnC/VkSHzlctUdeEXL7ys7E6mLSFZdwdsR5pKDlTIgDJq4eYlshOZpwBNrmqrNajg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      semantic-release: '>=20.1.0'
+    dependencies:
+      conventional-changelog-angular: 5.0.13
+      conventional-commits-filter: 2.0.7
+      conventional-commits-parser: 3.2.4
+      debug: 4.3.4
+      import-from: 4.0.0
+      lodash-es: 4.17.21
+      micromatch: 4.0.5
+      semantic-release: 21.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@semantic-release/commit-analyzer@9.0.2(semantic-release@21.0.0):
@@ -5025,6 +5043,13 @@ packages:
     resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
     engines: {node: '>= 12'}
     hasBin: true
+    dev: true
+
+  /marked@5.0.4:
+    resolution: {integrity: sha512-r0W8/DK56fAkV0qfUCO9cEt/VlFWUzoJOqEigvijmsVkTuPOHckh7ZutNJepRO1AxHhK96/9txonHg4bWd/aLA==}
+    engines: {node: '>= 18'}
+    hasBin: true
+    dev: false
 
   /mdast-util-definitions@5.1.2:
     resolution: {integrity: sha512-8SVPMuHqlPME/z3gqVwWY4zVXn8lqKv/pAhC57FuJ40ImXyBpmO5ukh98zB2v7Blql2FiHjHv9LVztSIqjY+MA==}
