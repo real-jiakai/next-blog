@@ -7,4 +7,3 @@
 This repo stores my [weekly website](https://gujiakai.top) source code.
 
 > Blog theme based on [Simple](https://github.com/simple-is-awesome/simple) project.
-

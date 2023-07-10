@@ -41,7 +41,7 @@ export default nextTranslate(withBundleAnalyzer(
 			remotePatterns: [
 			  {
 					protocol: 'https',
-					hostname: 'img2.doubanio.com'
+					hostname: 'img.gujiakai.cn'
 			  },
 			],
 		}
