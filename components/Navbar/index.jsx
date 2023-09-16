@@ -4,7 +4,6 @@ import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
 import HomeIcon from '@mui/icons-material/Home'
 import InfoIcon from '@mui/icons-material/Info'
-import ImageIcon from '@mui/icons-material/Image'
 import RssFeedIcon from '@mui/icons-material/RssFeed'
 import MenuIcon from '@mui/icons-material/Menu'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
@@ -23,8 +22,6 @@ export default function Navbar({ RenderThemeChanger }) {
 	const home = t('Home')
 	const blog = t('Blog')
 	const about = t('About')
-	const movies = t('Movies')
-	const gallery = t('Gallery')
 	const rss = t('RSS')
 
 	const router = useRouter()
@@ -70,18 +67,6 @@ export default function Navbar({ RenderThemeChanger }) {
 						<Link href="/about" className="flex items-center dark:text-gray-100">
 							<InfoIcon />
 							<span>{about}</span>
-						</Link>
-					</li>
-					<li className="hidden md:block">
-						<Link href="/douban" className="flex items-center dark:text-gray-100">
-							<ImageIcon />
-							<span>{movies}</span>
-						</Link>
-					</li>
-					<li className="hidden md:block">
-						<Link href="/gallery" className="flex items-center dark:text-gray-100">
-							<ImageIcon />
-							<span>{gallery}</span>
 						</Link>
 					</li>
 					<li className="hidden md:block">
@@ -134,7 +119,6 @@ export default function Navbar({ RenderThemeChanger }) {
 							</div>
 						)}
 					</li>
-
 					<li className="md:hidden relative z-50">
 						<button
 							onClick={handleMobileMenuClick}
@@ -157,16 +141,6 @@ export default function Navbar({ RenderThemeChanger }) {
 								<li>
 									<Link href="/about" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
 										<span className='mx-auto'>{about}</span>
-									</Link>
-								</li>
-								<li>
-									<Link href="/douban" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
-										<span className='mx-auto'>{movies}</span>
-									</Link>
-								</li>
-								<li>
-									<Link href="/gallery" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
-										<span className='mx-auto'>{gallery}</span>
 									</Link>
 								</li>
 								<li>
