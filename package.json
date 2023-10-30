@@ -60,7 +60,7 @@
     "remark-rehype": "^10.1.0",
     "remark-slug": "^7.0.1",
     "rss-parser": "^3.12.0",
-    "unified": "^10.1.2",
+    "unified": "^11.0.4",
     "unist-util-visit": "^4.1.2",
     "yet-another-react-lightbox": "^3.10.2"
   },
