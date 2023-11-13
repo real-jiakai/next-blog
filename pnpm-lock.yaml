@@ -30,8 +30,8 @@ dependencies:
     specifier: ^5.11.14
     version: 5.11.14(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(react-dom@18.2.0)(react@18.2.0)
   '@next/bundle-analyzer':
-    specifier: ^13.2.4
-    version: 13.2.4
+    specifier: ^14.0.2
+    version: 14.0.2
   '@next/mdx':
     specifier: ^13.2.4
     version: 13.2.4(@mdx-js/loader@2.3.0)(@mdx-js/react@2.3.0)
@@ -705,8 +705,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@next/bundle-analyzer@13.2.4:
-    resolution: {integrity: sha512-bY4Clt7f1roJextpeQOQQWfNiXI0O5UvfOEyfuM5YUGPQMOCAZD2zjLjolakdn9Dm2yyMQUQ6JDE+iJK0dIeLA==}
+  /@next/bundle-analyzer@14.0.2:
+    resolution: {integrity: sha512-EsFpYsXUq0oj3LnTCCWQ6bH8D2M1MWVJJCQ7hn4g+rP4/ksfOMjfsHpsOUscaAadLwdXoupmRqsQ23Y/7NlpDg==}
     dependencies:
       webpack-bundle-analyzer: 4.7.0
     transitivePeerDependencies:
