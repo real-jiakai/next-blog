@@ -13,7 +13,8 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 		setIsFetching(true)
 		let truncatedContentMarkdown = contentMarkdown.slice(0, 3000)
 		truncatedContentMarkdown = truncatedContentMarkdown.replace(/"/g, '\\"') // 对双引号进行转义
-		const message = `using Chinese to summary this article. The article content is: "${truncatedContentMarkdown}".
+		const message = `using Chinese to summary this article. Below is the article content: \n
+				"${truncatedContentMarkdown}". \n
 				Please summary this article within 50 chinese words.`
 		fetch('/api/chatgpt', {
 			method: 'POST',
