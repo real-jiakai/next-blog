@@ -35,7 +35,7 @@ export default function Sidebar({ contentMarkdown, showtoc }) {
 							className="font-semibold text-lg ml-2"
 
 						>
-							Table Of Contents
+							Toc
 						</button>
 					</div>
 					{expanded && (
