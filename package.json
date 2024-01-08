@@ -23,7 +23,7 @@
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
     "@mui/icons-material": "^5.14.19",
-    "@mui/material": "^5.14.20",
+    "@mui/material": "^5.15.3",
     "@next/bundle-analyzer": "^14.0.4",
     "@next/mdx": "^14.0.4",
     "@supabase/supabase-js": "^2.39.0",
