@@ -27,8 +27,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0(@types/react@18.2.43)(react@18.2.0)
   '@mui/icons-material':
-    specifier: ^5.14.19
-    version: 5.14.19(@mui/material@5.14.20)(@types/react@18.2.43)(react@18.2.0)
+    specifier: ^5.15.4
+    version: 5.15.4(@mui/material@5.14.20)(@types/react@18.2.43)(react@18.2.0)
   '@mui/material':
     specifier: ^5.14.20
     version: 5.14.20(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
@@ -251,6 +251,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+
+  /@babel/runtime@7.23.8:
+    resolution: {integrity: sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/types@7.23.6:
     resolution: {integrity: sha512-+uarb83brBzPKN38NX1MkB6vb6+mwvR6amUulqAE7ccQw1pEl+bCia9TbdG1lsnFP7lZySvUn37CHyXQdfTwzg==}
@@ -609,8 +616,8 @@ packages:
     resolution: {integrity: sha512-fXoGe8VOrIYajqALysFuyal1q1YmBARqJ3tmnWYDVl0scu8f6h6tZQbS2K8BY28QwkWNGyv4WRfuUkzN5HR3Ow==}
     dev: false
 
-  /@mui/icons-material@5.14.19(@mui/material@5.14.20)(@types/react@18.2.43)(react@18.2.0):
-    resolution: {integrity: sha512-yjP8nluXxZGe3Y7pS+yxBV+hWZSsSBampCxkZwaw+1l+feL+rfP74vbEFbMrX/Kil9I/Y1tWfy5bs/eNvwNpWw==}
+  /@mui/icons-material@5.15.4(@mui/material@5.14.20)(@types/react@18.2.43)(react@18.2.0):
+    resolution: {integrity: sha512-q/Yk7aokN8qGMpR7bwoDpBSeaNe6Bv7vaY9yHYodP37c64TM6ime05ueb/wgksOVszrKkNXC67E/XYbRWOoUFA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@mui/material': ^5.0.0
@@ -620,7 +627,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.23.8
       '@mui/material': 5.14.20(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.43
       react: 18.2.0
