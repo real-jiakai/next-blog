@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-// chatgpt总结组件
-export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
+// AI总结组件
+export default function AISummary({ contentMarkdown, params, tags }) {
 	const [showCopyButton, setShowCopyButton] = useState(false)
 	const [summary, setSummary] = useState(null)
 	const formattedTags = tags.map(tag => `#${tag}`).join(', ')
 	const [isCopied, setIsCopied] = useState(false)
 	const [isFetching, setIsFetching] = useState(false)
+	const [selectedTab, setSelectedTab] = useState('gemini')
+    
+	useEffect(() => {
+		setSummary(null)
+		setIsCopied(false)
+		setShowCopyButton(false)
+	}, [selectedTab])
 
 	const fetchSummary = () => {
 		setIsFetching(true)
@@ -16,7 +23,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 		const message = `using Chinese to summary this article. Below is the article content: \n
 				"${truncatedContentMarkdown}". \n
 				Please summary this article within 50 chinese words.`
-		fetch('/api/chatgpt', {
+		fetch(`/api/${selectedTab}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -27,7 +34,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 		})
 			.then((response) => response.json())
 			.then(data => {
-				setSummary(`${data.gptResponse}`)
+				selectedTab === 'gemini' ? setSummary(`${data.text}`) : setSummary(`${data.gptResponse}`)
 				setIsFetching(false)
 				setShowCopyButton(true)
 			})
@@ -43,6 +50,25 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 	return (
 		<div className="border border-gray-300 rounded mb-4 relative">
 			<div className="font-bold mb-2 text-center">文章摘要生成器</div>
+			<div className="flex justify-between mb-4 space-x-2"> {/* 添加space-x-2来控制按钮之间的间隙 */}
+				<button
+					className={`px-4 py-2 text-sm font-medium leading-5 rounded-md transition-colors duration-150 ${
+						selectedTab === 'gemini' ? 'bg-blue-500 text-white' : 'text-blue-500 border border-blue-500'
+					}`}
+					onClick={() => setSelectedTab('gemini')}
+				>
+                    Gemini
+				</button>
+				<button
+					className={`px-4 py-2 text-sm font-medium leading-5 rounded-md transition-colors duration-150 ${
+						selectedTab === 'chatgpt' ? 'bg-blue-500 text-white' : 'text-blue-500 border border-blue-500'
+					}`}
+					onClick={() => setSelectedTab('chatgpt')}
+				>
+                    ChatGPT
+				</button>
+			</div>
+
 			<>
 				{summary ? (
 					<div className='bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border'>
@@ -51,7 +77,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 						<p className="break-words max-w-full">via: {process.env.NEXT_PUBLIC_SITE_URL}/{params.year}/{params.month}/{params.slug} </p>
 					</div>
 				) : (
-					<p className="break-words max-w-full text-center">{isFetching ? 'ChatGPT正在为你总结信息，请稍等...' : '点击下方按钮生成本文摘要'}</p>
+					<p className="break-words max-w-full text-center">{isFetching ? `${selectedTab === 'gemini' ? 'Gemini' : 'ChatGPT'}正在为你总结信息，请稍等...` : '点击下方按钮生成本文摘要'}</p>
 				)}
 				<div className="flex justify-center items-center">
 					{showCopyButton ? (

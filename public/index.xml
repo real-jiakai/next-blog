@@ -215,19 +215,19 @@
 <section data-footnotes class="footnotes"><h2 class="sr-only" id="footnote-label"><a aria-hidden="true" tabindex="-1" href="#footnote-label"><span class="icon icon-link"></span></a>Footnotes</h2>
 <ol>
 <li id="user-content-fn-1">
-<p><a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">布鲁斯特·卡利博文</a> <a href="#user-content-fnref-1" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p><a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">布鲁斯特·卡利博文</a> <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
 <li id="user-content-fn-2">
-<p><a href="https://www.wikiwand.com/en/Tim_Berners-Lee">Tim_Berners-Lee</a> <a href="#user-content-fnref-2" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p><a href="https://www.wikiwand.com/en/Tim_Berners-Lee">Tim_Berners-Lee</a> <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
 </li>
 <li id="user-content-fn-3">
-<p>虽然翻阅了网络上很多资料，但都没有细说。网站下线，不外乎NeXT电脑的寿命有限等，那个年代托管网站需要自己有服务器，并且要保证服务器24小时不关机。24小时不关机对于那个年代的机器而言，坚挺不了几年。不像现在的云服务器硬件更新迭代，用户零感知。 <a href="#user-content-fnref-3" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p>虽然翻阅了网络上很多资料，但都没有细说。网站下线，不外乎NeXT电脑的寿命有限等，那个年代托管网站需要自己有服务器，并且要保证服务器24小时不关机。24小时不关机对于那个年代的机器而言，坚挺不了几年。不像现在的云服务器硬件更新迭代，用户零感知。 <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
 </li>
 <li id="user-content-fn-4">
-<p><a href="https://first-website.web.cern.ch/first-website/">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p><a href="https://first-website.web.cern.ch/first-website/">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
 </li>
 <li id="user-content-fn-5">
-<p>我也尝试过在互联网档案馆中找寻当年在现代浏览器中使用行模式浏览器访问第一个网站网页的存档，但是存档的页面展示效果不佳。 <a href="#user-content-fnref-5" data-footnote-backref class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+<p>我也尝试过在互联网档案馆中找寻当年在现代浏览器中使用行模式浏览器访问第一个网站网页的存档，但是存档的页面展示效果不佳。 <a href="#user-content-fnref-5" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
 </section>]]></summary>

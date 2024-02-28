@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-// chatgpt总结组件
-export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
+// Gemini总结组件
+export default function GeminiSummary({ contentMarkdown, params, tags }) {
 	const [showCopyButton, setShowCopyButton] = useState(false)
 	const [summary, setSummary] = useState(null)
 	const formattedTags = tags.map(tag => `#${tag}`).join(', ')
@@ -16,7 +16,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 		const message = `using Chinese to summary this article. Below is the article content: \n
 				"${truncatedContentMarkdown}". \n
 				Please summary this article within 50 chinese words.`
-		fetch('/api/chatgpt', {
+		fetch('/api/gemini', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 		})
 			.then((response) => response.json())
 			.then(data => {
-				setSummary(`${data.gptResponse}`)
+				setSummary(`${data.text}`)
 				setIsFetching(false)
 				setShowCopyButton(true)
 			})
@@ -37,7 +37,6 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 			})
 	}
 	
-
 	const copyText = `标签：${formattedTags}\n总结: ${summary}\nvia: ${process.env.NEXT_PUBLIC_SITE_URL}/${params.year}/${params.month}/${params.slug}`
 
 	return (
@@ -51,7 +50,7 @@ export default function ChatGPTSummary({ contentMarkdown, params, tags }) {
 						<p className="break-words max-w-full">via: {process.env.NEXT_PUBLIC_SITE_URL}/{params.year}/{params.month}/{params.slug} </p>
 					</div>
 				) : (
-					<p className="break-words max-w-full text-center">{isFetching ? 'ChatGPT正在为你总结信息，请稍等...' : '点击下方按钮生成本文摘要'}</p>
+					<p className="break-words max-w-full text-center">{isFetching ? 'Gemini正在为你总结信息，请稍等...' : '点击下方按钮生成本文摘要'}</p>
 				)}
 				<div className="flex justify-center items-center">
 					{showCopyButton ? (
