@@ -57,7 +57,8 @@
         "no-mixed-spaces-and-tabs": [
             "error",
             "smart-tabs"
-        ]
+        ],
+        "no-useless-escape": ["off"]
     },
     "globals": {
         "APlayer": "readonly"

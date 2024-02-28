@@ -80,7 +80,23 @@ export default async function handler(req, res) {
 				console.error('Error sending email:', err)
 		  }
 		}
-	  
+
+		// 定义主人邮箱地址
+		const masterEmail = process.env.MASTER_EMAIL
+
+		// 尝试发送邮件给主人
+		try {
+			await transporter.sendMail({
+				from: process.env.EMAIL_USERNAME, // 发件人地址
+	            to: masterEmail, // 收件人地址, 即主人的邮箱
+				subject: `New comment on ${process.env.NEXT_PUBLIC_SITE_TITLE}`, // 邮件主题
+				text: `${username} commented: ${processedContent}. Please visit ${cleanUrl} to view it.`, // 纯文本内容
+				html: `<p>${username} commented: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`, // HTML内容
+			})
+		} catch (err) {
+			console.error('Error sending email to master:', err)
+		}
+	
 		res.status(200).json(insertedData)
 	  }
 }
