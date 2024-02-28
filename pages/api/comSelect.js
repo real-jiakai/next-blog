@@ -4,8 +4,8 @@ const fetchCommentsFromDB = async (url) => {
 	// 如果URL包含/en/，则移除它；如果不包含，则在hostname后插入/en/
 	const alternativeUrl = url.includes('/en/')
 	  ? url.replace('/en/', '/')
-	  : url.replace(/^(https?:\/\/[^\/]+)(\/|$)/, '$1/en/')
-  
+	  : url.replace(/^(https?:\/\/[^/]+)(\/|$)/, '$1/en/')
+
 	const { data, error } = await supabase
 	  .from('comments')
 	  .select('*')
