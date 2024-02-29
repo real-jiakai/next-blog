@@ -41,7 +41,7 @@ export default function Page({ allPostsData, recentPosts, allTags, currentPage }
 			<section className="grid grid-cols-1 lg:grid-cols-12 gap-8 px-5">
 				<div className="hidden lg:block lg:col-span-2" />
 				<div className="col-span-full lg:col-span-7">
-					<ul className="grid grid-cols-1 gap-8">
+					<ul className="grid grid-cols-1 gap-8 list-none">
 						{postsToRender.map(({ date, slug, title, summary }) => {
 							const [year, month] = date.split('-')
 							return (

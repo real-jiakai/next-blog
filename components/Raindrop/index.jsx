@@ -20,7 +20,7 @@ export default function Raindrop() {
 	return (
 		<div className="bg-white shadow-lg rounded-lg p-6 my-8 dark:bg-gray-600 dark:text-gray-100">
 			<div className="text-2xl font-semibold mb-4">{raindrop}</div>
-			<ul className="space-y-4">
+			<ul className="space-y-4 list-none">
 				{raindropData.map((item) => (
 					<li key={item.title} className="border-b border-gray-200 pb-2">
 						<a

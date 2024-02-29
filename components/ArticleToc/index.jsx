@@ -39,11 +39,11 @@ export default function Sidebar({ contentMarkdown, showtoc }) {
 						</button>
 					</div>
 					{expanded && (
-						<ul className="w-full">
+						<ul className="w-full list-none">
 							{headings.map((heading, index) => (
 								<li
 									key={index}
-									className={`level-${heading.depth} text-left pl-4 py-1`}
+									className={`level-${heading.depth} text-left pl-1 py-1`}
 								>
 									<span className="mr-2">{bulletStyle(heading.depth)}</span>
 									<a href={`#${heading.id}`} className="text-blue-600 hover:text-blue-800 text-sm">

@@ -20,7 +20,7 @@ export default function Inoreader() {
 	return (
 		<div className="bg-white shadow-lg rounded-lg p-6 my-8 dark:bg-gray-600 dark:text-gray-100">
 			<div className="text-2xl font-semibold mb-4">{inoreader}</div>
-			<ul className="space-y-4">
+			<ul className="space-y-4 list-none">
 				{inoreaderData.map((item) => (
 					<li key={item.id} className="border-b border-gray-200 pb-2">
 						<a
