@@ -8,9 +8,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import ArticleLayout from 'components/ArticleLayout'
 import Date from 'components/Date'
 import ArticleToc from 'components/ArticleToc'
-// import ChatGPTSummary from 'components/ChatGPTSummary'
 import AISummary from 'components/AISummary'
-// import GeminiSummary from 'components/GeminiSummary'
 import Backbutton from 'components/Backbutton'
 import Comment from 'components/Comment'
 import ScrollToTop from 'components/ScrollToTop'
@@ -55,9 +53,7 @@ export default function Post({ postData, params, stats }) {
 				<div className="hidden xl:block md:col-span-1 order-1 md:order-1">
 					{process.env.NEXT_PUBLIC_OPENAI_API_KEY_AVAILABLE && (
 						<div className='md:sticky top-1/4 bottom-1/4 p-2 bg-gray-300 shadow-lg rounded-md dark:text-gray-900 mx-auto md:mx-0 w-full md:w-auto'>
-							{/* <ChatGPTSummary contentMarkdown={postData.contentMarkdown} params={params} tags={postData.tags} /> */}
 							<AISummary contentMarkdown={postData.contentMarkdown} params={params} tags={postData.tags} />
-							{/* <GeminiSummary contentMarkdown={postData.contentMarkdown} params={params} tags={postData.tags} />  */}
 						</div>
 					)}
 				</div>

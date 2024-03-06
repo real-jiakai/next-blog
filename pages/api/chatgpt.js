@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 			}],
 		})
 
-		const gptResponse = completion.choices[0].message.content
-		res.status(200).json({ gptResponse })
+		const summary = completion.choices[0].message.content
+		res.status(200).json({ summary })
 	}
 }
