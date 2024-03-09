@@ -57,6 +57,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					<option value="claude">Claude</option>
 					<option value="gemini">Gemini</option>
 					<option value="chatgpt">ChatGPT</option>
+					<option value="mistralai">Mistral AI</option>
 				</select>
 			</div>
 
