@@ -29,7 +29,7 @@ export default function SearchPage({ searchResults, term }) {
 							{searchResults.map(({ year, month, slug, title, date,summary }) => (
 								<li
 									key={slug}
-									className="bg-white shadow-lg rounded-lg p-6 dark:bg-gray-600 dark:text-gray-100">
+									className="bg-white shadow-lg rounded-lg p-6 dark:bg-gray-600 dark:text-gray-100 list-none">
 									<h3 className="text-xl font-semibold mb-4">
 										<Link href={`/${year}/${month}/${slug}`}>{title}</Link>
 									</h3>
