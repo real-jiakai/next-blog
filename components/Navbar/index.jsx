@@ -119,7 +119,7 @@ export default function Navbar({ RenderThemeChanger }) {
 							</div>
 						)}
 					</li>
-					<li className="md:hidden relative z-50">
+					<li className="md:hidden relative z-50 list-none">
 						<button
 							onClick={handleMobileMenuClick}
 							aria-expanded={mobileMenuVisible ? 'true' : 'false'}>
@@ -149,7 +149,7 @@ export default function Navbar({ RenderThemeChanger }) {
 									</Link>
 								</li>
 								<div className="absolute right-0 mt-2 py-2 w-36 bg-white dark:bg-gray-600 dark:text-gray-100 text-center border-t border-gray-30">
-									<ul className="space-y-2">
+									<ul className="space-y-2 list-none">
 										<li className="py-2 bg-white dark:bg-gray-600 dark:text-gray-100 border-b border-gray-30">
 											{sortedLocales.map(([locale, displayName]) => (
 												<div key={locale} className={`block px-4 py-2 text-sm ${activeLocale !== locale ? 'hover:bg-gray-100 dark:hover:bg-gray-700' : ''}`}>

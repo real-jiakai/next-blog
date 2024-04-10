@@ -64,13 +64,13 @@ export default function Post({ postData, params, stats }) {
 						<article className="col-span-5 md:col-span-4 leading-relaxed tracking-wide px-4 md:px-0">
 							<h1 className="text-3xl font-semibold text-center my-3">{postData.title}</h1>
 							<div className="flex flex-wrap text-base my-3">
-								<div className="text-right flex-1">
+								<div className="text-right flex-1 hidden lg:block">
 									<ArticleIcon />{' '}{stats.words} words
 								</div>
-								<div className="text-right flex-1">
+								<div className="text-right flex-1 hidden lg:block">
 									<AccessTimeIcon />{' '}{Math.ceil(stats.minutes)} min
 								</div>
-								<div className="text-right flex-1">
+								<div className="text-right flex-1 hidden lg:block">
 									<CalendarTodayIcon />{' '}<Date dateString={postData.date} format='YYYY-M-D' />
 								</div>
 								<div className="text-right flex-1 hidden lg:block">
