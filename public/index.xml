@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id/>
     <title>周见</title>
-    <updated>2024-04-23T07:33:45.640Z</updated>
+    <updated>2024-05-05T11:03:23.252Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>周见</name>
@@ -11,6 +11,70 @@
     <link rel="alternate" href="https://gujiakai.top"/>
     <subtitle>专注于分享互联网上有趣的东西。</subtitle>
     <rights>Made with ❤️ By Jiakai</rights>
+    <entry>
+        <title type="html"><![CDATA[双非读研的窘境 #18]]></title>
+        <id>https://gujiakai.top/2024/05/weekly-issue-18</id>
+        <link href="https://gujiakai.top/2024/05/weekly-issue-18"/>
+        <updated>2024-05-05T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://cdn.sa.net/2024/05/05/x74Nd1Tw9nYh6AF.webp" alt="广西民族大学举行的“铸牢中华民族共同体意识”主题活动现场"></p>
+<p>2024年，在广西民族大学举行的“铸牢中华民族共同体意识”主题活动现场，我作为一名江苏人首次体验到了三月三节日。这一体验让我深刻感受到了中国文化的博大精深和独特魅力。</p>
+<h2 id="周刊bgm"><a aria-hidden="true" tabindex="-1" href="#周刊bgm"><span class="icon icon-link"></span></a>周刊BGM</h2>
+<p>云烟成雨</p>
+&#x3C;div id="aplayer">&#x3C;/div>
+<p>浪漫美好的一首歌曲，远在广西的我，难免会想念江苏的人、事、物。</p>
+<h2 id="主题双非读研的窘境"><a aria-hidden="true" tabindex="-1" href="#主题双非读研的窘境"><span class="icon icon-link"></span></a>主题：双非读研的窘境</h2>
+<p>作为一名把读研当作缓解就业压力的研究生，在这几个月算是彻底看清了我的未来就业可能会面临的窘境。研三的师兄师姐的去向是研一的不错参考。</p>
+<p>研三的一名师姐，在读研期间发了一篇较好的论文在计算机学报上，成为研三唯一有机会读博的人选。其余的师兄们，完成了毕设后，都开始返乡去找工作。一般考虑的工作都是事业编制。就业方向与自己读研时的自然语言处理没有任何交叉。</p>
+<p>这不免让人怀疑nlp读研的意义和价值，因为我的院校nlp研究的是冷门的东盟小语种，语料库的缺失+缺少GPU设备+就业市场没需求注定了双非读研的不上不下，颇有点浪费时间的意味。</p>
+<p>一般计算机相关专业毕业都会考虑开发岗位，但是如果你在读研期间彻底抛下开发学习，不多实习，那开发岗位多半与你无缘。这种情况在我所在院校的研究生身上非常常见。</p>
+<p>如何突围？那肯定是搞开发啊。做完课内的作业+自己研究方向的任务后，多挤时间学开发。此外早点把论文发完，等论文搞定后，才有多余的时间去企业实习。</p>
+<p>不多说，写完这篇月刊，继续学开发去了。</p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>1、<a href="https://www.terminal.shop/">terminal shop</a></p>
+<p>通过SSH来订购咖啡，一个脑洞大开的创意项目【由美国的hacker们创办的项目】，没准过一段时间，国内的hacker们也会复刻出类似的一个项目。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/SacFXmYTD3dsbq2.webp" alt="terminal shop"></p>
+<p>2、<a href="https://mp.weixin.qq.com/s/oHRMKY74JtJ8E35yKxACJw">那些有趣的更新日志</a></p>
+<p>带你感受软件更新中的整活日志。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/N8pzOGC6VxEifUT.webp" alt="那些有趣的更新日志"></p>
+<p>3、<a href="https://js-naked-day.org/">JS Naked Day</a></p>
+<p>每年的4月24日是js裸奔日，参加该活动的方式为卸下网站的所有js代码。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/fpbR1ZieGukwz3o.webp" alt="JS Naked Day"></p>
+<p>除了js裸奔日外，每年的4月9日是css的裸奔日，参加该活动的方式为卸下网站的所有css样式代码。via: <a href="https://css-naked-day.github.io/">CSS Naked Day</a></p>
+<p><img src="https://cdn.sa.net/2024/05/05/TSGr9mteYw6dAIF.webp" alt="CSS Naked Day"></p>
+<p>4、<a href="https://mailoji.com/">Mailoji</a></p>
+<p>带有表情符号的邮箱地址，可以白嫖个玩玩。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/eRzut1NyQMInVfv.webp" alt="Mailoji"></p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<p>1、<a href="https://microsoftgraveyard.com/">Microsoft Graveyard</a></p>
+<p>微软坟场，一个类似killed by Google的项目，记录被微软杀死的产品。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/qsFDQzVSRj1lEZ3.webp" alt="Microsoft Graveyard"></p>
+<p>2、<a href="https://www.supertechfans.com/cn/">SuperTechFans</a></p>
+<p>Hacknews的每日摘要。帮助你了解每天的科技动态。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/HJ4suL6EtWezdaR.webp" alt="SuperTechFans"></p>
+<p>3、<a href="https://seaside-station.com/">SeaSide Stations In Japan</a></p>
+<p>一个罗列日本的海景车站的网站。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/iQYn2rAUVo3acxX.webp" alt="SeaSide Stations In Japan"></p>
+<p>4、<a href="https://www.forcecreat.com/">Redfeed锐读助手</a></p>
+<p>Redfeed锐读助手，一个AI引擎驱动的个人信息助手，帮你提升信息获取效能，从而更好的思考。覆盖主流信息平台。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/lHcCV6PFuELpgbR.webp" alt="Redfeed锐读助手"></p>
+<p>3月份看到产品发布后，白嫖了永久的免费摘要，给大家看一下锐读助手在微信生态的表现。</p>
+<p><img src="https://cdn.sa.net/2024/05/05/H6zQkyZf1M2aIPs.webp" alt="锐读助手在微信生态的表现"></p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<p>1、<a href="https://www.v2ex.com/t/1032690">给刚毕业的大学生的忠告</a></p>
+<pre class="language-bash"><code class="language-bash code-highlight"><span class="code-line"><span class="token number">1</span> 、多玩、多体验、多谈恋爱、不要有“等到我满足 xxx 条件再谈恋爱或干嘛”的笨蛋想法
+</span><span class="code-line"><span class="token number">2</span> 、遇到喜欢的、合适的人、要好好珍惜
+</span><span class="code-line"><span class="token number">3</span> 、有遗憾很正常，不要纠结或者太在意
+</span><span class="code-line"><span class="token number">4</span> 、社会会把人分为三六九等，但是一定要知道，你自己才是世界上最屌的人，没人能定义你
+</span><span class="code-line"><span class="token number">5</span> 、如果经济条件不是很好的话，要适当储蓄，留一些能让自己应急的钱
+</span><span class="code-line"><span class="token number">6</span> 、要按时吃饭，照顾好自己身体
+</span><span class="code-line"><span class="token number">7</span> 、所谓前辈的什么忠告，都不要太在意，多听自己的
+</span></code></pre>
+<p>2、我努力学习，是为了降低通往成功路上所需要的运气。<a href="https://twitter.com/real_jiakai/status/1775357712026759261">via</a></p>
+<p>3、开源的前提是衣食无忧，安居乐业。<a href="https://twitter.com/real_jiakai/status/1717355456052728197">via</a></p>
+<p>4、时代的一粒灰，落在个人头上就是一座山，每个人都有被大山压垮的可能。</p>
+<p>下一次更新预计在7月份暑假。</p>]]></summary>
+    </entry>
     <entry>
         <title type="html"><![CDATA[当MJJ一周年有感 #17]]></title>
         <id>https://gujiakai.top/2024/03/weekly-issue-17</id>
