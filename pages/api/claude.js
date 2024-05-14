@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
 		const ms = await anthropic.messages.create({
 			messages: [{ role: 'user', content: message }],
-			model: 'claude-3-opus-20240229',
+			model: 'claude-3-sonnet-20240229',
 			max_tokens: 1024
 		})
 

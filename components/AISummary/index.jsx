@@ -5,7 +5,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 	const [summary, setSummary] = useState('')
 	const [isCopied, setIsCopied] = useState(false)
 	const [isFetching, setIsFetching] = useState(false)
-	const [selectedAI, setSelectedAI] = useState('claude')
+	const [selectedAI, setSelectedAI] = useState('chatgpt')
 	const formattedTags = tags.map(tag => `#${tag}`).join(', ')
 
 	useEffect(() => {
@@ -54,9 +54,9 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					value={selectedAI}
 					onChange={(e) => setSelectedAI(e.target.value)}
 				>
+					<option value="chatgpt">GPT-4o</option>
 					<option value="claude">Claude</option>
 					<option value="gemini">Gemini</option>
-					<option value="chatgpt">ChatGPT</option>
 					<option value="mistralai">Mistral AI</option>
 				</select>
 			</div>
