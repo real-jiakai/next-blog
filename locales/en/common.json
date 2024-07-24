@@ -1,9 +1,7 @@
 {
     "Home": "Home",
-    "Blog": "Blog",
+    "Archive": "Archive",
     "About": "About",
-    "Movies": "Movies",
-    "Gallery": "Gallery",
     "RSS": "RSS",
     "BackToLast": "Back to the last page",
     "PostsWithTag": "Posts with tag"

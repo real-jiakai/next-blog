@@ -54,10 +54,8 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					value={selectedAI}
 					onChange={(e) => setSelectedAI(e.target.value)}
 				>
-					<option value="chatgpt">GPT-4o</option>
-					<option value="claude">Claude</option>
-					<option value="gemini">Gemini</option>
-					<option value="mistralai">Mistral AI</option>
+					<option value="chatgpt">GPT-4o-Mini</option>
+					<option value="claude">Claude-3-Haiku</option>
 				</select>
 			</div>
 

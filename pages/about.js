@@ -23,7 +23,7 @@ export default function About() {
 				欢迎通过<a href="https://gujiakai.top/index.xml" target='blank' className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'>RSS</a>订阅本站点。
 				</p>
 				<p className='my-4'>
-				想了解更多关于我的信息，请点击上方的<strong>Blog</strong>。
+				想了解更多关于我的信息，欢迎访问我的<a href="https://blog.gujiakai.top" target='blank' className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'>Blog</a>。
 				</p>
 			</div>
 		</Layout>

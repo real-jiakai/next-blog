@@ -20,7 +20,7 @@ export default function Navbar({ RenderThemeChanger }) {
 	}
 	const { t } = useTranslation('common')
 	const home = t('Home')
-	const blog = t('Blog')
+	const archive = t('Archive')
 	const about = t('About')
 	const rss = t('RSS')
 
@@ -58,10 +58,10 @@ export default function Navbar({ RenderThemeChanger }) {
 						</Link>
 					</li>
 					<li className="hidden md:block">
-						<a href="https://blog.gujiakai.top" className="flex items-center dark:text-gray-100" target='blank'>
-							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12.5 10H10c-.55 0-1-.45-1-1s.45-1 1-1h2.5c.55 0 1 .45 1 1s-.45 1-1 1m2.5 4c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1m7-10v16c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2V4c0-1.11.89-2 2-2h16c1.11 0 2 .89 2 2m-4 8s0-1-1-1c-.95.03-1-1-1-1V8c0-1.66-1.34-3-3-3H9C7.34 5 6 6.34 6 8v7c0 1.66 1.34 3 3 3h6c1.66 0 3-1.34 3-3v-3z" fill="currentColor"/></svg>
-							<span>{blog}</span>
-						</a>
+						<Link href="/archive" className="flex items-center dark:text-gray-100">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" /></svg>
+							<span>{archive}</span>
+						</Link>
 					</li>
 					<li className="hidden md:block">
 						<Link href="/about" className="flex items-center dark:text-gray-100">
@@ -134,8 +134,8 @@ export default function Navbar({ RenderThemeChanger }) {
 									</Link>
 								</li>
 								<li>
-									<a href="https://blog.gujiakai.top" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700" target='blank'>
-										<span className='mx-auto'>{blog}</span>
+									<a href="/archive" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
+										<span className='mx-auto'>{archive}</span>
 									</a>
 								</li>
 								<li>

@@ -1,9 +1,7 @@
 {
     "Home": "首页",
-    "Blog": "博客",
+    "Archive": "归档",
     "About": "关于",
-    "Movies": "观影",
-    "Gallery": "画廊",
     "RSS": "RSS",
     "BackToLast": "返回上一页",
     "PostsWithTag": "带有此标签的文章"
