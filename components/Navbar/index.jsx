@@ -134,9 +134,9 @@ export default function Navbar({ RenderThemeChanger }) {
 									</Link>
 								</li>
 								<li>
-									<a href="/archive" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
+									<Link href="/archive" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
 										<span className='mx-auto'>{archive}</span>
-									</a>
+									</Link>
 								</li>
 								<li>
 									<Link href="/about" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">

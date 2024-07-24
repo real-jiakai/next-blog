@@ -7,7 +7,7 @@
     "start": "next start",
     "clean": "rm -rf .next",
     "postbuild": "next-sitemap",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "prepare": "husky install",
     "pre-commit": "pnpm lint --fix && git add -A .",
     "lint-staged": "lint-staged",
