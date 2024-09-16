@@ -74,7 +74,7 @@
     "lint-staged": "^15.2.7",
     "next-translate-plugin": "^2.6.2",
     "semantic-release": "^22.0.12",
-    "tailwindcss": "^3.4.6"
+    "tailwindcss": "^3.4.11"
   },
   "version": "0.0.0-development",
   "repository": {
