@@ -11,4 +11,3 @@ services:
     volumes:
       - './posts:/app/posts/'
     restart: always
-
