@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: next-blog:latest
     ports:
-      - '127.0.0.1:3002:3000'
+      - '127.0.0.1:3802:3000'
     volumes:
       - './posts:/app/posts/'
     restart: always
