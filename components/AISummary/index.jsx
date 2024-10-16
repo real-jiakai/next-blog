@@ -35,7 +35,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 		setError('')
 		setSummary('')
 		const themeContent = extractThemeContent(contentMarkdown)
-		const message = `请用中文总结以下主题内容，并在总结末尾提及作者还分享了一些有趣的网站、实用的链接和金句。总结控制在50个中文字以内：\n\n${themeContent}`
+		const message = `请用中文总结以下话题内容。总结控制在50个中文汉字以内：\n\n${themeContent}`
 
 		fetch(`/api/${selectedAI}`, {
 			method: 'POST',
@@ -95,9 +95,8 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					onChange={(e) => setSelectedAI(e.target.value)}
 					aria-label="选择 AI 模型"
 				>
-					<option value="chatgpt">GPT-4o-Mini</option>
+					<option value="chatgpt">GPT-4o mini</option>
 					<option value="lingyiwangwu">Yi-Lightning</option>
-					<option value="doubao">Doubao-lite-4k</option>
 				</select>
 			</div>
 
