@@ -7,13 +7,13 @@ summary: "本期话题：你经历过SEO污染吗？"
 showtoc: true
 ---
 
-欢迎打开第2期的「周见」，本期的主题是「你经历过SEO污染吗？」。
+欢迎打开第2期的「周见」，本期的话题是「你经历过SEO污染吗？」。
 
 ![封面图：没有生机的垃圾场](https://imgs.zhubai.love/4e95ba3f81d54b32ae29b66dec89e587.jpg)
 
 <center><b>封面图:没有生机的垃圾场</b></center>
 
-## 📝 本期话题：你经历过SEO污染吗？
+## 话题：你经历过SEO污染吗？
 
 其实SEO污染就像上图的垃圾场污染环境一样，污染着互联网。
 
@@ -37,7 +37,7 @@ showtoc: true
 
 去年12月份的时候，我遇见了[ublacklist](https://github.com/iorate/ublacklist)和[uBlacklist subscription compilation](https://github.com/eallion/uBlacklist-subscription-compilation)，它能阻止特定网站出现在谷歌、必应的搜索结果中，只需根据GitHub仓库的自述文件进行简单配置即可。因为百度搜索引擎搜出来的大多是牛马，所以我也不打算深究阻止特定网站出现在百度搜索结果中的方法。中国大陆地区建议使用必应搜索，有条件的可以使用谷歌搜索。
 
-## 📜言论
+## 言论
 
 1.书写是我们外在的脚手架，写作本身就是思考。[via](https://www.bilibili.com/video/BV16T4y197ka)
 
@@ -46,7 +46,7 @@ showtoc: true
 > 起初，没有人在意这一场灾难，这不过是一场山火、一次旱灾、一个物种的灭绝、一座城市的消失，直到这场灾难和每个人息息相关。
 > 
 
-## 🎇链享
+## 链享
 
 1.[spacecraft](https://spacecraft.vercel.app/)
 

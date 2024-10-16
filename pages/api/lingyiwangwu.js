@@ -1,8 +1,8 @@
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
-	baseURL: process.env.OPENAI_BASE_URL,
-	apiKey: process.env.OPENAI_API_KEY
+	baseURL: process.env.LINGYIWANGWU_BASE_URL,
+	apiKey: process.env.LINGYIWANGWU_API_KEY
 })
 
 export default async function handler(req, res) {
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
 		try {
 			const stream = await openai.chat.completions.create({
-				model: 'gpt-4o-mini',
+				model: 'yi-lightning',
 				messages: [{ role: 'user', content: message }],
 				stream: true,
 			})
