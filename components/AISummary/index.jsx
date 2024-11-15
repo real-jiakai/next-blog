@@ -95,7 +95,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					onChange={(e) => setSelectedAI(e.target.value)}
 					aria-label="选择 AI 模型"
 				>
-					<option value="chatgpt">GPT-4o mini</option>
+					<option value="chatgpt">Gemini-1.5-Flash</option>
 					<option value="lingyiwangwu">Yi-Lightning</option>
 				</select>
 			</div>

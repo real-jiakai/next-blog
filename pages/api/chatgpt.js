@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
 		try {
 			const stream = await openai.chat.completions.create({
-				model: 'gpt-4o-mini',
+				model: 'gemini-1.5-flash',
 				messages: [{ role: 'user', content: message }],
 				stream: true,
 			})
