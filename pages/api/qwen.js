@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
 		try {
 			const stream = await openai.chat.completions.create({
-				model: 'qwen-turbo-1101',
+				model: 'qwen-turbo-latest',
 				messages: [{ role: 'user', content: message }],
 				stream: true,
 			})
