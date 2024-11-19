@@ -96,7 +96,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					aria-label="选择 AI 模型"
 				>
 					<option value="chatgpt">Gemini-1.5-Flash</option>
-					<option value="lingyiwangwu">Yi-Lightning</option>
+					<option value="qwen">Qwen-Turbo</option>
 				</select>
 			</div>
 

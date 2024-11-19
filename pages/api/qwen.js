@@ -1,8 +1,8 @@
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
-	baseURL: process.env.LINGYIWANGWU_BASE_URL,
-	apiKey: process.env.LINGYIWANGWU_API_KEY
+	baseURL: process.env.DASHSCOPE_BASE_URL,
+	apiKey: process.env.DASHSCOPE_API_KEY
 })
 
 export default async function handler(req, res) {
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
 		try {
 			const stream = await openai.chat.completions.create({
-				model: 'yi-lightning',
+				model: 'qwen-turbo-1101',
 				messages: [{ role: 'user', content: message }],
 				stream: true,
 			})
