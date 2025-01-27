@@ -5,8 +5,10 @@ import Date from 'components/Date'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import { getSortedPostsData } from 'lib/posts'
+import useTranslation from 'next-translate/useTranslation'
 
 export default function Page({ allPostsData,currentPage }) {
+	const { t } = useTranslation('common')
 	const postsPerPage = parseInt(process.env.NEXT_PUBLIC_POSTS_PERPAGE)
 	const startIndex = (currentPage - 1) * postsPerPage
 	const endIndex = startIndex + postsPerPage
@@ -68,7 +70,7 @@ export default function Page({ allPostsData,currentPage }) {
 								href={currentPage === 2 ? '/' : `/page/${parseInt(currentPage) - 1}`}
 								className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-gray-600 dark:text-gray-300"
 							>
-								上一页
+								{t('PreviousPage')}
 							</Link>
 						)}
 						<span className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
@@ -79,7 +81,7 @@ export default function Page({ allPostsData,currentPage }) {
 								href={`/page/${parseInt(currentPage) + 1}`}
 								className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-gray-600 dark:text-gray-300"
 							>
-								下一页
+								{t('NextPage')}
 							</Link>
 						)}
 					</div>

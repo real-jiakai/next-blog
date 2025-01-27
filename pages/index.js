@@ -6,8 +6,10 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import { getSortedPostsData } from 'lib/posts'
 import generateRSSFeed from 'lib/generateRSSFeed'
+import useTranslation from 'next-translate/useTranslation'
 
 export default function Home({ allPostsData }) {
+	const { t } = useTranslation('common')
 	const totalPages = Math.ceil(allPostsData.length / parseInt(process.env.NEXT_PUBLIC_POSTS_PERPAGE))
 	const postsToRender = allPostsData.slice(0, process.env.NEXT_PUBLIC_POSTS_PERPAGE)
 	
@@ -66,7 +68,7 @@ export default function Home({ allPostsData }) {
 								href={`/page/${1 + 1}`}
 								className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-gray-600 dark:text-gray-300"
 							>
-								下一页
+								{t('NextPage')}
 							</Link>
 						)}
 					</div>

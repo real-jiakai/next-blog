@@ -6,5 +6,8 @@
     "BackToLast": "返回上一页",
     "PostsWithTag": "带有此标签的文章",
     "PreviousPost": "上一篇：",
-    "NextPost": "下一篇："
+    "NextPost": "下一篇：",
+    "PreviousPage": "上一页",
+    "NextPage": "下一页",
+    "EditThisPage": "编辑此页"
 }

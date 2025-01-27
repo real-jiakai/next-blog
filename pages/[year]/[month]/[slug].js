@@ -80,7 +80,7 @@ export default function Post({ postData, params, stats, prevPost, nextPost }) {
 								</div>
 								<div className="text-right flex-1 hidden lg:block">
 									<a href={`${process.env.NEXT_PUBLIC_GITHUB_REPO}/edit/main/posts/${encodeURIComponent(postData.filename)}`} className='hover:text-blue-800' target='_blank'>
-										Edit This Page
+										{t('EditThisPage')}
 									</a>
 								</div>
 							</div>

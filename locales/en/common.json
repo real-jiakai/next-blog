@@ -6,5 +6,8 @@
     "BackToLast": "Back to the last page",
     "PostsWithTag": "Posts with tag",
     "PreviousPost": "Previous Post: ",
-    "NextPost": "Next Post: "
+    "NextPost": "Next Post: ",
+    "PreviousPage": "Previous Page",
+    "NextPage": "Next Page",
+    "EditThisPage": "Edit this page"
 }
