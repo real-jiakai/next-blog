@@ -48,45 +48,60 @@ export default function Navbar({ RenderThemeChanger }) {
 
 
 	return (
-		<div className="col-span-3">
-			<nav>
-				<ul className="flex items-center space-x-4 font-medium">
-					<li className="hidden md:block">
-						<Link href="/" className="flex items-center dark:text-gray-100">
-							<HomeIcon />
-							<span>{home}</span>
+		<div className="w-full max-w-4xl">
+			<nav className="relative">
+				{/* 桌面端导航 */}
+				<ul className="hidden md:flex items-center justify-center space-x-3 list-none">
+					<li>
+						<Link 
+							href="/" 
+							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+						>
+							<HomeIcon className="w-5 h-5 flex-shrink-0" />
+							<span className="ml-2 text-sm whitespace-nowrap">{home}</span>
 						</Link>
 					</li>
-					<li className="hidden md:block">
-						<Link href="/archive" className="flex items-center dark:text-gray-100">
-							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" /></svg>
-							<span>{archive}</span>
+					<li>
+						<Link 
+							href="/archive" 
+							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" /></svg>
+							<span className="ml-2 text-sm whitespace-nowrap">{archive}</span>
 						</Link>
 					</li>
-					<li className="hidden md:block">
-						<Link href="/about" className="flex items-center dark:text-gray-100">
-							<InfoIcon />
-							<span>{about}</span>
+					<li>
+						<Link 
+							href="/about" 
+							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+						>
+							<InfoIcon className="w-5 h-5 flex-shrink-0" />
+							<span className="ml-2 text-sm whitespace-nowrap">{about}</span>
 						</Link>
 					</li>
-					<li className="hidden md:block">
-						<Link href="/index.xml" className="flex items-center dark:text-gray-100">
-							<RssFeedIcon />
-							<span>{rss}</span>
+					<li>
+						<Link 
+							href="/index.xml" 
+							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+						>
+							<RssFeedIcon className="w-5 h-5 flex-shrink-0" />
+							<span className="ml-2 text-sm whitespace-nowrap">{rss}</span>
 						</Link>
 					</li>
+					<div className="flex-grow" />
 					<li className="hidden xl:block relative">
 						<button
 							onClick={handleTranslateMenuClick}
+							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 							aria-expanded={translateMenuVisible ? 'true' : 'false'}>
-							<TranslateIcon />
+							<TranslateIcon className="w-5 h-5" />
 						</button>
 						{translateMenuVisible && (
 							<div
-								className="absolute right-0 mt-2 py-2 w-36 bg-white text-black dark:bg-gray-600 dark:text-gray-100 rounded-md shadow-lg text-center"
+								className="absolute right-0 mt-2 py-1 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 text-center"
 								onMouseLeave={() => setTranslateMenuVisible(false)}>
 								{sortedLocales.map(([locale, displayName]) => (
-									<div key={locale} className={`block px-4 py-2 text-sm ${activeLocale !== locale ? 'hover:bg-gray-100 dark:hover:bg-gray-700' : ''}`}>
+									<div key={locale} className={`block px-4 py-2 text-sm ${activeLocale !== locale ? 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50' : 'text-blue-600 dark:text-blue-400'}`}>
 										{locale !== activeLocale ? <Link href={currentUrl} locale={locale}>{displayName}</Link> : displayName}
 									</div>
 								))}
@@ -98,74 +113,118 @@ export default function Navbar({ RenderThemeChanger }) {
 					<li className="hidden md:block xl:hidden relative">
 						<button
 							onClick={handleMoreMenuClick}
+							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 							aria-expanded={moreMenuVisible ? 'true' : 'false'}>
-							<MoreHorizIcon />
+							<MoreHorizIcon className="w-5 h-5" />
 						</button>
 						{moreMenuVisible && (
-							<div className="absolute right-0 mt-2 py-2 w-36 bg-white text-black dark:bg-gray-600 dark:text-gray-100 rounded-md shadow-lg text-center"
-								onMouseLeave={ () =>setMoreMenuVisible(false)}>
+							<div className="absolute right-0 mt-2 py-2 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 text-center"
+								onMouseLeave={() => setMoreMenuVisible(false)}>
 								<ul className="space-y-2">
-									<li className="py-2 bg-white rounded-md shadow-lg bg-white text-black dark:bg-gray-600 dark:text-gray-100">
+									<li className="py-2 bg-white dark:bg-gray-800 rounded-lg">
 										{sortedLocales.map(([locale, displayName]) => (
-											<div key={locale} className={`block px-4 py-2 text-sm ${activeLocale !== locale ? 'hover:bg-gray-100 dark:hover:bg-gray-700' : ''}`}>
-												{locale !== activeLocale ? <Link href='/' locale={locale}>{displayName}</Link> : displayName}
+											<div key={locale} className={`block px-4 py-2 text-sm ${activeLocale !== locale ? 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50' : 'text-blue-600 dark:text-blue-400'}`}>
+												{locale !== activeLocale ? <Link href={currentUrl} locale={locale}>{displayName}</Link> : displayName}
 											</div>
 										))}
 									</li>
-									<li className="py-2 bg-white rounded-md shadow-lg bg-white dark:bg-gray-600">
+									<li className="py-2 bg-white dark:bg-gray-800 rounded-lg">
 										<div className="block px-4 py-2 text-sm">{RenderThemeChanger()}</div>
 									</li>
 								</ul>
 							</div>
 						)}
 					</li>
-					<li className="md:hidden relative z-50 list-none">
+				</ul>
+
+				{/* 移动端导航 */}
+				<div className="md:hidden">
+					{/* 移动端导航按钮 */}
+					<div className="flex justify-end">
 						<button
 							onClick={handleMobileMenuClick}
+							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 							aria-expanded={mobileMenuVisible ? 'true' : 'false'}>
-							<MenuIcon />
+							<MenuIcon className="w-6 h-6" />
 						</button>
-						{mobileMenuVisible && (
-							<div className="absolute right-0 mt-2 py-2 w-36 bg-white text-black dark:bg-gray-600 dark:text-gray-100"
-								onMouseLeave={ () =>setMobileMenuVisible(false)} >
-								<li>
-									<Link href="/" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
-										<span className='mx-auto'>{home}</span>
-									</Link>
-								</li>
-								<li>
-									<Link href="/archive" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
-										<span className='mx-auto'>{archive}</span>
-									</Link>
-								</li>
-								<li>
-									<Link href="/about" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
-										<span className='mx-auto'>{about}</span>
-									</Link>
-								</li>
-								<li>
-									<Link href="/index.xml" className="flex items-center hover:bg-gray-100 dark:hover:bg-gray-700">
-										<span className='mx-auto'>{rss}</span>
-									</Link>
-								</li>
-								<div className="absolute right-0 mt-2 py-2 w-36 bg-white dark:bg-gray-600 dark:text-gray-100 text-center border-t border-gray-30">
-									<ul className="space-y-2 list-none">
-										<li className="py-2 bg-white dark:bg-gray-600 dark:text-gray-100 border-b border-gray-30">
-											{sortedLocales.map(([locale, displayName]) => (
-												<div key={locale} className={`block px-4 py-2 text-sm ${activeLocale !== locale ? 'hover:bg-gray-100 dark:hover:bg-gray-700' : ''}`}>
-													{locale !== activeLocale ? <Link href='/' locale={locale}>{displayName}</Link> : displayName}
-												</div>
-											))}
-										</li>
-										<li className="py-2 bg-white dark:bg-gray-600 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
-											<div className="block px-4 py-2 text-sm">{RenderThemeChanger()}</div>
-										</li>
-									</ul>
-								</div>
+					</div>
+
+					{/* 移动端下拉菜单 */}
+					<div 
+						className={`
+							absolute left-0 right-0 
+							bg-white dark:bg-gray-900 
+							shadow-lg 
+							border-b border-gray-200 dark:border-gray-700
+							overflow-hidden
+							transition-all duration-300 ease-in-out
+							${mobileMenuVisible ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}
+						`}
+					>
+						<nav className="px-2 py-2">
+							<Link 
+								href="/"
+								onClick={() => setMobileMenuVisible(false)}
+								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+							>
+								<HomeIcon className="w-5 h-5" />
+								<span className="ml-3 text-sm font-medium">{home}</span>
+							</Link>
+							<Link 
+								href="/archive"
+								onClick={() => setMobileMenuVisible(false)}
+								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" /></svg>
+								<span className="ml-3 text-sm font-medium">{archive}</span>
+							</Link>
+							<Link 
+								href="/about"
+								onClick={() => setMobileMenuVisible(false)}
+								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+							>
+								<InfoIcon className="w-5 h-5" />
+								<span className="ml-3 text-sm font-medium">{about}</span>
+							</Link>
+							<Link 
+								href="/index.xml"
+								onClick={() => setMobileMenuVisible(false)}
+								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+							>
+								<RssFeedIcon className="w-5 h-5" />
+								<span className="ml-3 text-sm font-medium">{rss}</span>
+							</Link>
+
+							{/* 语言切换 */}
+							<div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
+								{sortedLocales.map(([locale, displayName]) => (
+									<div key={locale} 
+										className={`px-4 py-2 text-sm ${
+											activeLocale !== locale 
+												? 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' 
+												: 'text-blue-600 dark:text-blue-400 font-medium'
+										}`}
+									>
+										{locale !== activeLocale ? (
+											<Link 
+												href={currentUrl} 
+												locale={locale}
+												onClick={() => setMobileMenuVisible(false)}
+											>
+												{displayName}
+											</Link>
+										) : displayName}
+									</div>
+								))}
 							</div>
-						)}
-					</li>
-				</ul>
+
+							{/* 主题切换 */}
+							<div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 px-4">
+								{RenderThemeChanger()}
+							</div>
+						</nav>
+					</div>
+				</div>
 			</nav>
 		</div>
 	)

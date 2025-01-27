@@ -4,5 +4,7 @@
     "About": "关于",
     "RSS": "RSS",
     "BackToLast": "返回上一页",
-    "PostsWithTag": "带有此标签的文章"
+    "PostsWithTag": "带有此标签的文章",
+    "PreviousPost": "上一篇：",
+    "NextPost": "下一篇："
 }

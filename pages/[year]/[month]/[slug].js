@@ -9,25 +9,30 @@ import ArticleLayout from 'components/ArticleLayout'
 import Date from 'components/Date'
 import ArticleToc from 'components/ArticleToc'
 import AISummary from 'components/AISummary'
-import Backbutton from 'components/Backbutton'
 import Comment from 'components/Comment'
 import ScrollToTop from 'components/ScrollToTop'
-import { getAllPostMetadata, getPostDataByFileName } from 'lib/posts'
+import { getAllPostMetadata, getPostDataByFileName, getSortedPostsData } from 'lib/posts'
+import useTranslation from 'next-translate/useTranslation'
 
-
-export default function Post({ postData, params, stats }) { 
+export default function Post({ postData, params, stats, prevPost, nextPost }) { 
+	const { t } = useTranslation('common')
 	const [ap, setAp] = useState(null)
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
 
 	useEffect(() => {
 		const initializeAPlayer = () => {
-		  if (typeof window !== 'undefined' && window.APlayer && postData.audio && !ap) {
+			if (mounted && typeof window !== 'undefined' && window.APlayer && postData.audio && !ap) {
 				const player = new APlayer({
 			  container: document.getElementById('aplayer'),
 			  audio: [postData.audio],
 				})
 	
 				setAp(player)
-		  }
+			}
 		}
 	
 		initializeAPlayer()
@@ -37,7 +42,7 @@ export default function Post({ postData, params, stats }) {
 				ap.destroy()
 		  }
 		}
-	  }, [ap, postData])
+	  }, [ap, postData, mounted])
 	
 
 	return (
@@ -81,19 +86,28 @@ export default function Post({ postData, params, stats }) {
 							</div>
 
 							<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} className='tracking-wide leading-loose'/>
-							<div className="my-3">
-								<span className="font-bold">Tags:{' '}</span>
-								{postData.tags.map((tag, index) => (
-									<Link
-										key={index}
-										className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-										href={`/tags/${tag}`}>
-										{tag}
-									</Link>
-								))}
-							</div>
+							{mounted && postData.audio && <div id="aplayer" />}
 							<div className="my-12 mx-0">
-								<Backbutton />
+								<div className="grid grid-cols-2 gap-4">
+									{prevPost ? (
+										<Link 
+											href={`/${prevPost.year}/${prevPost.month}/${prevPost.slug}`}
+											className="group flex flex-col items-start overflow-hidden"
+										>
+											<span className="text-sm text-gray-900 dark:text-gray-100 mb-1 group-hover:text-blue-500">← {t('PreviousPost')}</span>
+											<span className="text-gray-900 dark:text-gray-100 truncate w-full group-hover:text-blue-500">{prevPost.title}</span>
+										</Link>
+									) : <div />}
+									{nextPost ? (
+										<Link 
+											href={`/${nextPost.year}/${nextPost.month}/${nextPost.slug}`}
+											className="group flex flex-col items-end text-right overflow-hidden"
+										>
+											<span className="text-sm text-gray-900 dark:text-gray-100 mb-1 group-hover:text-blue-500">{t('NextPost')} →</span>
+											<span className="text-gray-900 dark:text-gray-100 truncate w-full group-hover:text-blue-500">{nextPost.title}</span>
+										</Link>
+									) : <div />}
+								</div>
 							</div>
 							{ process.env.NEXT_PUBLIC_SHOW_COMMENT === 'true' ? <Comment /> : null }
 						</article>
@@ -131,13 +145,43 @@ export async function getStaticPaths({locales}) {
 
 export async function getStaticProps({ params }) {
 	const postData = await getPostDataByFileName(params.year, params.month, params.slug)
-	const contentHtml = postData.contentHtml
-	const stats = readingTime(contentHtml)
+	const stats = readingTime(postData.contentMarkdown)
+	
+	// Get all posts sorted by date (newest first)
+	const allPosts = getSortedPostsData()
+	
+	// Find current post index by matching slug from frontmatter
+	const currentIndex = allPosts.findIndex(post => {
+		const postDate = post.date.split('-')
+		const postYear = postDate[0]
+		const postMonth = postDate[1].padStart(2, '0')
+		return post.slug === params.slug && 
+			   postYear === params.year && 
+			   postMonth === params.month
+	})
+	
+	// For newest post (index 0), only show older post (next)
+	// For oldest post (last index), only show newer post (prev)
+	const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
+	const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
+
 	return {
 		props: {
 			postData,
 			params,
 			stats,
-		},
+			prevPost: prevPost ? {
+				title: prevPost.title,
+				year: prevPost.date.split('-')[0],
+				month: prevPost.date.split('-')[1].padStart(2, '0'),
+				slug: prevPost.slug  // Use slug from frontmatter
+			} : null,
+			nextPost: nextPost ? {
+				title: nextPost.title,
+				year: nextPost.date.split('-')[0],
+				month: nextPost.date.split('-')[1].padStart(2, '0'),
+				slug: nextPost.slug  // Use slug from frontmatter
+			} : null
+		}
 	}
 }

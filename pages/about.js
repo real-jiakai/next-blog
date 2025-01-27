@@ -12,7 +12,7 @@ export default function About() {
 				<title>{about}</title>
 			</Head>
 			<h1 className='text-center my-3'>{about}</h1>
-			<div className='container mx-auto px-4 w-3/5'>
+			<div className='max-w-2xl mx-auto px-4'>
 				<p className='my-4'>
 				本站点专注于分享互联网上有趣的内容。
 				</p>

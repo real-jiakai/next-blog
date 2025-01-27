@@ -4,5 +4,7 @@
     "About": "About",
     "RSS": "RSS",
     "BackToLast": "Back to the last page",
-    "PostsWithTag": "Posts with tag"
+    "PostsWithTag": "Posts with tag",
+    "PreviousPost": "Previous Post: ",
+    "NextPost": "Next Post: "
 }
