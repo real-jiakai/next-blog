@@ -2,6 +2,7 @@ import { useTheme } from 'next-themes'
 import Brightness5Icon from '@mui/icons-material/Brightness5'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Navbar from 'components/Navbar'
+import Link from 'next/link'
 
 // 顶部导航栏组件
 export default function Header() {
@@ -35,6 +36,12 @@ export default function Header() {
 		<header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800">
 			<div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between h-14">
+					{/* 移动端标题 */}
+					<div className="md:hidden text-xl font-medium tracking-wide text-gray-900 dark:text-gray-100">
+						<Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+							{process.env.NEXT_PUBLIC_SITE_TITLE}
+						</Link>
+					</div>
 					<nav className="flex-1 flex justify-center">
 						<Navbar RenderThemeChanger={RenderThemeChanger} />
 					</nav>

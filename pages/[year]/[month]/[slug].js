@@ -14,7 +14,7 @@ import ScrollToTop from 'components/ScrollToTop'
 import { getAllPostMetadata, getPostDataByFileName, getSortedPostsData } from 'lib/posts'
 import useTranslation from 'next-translate/useTranslation'
 
-export default function Post({ postData, params, stats, prevPost, nextPost }) { 
+export default function Post({ postData, params, stats, prevPost, nextPost }) {
 	const { t } = useTranslation('common')
 	const [ap, setAp] = useState(null)
 	const [mounted, setMounted] = useState(false)
@@ -27,23 +27,23 @@ export default function Post({ postData, params, stats, prevPost, nextPost }) {
 		const initializeAPlayer = () => {
 			if (mounted && typeof window !== 'undefined' && window.APlayer && postData.audio && !ap) {
 				const player = new APlayer({
-			  container: document.getElementById('aplayer'),
-			  audio: [postData.audio],
+					container: document.getElementById('aplayer'),
+					audio: [postData.audio],
 				})
-	
+
 				setAp(player)
 			}
 		}
-	
+
 		initializeAPlayer()
-	
+
 		return () => {
-		  if (ap) {
+			if (ap) {
 				ap.destroy()
-		  }
+			}
 		}
-	  }, [ap, postData, mounted])
-	
+	}, [ap, postData, mounted])
+
 
 	return (
 		<ArticleLayout>
@@ -85,12 +85,12 @@ export default function Post({ postData, params, stats, prevPost, nextPost }) {
 								</div>
 							</div>
 
-							<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} className='tracking-wide leading-loose'/>
+							<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} className='tracking-wide leading-loose' />
 							{mounted && postData.audio && <div id="aplayer" />}
 							<div className="my-12 mx-0">
 								<div className="grid grid-cols-2 gap-4">
 									{prevPost ? (
-										<Link 
+										<Link
 											href={`/${prevPost.year}/${prevPost.month}/${prevPost.slug}`}
 											className="group flex flex-col items-start overflow-hidden"
 										>
@@ -99,7 +99,7 @@ export default function Post({ postData, params, stats, prevPost, nextPost }) {
 										</Link>
 									) : <div />}
 									{nextPost ? (
-										<Link 
+										<Link
 											href={`/${nextPost.year}/${nextPost.month}/${nextPost.slug}`}
 											className="group flex flex-col items-end text-right overflow-hidden"
 										>
@@ -109,7 +109,10 @@ export default function Post({ postData, params, stats, prevPost, nextPost }) {
 									) : <div />}
 								</div>
 							</div>
-							{ process.env.NEXT_PUBLIC_SHOW_COMMENT === 'true' ? <Comment /> : null }
+							{/* 评论组件容器 */}
+							<div className="max-w-full overflow-x-auto">
+								{process.env.NEXT_PUBLIC_SHOW_COMMENT === 'true' ? <Comment /> : null}
+							</div>
 						</article>
 
 						{/* 文章目录 */}
@@ -125,7 +128,7 @@ export default function Post({ postData, params, stats, prevPost, nextPost }) {
 	)
 }
 
-export async function getStaticPaths({locales}) {
+export async function getStaticPaths({ locales }) {
 	const allPostMetadata = getAllPostMetadata()
 	const paths = allPostMetadata.map((post) => locales.map(
 		(locale) => ({
@@ -136,7 +139,7 @@ export async function getStaticPaths({locales}) {
 			},
 			locale,
 		}))).flat()
-	
+
 	return {
 		paths,
 		fallback: false,
@@ -146,20 +149,20 @@ export async function getStaticPaths({locales}) {
 export async function getStaticProps({ params }) {
 	const postData = await getPostDataByFileName(params.year, params.month, params.slug)
 	const stats = readingTime(postData.contentMarkdown)
-	
+
 	// Get all posts sorted by date (newest first)
 	const allPosts = getSortedPostsData()
-	
+
 	// Find current post index by matching slug from frontmatter
 	const currentIndex = allPosts.findIndex(post => {
 		const postDate = post.date.split('-')
 		const postYear = postDate[0]
 		const postMonth = postDate[1].padStart(2, '0')
-		return post.slug === params.slug && 
-			   postYear === params.year && 
-			   postMonth === params.month
+		return post.slug === params.slug &&
+			postYear === params.year &&
+			postMonth === params.month
 	})
-	
+
 	// For newest post (index 0), only show older post (next)
 	// For oldest post (last index), only show newer post (prev)
 	const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
