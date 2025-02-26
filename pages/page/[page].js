@@ -23,7 +23,7 @@ export default function Page({ allPostsData,currentPage }) {
 			</Head>
 			<section className="max-w-2xl mx-auto px-4">
 				<div className="min-h-[calc(100vh-12rem)] flex flex-col justify-between">
-					<div className="space-y-4">
+					<div className="space-y-4 flex-grow">
 						{postsToRender.map(({ date, slug, title, summary, tags }) => {
 							const [year, month] = date.split('-')
 							return (
@@ -44,16 +44,15 @@ export default function Page({ allPostsData,currentPage }) {
 												{tags && tags.length > 0 && (
 													<div className="inline-flex items-center gap-1.5">
 														<LocalOfferIcon sx={{ fontSize: 16 }} className="text-gray-500 dark:text-gray-400" />
-														<div className="flex flex-wrap gap-1">
-															{tags.map(tag => (
-																<span
-																	key={tag}
-																	className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-600 dark:text-gray-300"
-																>
-																	{tag}
-																</span>
-															))}
-														</div>
+														{tags.map((tag, index) => (
+															<Link
+																key={index}
+																href={`/tag/${tag}`}
+																className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+															>
+																{index > 0 ? ' · ' : ''}#{tag}
+															</Link>
+														))}
 													</div>
 												)}
 											</div>
