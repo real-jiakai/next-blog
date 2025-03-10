@@ -36,7 +36,6 @@
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.2.1",
     "next-translate": "^2.6.2",
-    "node-fetch": "^3.3.2",
     "nodemailer": "^6.10.0",
     "openai": "^4.80.1",
     "postcss": "^8.5.1",

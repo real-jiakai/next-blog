@@ -5,7 +5,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 	const [summary, setSummary] = useState('')
 	const [isCopied, setIsCopied] = useState(false)
 	const [isFetching, setIsFetching] = useState(false)
-	const [selectedAI, setSelectedAI] = useState('chatgpt')
+	const [selectedAI, setSelectedAI] = useState('gemini')
 	const [error, setError] = useState('')
 
 	const formattedTags = useMemo(() => tags.map(tag => `#${tag}`).join(', '), [tags])
@@ -95,8 +95,8 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					onChange={(e) => setSelectedAI(e.target.value)}
 					aria-label="选择 AI 模型"
 				>
-					<option value="chatgpt">Gemini-2.0-Flash-Lite</option>
-					<option value="qwen">Qwen-Turbo</option>
+					<option value="gemini">Gemini-2.0-Flash-Lite</option>
+					<option value="deepseek">DeepSeek-V3</option>
 				</select>
 			</div>
 
