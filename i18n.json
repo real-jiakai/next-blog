@@ -4,9 +4,6 @@
     "pages": {
       "*": ["common"],
       "/": ["home"],
-      "/about": ["about"],
-      "/gallery": ["gallery"],
-      "/search": ["search"],
-      "/douban": ["douban"]
+      "/about": ["about"]
     }
   }

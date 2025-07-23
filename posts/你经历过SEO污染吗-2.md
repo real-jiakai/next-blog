@@ -9,17 +9,11 @@ showtoc: true
 
 欢迎打开第2期的「周见」，本期的话题是「你经历过SEO污染吗？」。
 
-![封面图：没有生机的垃圾场](https://imgs.zhubai.love/4e95ba3f81d54b32ae29b66dec89e587.jpg)
-
-<center><b>封面图:没有生机的垃圾场</b></center>
-
 ## 话题：你经历过SEO污染吗？
 
 其实SEO污染就像上图的垃圾场污染环境一样，污染着互联网。
 
 首先解释一下什么是SEO污染，以下定义摘自百度百科。
-
-![SEO污染的定义](https://imgs.zhubai.love/5296950acb7e4b91a6943e1660287521.png)
 
 前些天，看到了其他博主推荐的知乎话题[中文互联网的产出在渐渐枯萎吗？](https://www.zhihu.com/question/49684783/answer/2305132342)
 
@@ -30,8 +24,6 @@ showtoc: true
 采集站采集了各式各样的博文，这种方式的聚合没有任何意义。说得难听点，就是一垃圾站在收集垃圾。
 
 这是网友对于CSDN的评价，我见过这种类型的博文，虽然这个超链接可能最终解决了我的问题，但是我并不对提供超链接的博主有任何感激之情，我只会感激原文的作者。CSDN是一个垃圾站点，虽然里面可能包含有一些博主的精华文章，但总体而言，博文质量不高。这也是我离开CSDN的一个原因。
-
-![b站网友对于csdn的评价](https://imgs.zhubai.love/96c0dbd49b444b3d9a3e025b2924547d.png)
 
 受够了被SEO污染的搜索体验，如何破局呢？
 
@@ -53,8 +45,6 @@ showtoc: true
 一个打飞机的网页端游戏，值得一玩。
 
 积攒了一定的能量后，可以按enter键，发射超级光波。😄
-
-![spacecraft样例图](https://imgs.zhubai.love/c58908c876f443908bc39fe5a993d051.png)
 
 2.[词云小工具](https://cloud.niucodata.com/)
 

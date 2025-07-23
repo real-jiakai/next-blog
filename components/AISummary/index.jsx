@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 export default function AISummary({ contentMarkdown, params, tags }) {
 	const [summary, setSummary] = useState('')
-	const [isCopied, setIsCopied] = useState(false)
 	const [isFetching, setIsFetching] = useState(false)
 	const [selectedAI, setSelectedAI] = useState('gemini')
 	const [error, setError] = useState('')
@@ -26,7 +24,6 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 
 	useEffect(() => {
 		setSummary('')
-		setIsCopied(false)
 		setError('')
 	}, [selectedAI])
 
@@ -80,28 +77,27 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 		})
 	}, [selectedAI, contentMarkdown, extractThemeContent])
 
-	const copyText = useMemo(() => `标签：${formattedTags}\n总结: ${summary}\nvia: ${process.env.NEXT_PUBLIC_SITE_URL}/${params.year}/${params.month}/${params.slug}`, [formattedTags, summary, params])
 
 	return (
-		<div className="border border-gray-300 rounded mb-4 relative">
-			<div className="font-bold mb-2 text-center">文章摘要生成器</div>
+		<div className="border border-gray-300 dark:border-slate-600 rounded mb-4 relative">
+			<div className="font-bold mb-2 text-center text-gray-900 dark:text-gray-100">文章摘要生成器</div>
       
 			<div className="mb-4 text-center">
 				<select
 					id="ai-selector"
 					name="ai-selector"
-					className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm bg-white dark:bg-gray-800 dark:text-white"
+					className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-slate-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm bg-white dark:bg-slate-700 dark:text-white"
 					value={selectedAI}
 					onChange={(e) => setSelectedAI(e.target.value)}
 					aria-label="选择 AI 模型"
 				>
-					<option value="gemini">Gemini-2.0-Flash-Lite</option>
+					<option value="gemini">Gemini-2.5-Flash-Lite</option>
 					<option value="deepseek">DeepSeek-V3</option>
 				</select>
 			</div>
 
 			{summary && (
-				<div className='bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border'>
+				<div className='bg-white dark:bg-slate-700 rounded-xl shadow-md p-4 hover:bg-gray-100 dark:hover:bg-slate-600 transition cursor-copy border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white'>
 					<p className="break-words max-w-full">标签：{formattedTags}</p>
 					<p className="break-words max-w-full">总结: {summary}</p>
 					<p className="break-words max-w-full">via: {process.env.NEXT_PUBLIC_SITE_URL}/{params.year}/{params.month}/{params.slug}</p>
@@ -120,16 +116,6 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					>
 						生成摘要
 					</button>
-				)}
-				{summary && (
-					<CopyToClipboard text={copyText} onCopy={() => setIsCopied(true)}>
-						<button 
-							className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded"
-							aria-label={isCopied ? '已复制摘要' : '复制摘要'}
-						>
-							{isCopied ? '已复制' : '复制摘要'}
-						</button>
-					</CopyToClipboard>
 				)}
 			</div>
 		</div>

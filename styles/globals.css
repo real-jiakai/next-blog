@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
 
 @layer base {
     body {
@@ -51,6 +51,14 @@
       
 }
 
+@layer components {
+    /* APlayer 自定义样式 - 无论黑白模式都保持黑色 */
+    .aplayer-author,
+    .aplayer-title {
+        @apply !text-black;
+    }
+}
+
 .bilibili,
 .youtube {
     width: 100%;
@@ -60,8 +68,4 @@
     justify-content: center;
     align-items: center;
     padding: 20px 0;
-}
-
-.aplayer-author {
-    @apply dark:text-white text-black !important;
 }

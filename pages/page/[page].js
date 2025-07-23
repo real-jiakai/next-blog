@@ -22,7 +22,7 @@ export default function Page({ allPostsData,currentPage }) {
 				<title>{currentPage === 1 ? `${process.env.NEXT_PUBLIC_SITE_TITLE}` : `Page  ${currentPage}` }</title>
 			</Head>
 			<section className="max-w-2xl mx-auto px-4">
-				<div className="min-h-[calc(100vh-12rem)] flex flex-col justify-between">
+				<div className="min-h-[calc(100vh-12rem)] flex flex-col">
 					<div className="space-y-4 flex-grow">
 						{postsToRender.map(({ date, slug, title, summary, tags }) => {
 							const [year, month] = date.split('-')
@@ -63,7 +63,7 @@ export default function Page({ allPostsData,currentPage }) {
 							)
 						})}
 					</div>
-					<div className="flex justify-center py-4 gap-2">
+					<div className="flex justify-center py-4 gap-2 mt-auto">
 						{currentPage > 1 && (
 							<Link
 								href={currentPage === 2 ? '/' : `/page/${parseInt(currentPage) - 1}`}

@@ -20,7 +20,7 @@ export default function Home({ allPostsData }) {
 			</Head>
 
 			<section className="max-w-2xl mx-auto px-4">
-				<div className="min-h-[calc(100vh-12rem)] flex flex-col justify-between">
+				<div className="min-h-[calc(100vh-12rem)] flex flex-col">
 					<div className="space-y-4 flex-grow">
 						{postsToRender.map(({ date, slug, title, summary, tags }) => {
 							const [year, month] = date.split('-')
@@ -29,39 +29,41 @@ export default function Home({ allPostsData }) {
 									key={slug}
 									className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
 								>
-									<Link href={`/${year}/${month}/${slug}`}>
-										<div className="px-4 py-3">
-											<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1.5">
+									<div className="px-4 py-3">
+										<Link href={`/${year}/${month}/${slug}`}>
+											<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1.5 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">
 												{title}
 											</h2>
-											<div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-												<div className="inline-flex items-center gap-1.5">
-													<CalendarTodayIcon sx={{ fontSize: 16 }} className="text-gray-500 dark:text-gray-400" />
-													<Date dateString={date} />
-												</div>
-												{tags && tags.length > 0 && (
-													<div className="inline-flex items-center gap-1.5">
-														<LocalOfferIcon sx={{ fontSize: 16 }} className="text-gray-500 dark:text-gray-400" />
-														{tags.map((tag, index) => (
-															<Link
-																key={index}
-																href={`/tag/${tag}`}
-																className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-															>
-																{index > 0 ? ' · ' : ''}#{tag}
-															</Link>
-														))}
-													</div>
-												)}
+										</Link>
+										<div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+											<div className="inline-flex items-center gap-1.5">
+												<CalendarTodayIcon sx={{ fontSize: 16 }} className="text-gray-500 dark:text-gray-400" />
+												<Date dateString={date} />
 											</div>
-											<p className="mt-1.5 text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{summary}</p>
+											{tags && tags.length > 0 && (
+												<div className="inline-flex items-center gap-1.5">
+													<LocalOfferIcon sx={{ fontSize: 16 }} className="text-gray-500 dark:text-gray-400" />
+													{tags.map((tag, index) => (
+														<Link
+															key={index}
+															href={`/tag/${tag}`}
+															className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+														>
+															{index > 0 ? ' · ' : ''}#{tag}
+														</Link>
+													))}
+												</div>
+											)}
 										</div>
-									</Link>
+										<Link href={`/${year}/${month}/${slug}`}>
+											<p className="mt-1.5 text-gray-600 dark:text-gray-300 text-sm line-clamp-2 hover:text-gray-800 dark:hover:text-gray-100 cursor-pointer">{summary}</p>
+										</Link>
+									</div>
 								</article>
 							)
 						})}
 					</div>
-					<div className="flex justify-center py-4 gap-2">
+					<div className="flex justify-center py-4 gap-2 mt-auto">
 						<span className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm"> 1 / {totalPages}</span>
 						{totalPages > 1 && (
 							<Link
