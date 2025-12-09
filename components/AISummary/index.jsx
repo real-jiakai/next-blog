@@ -92,7 +92,7 @@ export default function AISummary({ contentMarkdown, params, tags }) {
 					aria-label="选择 AI 模型"
 				>
 					<option value="gemini">Gemini-2.5-Flash-Lite</option>
-					<option value="deepseek">DeepSeek-V3</option>
+					<option value="deepseek">DeepSeek-V3.2</option>
 				</select>
 			</div>
 
