@@ -1,0 +1,46 @@
+{
+  "common": {
+    "Home": "Home",
+    "Archive": "Archive",
+    "About": "About",
+    "RSS": "RSS",
+    "BackToLast": "Back to the last page",
+    "PostsWithTag": "Posts with tag",
+    "PreviousPost": "Previous Post: ",
+    "NextPost": "Next Post: ",
+    "PreviousPage": "Previous Page",
+    "NextPage": "Next Page",
+    "EditThisPage": "Edit this page",
+    "NoPostsAvailable": "No posts available in this language yet.",
+    "PostNotFound": "Post not found in this language.",
+    "NoPostsWithTag": "No posts found with this tag.",
+    "WeeklyBGM": "Weekly BGM",
+    "TOC": "TOC"
+  },
+  "about": {
+    "About": "About",
+    "Intro": "This site focuses on sharing interesting content from the internet.",
+    "WeeklyName": "The newsletter is called \"Weekly Insights.\" This means I hope to discover beauty in my learning and life each week, and share the novel things I encounter.",
+    "RSSSubscribe": "Welcome to subscribe via",
+    "RSSLink": "RSS",
+    "RSSSubscribeEnd": ".",
+    "MoreAboutMe": "To learn more about me, please visit my",
+    "Blog": "Blog",
+    "MoreAboutMeEnd": "."
+  },
+  "comment": {
+    "Comments": "Comments",
+    "LeaveComment": "Leave a Comment",
+    "YourName": "Your Name (required):",
+    "Email": "Email (required):",
+    "Website": "Website (optional):",
+    "YourComment": "Your Comment (some HTML tags allowed):",
+    "CommentPlaceholder": "Write a comment here (fill in email to receive notification when replied)",
+    "Submit": "Submit",
+    "Submitting": "Submitting...",
+    "InvalidEmail": "Invalid email address. Please enter a valid email.",
+    "CommentAccepted": "Your comment has been accepted",
+    "PleaseVerify": "Please complete the verification",
+    "CommentError": "There was an error with your comment. Please try again later."
+  }
+}

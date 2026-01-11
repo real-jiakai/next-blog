@@ -1,3 +1,37 @@
+# [5.0.0](https://github.com/simple-is-awesome/simple/compare/v4.0.0...v5.0.0) (2025-01-10)
+
+### BREAKING CHANGES
+
+* **Architecture Migration**: Migrated from Pages Router to App Router with native i18n
+* **TypeScript**: Converted entire codebase from JavaScript to TypeScript
+* **Next.js 16**: Upgraded to Next.js 16 with Turbopack support
+* **React 19**: Upgraded to React 19.2.1
+
+### Features
+
+* Native internationalization with middleware-based locale detection
+* Dynamic sitemap and robots.txt generation using Next.js built-in metadata
+* VitePress-style hover language dropdown
+* Improved layout consistency across all pages (max-w-5xl)
+* Sticky footer pagination for article lists
+
+### Removed
+
+* AI Summary feature (Gemini/DeepSeek integration)
+* next-translate dependency (replaced with native i18n)
+* next-sitemap dependency (replaced with built-in sitemap)
+* Husky (replaced with simple-git-hooks)
+* openai dependency
+
+### Technical Improvements
+
+* Simplified pre-commit hooks with simple-git-hooks
+* Cleaner project structure with unused code removed
+* React best practices (removed unnecessary useState in useEffect)
+* Tailwind CSS v4 with modern configuration
+
+---
+
 # [4.0.0](https://github.com/simple-is-awesome/simple/compare/v3.0.1...v4.0.0) (2023-04-22)
 
 

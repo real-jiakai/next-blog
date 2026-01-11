@@ -1,29 +1,113 @@
-# Contributing to Personal Blog System
+# Contributing to Next.js Multilingual Blog
 
-First of all, thank you for considering contributing to the Personal Blog System project! Your help and support are highly appreciated. We welcome any form of contribution, whether it's reporting bugs, suggesting enhancements, or adding new features through pull requests.
+Thank you for considering contributing to this project! Your help and support are highly appreciated.
 
-## How to Contribute
+## Tech Stack
 
-**Fork the repository**: To start contributing, first fork the main Personal Blog System repository to your GitHub account.
+- **Framework**: Next.js 16 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Database**: Supabase (for comments)
+- **Package Manager**: pnpm
 
-**Clone the forked repository**: After forking, clone the repository to your local development environment using `git clone`.
+## Prerequisites
 
-**Create a new branch**: Before making changes, create a new branch for your contribution. This helps keep the main branch clean and organized. Use a descriptive name for your branch, such as fix-bug-xxx or add-feature-xxx.
+- Node.js 18+
+- pnpm 9+
 
-**Make your changes**: Once you've created a new branch, make your changes and improvements to the code.
+## Getting Started
 
-**Commit and push your changes**: After making your changes, commit them with a clear and concise commit message describing what you've done. Then, push your changes to your forked repository on GitHub.
+1. **Fork the repository** to your GitHub account
 
-**Submit a pull request**: Finally, create a pull request from your forked repository to the main Personal Blog System repository. Be sure to provide a detailed description of your changes and the motivation behind them.
+2. **Clone your fork**:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/next-blog-multilingual.git
+   cd next-blog-multilingual
+   ```
 
-## Guidelines
+3. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
 
-Please ensure your code follows the existing code style and structure.
+4. **Set up environment variables**:
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your values
+   ```
 
-Test your changes to ensure they don't introduce new bugs or break existing functionality.
+5. **Start the development server**:
+   ```bash
+   pnpm dev
+   ```
 
-Keep your pull requests focused on a single feature or bugfix. If you have multiple unrelated changes, please submit separate pull requests for each.
+## Development Workflow
 
-Be respectful and considerate of other contributors. We want to foster a positive and inclusive community.
+1. **Create a new branch** for your feature or fix:
+   ```bash
+   git checkout -b feature/your-feature-name
+   # or
+   git checkout -b fix/your-bug-fix
+   ```
 
-Once again, thank you for your interest in contributing to the Personal Blog System project. Your support helps make this project better for everyone!
+2. **Make your changes** following the existing code style
+
+3. **Run linting** before committing:
+   ```bash
+   pnpm lint
+   ```
+
+4. **Commit your changes** with a clear message:
+   ```bash
+   git commit -m "feat: add new feature"
+   # or
+   git commit -m "fix: resolve specific issue"
+   ```
+
+5. **Push to your fork** and create a pull request
+
+## Code Style Guidelines
+
+- Use TypeScript for all new files
+- Follow existing naming conventions
+- Use functional components with hooks
+- Keep components focused and single-purpose
+- Use Tailwind CSS for styling
+
+## Project Structure
+
+```
+├── app/                 # Next.js App Router pages
+│   ├── [lang]/         # Locale-specific routes
+│   └── api/            # API routes
+├── components/         # React components
+├── lib/               # Utility functions and configurations
+│   ├── dictionaries/  # i18n translation files
+│   └── posts/         # Post processing utilities
+├── posts/             # Markdown blog posts
+│   ├── en/           # English posts
+│   └── zh/           # Chinese posts
+└── public/            # Static assets
+```
+
+## Adding Blog Posts
+
+Posts are stored in `posts/[locale]/` as Markdown files with frontmatter:
+
+```markdown
+---
+title: "Post Title"
+date: "2025-01-10"
+slug: "post-slug"
+tags: ["tag1", "tag2"]
+summary: "Brief description"
+---
+
+Your content here...
+```
+
+## Questions?
+
+Feel free to open an issue if you have any questions or need clarification.
+
+Thank you for contributing!

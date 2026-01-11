@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/atom-style.xsl"?>
+
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id/>
+    <id>https://gujiakai.top</id>
     <title>周见</title>
-    <updated>2025-12-09T01:42:15.558Z</updated>
+    <updated>2026-01-11T02:39:58.811Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>周见</name>
@@ -16,7 +18,7 @@
         <id>https://gujiakai.top/2025/01/weekly-issue-22</id>
         <link href="https://gujiakai.top/2025/01/weekly-issue-22"/>
         <updated>2025-01-27T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>电视剧《千朵桃花一世开》的插曲，黄龄魅惑的转音，搭配上电视剧的故事，让人享受。</p>
+        <content type="html"><![CDATA[<p>电视剧《千朵桃花一世开》的插曲，黄龄魅惑的转音，搭配上电视剧的故事，让人享受。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://cdn.sa.net/2025/01/27/UGEgt463nsvy5mV.webp" alt="乡下屋后的风景"></p>
 <p>乡下的冬天寒冷且萧瑟。</p>
@@ -74,14 +76,14 @@
 <p>4、对于想进入AI行业的年轻人，最重要的建议是动手玩模型。</p>
 <p>5、过早优化是万恶之源，先把系统搞出来再说。</p>
 <hr>
-<p>新年快乐🎉，希望2025年一切顺利！</p>]]></summary>
+<p>新年快乐🎉，希望2025年一切顺利！</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[AI情感伴侣选择谁? #21]]></title>
         <id>https://gujiakai.top/2024/09/weekly-issue-21</id>
         <link href="https://gujiakai.top/2024/09/weekly-issue-21"/>
         <updated>2024-09-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>该歌为电影《名侦探柯南：百万美元的五棱星》的主题曲。中秋节出去玩耍顺带看了这部电影，最后平次的告白，和叶竟然没听见😆。</p>
+        <content type="html"><![CDATA[<p>该歌为电影《名侦探柯南：百万美元的五棱星》的主题曲。中秋节出去玩耍顺带看了这部电影，最后平次的告白，和叶竟然没听见😆。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://cdn.sa.net/2024/09/30/JINylamgGMvqe8h.webp" alt="南宁南湖公园九拱桥"></p>
 <p>封面图为中秋节逛南宁南湖公园拍摄的风景图。走在九拱桥上，两边湖面的微风吹来，凉快得很。</p>
@@ -136,14 +138,14 @@
 <p>5、AI的危险在于，它会让你跳过思考，让机器填补思想的空白。我们需要AI使我们增加思考，而不是减少思考，我们每外包一个想法，就会错失一次成长的机会。</p>
 <p><img src="https://cdn.sa.net/2024/09/30/qQvHKt2pTcwzYgx.webp" alt="言论五"></p>
 <p>下一次月刊我估计是2024年年底了。其实真的有很多有趣的事物分享。今天分享的这些东西大部分都是9月份新收藏的。写完周刊，准备等雨停了，出校门去南宁周边的景点逛逛。</p>
-<p>本篇文章初写于2024年9月30号晚，完稿于2024年10月1号早上9点。</p>]]></summary>
+<p>本篇文章初写于2024年9月30号晚，完稿于2024年10月1号早上9点。</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[天选之人—川宝 #20]]></title>
         <id>https://gujiakai.top/2024/07/weekly-issue-20</id>
         <link href="https://gujiakai.top/2024/07/weekly-issue-20"/>
         <updated>2024-07-24T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>细究容祖儿今年上半年发布的这首歌曲《九秒九》细节，令人感动。</p>
+        <content type="html"><![CDATA[<p>细究容祖儿今年上半年发布的这首歌曲《九秒九》细节，令人感动。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://cdn.sa.net/2024/07/15/bQatZVU7rm4Evzi.webp" alt="南京地铁1号线"></p>
 <p>7月份暑假回家从南京中转回家，坐在一号线上有了和大学不一样的感触。2019下～2023上，一号线是回家的起始；而2023年下～2026年上，一号线则成了回家的中转。</p>
@@ -206,14 +208,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p><img src="https://cdn.sa.net/2024/07/24/jNVthe7Yosfq4DU.webp" alt="言论三"></p>
 <p>4、媒体是信息的媒介，它既能展示真实，也能扭曲真相，关键在于媒体人每个人的操守。</p>
 <p><img src="https://cdn.sa.net/2024/07/24/2BAdzGT9elCY6I8.webp" alt="言论四"></p>
-<p>8月见！😊😊😊</p>]]></summary>
+<p>8月见！😊😊😊</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[小红书真的能脱单？ #19]]></title>
         <id>https://gujiakai.top/2024/06/weekly-issue-19</id>
         <link href="https://gujiakai.top/2024/06/weekly-issue-19"/>
         <updated>2024-06-02T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>汪苏泷在歌手2024第一期拿出的原创歌曲，第一次观看关注点全都集中在了汪苏泷唱这歌狰狞的表情，
+        <content type="html"><![CDATA[<p>汪苏泷在歌手2024第一期拿出的原创歌曲，第一次观看关注点全都集中在了汪苏泷唱这歌狰狞的表情，
 后续循环了几次，发现这歌还挺耐听，与此同时也被汪苏泷的原创精神所佩服。华语乐坛需要更多这种优质的创作人。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://cdn.sa.net/2024/06/02/ewAR5gMvUumQIif.webp" alt="清晨民大校园"></p>
@@ -271,14 +273,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p><img src="https://cdn.sa.net/2024/06/02/3CcIZQDPOf42H8z.webp" alt="言论三"></p>
 <p>4、</p>
 <p><img src="https://cdn.sa.net/2024/06/02/5UcpRMxEeOaLkWh.webp" alt="言论四"></p>
-<p>7月见！😊😊😊</p>]]></summary>
+<p>7月见！😊😊😊</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[双非读研的窘境 #18]]></title>
         <id>https://gujiakai.top/2024/05/weekly-issue-18</id>
         <link href="https://gujiakai.top/2024/05/weekly-issue-18"/>
         <updated>2024-05-05T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>浪漫美好的一首歌曲，远在广西的我，难免会想念江苏的人、事、物。</p>
+        <content type="html"><![CDATA[<p>浪漫美好的一首歌曲，远在广西的我，难免会想念江苏的人、事、物。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://cdn.sa.net/2024/05/05/x74Nd1Tw9nYh6AF.webp" alt="广西民族大学举行的“铸牢中华民族共同体意识”主题活动现场"></p>
 <p>2024年，在广西民族大学举行的“铸牢中华民族共同体意识”主题活动现场，我作为一名江苏人首次体验到了三月三节日。这一体验让我深刻感受到了中国文化的博大精深和独特魅力。</p>
@@ -332,14 +334,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2、我努力学习，是为了降低通往成功路上所需要的运气。<a href="https://twitter.com/real_jiakai/status/1775357712026759261">via</a></p>
 <p>3、开源的前提是衣食无忧，安居乐业。<a href="https://twitter.com/real_jiakai/status/1717355456052728197">via</a></p>
 <p>4、时代的一粒灰，落在个人头上就是一座山，每个人都有被大山压垮的可能。</p>
-<p>下一次更新预计在7月份暑假。</p>]]></summary>
+<p>下一次更新预计在7月份暑假。</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[当MJJ一周年有感 #17]]></title>
         <id>https://gujiakai.top/2024/03/weekly-issue-17</id>
         <link href="https://gujiakai.top/2024/03/weekly-issue-17"/>
         <updated>2024-03-30T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>一首非常温暖的歌曲，疲惫时听一下，能被治愈。</p>
+        <content type="html"><![CDATA[<p>一首非常温暖的歌曲，疲惫时听一下，能被治愈。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp" alt=""></p>
 <p>实验室的师兄预答辩结束后，搬离实验室。看到别人临近毕业，有些羡慕，又说不出有些伤感，</p>
@@ -372,14 +374,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>Elon Musk的星链地图，可以看到地球已经被星链卫星给密密麻麻覆盖住了。抛开政治因素不谈，马斯克的雄心和野心让人佩服。</p>
 <h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
 <p>1、AI won’t take your job, but someone using it might.（AI不会取代你的工作，但使用它的人可能会）</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快😊</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快😊</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[毕业即失业的解决方案 #16]]></title>
         <id>https://gujiakai.top/2023/07/weekly-issue-16</id>
         <link href="https://gujiakai.top/2023/07/weekly-issue-16"/>
         <updated>2023-07-10T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>这首那英 &#x26; 张杰的《没那么简单》诠释了都是成年人最普遍的心情！每个人为了生活而奔波，都不容易。</p>
+        <content type="html"><![CDATA[<p>这首那英 &#x26; 张杰的《没那么简单》诠释了都是成年人最普遍的心情！每个人为了生活而奔波，都不容易。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/06/18/xNMWFfUaY25zJtT.webp" alt="犯困的小猫咪"></p>
 <p><img src="https://vip2.loli.net/2023/06/18/W97vQCa4ugGqnME.webp" alt="犯困小猫咪+雨伞摆放处全貌"></p>
@@ -455,14 +457,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>一个交互式的三维星际邻域可视化网站。纯英文讲解。</p>
 <h2 id="备注"><a aria-hidden="true" tabindex="-1" href="#备注"><span class="icon icon-link"></span></a>备注</h2>
 <p>链享完成于2024年2月29日，其余部分完成于2023年7月10日。</p>
-<p>时间过得真快，马上就距离自己大学毕业1周年了。</p>]]></summary>
+<p>时间过得真快，马上就距离自己大学毕业1周年了。</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[今天我学了什么 #15]]></title>
         <id>https://gujiakai.top/2023/02/weekly-issue-15</id>
         <link href="https://gujiakai.top/2023/02/weekly-issue-15"/>
         <updated>2023-02-28T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>大学最后一个学期了，学生生涯可能已经结束。好想来一次全国旅行，看看祖国的大好河山后，再投身于工作中。</p>
+        <content type="html"><![CDATA[<p>大学最后一个学期了，学生生涯可能已经结束。好想来一次全国旅行，看看祖国的大好河山后，再投身于工作中。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/02/28/r3W1kNCeThsbnVO.webp" alt="My Yubikey is dead."></p>
 <p><img src="https://vip2.loli.net/2023/02/28/O8wQng4uZeqaTGA.webp" alt="yubikey 咸鱼代购"></p>
@@ -564,14 +566,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>4、<a href="https://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time">Falsehoods programmers believe about time</a></p>
 <p>5、<a href="https://zachholman.com/talk/utc-is-enough-for-everyone-right">UTC is enough for  everyone ...right?</a></p>
 <p>6、<a href="https://blog.humphd.org/cheatgpt/">CheatGPT</a></p>
-<p>7、<a href="https://grifel.dev/decentralization/">Self hosting in 2023</a></p>]]></summary>
+<p>7、<a href="https://grifel.dev/decentralization/">Self hosting in 2023</a></p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[互联网是有记忆的？#14]]></title>
         <id>https://gujiakai.top/2023/01/weekly-issue-14</id>
         <link href="https://gujiakai.top/2023/01/weekly-issue-14"/>
         <updated>2023-01-27T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>黄妈和希林小姐姐在春晚舞台上的演绎，完美地诠释了母女情深。</p>
+        <content type="html"><![CDATA[<p>黄妈和希林小姐姐在春晚舞台上的演绎，完美地诠释了母女情深。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/01/25/RUlQhg1AFNP9yLv.webp" alt="除夕夜的新疆阿拉山口边防连国门瞭望所"></p>
 <p>图片来源：人民日报b站直播画面</p>
@@ -675,14 +677,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>我也尝试过在互联网档案馆中找寻当年在现代浏览器中使用行模式浏览器访问第一个网站网页的存档，但是存档的页面展示效果不佳。 <a href="#user-content-fnref-5" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
-</section>]]></summary>
+</section>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[囤积信息的坏习惯 #13]]></title>
         <id>https://gujiakai.top/2023/01/weekly-issue-13</id>
         <link href="https://gujiakai.top/2023/01/weekly-issue-13"/>
         <updated>2023-01-13T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>这首歌的歌名是《有我》，而不是《无畏的你》，原唱是周深。希林小姐姐在23央视网络春晚的演唱有些惊艳。</p>
+        <content type="html"><![CDATA[<p>这首歌的歌名是《有我》，而不是《无畏的你》，原唱是周深。希林小姐姐在23央视网络春晚的演唱有些惊艳。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/01/19/E7F2urLpvn6WK9j.webp" alt="Image a World Without Free Knowledge"></p>
 <p>译文：</p>
@@ -763,14 +765,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p><img src="https://vip2.loli.net/2023/01/20/hyJkWcH7Xz5qAiC.webp" alt="言论四"></p>
 <p>5、自由是能自由地说2+2=4。</p>
 <p><img src="https://vip2.loli.net/2023/01/20/uUtVOCv2JynKXZ5.webp" alt="言论五"></p>
-<h2 id="春节快乐"><a aria-hidden="true" tabindex="-1" href="#春节快乐"><span class="icon icon-link"></span></a>春节快乐！🎆🎇🧧</h2>]]></summary>
+<h2 id="春节快乐"><a aria-hidden="true" tabindex="-1" href="#春节快乐"><span class="icon icon-link"></span></a>春节快乐！🎆🎇🧧</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[毕业季该如何突围？ #12]]></title>
         <id>https://gujiakai.top/2023/01/weekly-issue-12</id>
         <link href="https://gujiakai.top/2023/01/weekly-issue-12"/>
         <updated>2023-01-12T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>这首歌曲是张栋梁在去年芒果台节目—《时光音乐会》中的演唱，视频版可见&#x3C;a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank">b站链接&#x3C;/a>。</p>
+        <content type="html"><![CDATA[<p>这首歌曲是张栋梁在去年芒果台节目—《时光音乐会》中的演唱，视频版可见&#x3C;a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank">b站链接&#x3C;/a>。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/01/12/cxfkZmjUBWdhG7O.webp" alt="蓝色大理石"></p>
 <p>1972年12月7日，阿波罗17号的宇航员在前往月球的途中拍摄了这张地球的照片。今天被称为“蓝色大理石”，这张照片已经成为我们家园最具标志性的图像之一。<a href="https://www.nasa.gov/content/blue-marble-image-of-the-earth-from-apollo-17">图一来源</a></p>
@@ -847,14 +849,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>3、打破信息孤岛最好方法的就是分享，这是每个人都有的权力。</p>
 <p>4、学习金字塔，注意到属于“主动学习”的，都是带有“强输出”性质的行为，所以反过来也说明了多输出才能更好的学习。<a href="https://t.me/codedump_notes/237">via</a></p>
 <p><img src="https://vip2.loli.net/2023/01/12/oBGFVLtynw6I4TY.webp" alt="言论四图片"></p>
-<p>5、恋爱就应该在20来岁，过了时间，再找对象就是凑合过日子，而不是因为爱情。</p>]]></summary>
+<p>5、恋爱就应该在20来岁，过了时间，再找对象就是凑合过日子，而不是因为爱情。</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[你好2023 #11]]></title>
         <id>https://gujiakai.top/2023/01/weekly-issue-11</id>
         <link href="https://gujiakai.top/2023/01/weekly-issue-11"/>
         <updated>2023-01-02T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+        <content type="html"><![CDATA[<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/01/02/aEuIAXRplML1ib6.webp" alt="Unsplash2022年度最佳照片奖"></p>
 <p>“这幅作品有一种超自然的感觉，它在我们现在生活的这个混乱的世界中创造了一个平静和安宁的时刻。” — Unsplash2022年度最佳照片奖。 <a href="https://awards.unsplash.com/2022/#/community-photo">(via)</a></p>
 <h2 id="话题你好2023"><a aria-hidden="true" tabindex="-1" href="#话题你好2023"><span class="icon icon-link"></span></a>话题：你好2023</h2>
@@ -905,14 +907,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <blockquote>
 <p>我想知道为什么在他们身边会有翻译官，我记得他们都说的都是韩语。</p>
 </blockquote>
-<p><img src="https://vip2.loli.net/2023/01/03/xyYFH9dkIvr8UmM.webp" alt="言论图二"></p>]]></summary>
+<p><img src="https://vip2.loli.net/2023/01/03/xyYFH9dkIvr8UmM.webp" alt="言论图二"></p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[我的那些年 #10]]></title>
         <id>https://gujiakai.top/2022/06/weekly-issue-10</id>
         <link href="https://gujiakai.top/2022/06/weekly-issue-10"/>
         <updated>2022-06-06T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>周刊BGM【高考季专属】。</p>
+        <content type="html"><![CDATA[<p>周刊BGM【高考季专属】。</p>
 <p>欢迎打开第10期的「周见」，本期的话题是「我的那些年」。</p>
 <p><img src="https://vip2.loli.net/2022/09/20/BrVsEMzPYmdnSF8.jpg" alt="19年我的高中母校高考壮行场面"></p>
 &#x3C;center>&#x3C;b>(封面图：19年我的高中母校高考壮行场面)&#x3C;/b>&#x3C;/center>
@@ -952,14 +954,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>物各有性，水至淡，盐得味。水加水还是水，盐加盐还是盐。酸甜苦辣咸，五味调和，共存相生，百味纷呈。物如此，事犹是，人亦然。</p>
 <p>这是19年的江苏语文高考作文题目，当时我写的是酸甜苦辣咸，语文得了97分，今年暑假如果有空，我会重写19年的江苏语文高考作文，找寻当年的温度。</p>
 <p>个人觉得这是一件很酷的事情。如果你也想追忆当年的高考，可以在自己有空时，重写当年自己的语文高考作文题。</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[技术优先还是折腾优先？ #9]]></title>
         <id>https://gujiakai.top/2022/06/weekly-issue-09</id>
         <link href="https://gujiakai.top/2022/06/weekly-issue-09"/>
         <updated>2022-06-03T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>周刊BGM【端午节专属】。</p>
+        <content type="html"><![CDATA[<p>周刊BGM【端午节专属】。</p>
 <p>欢迎打开第9期的「周见」，本期的话题是「技术优先还是折腾优先？」。</p>
 <p><img src="https://vip2.loli.net/2022/11/12/3NoeEwjuitYS7Fa.jpg" alt="封面图：coding时光"></p>
 &#x3C;center>&#x3C;b>(封面图：coding时光)&#x3C;/b>&#x3C;/center>
@@ -1016,14 +1018,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>双语对照网页翻译，提高你英语阅读效率的同时，让你更方便地积累英语词汇。</p>
 <p>以前，我一直使用谷歌浏览器自带的谷歌翻译来翻译英文页面，这一翻译的弊端是使得译文与原文完全脱钩，而彩云小译解决了这一痛点。以下是我用彩云小译对经济学人杂志的一篇文章进行网页翻译的结果，译文与原文能同时显现。</p>
 <p><img src="https://vip2.loli.net/2022/11/12/BzCDFOGK2q7IeiR.png" alt="彩云小译双语翻译《经济学人》"></p>
-<h2 id="端午安康"><a aria-hidden="true" tabindex="-1" href="#端午安康"><span class="icon icon-link"></span></a>端午安康。🫔</h2>]]></summary>
+<h2 id="端午安康"><a aria-hidden="true" tabindex="-1" href="#端午安康"><span class="icon icon-link"></span></a>端午安康。🫔</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[信息时代的陷阱—过度消费内容 #8]]></title>
         <id>https://gujiakai.top/2022/05/weekly-issue-08</id>
         <link href="https://gujiakai.top/2022/05/weekly-issue-08"/>
         <updated>2022-05-27T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第8期的「周见」，本期的话题是「信息时代的陷阱—过度消费内容」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第8期的「周见」，本期的话题是「信息时代的陷阱—过度消费内容」。</p>
 <h2 id="gitee事件续集"><a aria-hidden="true" tabindex="-1" href="#gitee事件续集"><span class="icon icon-link"></span></a>🔍Gitee事件续集</h2>
 <p>今天早上刷b站的时候，看到了Gitee的b站账号发布了<a href="https://www.bilibili.com/video/BV1HS4y1q7Do">九周年直播录像</a>，其中Gitee官方回复了大家近期关心的开源审核事件。开源审核事件回复开始于视频的1小时15分，结束于1小时40多分。我记的笔记供你参考。</p>
 <h2 id="话题信息时代的陷阱过度消费内容"><a aria-hidden="true" tabindex="-1" href="#话题信息时代的陷阱过度消费内容"><span class="icon icon-link"></span></a>话题：信息时代的陷阱—过度消费内容</h2>
@@ -1060,14 +1062,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <blockquote>
 <p>我从韩国收了数十亿美元，为了让他们，一个非常富有的国家，为他们的军事保护支付一些钱。拜登就这么走了，什么也没要。他们认为我们太愚蠢了。</p>
 </blockquote>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[这很不开源 #7]]></title>
         <id>https://gujiakai.top/2022/05/weekly-issue-07</id>
         <link href="https://gujiakai.top/2022/05/weekly-issue-07"/>
         <updated>2022-05-16T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第7期的「周见」，本期的话题是「这很不开源」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第7期的「周见」，本期的话题是「这很不开源」。</p>
 <h2 id="话题这很不开源"><a aria-hidden="true" tabindex="-1" href="#话题这很不开源"><span class="icon icon-link"></span></a>话题：这很不开源</h2>
 <p>以上是Gitee官方对于开源仓库先审再上线措施的回复。对于此，我失望透顶。</p>
 <p>Gitee此举也是被逼无奈，工信部要求平台对于平台上的所有内容负责，于是Gitee的管理层就出了这样一个脑瘫举措。</p>
@@ -1097,14 +1099,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 </span><span class="code-line">curl wttr<span class="token punctuation">.</span>in/Wuxi
 </span></code></pre>
 <p>当然，输入以上命令的前提是你的电脑上安装好了curl这一命令行工具，具体安装方法可以自行搜索。</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[你实现音乐自由了吗？ #6]]></title>
         <id>https://gujiakai.top/2022/05/weekly-issue-06</id>
         <link href="https://gujiakai.top/2022/05/weekly-issue-06"/>
         <updated>2022-05-10T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第6期的「周见」，本期的话题是「你实现音乐自由了吗？」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第6期的「周见」，本期的话题是「你实现音乐自由了吗？」。</p>
 <h2 id="话题你实现音乐自由了吗"><a aria-hidden="true" tabindex="-1" href="#话题你实现音乐自由了吗"><span class="icon icon-link"></span></a>话题：你实现音乐自由了吗?</h2>
 <p>我想你一定碰到过音乐需要付费才可听的情形，国内的音乐巨头QQ音乐离谱到将周董的所有经典歌曲都标记为vip独享，为了赚钱真是脸都不要了。😮‍💨 周董是华语乐坛的领军人物，试想一下会有多少中国大陆的周董粉丝，为了听周董的歌而开会员。</p>
 <p>QQ音乐是中国大陆音乐版权最多的厂商，但其仗着自己手里的资源多，进行上述的捞钱行为令我反感。【上上个月，我脑袋一昏，为了听一首名为《星月糖》的歌曲，在QQ音乐开了会员，<del>以后应该不会再续了</del>，<strong>QQ音乐是本土最大的音乐平台，综合所有的音乐平台，其对于华语歌曲的支持度最高，有需求，肯定会续费！</strong>（补充于2022.11.12）】</p>
@@ -1132,14 +1134,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2.<a href="https://www.oldestsearch.com/">oldestsearch</a></p>
 <p>最旧的搜索引擎。</p>
 <p>搜出来的结果全是10年前抓取的页面快照。</p>
-<h2 id="明天工作日早些休息"><a aria-hidden="true" tabindex="-1" href="#明天工作日早些休息"><span class="icon icon-link"></span></a>明天工作日，早些休息。😆</h2>]]></summary>
+<h2 id="明天工作日早些休息"><a aria-hidden="true" tabindex="-1" href="#明天工作日早些休息"><span class="icon icon-link"></span></a>明天工作日，早些休息。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[如何高效备战考研？ #5]]></title>
         <id>https://gujiakai.top/2022/05/weekly-issue-05</id>
         <link href="https://gujiakai.top/2022/05/weekly-issue-05"/>
         <updated>2022-05-09T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第5期的「周见」，本期的话题是「如何高效备战考研？」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第5期的「周见」，本期的话题是「如何高效备战考研？」。</p>
 <h2 id="话题如何高效备战考研"><a aria-hidden="true" tabindex="-1" href="#话题如何高效备战考研"><span class="icon icon-link"></span></a>话题：如何高效备战考研？</h2>
 <p>近期，我发现自己备战考研刷数学题越刷越迷茫了，越到后面，做不出来的题目越来越多。</p>
 <p>题目做不出来的原因不外乎两点。</p>
@@ -1163,14 +1165,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>一个能帮你寻找“相似的网站”的网站。如我在搜索框中输入了'4399.com'，接着，这个站点就罗列出一堆与4399小游戏类似的网站，其中7k7k小游戏和4399小游戏的相似度最高。</p>
 <p>✍️ 原本想完全放弃周刊，一门心思专注考研了。但是想了想，还是进行了这一期周刊。因为我每天几乎有十几个小时泡在自习室中，时间较为充裕，一个礼拜挤出2-3个小时完成周刊的创作，绰绰有余。</p>
 <p>✨ 我相信自己的效率，我也坚信坚持周刊创作会在潜移默化中让我爱上写作。若干年后，当我翻阅自己稚嫩的文字时，我想我会被曾经的自己感动。</p>
-<h2 id="周一愉快"><a aria-hidden="true" tabindex="-1" href="#周一愉快"><span class="icon icon-link"></span></a>周一愉快。😆</h2>]]></summary>
+<h2 id="周一愉快"><a aria-hidden="true" tabindex="-1" href="#周一愉快"><span class="icon icon-link"></span></a>周一愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[你被信息茧房玩弄了嘛 #4]]></title>
         <id>https://gujiakai.top/2022/04/weekly-issue-04</id>
         <link href="https://gujiakai.top/2022/04/weekly-issue-04"/>
         <updated>2022-04-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第4期的「周见」，本期的话题是「你被信息茧房玩弄了嘛？」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第4期的「周见」，本期的话题是「你被信息茧房玩弄了嘛？」。</p>
 &#x3C;center>&#x3C;b>封面图：信息茧房&#x3C;/b>&#x3C;/center>
 <h2 id="话题你被信息茧房玩弄了嘛"><a aria-hidden="true" tabindex="-1" href="#话题你被信息茧房玩弄了嘛"><span class="icon icon-link"></span></a>话题：你被信息茧房玩弄了嘛？</h2>
 <p><em>什么是信息茧房？</em></p>
@@ -1200,14 +1202,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2.<a href="https://findtheinvisiblecow.com/">findtheinvisiblecow</a></p>
 <p>一款有趣的浏览器端游戏，牛会隐藏在屏幕中，当你的鼠标离牛越近时，牛的声音会越响。提示：最终的鼠标会变成这种形状。👆</p>
 <p>再次点击即可找到隐藏的牛。🐮</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[对同质化说不 #3]]></title>
         <id>https://gujiakai.top/2022/04/weekly-issue-03</id>
         <link href="https://gujiakai.top/2022/04/weekly-issue-03"/>
         <updated>2022-04-22T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第3期的「周见」，本期的话题是「对同质化说不」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第3期的「周见」，本期的话题是「对同质化说不」。</p>
 <h2 id="话题拒绝同质化"><a aria-hidden="true" tabindex="-1" href="#话题拒绝同质化"><span class="icon icon-link"></span></a>话题：拒绝同质化</h2>
 <p><em>什么是同质化？</em></p>
 <p>上大学前，一直听闻上了大学，自己可以自由选课，有更多选择的传言，但是上了大学后，发现现实并不是这样的。课表里面还是塞满了自己不喜欢的课程，因为不喜欢，所以学习的动力也就没有多少。</p>
@@ -1227,14 +1229,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>在搜索框中输入关键字，会生成最适合你的域名。比如我输入我的姓名，它给我推荐了.ai后缀的域名。</p>
 <p>2.<a href="https://www.autopiano.cn/">自由钢琴</a></p>
 <p>在线钢琴，键盘钢琴，模拟钢琴，多种乐器选择，好听又好玩。对于钢琴盲的我而言，选择直接听演奏示例。比如这首林俊杰的<a href="https://www.autopiano.cn/midi/46812212798731">《江南》</a>。</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[你经历过SEO污染吗？ #2]]></title>
         <id>https://gujiakai.top/2022/04/weekly-issue-02</id>
         <link href="https://gujiakai.top/2022/04/weekly-issue-02"/>
         <updated>2022-04-15T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>欢迎打开第2期的「周见」，本期的话题是「你经历过SEO污染吗？」。</p>
+        <content type="html"><![CDATA[<p>欢迎打开第2期的「周见」，本期的话题是「你经历过SEO污染吗？」。</p>
 <h2 id="话题你经历过seo污染吗"><a aria-hidden="true" tabindex="-1" href="#话题你经历过seo污染吗"><span class="icon icon-link"></span></a>话题：你经历过SEO污染吗？</h2>
 <p>其实SEO污染就像上图的垃圾场污染环境一样，污染着互联网。</p>
 <p>首先解释一下什么是SEO污染，以下定义摘自百度百科。</p>
@@ -1258,14 +1260,14 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2.<a href="https://cloud.niucodata.com/">词云小工具</a></p>
 <p>根据输入的文本生成词云图。</p>
 <p>3.<a href="https://music.163.com/outchain/player?type=2&#x26;id=5276810">《少女的祈祷》</a>钢琴曲，一首纯洁清丽的曲子，分享给你，愿你在这喧嚣的尘世，心灵永远年轻。</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[富豪是怎样炼成的？ #1]]></title>
         <id>https://gujiakai.top/2022/04/weekly-issue-01</id>
         <link href="https://gujiakai.top/2022/04/weekly-issue-01"/>
         <updated>2022-04-09T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>你好👋，朋友。今天开始，我决定每周写一篇周刊，分享我过去1周的所见所闻。</p>
+        <content type="html"><![CDATA[<p>你好👋，朋友。今天开始，我决定每周写一篇周刊，分享我过去1周的所见所闻。</p>
 <h2 id="话题富豪是怎样炼成的"><a aria-hidden="true" tabindex="-1" href="#话题富豪是怎样炼成的"><span class="icon icon-link"></span></a>话题：富豪是怎样炼成的？</h2>
 <p>马斯克买下了推特公司9.2%的股份，成为推特公司最大的股东。看到福布斯富豪榜，马斯克傲视群雄，不禁发问，为什么这个男人会这么成功？</p>
 <p>在网上搜集资料后，我归纳出以下促使其成功的因素：</p>
@@ -1282,6 +1284,6 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
 <p>1.<a href="https://focus-sounds.vercel.app/">Focus Sound</a>，一个在vercel上托管的站点，里面有许多声音供你选择，自习时可以打开，增加学习的氛围。</p>
 <p>2.<a href="https://www.thiswebsitewillselfdestruct.com/">会自毁的网站</a>——一个写下你的感受的地方。如果 24 小时内没有收到新消息，该站点将消失。b站腾讯云官方的<a href="https://www.bilibili.com/video/BV1J3411J7Ym">视频</a>对此有详细描述。</p>
-<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></summary>
+<h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
 </feed>

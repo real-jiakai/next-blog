@@ -1,0 +1,46 @@
+{
+  "common": {
+    "Home": "首页",
+    "Archive": "归档",
+    "About": "关于",
+    "RSS": "RSS",
+    "BackToLast": "返回上一页",
+    "PostsWithTag": "带有此标签的文章",
+    "PreviousPost": "上一篇：",
+    "NextPost": "下一篇：",
+    "PreviousPage": "上一页",
+    "NextPage": "下一页",
+    "EditThisPage": "编辑此页",
+    "NoPostsAvailable": "该语言暂无文章。",
+    "PostNotFound": "该语言暂无此文章。",
+    "NoPostsWithTag": "没有找到带有此标签的文章。",
+    "WeeklyBGM": "周刊BGM",
+    "TOC": "目录"
+  },
+  "about": {
+    "About": "关于",
+    "Intro": "本站点专注于分享互联网上有趣的内容。",
+    "WeeklyName": "周刊名字取为《周见》。这意味着我希望每周自己都能在学习与生活中发现美，将看到的新奇事物分享出来。",
+    "RSSSubscribe": "欢迎通过",
+    "RSSLink": "RSS",
+    "RSSSubscribeEnd": "订阅本站点。",
+    "MoreAboutMe": "想了解更多关于我的信息，欢迎访问我的",
+    "Blog": "Blog",
+    "MoreAboutMeEnd": "。"
+  },
+  "comment": {
+    "Comments": "留言",
+    "LeaveComment": "我要发表看法",
+    "YourName": "您的大名（必填）：",
+    "Email": "电子邮件（必填）：",
+    "Website": "个人网址 (选填):",
+    "YourComment": "您的留言 (HTML标签部分可用):",
+    "CommentPlaceholder": "在此输入留言（填写邮箱可在被回复时收到邮件通知）",
+    "Submit": "提交",
+    "Submitting": "提交中...",
+    "InvalidEmail": "邮箱地址无效，请填写正确的邮箱地址。",
+    "CommentAccepted": "你的留言已被接受",
+    "PleaseVerify": "请完成人机验证",
+    "CommentError": "留言出现了一些错误，请稍后再试"
+  }
+}

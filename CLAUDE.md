@@ -23,36 +23,34 @@ You can use the Tools below:
 This is a Next.js blog application with the following key characteristics:
 
 ### Core Technologies
-- **Framework**: Next.js 15 with App Router disabled (using Pages Router)
+- **Framework**: Next.js 16 with App Router
 - **Styling**: Tailwind CSS 4.x with dark mode support
 - **Content**: Markdown posts with frontmatter, processed via unified/remark/rehype
-- **Internationalization**: next-translate with Chinese (zh) as default locale and English (en) support
-- **Database**: Supabase for comments and user data
-- **AI Integration**: Gemini API for content summarization
+- **Internationalization**: Native Next.js i18n with Chinese (zh) as default locale and English (en) support
+- **Database**: Supabase for comments
 - **Theme**: next-themes for dark/light mode switching
 
 ### Content Management
-- **Posts Directory**: `/posts/` contains Markdown files with frontmatter metadata
+- **Posts Directory**: `/posts/[locale]/` contains Markdown files with frontmatter metadata (e.g., `/posts/zh/`, `/posts/en/`)
 - **Post Processing**: Uses unified pipeline with remark-gfm, rehype-prism-plus, rehype-slug, rehype-autolink-headings
-- **URL Structure**: `/[year]/[month]/[slug]` for individual posts
-- **Features**: Tags, search functionality, pagination, RSS feed generation, sitemap
+- **URL Structure**: `/[lang]/[year]/[month]/[slug]` for individual posts
+- **Features**: Tags, pagination, RSS feed generation, sitemap
 
 ### Key Components
 - **Layout**: Main layout wrapper with Header, Footer, and ScrollToTop
 - **ArticleLayout**: Individual post layout with optional table of contents
-- **AISummary**: AI-powered content summarization using Gemini API
 - **Comment System**: Supabase-backed commenting with CommentForm and CommentList
-- **Search**: Full-text search across titles, content, tags, and summaries
 - **Navigation**: Tag-based filtering, pagination, archive views
 
 ### API Routes
-- `/api/gemini.js` - Streams AI summaries using Gemini 2.5 Flash Lite
-- `/api/deepseek.js` - Alternative AI endpoint
-- `/api/comInsert.js` & `/api/comSelect.js` - Comment CRUD operations
+- `/api/comInsert/route.ts` & `/api/comSelect/route.ts` - Comment CRUD operations
 
 ### Environment Variables Required
-- `GEMINI_BASE_URL` & `GEMINI_API_KEY` - For AI summarization
 - `NEXT_PUBLIC_SUPABASE_URL` & `NEXT_PUBLIC_SUPABASE_ANON_KEY` - For database
+- `NEXT_PUBLIC_SITE_TITLE` - Site title
+- `NEXT_PUBLIC_POSTS_PERPAGE` - Number of posts per page
+- `NEXT_PUBLIC_SHOW_COMMENT` - Enable/disable comments
+- `NEXT_PUBLIC_GITHUB_REPO` - GitHub repo URL for edit links
 
 ### Content Structure
 Posts use frontmatter with fields: `title`, `date`, `slug`, `tags`, `summary`, `draft`, `showtoc`, `audio`
