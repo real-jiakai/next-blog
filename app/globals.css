@@ -83,7 +83,7 @@
     }
 
     .article-content img {
-        @apply rounded-lg my-8 max-w-full h-auto;
+        @apply rounded-lg my-8 max-w-full h-auto cursor-zoom-in transition-all duration-200 hover:opacity-90 hover:shadow-lg;
     }
 
     .article-content a {

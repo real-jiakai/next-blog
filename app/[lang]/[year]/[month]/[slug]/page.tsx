@@ -9,6 +9,7 @@ import {
 	getSortedPostsData,
 } from '@/lib/posts'
 import ArticleLayout from '@/components/ArticleLayout'
+import ArticleContent from '@/components/ArticleContent'
 import Date from '@/components/Date'
 import ArticleToc from '@/components/ArticleToc'
 import Comment from '@/components/Comment'
@@ -142,10 +143,7 @@ export default async function Post({
 						<hr className="my-8 border-gray-200 dark:border-gray-800" />
 
 						{/* Article body */}
-						<div
-							dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-							className="article-content"
-						/>
+						<ArticleContent contentHtml={postData.contentHtml} />
 
 						{/* Previous/Next navigation */}
 						<nav className="mt-16 flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-6">

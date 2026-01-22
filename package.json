@@ -42,7 +42,8 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "yet-another-react-lightbox": "^3.28.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -53,12 +54,15 @@
     "@semantic-release/release-notes-generator": "^14.1.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/hast": "^3.0.4",
+    "@types/node": "^25.0.9",
+    "@types/react": "^19.2.8",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.1",
     "lint-staged": "^16.2.7",
     "semantic-release": "^25.0.2",
     "simple-git-hooks": "^2.13.1",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
   },
   "version": "0.0.1-development",
   "repository": {
