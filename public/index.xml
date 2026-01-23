@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://gujiakai.top</id>
     <title>周见</title>
-    <updated>2026-01-11T02:39:58.811Z</updated>
+    <updated>2026-01-23T03:48:14.255Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>周见</name>
@@ -13,6 +13,58 @@
     <link rel="alternate" href="https://gujiakai.top"/>
     <subtitle>专注于分享互联网上有趣的东西。</subtitle>
     <rights>Made with ❤️ By Jiakai</rights>
+    <entry>
+        <title type="html"><![CDATA[站在校园与社会的十字路口 #23]]></title>
+        <id>https://gujiakai.top/2026/01/weekly-issue-23</id>
+        <link href="https://gujiakai.top/2026/01/weekly-issue-23"/>
+        <updated>2026-01-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p>游戏《逆战：未来》的主题曲，张杰标志性的高亢嗓音穿透力十足，副歌层层递进的旋律配合热血摇滚的编曲，瞬间点燃听众的战斗欲望。十四年前的《逆战》曾陪伴无数玩家度过青涩岁月，如今这首《暴风少年》再度唤醒那份并肩作战的记忆，让人在熟悉的旋律中重拾少年时代的热忱与勇气。</p>
+<h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
+<p><img src="https://cdn.sa.net/2026/01/23/b1GZHPmplhd3e4K.webp" alt="雷伊拼豆"></p>
+<p><img src="https://cdn.sa.net/2026/01/23/ueKpkj5D3XTg4oP.webp" alt="怒雷神裁·雷伊皮肤：宿命的对决·雷伊"></p>
+<p>拼豆时拼的雷伊和游戏中的雷伊皮肤。</p>
+<h2 id="话题站在校园与社会的十字路口"><a aria-hidden="true" tabindex="-1" href="#话题站在校园与社会的十字路口"><span class="icon icon-link"></span></a>话题：站在校园与社会的十字路口</h2>
+<p>距离学生时代结束还有半年左右的时间，在这个时间点我想写一些文字总结过去的读研，以及对于未来进入社会的思考。</p>
+<p>读研生活对于我而言是比较舒适的，因为导师啥也不懂，对学生几乎纯放养。我在研二时自己出钱偷偷搞了一篇EI会议论文，很早就满足了毕业要求，与此同时，后续又写了一篇论文交给导师，并在垃圾期刊发表，以应付导师，让导师明白我已完成了毕业条件。</p>
+<p><img src="https://cdn.sa.net/2026/01/23/YQzR69UZfjqOECM.webp" alt="Google Scholar的主页"></p>
+<p>双非读研，给我的感触确实如网上所说的那般：“双非读研=死缓”。导师想的是让你一直写论文，第一作者永远是他，但现实是导师啥也不干，没出资金、没出力气、论文也不看，一直是裴老师来指点我的论文。在他眼里，你就是他评职称的工具，需要你持续写论文；满足毕业条件了，还继续让你写论文；甚至毕业论文写完预答辩通过了，还要你写软著。幸亏有Claude、Gemini等AI的辅助，记得研二快结束时，导师看我进度快，又让我写一篇综述文章，后续被中文核心增刊录用，让我退稿并继续投稿（学校评职称不认增刊🤪），我目前对于这篇在审的综述文章已经无感了，能拖则拖，而且综述文章时效性很短，目前来看已经过时。</p>
+<p>与此同时，高校中的教师也像一头头饿狼，想蹭你的论文，来评职称用。记得研二下快结束时，裴老师告诉我有一个研究生院的讲师想要在录用的论文上加名字，我能咋办，加呗，反正也是垃圾论文，想想就离谱。</p>
+<p>另外，我觉得读研时的同门、舍友没几个真心的，他们想的是内卷、去白嫖你的智慧。一开始我总是抱着能帮则帮的态度，后续我也转变了，管好自己的事情，别人询问，半天左右才回复。虽然最近有改观，帮助同门、舍友时表现得比之前热情了一些，但后续我会继续高冷，不要多管闲事，你不推心置腹，休想让我掏真心。</p>
+<p>当然组会汇报、日常交流时也千万要记得韬光养晦，谦虚或者是有目的的隐瞒是研究生的必修课，太过强势或者将自己的想法全盘托出，你有干不完的活，你的创新点有可能被学术小偷挪用，懂的都懂。我只想混毕业，想法被别人知晓，后续论文查重可能会坑到自己。</p>
+<p>彻底看清现实，B站“水论文的程序猿”up主说的句句都是真理，这就是人性。</p>
+<p>去年秋招我参与了央国企的招聘，笔试通过后陆续有面试，有时面试没去，有时进行了面试就没后续消息了。目前 0 offer。</p>
+<p><img src="https://cdn.sa.net/2026/01/23/FNtXIvSpBQym3hu.webp" alt="中国石油高校毕业生招聘平台秋招拒绝通知"></p>
+<p>我国考有幸进面了，比最低进面分高4分，最后面试加权后会6选2，有较大的淘汰概率，主打尝试，江苏省考岗位排名33，下岸。后续也会尝试315省考和事业单位等考试，最后啥也没捞到，就老老实实回自己的小县城，找个厂上班得了。</p>
+<p><img src="https://cdn.sa.net/2026/01/23/h1Z6j2TisfmyrbO.webp" alt="国考有幸进面"></p>
+<p>站在校园和社会的十字路口，我有迷茫和担忧，但时间总是催人奋进，继续奔跑吧，做一个暴风少年，明知风沙扑面，仍选择手捧鲜花前行。</p>
+<h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
+<p>已经好久没有整理书签了，之前用Karakeep来整理，但其用户体验与 Raindrop 有差距。翻看了大半天，没有找到有趣的内容，这期就不罗列了。</p>
+<h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
+<ol>
+<li><a href="https://chatgpt.com/translate/">ChatGPT Translate</a></li>
+</ol>
+<p><img src="https://cdn.sa.net/2026/01/23/dKIx6gJ7MZit9uA.webp" alt="ChatGPT Translate"></p>
+<p>OpenAI 推出的「翻译专用入口」，让翻译体验更像和 AI 对话而不是机械转换。当然Google翻译也得到了Gemini的加持。</p>
+<p><img src="https://cdn.sa.net/2026/01/23/sFKr9JXPukaIYA4.webp" alt="Google Translate也得到了Gemini的加持"></p>
+<ol start="2">
+<li><a href="https://ippure.com/">IPPure</a></li>
+</ol>
+<p><img src="https://cdn.sa.net/2026/01/23/msU1Tqlp3bQPJcz.webp" alt="IPPure"></p>
+<p>IPPure 是一个 IP 纯净度检测平台，主要面向需要检测 IP 地址质量的用户。保持自己的IP干净至关重要，可以缓解ChatGPT降智的风险。</p>
+<ol start="3">
+<li><a href="https://perlerbeads.zippland.com/">拼豆底稿生成器</a></li>
+</ol>
+<p><img src="https://cdn.sa.net/2026/01/23/FasyzI6wRrdKQfm.webp" alt="拼豆底稿生成器"></p>
+<p>这是七卡瓦拼豆底稿生成器 —— 一个在线工具，用于把图片转换成拼豆（熔融豆）的底稿图案。</p>
+<h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
+<ol>
+<li><a href="https://simonwillison.net/2026/Jan/4/inflection/">It genuinely feels to me like GPT-5.2 and Opus 4.5 in November represent an inflection point.</a>(对我来说，GPT-5.2 和 Opus 4.5 在11月份代表了一个拐点)</li>
+</ol>
+<p><img src="https://cdn.sa.net/2026/01/23/aBdRsCT9UMqwN4K.webp" alt="simonwillison言论"></p>
+<p>目前我最喜欢的模型莫过于Claude Opus 4.5。搭配上Claude Code或者Claude Cowork，给人感觉真像一个助手。</p>
+<p><img src="https://cdn.sa.net/2026/01/23/DYIUcBELSQCOpxf.webp" alt="用Claude Cowork自动化数据处理"></p>
+<p>提前祝新年快乐🎉！下一期发布可能是在毕业，也可能是来年过年工作放假休息期间。</p>]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[他已如闪电般归来 #22]]></title>
         <id>https://gujiakai.top/2025/01/weekly-issue-22</id>
