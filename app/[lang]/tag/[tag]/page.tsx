@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { Locale, getLocalePath } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getPostsListByTag, getAllTagsAllLocales } from '@/lib/posts'
 import Layout from '@/components/Layout'
-import Date from '@/components/Date'
+import PostCard from '@/components/PostCard'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 
 interface TagParams {
   lang: Locale
@@ -55,47 +53,7 @@ export default async function TagPage({
 					<div className="space-y-4 flex-grow">
 						{posts.length > 0 ? (
 							posts.map((post) => (
-								<article
-									key={post.slug}
-									className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
-								>
-									<Link href={getLocalePath(lang, `/${post.year}/${post.month}/${post.slug}`)}>
-										<div className="px-4 py-3">
-											<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1.5">
-												{post.title}
-											</h2>
-											<div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-												<div className="inline-flex items-center gap-1.5">
-													<CalendarTodayIcon
-														sx={{ fontSize: 16 }}
-														className="text-gray-500 dark:text-gray-400"
-													/>
-													<Date dateString={post.date} />
-												</div>
-												{post.tags && post.tags.length > 0 && (
-													<div className="inline-flex items-center gap-1.5">
-														<LocalOfferIcon
-															sx={{ fontSize: 16 }}
-															className="text-gray-500 dark:text-gray-400"
-														/>
-														{post.tags.map((t: string, index: number) => (
-															<Link
-																key={index}
-																href={getLocalePath(lang, `/tag/${t}`)}
-																className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-															>
-																{index > 0 ? ' · ' : ''}#{t}
-															</Link>
-														))}
-													</div>
-												)}
-											</div>
-											<p className="mt-1.5 text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
-												{post.summary}
-											</p>
-										</div>
-									</Link>
-								</article>
+								<PostCard key={post.slug} lang={lang} post={post} />
 							))
 						) : (
 							<p className="text-gray-600 dark:text-gray-300 text-center">
