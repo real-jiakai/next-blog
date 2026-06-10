@@ -93,13 +93,14 @@ export async function POST(request: NextRequest) {
 
 		for (const parentCommentEmail of parentCommentEmails || []) {
 			try {
-				await transporter.sendMail({
+				const info = await transporter.sendMail({
 					from: process.env.EMAIL_USERNAME,
 					to: parentCommentEmail,
 					subject: `New reply to your comment in ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
 					text: `${username} replied to your comment: ${processedContent}. Please visit ${cleanUrl} to view it.`,
 					html: `<p>${username} replied to your comment: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
 				})
+				console.log(`Reply notification sent for comment ${commentId}: ${info.response}`)
 			} catch (err) {
 				console.error('Error sending email:', err)
 			}
@@ -108,13 +109,14 @@ export async function POST(request: NextRequest) {
 		// Send email to master
 		const masterEmail = process.env.MASTER_EMAIL
 		try {
-			await transporter.sendMail({
+			const info = await transporter.sendMail({
 				from: process.env.EMAIL_USERNAME,
 				to: masterEmail,
 				subject: `New comment on ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
 				text: `${username} commented: ${processedContent}. Please visit ${cleanUrl} to view it.`,
 				html: `<p>${username} commented: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
 			})
+			console.log(`Master notification sent for comment ${commentId}: ${info.response}`)
 		} catch (err) {
 			console.error('Error sending email to master:', err)
 		}
