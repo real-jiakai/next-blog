@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import supabase from '@/lib/supabase'
 import nodemailer from 'nodemailer'
 
@@ -21,10 +21,17 @@ const transporter = nodemailer.createTransport({
 	host: process.env.EMAIL_HOST,
 	port: parseInt(process.env.EMAIL_PORT || '587'),
 	secure: process.env.EMAIL_SECURE === 'true',
+	// On STARTTLS ports (587/2525) refuse to send credentials unencrypted
+	requireTLS: process.env.EMAIL_SECURE !== 'true',
 	auth: {
 		user: process.env.EMAIL_USERNAME,
 		pass: process.env.EMAIL_PASSWORD,
 	},
+	// Fail fast if SMTP is unreachable; nodemailer's 2-minute defaults
+	// otherwise leave sockets dangling long after the response is sent
+	connectionTimeout: 10_000,
+	greetingTimeout: 10_000,
+	socketTimeout: 20_000,
 })
 
 export async function POST(request: NextRequest) {
@@ -76,38 +83,42 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ error: error.message }, { status: 500 })
 	}
 
-	// Get parent comment emails and send notifications
-	const parentCommentEmails = await getEmailsFromParentComments(
-		insertedData[0].id
-	)
+	// Send notification emails after the response is delivered — a slow or
+	// unreachable SMTP server must never delay or fail the comment submission
+	after(async () => {
+		const commentId = insertedData?.[0]?.id
+		if (!commentId) return
 
-	for (const parentCommentEmail of parentCommentEmails) {
+		const parentCommentEmails = await getEmailsFromParentComments(commentId)
+
+		for (const parentCommentEmail of parentCommentEmails || []) {
+			try {
+				await transporter.sendMail({
+					from: process.env.EMAIL_USERNAME,
+					to: parentCommentEmail,
+					subject: `New reply to your comment in ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
+					text: `${username} replied to your comment: ${processedContent}. Please visit ${cleanUrl} to view it.`,
+					html: `<p>${username} replied to your comment: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
+				})
+			} catch (err) {
+				console.error('Error sending email:', err)
+			}
+		}
+
+		// Send email to master
+		const masterEmail = process.env.MASTER_EMAIL
 		try {
 			await transporter.sendMail({
 				from: process.env.EMAIL_USERNAME,
-				to: parentCommentEmail,
-				subject: `New reply to your comment in ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
-				text: `${username} replied to your comment: ${processedContent}. Please visit ${cleanUrl} to view it.`,
-				html: `<p>${username} replied to your comment: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
+				to: masterEmail,
+				subject: `New comment on ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
+				text: `${username} commented: ${processedContent}. Please visit ${cleanUrl} to view it.`,
+				html: `<p>${username} commented: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
 			})
 		} catch (err) {
-			console.error('Error sending email:', err)
+			console.error('Error sending email to master:', err)
 		}
-	}
-
-	// Send email to master
-	const masterEmail = process.env.MASTER_EMAIL
-	try {
-		await transporter.sendMail({
-			from: process.env.EMAIL_USERNAME,
-			to: masterEmail,
-			subject: `New comment on ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
-			text: `${username} commented: ${processedContent}. Please visit ${cleanUrl} to view it.`,
-			html: `<p>${username} commented: ${processedContent}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
-		})
-	} catch (err) {
-		console.error('Error sending email to master:', err)
-	}
+	})
 
 	return NextResponse.json(insertedData)
 }
