@@ -30,10 +30,6 @@ const generateIdenticon = (username: string): string => {
 export default function CommentList({ quoteComment, updateList }: CommentListProps) {
 	const [comments, setComments] = useState<Comment[]>([])
 
-	useEffect(() => {
-		fetchComments()
-	}, [updateList])
-
 	async function fetchComments() {
 		try {
 			const res = await fetch('/api/comSelect')
@@ -46,6 +42,10 @@ export default function CommentList({ quoteComment, updateList }: CommentListPro
 			console.error('Fetching comments failed: ', error)
 		}
 	}
+
+	useEffect(() => {
+		fetchComments()
+	}, [updateList])
 
 	return (
 		<>
