@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import supabase from '@/lib/supabase'
+import { renderCommentHtml } from '@/lib/renderComment'
 
 async function fetchCommentsFromDB(url: string) {
 	// Handle both /en/ and /zh/ locale prefixes
@@ -29,7 +30,13 @@ export async function GET(request: NextRequest) {
 	try {
 		const referer = request.headers.get('referer') || ''
 		const comments = await fetchCommentsFromDB(referer)
-		return NextResponse.json(comments)
+		const rendered = await Promise.all(
+			(comments || []).map(async (comment) => ({
+				...comment,
+				content: await renderCommentHtml(comment.content || ''),
+			}))
+		)
+		return NextResponse.json(rendered)
 	} catch (error: unknown) {
 		const errorMessage = error instanceof Error ? error.message : 'Unknown error'
 		return NextResponse.json({ error: errorMessage }, { status: 500 })
