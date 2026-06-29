@@ -41,6 +41,7 @@
     "InvalidEmail": "邮箱地址无效，请填写正确的邮箱地址。",
     "CommentAccepted": "你的留言已被接受",
     "PleaseVerify": "请完成人机验证",
-    "CommentError": "留言出现了一些错误，请稍后再试"
+    "CommentError": "留言出现了一些错误，请稍后再试",
+    "MarkdownTip": "支持 Markdown 与基础 HTML 语法。"
   }
 }

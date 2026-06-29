@@ -18,6 +18,7 @@ interface CommentDict {
   CommentAccepted: string
   PleaseVerify: string
   CommentError: string
+  MarkdownTip: string
 }
 
 interface CommentData {

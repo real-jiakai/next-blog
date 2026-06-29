@@ -41,6 +41,7 @@
     "InvalidEmail": "Invalid email address. Please enter a valid email.",
     "CommentAccepted": "Your comment has been accepted",
     "PleaseVerify": "Please complete the verification",
-    "CommentError": "There was an error with your comment. Please try again later."
+    "CommentError": "There was an error with your comment. Please try again later.",
+    "MarkdownTip": "Markdown and basic HTML are supported."
   }
 }

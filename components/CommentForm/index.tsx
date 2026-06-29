@@ -16,6 +16,7 @@ interface CommentDict {
   CommentAccepted: string
   PleaseVerify: string
   CommentError: string
+  MarkdownTip: string
 }
 
 interface CommentFormProps {
@@ -180,6 +181,9 @@ export default function CommentForm({
 						required
 						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32 dark:text-white"
 					/>
+					<p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
+						{dict.MarkdownTip}
+					</p>
 				</div>
 				<div className="mb-4">
 					<Turnstile
