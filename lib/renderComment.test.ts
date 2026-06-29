@@ -106,3 +106,28 @@ describe('commentToPlainText', () => {
 		expect(text).not.toContain('>')
 	})
 })
+
+describe('renderCommentHtml — emoji shortcodes', () => {
+	it('converts :tada: to the unicode emoji', async () => {
+		const html = await renderCommentHtml('nice :tada:')
+		expect(html).toContain('🎉')
+		expect(html).not.toContain(':tada:')
+	})
+
+	it('converts :+1: to the unicode emoji', async () => {
+		const html = await renderCommentHtml(':+1:')
+		expect(html).toContain('👍')
+	})
+
+	it('leaves shortcodes inside code blocks literal', async () => {
+		const html = await renderCommentHtml('```\n:tada:\n```')
+		expect(html).toContain(':tada:')
+		expect(html).not.toContain('🎉')
+	})
+
+	it('emoji in text survive alongside sanitized content', async () => {
+		const html = await renderCommentHtml('great :rocket:\n\n<script>alert(1)</script>')
+		expect(html).toContain('🚀')
+		expect(html).not.toContain('<script')
+	})
+})

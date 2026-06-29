@@ -3,6 +3,7 @@ import path from 'path'
 import matter from 'gray-matter'
 import { unified } from 'unified'
 import gfm from 'remark-gfm'
+import gemoji from 'remark-gemoji'
 import remark2rehype from 'remark-rehype'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeStringify from 'rehype-stringify'
@@ -215,6 +216,7 @@ export async function getPostDataByFileName(
 	const contentHtml = await unified()
 		.use(remarkParse)
 		.use(gfm)
+		.use(gemoji)
 		.use(remark2rehype, { allowDangerousHtml: true })
 		.use(rehypeRaw)
 		.use(addClasses, {

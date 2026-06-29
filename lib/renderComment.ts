@@ -1,6 +1,7 @@
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
+import remarkGemoji from 'remark-gemoji'
 import remarkRehype from 'remark-rehype'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
@@ -38,6 +39,7 @@ function hardenLinks() {
 const processor = unified()
 	.use(remarkParse)
 	.use(remarkGfm)
+	.use(remarkGemoji)
 	.use(remarkRehype, { allowDangerousHtml: true })
 	.use(rehypeRaw)
 	.use(hardenLinks)
