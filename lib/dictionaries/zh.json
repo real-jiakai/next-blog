@@ -34,7 +34,7 @@
     "YourName": "您的大名（必填）：",
     "Email": "电子邮件（必填）：",
     "Website": "个人网址 (选填):",
-    "YourComment": "您的留言 (HTML标签部分可用):",
+    "YourComment": "您的留言（必填）：",
     "CommentPlaceholder": "在此输入留言（填写邮箱可在被回复时收到邮件通知）",
     "Submit": "提交",
     "Submitting": "提交中...",
@@ -42,6 +42,9 @@
     "CommentAccepted": "你的留言已被接受",
     "PleaseVerify": "请完成人机验证",
     "CommentError": "留言出现了一些错误，请稍后再试",
-    "MarkdownTip": "支持 Markdown 与基础 HTML 语法。"
+    "MarkdownTip": "支持 Markdown 与基础 HTML 语法。",
+    "Says": "说：",
+    "Quote": "引用",
+    "NoComments": "还没有评论，快来发表第一条吧！"
   }
 }

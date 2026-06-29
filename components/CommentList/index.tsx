@@ -15,9 +15,16 @@ interface Comment {
   url: string
 }
 
+interface CommentListDict {
+  Says: string
+  Quote: string
+  NoComments: string
+}
+
 interface CommentListProps {
   quoteComment: (comment: Comment, id: number) => void
   updateList: boolean
+  dict: CommentListDict
 }
 
 // 生成头像
@@ -27,7 +34,7 @@ const generateIdenticon = (username: string): string => {
 	return `data:image/svg+xml;base64,${data}`
 }
 
-export default function CommentList({ quoteComment, updateList }: CommentListProps) {
+export default function CommentList({ quoteComment, updateList, dict }: CommentListProps) {
 	const [comments, setComments] = useState<Comment[]>([])
 
 	async function fetchComments() {
@@ -67,7 +74,7 @@ export default function CommentList({ quoteComment, updateList }: CommentListPro
 										className="rounded-full"
 									/>
 									<h3 className="font-bold text-lg">{comment.username}</h3>
-                  说：
+									<span>{dict.Says}</span>
 								</div>
 							</div>
 							<div className="flex-1 flex flex-col">
@@ -91,7 +98,7 @@ export default function CommentList({ quoteComment, updateList }: CommentListPro
 										className="text-blue-500 hover:text-blue-700"
 										onClick={() => quoteComment(comment, comment.id)}
 									>
-                    Quote
+										{dict.Quote}
 									</button>
 								</div>
 							</div>
@@ -99,9 +106,7 @@ export default function CommentList({ quoteComment, updateList }: CommentListPro
 					))}
 				</div>
 			) : (
-				<p className="text-gray-700 dark:text-gray-300">
-          No comments yet. Be the first to comment!
-				</p>
+				<p className="text-gray-700 dark:text-gray-300">{dict.NoComments}</p>
 			)}
 		</>
 	)

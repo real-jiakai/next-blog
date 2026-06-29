@@ -19,6 +19,9 @@ interface CommentDict {
   PleaseVerify: string
   CommentError: string
   MarkdownTip: string
+  Says: string
+  Quote: string
+  NoComments: string
 }
 
 interface CommentData {
@@ -54,7 +57,7 @@ export default function Comment({ dict, lang }: CommentProps) {
 	return (
 		<>
 			<h2 className="text-3xl font-bold mt-8 mb-4">{dict.Comments}</h2>
-			<CommentList quoteComment={quoteComment} updateList={updateList} />
+			<CommentList quoteComment={quoteComment} updateList={updateList} dict={dict} />
 			<h2 className="text-3xl font-bold mt-8 mb-4">{dict.LeaveComment}</h2>
 			<CommentForm
 				quote={quote}

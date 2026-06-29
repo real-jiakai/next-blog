@@ -34,7 +34,7 @@
     "YourName": "Your Name (required):",
     "Email": "Email (required):",
     "Website": "Website (optional):",
-    "YourComment": "Your Comment (some HTML tags allowed):",
+    "YourComment": "Your Comment (required):",
     "CommentPlaceholder": "Write a comment here (fill in email to receive notification when replied)",
     "Submit": "Submit",
     "Submitting": "Submitting...",
@@ -42,6 +42,9 @@
     "CommentAccepted": "Your comment has been accepted",
     "PleaseVerify": "Please complete the verification",
     "CommentError": "There was an error with your comment. Please try again later.",
-    "MarkdownTip": "Markdown and basic HTML are supported."
+    "MarkdownTip": "Markdown and basic HTML are supported.",
+    "Says": "says:",
+    "Quote": "Quote",
+    "NoComments": "No comments yet. Be the first to comment!"
   }
 }
