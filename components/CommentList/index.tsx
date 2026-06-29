@@ -71,11 +71,11 @@ export default function CommentList({ quoteComment, updateList }: CommentListPro
 								</div>
 							</div>
 							<div className="flex-1 flex flex-col">
-								<div className="flex-1 flex justify-between items-center">
-									<p
-										className="text-gray-700 dark:text-gray-300"
+								<div className="flex-1">
+									<div
+										className="comment-content"
 										dangerouslySetInnerHTML={{ __html: comment.content }}
-									></p>
+									></div>
 								</div>
 								<div className="flex justify-end items-center space-x-2">
 									<small>
