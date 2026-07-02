@@ -15,7 +15,10 @@
     "PostNotFound": "Post not found in this language.",
     "NoPostsWithTag": "No posts found with this tag.",
     "WeeklyBGM": "Weekly BGM",
-    "TOC": "TOC"
+    "TOC": "TOC",
+    "NotFoundTitle": "Page Not Found",
+    "NotFoundMessage": "Sorry, the page you're looking for doesn't exist or has been moved.",
+    "BackHome": "Back to Home"
   },
   "about": {
     "About": "About",

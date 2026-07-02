@@ -15,7 +15,10 @@
     "PostNotFound": "该语言暂无此文章。",
     "NoPostsWithTag": "没有找到带有此标签的文章。",
     "WeeklyBGM": "周刊BGM",
-    "TOC": "目录"
+    "TOC": "目录",
+    "NotFoundTitle": "页面未找到",
+    "NotFoundMessage": "抱歉，你访问的页面不存在或已被移动。",
+    "BackHome": "返回首页"
   },
   "about": {
     "About": "关于",
