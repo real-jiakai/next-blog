@@ -6,6 +6,10 @@ overrides:
   # Pull gray-matter's YAML parser up to the 3.x security backport
   # (quadratic-complexity DoS in merge keys, GHSA fixed in 3.15.0).
   js-yaml@3: 3.15.0
+  # next bundles postcss 8.4.31 (both 16.2.9 and 16.2.10), which is vulnerable
+  # to GHSA-qx2v-qp2m-jg93 (patched >=8.5.10). Force it up to the patched line;
+  # postcss is API-stable across 8.x minors. We already use 8.5.x directly.
+  postcss: '>=8.5.10'
 minimumReleaseAgeExclude:
   - '@next/env@16.2.9'
   - '@next/eslint-plugin-next@16.2.9'
