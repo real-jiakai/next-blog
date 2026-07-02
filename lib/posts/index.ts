@@ -68,6 +68,7 @@ export interface PostContent {
   audio: PostFrontmatter['audio'] | null
   title: string
   date: string
+  summary: string
 }
 
 export interface PostListItem {
@@ -243,6 +244,7 @@ export async function getPostDataByFileName(
 		audio: data.audio || null,
 		title: data.title,
 		date: data.date,
+		summary: data.summary,
 	}
 }
 

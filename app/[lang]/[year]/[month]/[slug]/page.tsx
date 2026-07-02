@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { Locale, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
@@ -41,8 +42,33 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const { lang, year, month, slug } = await params
 	const postData = await getPostDataByFileName(year, month, slug, lang)
+
+	if (!postData) {
+		return { title: 'Post' }
+	}
+
+	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
+	const url = `${siteUrl}${getLocalePath(lang, `/${year}/${month}/${slug}`)}`
+	const description = postData.summary || process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+
 	return {
-		title: postData?.title || 'Post',
+		title: postData.title,
+		description,
+		alternates: { canonical: url },
+		openGraph: {
+			type: 'article',
+			title: postData.title,
+			description,
+			url,
+			siteName: process.env.NEXT_PUBLIC_SITE_TITLE,
+			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
+			publishedTime: postData.date,
+		},
+		twitter: {
+			card: 'summary',
+			title: postData.title,
+			description,
+		},
 	}
 }
 
@@ -55,16 +81,10 @@ export default async function Post({
 	const dict = await getDictionary(lang)
 	const postData = await getPostDataByFileName(year, month, slug, lang)
 
+	// A missing post must return a real 404, not a 200 with a message (which
+	// search engines index as a valid, empty page).
 	if (!postData) {
-		return (
-			<ArticleLayout lang={lang} dict={dict}>
-				<div className="flex flex-col items-center justify-center min-h-[50vh]">
-					<p className="text-gray-600 dark:text-gray-300 text-lg">
-						{dict.common.PostNotFound || 'Post not found in this language.'}
-					</p>
-				</div>
-			</ArticleLayout>
-		)
+		notFound()
 	}
 
 	const stats = readingTime(postData.contentMarkdown)
