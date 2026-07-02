@@ -10,6 +10,12 @@ overrides:
   # to GHSA-qx2v-qp2m-jg93 (patched >=8.5.10). Force it up to the patched line;
   # postcss is API-stable across 8.x minors. We already use 8.5.x directly.
   postcss: '>=8.5.10'
+  # semantic-release's GitHub-Actions toolkit chain pulls two vulnerable undici
+  # copies (dev/CI-only, never shipped). @actions/core (latest) still resolves
+  # them, so no plugin upgrade clears these — pin each within its own major to
+  # the patched boundary (6.27.0 / 7.28.0), a patch bump with no API break.
+  undici@6: 6.27.0
+  undici@7: 7.28.0
 minimumReleaseAgeExclude:
   - '@next/env@16.2.9'
   - '@next/eslint-plugin-next@16.2.9'
