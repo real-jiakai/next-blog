@@ -6,12 +6,24 @@ import rehypeSlug from 'rehype-slug'
 import gfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
-import type { Element, Text } from 'hast'
+import type { Element, ElementContent, Text } from 'hast'
 
 export interface Heading {
   depth: number
   value: string
   id: string
+}
+
+// Collect all descendant text so headings containing inline markup
+// (code, bold, links) are not truncated to their first text node.
+function collectText(node: Element | ElementContent): string {
+	if (node.type === 'text') {
+		return (node as Text).value
+	}
+	if ('children' in node && Array.isArray(node.children)) {
+		return node.children.map(collectText).join('')
+	}
+	return ''
 }
 
 export default function parseHeading(contentMarkdown: string): Heading[] {
@@ -29,14 +41,9 @@ export default function parseHeading(contentMarkdown: string): Heading[] {
 				if (node.tagName === 'h2' || node.tagName === 'h3') {
 					const depth = parseInt(node.tagName.charAt(1))
 					const id = node.properties?.id as string
-					const textContent =
-					(node.children.find((child): child is Text => child.type === 'text') as Text)?.value ||
-					node.children
-						.map((child) => ((child as Text).type === 'text' ? (child as Text).value : ''))
-						.join('')
 					const heading: Heading = {
 						depth,
-						value: textContent,
+						value: collectText(node),
 						id,
 					}
 					headings.push(heading)

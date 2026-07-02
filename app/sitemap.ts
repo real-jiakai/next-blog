@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		for (const post of posts) {
 			const [year, month] = post.date.split('-')
 			entries.push({
-				url: `${baseUrl}${getLocalePath(locale, `/${year}/${month}/${post.slug}`)}`,
+				url: `${baseUrl}${getLocalePath(locale, `/${year}/${month}/${encodeURIComponent(post.slug)}`)}`,
 				lastModified: new Date(post.date),
 				changeFrequency: 'monthly',
 				priority: 0.6,
@@ -60,7 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		const tags = getAllTags(locale)
 		for (const tag of tags) {
 			entries.push({
-				url: `${baseUrl}${getLocalePath(locale, `/tag/${tag}`)}`,
+				url: `${baseUrl}${getLocalePath(locale, `/tag/${encodeURIComponent(tag)}`)}`,
 				lastModified: new Date(),
 				changeFrequency: 'weekly',
 				priority: 0.5,

@@ -37,21 +37,32 @@ const generateIdenticon = (username: string): string => {
 export default function CommentList({ quoteComment, updateList, dict }: CommentListProps) {
 	const [comments, setComments] = useState<Comment[]>([])
 
-	async function fetchComments() {
-		try {
-			const res = await fetch('/api/comSelect')
-			if (!res.ok) {
-				throw new Error(`HTTP error! status: ${res.status}`)
-			}
-			const data = await res.json()
-			setComments(data)
-		} catch (error) {
-			console.error('Fetching comments failed: ', error)
-		}
-	}
-
 	useEffect(() => {
+		// Fetch inside the effect and ignore the result if the component
+		// unmounts or `updateList` changes before it resolves. setState only ever
+		// runs in the async callback (never synchronously in the effect body).
+		let active = true
+
+		async function fetchComments() {
+			try {
+				const res = await fetch('/api/comSelect')
+				if (!res.ok) {
+					throw new Error(`HTTP error! status: ${res.status}`)
+				}
+				const data = await res.json()
+				if (active) {
+					setComments(data)
+				}
+			} catch (error) {
+				console.error('Fetching comments failed: ', error)
+			}
+		}
+
 		fetchComments()
+
+		return () => {
+			active = false
+		}
 	}, [updateList])
 
 	return (

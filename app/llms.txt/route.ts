@@ -9,7 +9,8 @@ export const dynamic = 'force-static'
 
 function postLine(post: PostData, locale: Locale): string {
 	const [year, month] = post.date.split('-')
-	const url = `${baseUrl}${getLocalePath(locale, `/${year}/${month}/${post.slug}`)}`
+	const path = `/${year}/${month}/${encodeURIComponent(post.slug)}`
+	const url = `${baseUrl}${getLocalePath(locale, path)}`
 	return `- [${post.title}](${url}): ${post.summary}`
 }
 
