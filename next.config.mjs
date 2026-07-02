@@ -18,7 +18,7 @@ const csp = [
 	"font-src 'self' data:",
 	"connect-src 'self' https://umami.gujiakai.top https://challenges.cloudflare.com",
 	"media-src 'self' https:",
-	"frame-src https://challenges.cloudflare.com https://player.bilibili.com",
+	'frame-src https://challenges.cloudflare.com https://player.bilibili.com',
 	"object-src 'none'",
 	"base-uri 'self'",
 	"form-action 'self'",

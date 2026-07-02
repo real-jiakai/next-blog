@@ -11,10 +11,41 @@ import remarkParse from 'remark-parse'
 import rehypeSlug from 'rehype-slug'
 import rehypePrism from 'rehype-prism-plus'
 import rehypeRaw from 'rehype-raw'
-import addClasses from 'rehype-add-classes'
+import { visit } from 'unist-util-visit'
+import type { Root, Element } from 'hast'
 import { Locale, i18n } from '@/lib/i18n-config'
 
 const postsBaseDirectory = path.join(process.cwd(), 'posts')
+
+// Style content links and mark images for lazy/async loading. Replaces the
+// unmaintained rehype-add-classes@1.0.0 (which pulled a vulnerable nth-check
+// and applied surprising div/span rules that never matched real content).
+// Runs before rehype-autolink-headings so the heading permalink anchors it
+// adds are not given the content-link styling.
+function enhancePostHtml() {
+	return (tree: Root) => {
+		visit(tree, 'element', (node: Element) => {
+			if (node.tagName === 'a') {
+				const existing = node.properties?.className
+				const classes = Array.isArray(existing)
+					? existing.map(String)
+					: existing != null
+						? [String(existing)]
+						: []
+				node.properties = {
+					...node.properties,
+					className: [...classes, 'text-blue-600', 'hover:text-blue-800'],
+				}
+			} else if (node.tagName === 'img') {
+				node.properties = {
+					...node.properties,
+					loading: 'lazy',
+					decoding: 'async',
+				}
+			}
+		})
+	}
+}
 
 // Get posts directory for a specific locale
 function getPostsDirectory(locale: Locale): string {
@@ -220,15 +251,11 @@ export async function getPostDataByFileName(
 		.use(gemoji)
 		.use(remark2rehype, { allowDangerousHtml: true })
 		.use(rehypeRaw)
-		.use(addClasses, {
-			a: 'text-blue-600 hover:text-blue-800',
-			div: 'bg-white text-black dark:bg-gray-600 dark:text-gray-100',
-			span: 'white',
-		})
-		.use(rehypeStringify)
-		.use(rehypePrism)
 		.use(rehypeSlug)
+		.use(enhancePostHtml)
 		.use(rehypeAutolinkHeadings)
+		.use(rehypePrism)
+		.use(rehypeStringify)
 		.process(matterResult.content)
 		.then((processedContent) => processedContent.toString())
 
