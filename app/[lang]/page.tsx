@@ -1,17 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Locale, getLocalePath, i18n } from '@/lib/i18n-config'
+import { Locale, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSortedPostsData } from '@/lib/posts'
-import generateRSSFeed from '@/lib/generateRSSFeed'
 import Layout from '@/components/Layout'
 import PostCard from '@/components/PostCard'
-
-// Generate RSS feeds for all locales at build time
-for (const locale of i18n.locales) {
-	const localePosts = getSortedPostsData(locale)
-	generateRSSFeed(localePosts, locale)
-}
 
 export const metadata: Metadata = {
 	title: process.env.NEXT_PUBLIC_SITE_TITLE,
