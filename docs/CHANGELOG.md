@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/real-jiakai/next-blog/compare/v1.0.0...v1.0.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* restore production comments ([e33c1f2](https://github.com/real-jiakai/next-blog/commit/e33c1f20fd65c74e31cbcf5588a90c94b0cc1416))
+
 # 1.0.0 (2026-07-11)
 
 
