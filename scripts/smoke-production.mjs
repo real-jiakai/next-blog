@@ -66,7 +66,12 @@ const server = spawn(
 	['server.js'],
 	{
 		cwd: path.join(process.cwd(), '.next', 'standalone'),
-		env: { ...process.env, HOSTNAME: hostname, PORT: String(port) },
+		env: {
+			...process.env,
+			COMMENT_API_ENABLED: 'false',
+			HOSTNAME: hostname,
+			PORT: String(port),
+		},
 		stdio: ['ignore', 'pipe', 'pipe'],
 	},
 )

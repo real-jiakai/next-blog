@@ -5,6 +5,7 @@ import {
 	CommentServiceUnavailableError,
 	FixedWindowRateLimiter,
 	getClientIp,
+	isCommentApiEnabled,
 	mapWithConcurrency,
 	parseCommentPagination,
 	resolveCommentThread,
@@ -86,7 +87,7 @@ function logDatabaseError(context: string, error: unknown) {
 }
 
 export async function GET(request: NextRequest) {
-	if (process.env.COMMENT_API_ENABLED !== 'true') {
+	if (!isCommentApiEnabled()) {
 		return errorResponse('Not found', 404)
 	}
 

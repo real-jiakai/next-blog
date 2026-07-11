@@ -11,6 +11,7 @@ import {
 	createEmailVerificationToken,
 	getClientIp,
 	hasTrustedOrigin,
+	isCommentApiEnabled,
 	readLimitedJsonBody,
 	resolveCommentThread,
 	verifyEmailVerificationToken,
@@ -91,10 +92,6 @@ function rateLimitResponse(retryAfterSeconds: number) {
 	return errorResponse('Too many requests. Please try again later.', 429, {
 		'Retry-After': String(retryAfterSeconds),
 	})
-}
-
-function commentsEnabled() {
-	return process.env.COMMENT_API_ENABLED === 'true'
 }
 
 function disabledResponse() {
@@ -353,7 +350,7 @@ async function sendNotificationEmails({
 }
 
 export async function POST(request: NextRequest) {
-	if (!commentsEnabled()) return disabledResponse()
+	if (!isCommentApiEnabled()) return disabledResponse()
 	if (request.nextUrl.searchParams.has('verify')) {
 		return completeEmailVerification(request)
 	}
@@ -530,7 +527,7 @@ async function completeEmailVerification(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-	if (!commentsEnabled()) return disabledResponse()
+	if (!isCommentApiEnabled()) return disabledResponse()
 
 	const clientIp = getClientIp(request.headers)
 

@@ -26,8 +26,8 @@ services:
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gujiakai.top}
       NEXT_PUBLIC_SITE_TITLE: ${NEXT_PUBLIC_SITE_TITLE:-周见}
       NEXT_PUBLIC_SITE_DESCRIPTION: ${NEXT_PUBLIC_SITE_DESCRIPTION:-专注于分享互联网上有趣的东西。}
-      COMMENT_API_ENABLED: ${COMMENT_API_ENABLED:-false}
-      COMMENT_CLIENT_IP_HEADER: ${COMMENT_CLIENT_IP_HEADER:-x-real-ip}
+      # COMMENT_API_ENABLED is loaded from .env.local when explicitly set.
+      # Otherwise the API follows the build-time NEXT_PUBLIC_SHOW_COMMENT flag.
     ports:
       - '127.0.0.1:3802:3000'
     read_only: true

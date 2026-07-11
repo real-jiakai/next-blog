@@ -11,6 +11,21 @@ const COMMENT_PATH_PATTERN =
 	/^\/(?:(en|zh)\/)?(\d{4})\/(0[1-9]|1[0-2])\/([^/]+)\/?$/
 const TURNSTILE_RESPONSE_LIMIT_BYTES = 8 * 1024
 
+/**
+ * Keep the statically rendered comment UI and the server API in sync by
+ * default. An explicit runtime value always wins, so operators retain a
+ * fail-closed emergency kill switch with COMMENT_API_ENABLED=false.
+ */
+export function isCommentApiEnabled(
+	environment: Record<string, string | undefined> = process.env
+): boolean {
+	const explicitSetting = environment.COMMENT_API_ENABLED
+	if (explicitSetting !== undefined) {
+		return explicitSetting === 'true'
+	}
+	return environment.NEXT_PUBLIC_SHOW_COMMENT === 'true'
+}
+
 export class CommentRequestError extends Error {
 	readonly status: number
 

@@ -20,8 +20,9 @@ The maintainer will acknowledge the report, investigate it, and coordinate discl
 - Keep environment files and credentials out of Git and container build contexts.
 - Enforce Supabase Row Level Security and least-privilege grants.
 - Validate Cloudflare Turnstile tokens on the server.
-- Keep `COMMENT_API_ENABLED=false` until the comment migration and all secrets
-  are configured.
+- Keep `NEXT_PUBLIC_SHOW_COMMENT=false` until the comment migration and all
+  secrets are configured. `COMMENT_API_ENABLED=false` remains an explicit
+  runtime kill switch even when the UI was built in.
 - Trust only the client-IP header that the loopback reverse proxy overwrites;
   set `COMMENT_CLIENT_IP_HEADER` to that exact header name.
 - Keep production dependencies and base images updated.

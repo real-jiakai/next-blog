@@ -7,6 +7,7 @@ import {
 	createEmailVerificationToken,
 	getClientIp,
 	hasTrustedOrigin,
+	isCommentApiEnabled,
 	mapWithConcurrency,
 	parseCommentPagination,
 	readLimitedJsonBody,
@@ -16,6 +17,47 @@ import {
 } from './commentSecurity'
 
 const SITE_URL = 'https://example.com'
+
+describe('comment feature configuration', () => {
+	it('follows the build-time UI flag when no runtime override is present', () => {
+		expect(
+			isCommentApiEnabled({ NEXT_PUBLIC_SHOW_COMMENT: 'true' })
+		).toBe(true)
+		expect(isCommentApiEnabled({ NEXT_PUBLIC_SHOW_COMMENT: 'false' })).toBe(
+			false
+		)
+	})
+
+	it('keeps an explicit runtime kill switch authoritative', () => {
+		expect(
+			isCommentApiEnabled({
+				COMMENT_API_ENABLED: 'false',
+				NEXT_PUBLIC_SHOW_COMMENT: 'true',
+			})
+		).toBe(false)
+		expect(
+			isCommentApiEnabled({
+				COMMENT_API_ENABLED: 'true',
+				NEXT_PUBLIC_SHOW_COMMENT: 'false',
+			})
+		).toBe(true)
+	})
+
+	it('fails closed for an invalid explicit runtime value', () => {
+		expect(
+			isCommentApiEnabled({
+				COMMENT_API_ENABLED: '',
+				NEXT_PUBLIC_SHOW_COMMENT: 'true',
+			})
+		).toBe(false)
+		expect(
+			isCommentApiEnabled({
+				COMMENT_API_ENABLED: 'yes',
+				NEXT_PUBLIC_SHOW_COMMENT: 'true',
+			})
+		).toBe(false)
+	})
+})
 
 describe('comment thread validation', () => {
 	it('canonicalizes locale variants and preserves legacy candidates', () => {

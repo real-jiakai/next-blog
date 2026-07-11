@@ -12,7 +12,7 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 // left broad (https:) because post content embeds images from arbitrary hosts.
 const csp = [
 	"default-src 'self'",
-	"script-src 'self' 'unsafe-inline' https://umami.gujiakai.top https://challenges.cloudflare.com",
+	"script-src 'self' 'unsafe-inline' https://umami.gujiakai.top https://challenges.cloudflare.com https://static.cloudflareinsights.com",
 	"script-src-attr 'none'",
 	"style-src 'self' 'unsafe-inline'",
 	"img-src 'self' data: https:",

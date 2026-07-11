@@ -51,10 +51,12 @@ RUN corepack enable pnpm && pnpm run build
 FROM base AS runner
 WORKDIR /app
 
+ARG NEXT_PUBLIC_SHOW_COMMENT=false
 ENV NODE_ENV=production \
 	HOME=/tmp \
 	PORT=3000 \
-	HOSTNAME=0.0.0.0
+	HOSTNAME=0.0.0.0 \
+	NEXT_PUBLIC_SHOW_COMMENT=${NEXT_PUBLIC_SHOW_COMMENT}
 
 RUN addgroup --system --gid 1001 nodejs \
 	&& adduser --system --uid 1001 --ingroup nodejs nextjs
