@@ -17,7 +17,7 @@ audio:
 
 ## 封面图
 
-![](https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp)
+![安静的大学实验室，桌上摆着电脑，隔板上搭着一个毛绒玩具](https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp)
 
 实验室的师兄预答辩结束后，搬离实验室。看到别人临近毕业，有些羡慕，又说不出有些伤感，
 
@@ -27,7 +27,7 @@ audio:
 
 第一次接触VPS是在2021年年底，当时接近双十一，什么都不懂，买了搬瓦工首页的无优化线路的VPS。
 
-![](https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp)
+![BandwagonHost 的 VPS 套餐页面，其中入门级 20GB 年付套餐被框出](https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp)
 
 这种情况一直持续到2023年1月底、2月初，当时我还是一个机场用户。手头只有3台VPS，1台搬瓦工的首页冤种套餐，另外两台分别是国内的阿里云、腾讯云的学生机。
 
@@ -49,7 +49,7 @@ audio:
 
 1、[Ugly Avatar](https://txstc55.github.io/ugly-avatar/)
 
-![](https://cdn.sa.net/2024/03/30/XuZhTLFHBf9MvdG.webp)
+![Ugly Avatar 随机生成的搞怪人物头像](https://cdn.sa.net/2024/03/30/XuZhTLFHBf9MvdG.webp)
 
 一个随机生成丑陋画像的站点。
 
@@ -57,22 +57,22 @@ audio:
 
 一个专注于分享有关程序员meme（梗）的站点。我见过有趣的与程序员有关的meme之一如下：
 
-![](https://cdn.sa.net/2024/03/30/PEjYscf4zhvgB6p.webp)
+![漫画中两位在网上配对的人分别坐在相邻的 00 号和 01 号桌](https://cdn.sa.net/2024/03/30/PEjYscf4zhvgB6p.webp)
 
 
 ## 链享
 
-1、[Where to host my app?](https://wheretohostmy.app/)
+1、[Where to host my app?](https://web.archive.org/web/20250302023016/https://www.wheretohostmy.app/)（存档副本）
 
-![](https://cdn.sa.net/2024/03/30/8PWnERz51ehcFpf.webp)
+![Where to host my app 的无服务器托管商对比界面](https://cdn.sa.net/2024/03/30/8PWnERz51ehcFpf.webp)
 
 输入技术栈，自动推荐托管服务提供商。如果你开通了GPT会员，可以使用[Where to host my app?](https://chat.openai.com/g/g-KmtFkh4VU-where-to-host-my-app)的GPTs。
 
-![](https://cdn.sa.net/2024/03/30/fDIhMvunq1EA8Js.webp)
+![Where to host my app 助手在对话中推荐托管服务商](https://cdn.sa.net/2024/03/30/fDIhMvunq1EA8Js.webp)
 
 2、[Starlink map](https://www.starlinkmap.org/)
 
-![](https://cdn.sa.net/2024/03/30/xFgS3ubr6EDmXpv.webp)
+![交互式地球仪上密集分布着数千颗星链卫星的红色标记](https://cdn.sa.net/2024/03/30/xFgS3ubr6EDmXpv.webp)
 
 Elon Musk的星链地图，可以看到地球已经被星链卫星给密密麻麻覆盖住了。抛开政治因素不谈，马斯克的雄心和野心让人佩服。
 

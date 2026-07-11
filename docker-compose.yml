@@ -1,11 +1,56 @@
 services:
   app:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gujiakai.top}
+        NEXT_PUBLIC_SITE_TITLE: ${NEXT_PUBLIC_SITE_TITLE:-周见}
+        NEXT_PUBLIC_SITE_DESCRIPTION: ${NEXT_PUBLIC_SITE_DESCRIPTION:-专注于分享互联网上有趣的东西。}
+        NEXT_PUBLIC_SITE_DESCRIPTION_ZH: ${NEXT_PUBLIC_SITE_DESCRIPTION_ZH:-专注于分享互联网上有趣的东西。}
+        NEXT_PUBLIC_SITE_DESCRIPTION_EN: ${NEXT_PUBLIC_SITE_DESCRIPTION_EN:-A weekly collection of interesting things from the internet.}
+        NEXT_PUBLIC_KEYWORDS: ${NEXT_PUBLIC_KEYWORDS:-weekly,blog}
+        NEXT_PUBLIC_FOOTER: ${NEXT_PUBLIC_FOOTER:-Jiakai Gu}
+        NEXT_PUBLIC_POSTS_PERPAGE: ${NEXT_PUBLIC_POSTS_PERPAGE:-10}
+        NEXT_PUBLIC_SHOW_COMMENT: ${NEXT_PUBLIC_SHOW_COMMENT:-false}
+        NEXT_PUBLIC_GITHUB_REPO: ${NEXT_PUBLIC_GITHUB_REPO:-https://github.com/real-jiakai/next-blog}
+        NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY:-}
     image: next-blog:latest
+    # Runtime-only server secrets belong in this ignored file. For build-time
+    # public overrides, run: docker compose --env-file .env.local up --build
+    env_file:
+      - path: .env.local
+        required: false
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gujiakai.top}
+      NEXT_PUBLIC_SITE_TITLE: ${NEXT_PUBLIC_SITE_TITLE:-周见}
+      NEXT_PUBLIC_SITE_DESCRIPTION: ${NEXT_PUBLIC_SITE_DESCRIPTION:-专注于分享互联网上有趣的东西。}
+      COMMENT_API_ENABLED: ${COMMENT_API_ENABLED:-false}
+      COMMENT_CLIENT_IP_HEADER: ${COMMENT_CLIENT_IP_HEADER:-x-real-ip}
     ports:
       - '127.0.0.1:3802:3000'
-    volumes:
-      - './posts:/app/posts/'
-    restart: always
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,uid=1001,gid=1001,mode=1770
+      - /app/.next/cache:rw,noexec,nosuid,size=128m,uid=1001,gid=1001,mode=0750
+    user: '1001:1001'
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 200
+    mem_limit: 768m
+    cpus: 1.0
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 4096
+    stop_grace_period: 20s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'

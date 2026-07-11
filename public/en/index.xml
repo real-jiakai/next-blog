@@ -4,15 +4,15 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://gujiakai.top/en</id>
     <title>周见</title>
-    <updated>2026-06-10T07:03:57.729Z</updated>
+    <updated>2026-01-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>周见</name>
         <uri>https://gujiakai.top</uri>
     </author>
     <link rel="alternate" href="https://gujiakai.top/en"/>
-    <subtitle>专注于分享互联网上有趣的东西。</subtitle>
-    <rights>Made with ❤️ By Jiakai</rights>
+    <link rel="self" href="https://gujiakai.top/en/index.xml"/>
+    <subtitle>A weekly collection of interesting things from the internet.</subtitle>
     <entry>
         <title type="html"><![CDATA[Standing at the Crossroads of Campus and Society #23]]></title>
         <id>https://gujiakai.top/en/2026/01/weekly-issue-23</id>
@@ -100,7 +100,7 @@
 <p><img src="https://cdn.sa.net/2025/01/27/fhW1HzIyBx3vYl6.webp" alt="Inspect This Snake"></p>
 <p>This is a fun web game—playing Snake in the browser console.</p>
 <ol start="3">
-<li><a href="https://bestcursor.vercel.app/">Best Cursor</a></li>
+<li><a href="https://web.archive.org/web/20250617114605/https://bestcursor.vercel.app/">Best Cursor</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://cdn.sa.net/2025/01/27/9iZfQC6nDFTVI2B.webp" alt="Best Cursor"></p>
 <p>A joke website made by a V2EX user using Cursor in half an hour. via: <a href="https://www.v2ex.com/t/1106981">https://www.v2ex.com/t/1106981</a></p>
@@ -126,7 +126,7 @@
 <p><img src="https://cdn.sa.net/2025/01/27/ARPeHYNzgnO89UT.webp" alt="How I experience web today"></p>
 <p>This is a satirical website demonstrating modern web browsing experiences, mainly showing various annoyances users frequently encounter on today's internet.</p>
 <ol start="3">
-<li><a href="https://open-operator.vercel.app/">Open Operator</a></li>
+<li><a href="https://web.archive.org/web/20260216102504/https://open-operator.vercel.app/">Open Operator</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://cdn.sa.net/2025/01/27/znVKuHm8ckF9fPW.webp" alt="Open Operator"></p>
 <p>An open-source alternative to OpenAI Operator that can help you automate your AI tasks.</p>
@@ -149,7 +149,7 @@
 <p>Someone who can't even get into others' Moments, yet still dreams of getting into others' bodies? —Hostloc netizen</p>
 </li>
 </ol>
-<p><img src="https://cdn.sa.net/2025/01/27/v69JLwgTp8R1qlh.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2025/01/27/v69JLwgTp8R1qlh.webp" alt="Hostloc forum post joking that someone unable to enter a friend&#x27;s social feed still wants to enter their body"></p>
 <ol start="3">
 <li>
 <p>Benchmarks aren't the goal—user experience is king.</p>
@@ -294,17 +294,20 @@
 <p><img src="https://cdn.sa.net/2024/07/24/nsLmUzWMHZBVrXb.webp" alt="Online Windows XP Simulator"></p>
 <p>Online Windows XP simulator. You can listen to music, play Tetris, browse the internet...</p>
 <ol start="3">
-<li><a href="github.com/quackduck/devzat">devzat</a></li>
+<li><a href="https://github.com/quackduck/devzat">devzat</a></li>
 </ol>
 <p><img src="https://cdn.sa.net/2024/07/24/ufD8siXlFWdM4gB.webp" alt="devzat"></p>
 <p>SSH chat is really nice. Type <code>ssh devzat.hackclub.com</code> in the command line to experience it.</p>
 <ol start="4">
 <li>Obama throws Biden into the river.</li>
 </ol>
-&#x3C;video width="100%" height="auto" controls>
-  &#x3C;source src="https://cdn.jiakai.page/videos/2024/obama-threw-biden-into-the-river.mp4" type="video/mp4">
+<figure>
+<video class="article-video" controls preload="metadata" title="Satirical animation of Obama throwing Biden into a river" aria-describedby="user-content-obama-biden-video-description-en">
+  <source src="https://cdn.jiakai.page/videos/2024/obama-threw-biden-into-the-river.mp4" type="video/mp4">
   Your browser does not support the video tag.
-&#x3C;/video>
+</video>
+<figcaption id="user-content-obama-biden-video-description-en"><strong>Video description:</strong> A short satirical animation shows Barack Obama lifting Joe Biden and throwing him into a river.</figcaption>
+</figure>
 <p>Poor old Biden—his withdrawal statement on X probably wasn't even written by himself. When things go bad, everyone piles on. After the first debate with Trump at the end of June, he lost his appeal. After Trump's shooting, Biden was abandoned by everyone. The bullet hit Trump's ear but pierced Biden's presidential dream. 😜</p>
 <ol start="5">
 <li>Biden Eyes: O.o🤣</li>
@@ -313,7 +316,7 @@
 <p>Watching Trump and Biden's debate, Biden's eyes being different sizes is hilarious.</p>
 <h2 id="link-sharing"><a aria-hidden="true" tabindex="-1" href="#link-sharing"><span class="icon icon-link"></span></a>Link Sharing</h2>
 <ol>
-<li><a href="https://share.claude.asia/">Claude Pool</a></li>
+<li><a href="https://web.archive.org/web/20241122081105/https://share.claude.asia/">Claude Pool</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://cdn.sa.net/2024/07/24/el5LcC2ruxvNGhI.webp" alt="Claude Pool"></p>
 <p>In my heart, the current king of large language models is Claude, not GPT. Claude 3 Opus focuses on writing and paper polishing, while Claude 3.5 Sonnet focuses on other tasks. Friends who have trouble accessing Claude can use the pool to experience it. Those with needs can pay for the pro pool to experience Claude membership.</p>
@@ -401,7 +404,7 @@
 <p><img src="https://cdn.sa.net/2024/06/02/BqHK5ODJ9uvcaYF.webp" alt="VTuber Style Logos"></p>
 <p>A collection site of unofficial VTuber-style logos from various brands.</p>
 <ol start="2">
-<li><a href="https://www.farfalle.dev/">farfalle</a></li>
+<li><a href="https://web.archive.org/web/20260418163232/https://www.farfalle.dev/">farfalle</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://cdn.sa.net/2024/06/02/WdkcRxTL5BplKyH.webp" alt="farfalle"></p>
 <p>An open-source AI-powered search engine supporting both local and cloud models.</p>
@@ -411,7 +414,7 @@
 <p><img src="https://cdn.sa.net/2024/06/02/duJp21IsFXcNawb.webp" alt="Ask HN: What is your ChatGPT customization prompt?"></p>
 <p>A HackerNews thread where users share their ChatGPT custom prompts. Worth learning from.</p>
 <ol start="4">
-<li><a href="https://www.pinzimu.com/">Pin Subtitle</a></li>
+<li><a href="https://web.archive.org/web/20260310192509/http://www.pinzimu.com/">Pin Subtitle</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://cdn.sa.net/2024/06/02/DzfnBktYTKSOsQ1.webp" alt="Pin Subtitle"></p>
 <p>Software for quickly creating subtitle images popular on social media.</p>
@@ -471,7 +474,7 @@
 </ol>
 <p>April 24th every year is JS Naked Day. To participate, remove all JS code from your website.</p>
 <p><img src="https://cdn.sa.net/2024/05/05/fpbR1ZieGukwz3o.webp" alt="JS Naked Day"></p>
-<p>Besides JS Naked Day, April 9th every year is CSS Naked Day. To participate, remove all CSS styling from your website. via: <a href="https://css-naked-day.github.io/">CSS Naked Day</a></p>
+<p>Besides JS Naked Day, April 9th every year is CSS Naked Day. To participate, remove all CSS styling from your website. via: <a href="https://web.archive.org/web/20251222205438/https://css-naked-day.github.io/">CSS Naked Day</a> <em>(archived copy)</em></p>
 <p><img src="https://cdn.sa.net/2024/05/05/TSGr9mteYw6dAIF.webp" alt="CSS Naked Day"></p>
 <ol start="4">
 <li><a href="https://mailoji.com/">Mailoji</a></li>
@@ -495,7 +498,7 @@
 <p>A website listing seaside train stations in Japan.</p>
 <p><img src="https://cdn.sa.net/2024/05/05/iQYn2rAUVo3acxX.webp" alt="SeaSide Stations In Japan"></p>
 <ol start="4">
-<li><a href="https://www.forcecreat.com/">Redfeed Reading Assistant</a></li>
+<li><a href="https://web.archive.org/web/20260315014229/http://www.forcecreat.com/">Redfeed Reading Assistant</a> <em>(archived copy)</em></li>
 </ol>
 <p>Redfeed Reading Assistant, an AI-powered personal information assistant that helps improve your information acquisition efficiency for better thinking. Covers mainstream information platforms.</p>
 <p><img src="https://cdn.sa.net/2024/05/05/lHcCV6PFuELpgbR.webp" alt="Redfeed Reading Assistant"></p>
@@ -533,12 +536,12 @@
         <updated>2024-03-30T00:00:00.000Z</updated>
         <content type="html"><![CDATA[<p>A very warm song—listening to it when exhausted can be healing.</p>
 <h2 id="cover-image"><a aria-hidden="true" tabindex="-1" href="#cover-image"><span class="icon icon-link"></span></a>Cover Image</h2>
-<p><img src="https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp" alt="A quiet university lab with desks, computers, and a stuffed toy draped over a cubicle wall"></p>
 <p>After my senior labmate finished his pre-defense, he moved out of the lab. Seeing others nearing graduation brings a mix of envy and an indescribable melancholy.</p>
 <p>Envious of my senior escaping the sea of suffering, starting a new chapter in life; seeing him leave, I seem to see a miniature of my last days at Xiaozhuang last year.</p>
 <h2 id="topic-reflections-on-one-year-as-a-vps-enthusiast"><a aria-hidden="true" tabindex="-1" href="#topic-reflections-on-one-year-as-a-vps-enthusiast"><span class="icon icon-link"></span></a>Topic: Reflections on One Year as a VPS Enthusiast</h2>
 <p>My first contact with VPS was at the end of 2021. It was near Double Eleven (Singles' Day shopping festival), and knowing nothing, I bought a VPS with non-optimized routing from Bandwagon Host's homepage.</p>
-<p><img src="https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp" alt="BandwagonHost VPS plans, with the entry-level 20 GB annual plan highlighted"></p>
 <p>This situation continued until late January/early February 2023, when I was still using an airport (proxy service). I only had 3 VPS: 1 was Bandwagon's homepage sucker deal [thinking it was premium routing], and the other two were Alibaba Cloud and Tencent Cloud student machines in China.</p>
 <p>The reason I didn't self-host nodes was because I bought Bandwagon's sucker deal [thinking it was premium routing], and following YouTube tutorials to set up nodes, the results were poor.</p>
 <p>When using the airport's US nodes to access GPT, I found only some nodes worked while others didn't. So I began my self-hosting journey.</p>
@@ -551,24 +554,24 @@
 <ol>
 <li><a href="https://txstc55.github.io/ugly-avatar/">Ugly Avatar</a></li>
 </ol>
-<p><img src="https://cdn.sa.net/2024/03/30/XuZhTLFHBf9MvdG.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/XuZhTLFHBf9MvdG.webp" alt="A deliberately awkward portrait generated by Ugly Avatar"></p>
 <p>A site that randomly generates ugly portraits.</p>
 <ol start="2">
 <li><a href="https://programmerhumor.io">Programmerhumor.io</a></li>
 </ol>
 <p>A site dedicated to sharing programmer memes. One of the most interesting programmer-related memes I've seen:</p>
-<p><img src="https://cdn.sa.net/2024/03/30/PEjYscf4zhvgB6p.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/PEjYscf4zhvgB6p.webp" alt="Comic in which two people who matched online wait at adjacent numbered tables"></p>
 <h2 id="link-sharing"><a aria-hidden="true" tabindex="-1" href="#link-sharing"><span class="icon icon-link"></span></a>Link Sharing</h2>
 <ol>
-<li><a href="https://wheretohostmy.app/">Where to host my app?</a></li>
+<li><a href="https://web.archive.org/web/20250302023016/https://www.wheretohostmy.app/">Where to host my app?</a> <em>(archived copy)</em></li>
 </ol>
-<p><img src="https://cdn.sa.net/2024/03/30/8PWnERz51ehcFpf.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/8PWnERz51ehcFpf.webp" alt="Where to host my app interface comparing serverless hosting providers"></p>
 <p>Enter your tech stack and automatically get hosting provider recommendations. If you have a GPT subscription, you can use the <a href="https://chat.openai.com/g/g-KmtFkh4VU-where-to-host-my-app">Where to host my app?</a> GPTs.</p>
-<p><img src="https://cdn.sa.net/2024/03/30/fDIhMvunq1EA8Js.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/fDIhMvunq1EA8Js.webp" alt="Where to host my app assistant recommending providers in a chat"></p>
 <ol start="2">
 <li><a href="https://www.starlinkmap.org/">Starlink map</a></li>
 </ol>
-<p><img src="https://cdn.sa.net/2024/03/30/xFgS3ubr6EDmXpv.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/xFgS3ubr6EDmXpv.webp" alt="Interactive globe covered with red markers for thousands of Starlink satellites"></p>
 <p>Elon Musk's Starlink map—you can see Earth is densely covered by Starlink satellites. Politics aside, Musk's ambition and vision are admirable.</p>
 <h2 id="quotes"><a aria-hidden="true" tabindex="-1" href="#quotes"><span class="icon icon-link"></span></a>Quotes</h2>
 <ol>
@@ -831,7 +834,7 @@
 <p><img src="https://vip2.loli.net/2023/01/25/qJBXkKdEgYmHrUx.webp" alt="Baidu Map Alashankou, Xinjiang"></p>
 <h2 id="topic-does-the-internet-have-memory"><a aria-hidden="true" tabindex="-1" href="#topic-does-the-internet-have-memory"><span class="icon icon-link"></span></a>Topic: Does the Internet Have Memory?</h2>
 <p>The internet is the greatest invention of our era, driving social development and progress and affecting people's lives. But does it really have memory? Of course, this is a dialectical topic. In this discussion, I'll explore from the perspective of internet memory dissipating.</p>
-<p>Brewster Kahle, founder of the Internet Archive, mentioned in his blog post<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> that web pages have an average lifespan of only about 100 days before being changed or disappearing.</p>
+<p>Brewster Kahle, founder of the Internet Archive, mentioned in his blog post<sup><a href="#user-content-fn-1" id="user-content-user-content-fnref-1" data-footnote-ref="" aria-describedby="user-content-footnote-label">1</a></sup> that web pages have an average lifespan of only about 100 days before being changed or disappearing.</p>
 <p><img src="https://vip2.loli.net/2023/01/27/Uw7ps89WRfVPkbl.webp" alt="Brewster Kahle&#x27;s blog post"></p>
 <p>Whenever clicking on links first published on the internet years ago, websites that still work are rarely maintained by individuals—most are by businesses or companies. Personal sites are the most fragile part of the internet. Those who persevere with personal sites are few; many webmasters take their sites offline for various reasons.</p>
 <p>Sites that go offline without being crawled by the Internet Archive will completely disappear from the internet. At most, only the webmaster has a vague memory that they once built a website, but their memory of what the site looked like will gradually fade with time until extinction. Therefore, the memory nature of the internet isn't absolute—having been here doesn't mean you left traces in this world. Memory requires traces; without them, talking about memory becomes somewhat metaphysical.</p>
@@ -872,9 +875,9 @@
 </ol>
 <p><img src="https://vip2.loli.net/2023/01/25/FOu4tKMCqvrXo1H.webp" alt="Screenshot of the recreated page of the first website (Image: CERN)"></p>
 <p>When learning computer networks, we only learn that the inventor of the World Wide Web is Sir Tim Berners-Lee from the UK. But there's actually a story about the internet's origins worth exploring.</p>
-<p>Sir Tim Berners-Lee launched the first website on December 20, 1990. The site was hosted on a NeXT computer at CERN (European Organization for Nuclear Research) and was only accessible within CERN's internal network. It was dedicated to providing information about the World Wide Web project. It went public on August 6, 1991<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
-<p>Later, for various reasons<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>, the first website was lost. In 2013, CERN restored the site<sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. But if you access it with a modern browser, you might not see the image shown above. That's because the image is a screenshot of the first website accessed through the Line Mode Browser (the world's second web browser).</p>
-<p>CERN's restored first website homepage also provides an option to browse using the Line Mode Browser, but currently (as of January 26, 2023), clicking on it with modern browsers gives a 503 Service Unavailable error<sup><a href="#user-content-fn-5" id="user-content-fnref-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>. For more details, see the <a href="https://line-mode.cern.ch/">Line Mode Browser 2013</a> page.</p>
+<p>Sir Tim Berners-Lee launched the first website on December 20, 1990. The site was hosted on a NeXT computer at CERN (European Organization for Nuclear Research) and was only accessible within CERN's internal network. It was dedicated to providing information about the World Wide Web project. It went public on August 6, 1991<sup><a href="#user-content-fn-2" id="user-content-user-content-fnref-2" data-footnote-ref="" aria-describedby="user-content-footnote-label">2</a></sup>.</p>
+<p>Later, for various reasons<sup><a href="#user-content-fn-3" id="user-content-user-content-fnref-3" data-footnote-ref="" aria-describedby="user-content-footnote-label">3</a></sup>, the first website was lost. In 2013, CERN restored the site<sup><a href="#user-content-fn-4" id="user-content-user-content-fnref-4" data-footnote-ref="" aria-describedby="user-content-footnote-label">4</a></sup>. But if you access it with a modern browser, you might not see the image shown above. That's because the image is a screenshot of the first website accessed through the Line Mode Browser (the world's second web browser).</p>
+<p>CERN's restored first website homepage also provides an option to browse using the Line Mode Browser, but currently (as of January 26, 2023), clicking on it with modern browsers gives a 503 Service Unavailable error<sup><a href="#user-content-fn-5" id="user-content-user-content-fnref-5" data-footnote-ref="" aria-describedby="user-content-footnote-label">5</a></sup>. For more details, see the <a href="https://line-mode.cern.ch/">Line Mode Browser 2013</a> page.</p>
 <p>Appendix 1: Sir Tim Berners-Lee was honored as the "Inventor of the World Wide Web" at the London Olympics, using an old NeXT computer at the opening ceremony. "This Is For Everyone" fully demonstrated his open-source spirit. <a href="https://www.bilibili.com/video/BV1Nk4y1k7R1/">Bilibili video link</a></p>
 <p>Appendix 2: In 2014, computer enthusiast Suhayl Khan demonstrated how to access the Line Mode Browser using 1960s technology—commemorating the 25th anniversary of the World Wide Web. <a href="https://www.bilibili.com/video/BV1RW411w783/">Bilibili video link</a></p>
 <p><img src="https://vip2.loli.net/2023/01/25/qatRHhN9sSzTPGe.webp" alt="This is for everyone."></p>
@@ -902,7 +905,7 @@
 <p>Commenters replying to this note that developers don't have a say in user experience. Indeed, those who truly define user experience are bosses and capital. Programmers work for bosses to feed their families. Facing things they dislike that are added for users, they can only add them according to the boss's wishes.</p>
 <p>I hope in the future, there's technology that can free user experience from capital's grip and return the internet to purity!</p>
 <ol start="5">
-<li><a href="https://reddit1.nbastreamlinks.net/">nbastreamlinks</a></li>
+<li><a href="https://web.archive.org/web/20240426022059/https://reddit1.nbastreamlinks.net/">nbastreamlinks</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://vip2.loli.net/2023/01/26/srzNEF2uip7bxIo.webp" alt="nbastreamlinks"></p>
 <ol start="6">
@@ -919,7 +922,7 @@
 <ol start="2">
 <li>What reader is smarter and more suitable for the masses, and will become a replacement for Google Reader? My team and I answered: algorithm-based personalized recommendations.</li>
 </ol>
-<p>-- <a href="http://m.techweb.com.cn/article/2013-03-14/1283033.shtml">Applauding Page's Courage to Shut Down Google Reader!</a></p>
+<p>-- <a href="https://web.archive.org/web/20240111133349/https://m.techweb.com.cn/article/2013-03-14/1283033.shtml">Applauding Page's Courage to Shut Down Google Reader!</a> <em>(archived copy)</em></p>
 <ol start="3">
 <li>Basically, if we want to return the internet to users' hands, we need to decouple "services" from "storage." Companies should not be allowed to hold user data hostage.</li>
 </ol>
@@ -938,23 +941,23 @@
 <ol start="6">
 <li>Nobody truly owns a domain name, just as nobody truly owns a piece of land. Before it belongs to anyone, it has been traded with many parties; in this case, the parties can sell it and buy new land. Everything is borrowed.</li>
 </ol>
-<p>-- <a href="https://thoughtstreams.io/higgins/permalinking-vs-transience/">Permalinking vs Transience.</a></p>
+<p>-- <a href="https://web.archive.org/web/20221206044104/https://thoughtstreams.io/higgins/permalinking-vs-transience/">Permalinking vs Transience.</a> <em>(archived copy)</em></p>
 <p><img src="https://vip2.loli.net/2023/01/24/MxVIblHhuwYDy4z.webp" alt="Quote six"></p>
-<section data-footnotes class="footnotes"><h2 class="sr-only" id="footnote-label"><a aria-hidden="true" tabindex="-1" href="#footnote-label"><span class="icon icon-link"></span></a>Footnotes</h2>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="user-content-footnote-label"><a aria-hidden="true" tabindex="-1" href="#user-content-footnote-label"><span class="icon icon-link"></span></a>Footnotes</h2>
 <ol>
-<li id="user-content-fn-1">
+<li id="user-content-user-content-fn-1">
 <p><a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">Brewster Kahle's blog post</a> <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-2">
+<li id="user-content-user-content-fn-2">
 <p><a href="https://www.wikiwand.com/en/Tim_Berners-Lee">Tim_Berners-Lee</a> <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-3">
+<li id="user-content-user-content-fn-3">
 <p>Although I've reviewed many online resources, none explain in detail. Website going offline is likely due to the NeXT computer's limited lifespan, etc. In that era, hosting a website required having your own server and keeping it running 24/7. Keeping it on 24/7 couldn't last many years for machines of that era—unlike today's cloud servers where hardware updates and iterations happen without user awareness. <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-4">
-<p><a href="https://first-website.web.cern.ch/first-website/">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
+<li id="user-content-user-content-fn-4">
+<p><a href="https://info.cern.ch/hypertext/WWW/TheProject.html">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-5">
+<li id="user-content-user-content-fn-5">
 <p>I also tried finding archives in the Internet Archive of when you could use the Line Mode Browser to access the first website in modern browsers, but the archived pages display poorly. <a href="#user-content-fnref-5" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
@@ -986,7 +989,7 @@
 <p>The author also reflects on why he developed this information-collecting habit. It might be due to FOMO (Fear Of Missing Out)—afraid of missing interesting links—or perhaps some form of perfectionism. But regardless of the reason, the end result is spending a lot of energy collecting endless links without time to go back and organize them.</p>
 <p><img src="https://vip2.loli.net/2023/01/20/aGX6jBYdVKgwmWq.webp" alt="FOMO"></p>
 <p><a href="https://www.youtube.com/watch?v=q5zv9_ZgYoQ">Image source</a></p>
-<p>Actually, I've experienced this too and have only recently started to adjust. Before writing the blog post <a href="https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html">"Read Later = Never Read"</a>, I also suffered from FOMO, afraid of missing various exciting news or trending topics on the internet. But after collecting interesting information, I would put them in cold storage, leaving them to gather dust in my bookmarks.</p>
+<p>Actually, I've experienced this too and have only recently started to adjust. Before writing the blog post <a href="https://web.archive.org/web/20250125100846/https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html">"Read Later = Never Read"</a> <em>(archived copy)</em>, I also suffered from FOMO, afraid of missing various exciting news or trending topics on the internet. But after collecting interesting information, I would put them in cold storage, leaving them to gather dust in my bookmarks.</p>
 <p>As my bookmarks accumulated more and more, I could no longer tolerate this inefficient, futile collecting. Although there are indeed gems in my bookmarks, most are certainly garbage that doesn't help my personal improvement. So I started clearing bookmarks across all platforms.</p>
 <p>I still collect links, but my current collecting has an additional layer of filtering compared to before—that filter is my reading. Only those links that I find valuable and have actually read will I add to my bookmarks for sharing or revisiting later. But these links that make it to my bookmarks are few. Most links I encounter in a day, I close after reading and never let them pollute my bookmarks.</p>
 <p>In recent years, various productivity software has emerged endlessly, but have these productivity tools really improved my efficiency? I always reflect on this question. At first, I focused on writing in Typora. Later, hearing that Notion and Obsidian were powerful, I tried writing diaries or notes in these apps, but the results were unsatisfactory. When Notion's new AI feature and Obsidian's new canvas feature launched, they stirred up excitement in the productivity software tinkering community, but I ultimately chose to leave and continue using Typora for writing.</p>
@@ -1085,7 +1088,7 @@
         <id>https://gujiakai.top/en/2023/01/weekly-issue-12</id>
         <link href="https://gujiakai.top/en/2023/01/weekly-issue-12"/>
         <updated>2023-01-12T00:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>This song is Nicholas Teo's performance on Hunan TV's show "Time Music Concert" last year. The video version can be found at &#x3C;a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank">Bilibili link&#x3C;/a>.</p>
+        <content type="html"><![CDATA[<p>This song is Nicholas Teo's performance on Hunan TV's show "Time Music Concert" last year. The video version can be found at <a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank" rel="noopener noreferrer">Bilibili link</a>.</p>
 <h2 id="cover-image"><a aria-hidden="true" tabindex="-1" href="#cover-image"><span class="icon icon-link"></span></a>Cover Image</h2>
 <p><img src="https://vip2.loli.net/2023/01/12/cxfkZmjUBWdhG7O.webp" alt="Blue Marble"></p>
 <p>On December 7, 1972, astronauts on Apollo 17 took this photo of Earth on their way to the Moon. Today known as the "Blue Marble," this photo has become one of the most iconic images of our home. <a href="https://www.nasa.gov/content/blue-marble-image-of-the-earth-from-apollo-17">Image source</a></p>
@@ -1094,7 +1097,7 @@
 <p>The Shenzhou-14 manned spaceflight mission (June 5 to December 4, 2022) was the first manned spaceflight mission in China's space station construction phase, carrying three astronauts: Chen Dong, Cai Xuzhe, and Liu Yang. Image two was taken by astronaut Chen Dong during the mission. Based on my comparison with maps, image two shows China's Yellow River estuary. <a href="http://www.cmse.gov.cn/dmt/tj/202212/t20221217_51935.html">Image two source</a> <a href="https://maps.baidu.com/@13147931.71249071,4454683.06030799,9.13z/maptype%3DB_EARTH_MAP">Image three source</a></p>
 <p>Apollo 17 was humanity's last trip to the Moon. Humans haven't returned to the Moon in the past 50 years because lunar missions are extremely expensive, and the Moon is basically a barren desert—it's not worth spending a fortune to send astronauts for a stroll. However, China hasn't landed on the Moon yet, and the technology and experience for lunar landing are essential. Currently, China's manned space program's three-step strategy has reached the third step. I believe that someday in the future, China will also achieve its lunar landing dream.</p>
 <h2 id="topic-how-to-break-through-during-graduation-season"><a aria-hidden="true" tabindex="-1" href="#topic-how-to-break-through-during-graduation-season"><span class="icon icon-link"></span></a>Topic: How to Break Through During Graduation Season?</h2>
-<p>Teacher Ruan Yifeng discussed in last year's newsletter article—&#x3C;a href="https://www.ruanyifeng.com/blog/2022/12/weekly-issue-235.html#comment-text" target="_blank">Youth Unemployment Rate and Choosing Entrepreneurship&#x3C;/a>—why it's difficult for fresh graduates to start businesses and how to cope with the severe employment situation. Recommended reading.</p>
+<p>Teacher Ruan Yifeng discussed in last year's newsletter article—<a href="https://www.ruanyifeng.com/blog/2022/12/weekly-issue-235.html#comment-text" target="_blank" rel="noopener noreferrer">Youth Unemployment Rate and Choosing Entrepreneurship</a>—why it's difficult for fresh graduates to start businesses and how to cope with the severe employment situation. Recommended reading.</p>
 <p><img src="https://vip2.loli.net/2023/01/12/aIyWP4pF7fV3Kun.webp" alt="Youth unemployment rate and choosing entrepreneurship highlights"></p>
 <p>Today is January 12, 2023, with only 5 months left until the Class of 2023 graduates. If the postgraduate exam doesn't work out, what should we do? In the remaining 5 months, how can computer science students make efforts? I'll share my personal views on these two questions.</p>
 <p>Of course, if you're very confident about your postgraduate entrance exam, you can start preparing for the interview in advance without worrying too much about future employment—passing the exam will delay your job search, giving you another 2-3 years as a student. If you're not confident about the initial exam, you can either start preparing for the interview or wait until the scores come out to make interview plans.</p>
@@ -1119,7 +1122,7 @@
 </ol>
 <p><img src="https://vip2.loli.net/2023/01/12/41sMXQYEyi6Hp29.webp" alt="2023 is the Year of the Cat in Vietnam"></p>
 <p><img src="https://vip2.loli.net/2023/01/12/oc4JLFOeq6m9KSA.webp" alt="2023 Spring Festival Gala mascot—Rabbit Yuanyuan"></p>
-<p>Like China, Spring Festival is Vietnam's most important traditional holiday. But unlike China, Vietnam's zodiac uses the Cat instead of the Rabbit. There are various explanations for this. One theory suggests that when Chinese culture spread to Vietnam, Vietnamese people misheard "Year of Mao (Rabbit)" as "Year of Mao (Cat)"; another theory maintains that Vietnamese value "ecological balance"—since there's a Rat in the zodiac, the Cat can counter it. &#x3C;a href="https://baike.baidu.com/item/%E7%8C%AB%E5%B9%B4/4943704" target="_blank">via&#x3C;/a></p>
+<p>Like China, Spring Festival is Vietnam's most important traditional holiday. But unlike China, Vietnam's zodiac uses the Cat instead of the Rabbit. There are various explanations for this. One theory suggests that when Chinese culture spread to Vietnam, Vietnamese people misheard "Year of Mao (Rabbit)" as "Year of Mao (Cat)"; another theory maintains that Vietnamese value "ecological balance"—since there's a Rat in the zodiac, the Cat can counter it. <a href="https://baike.baidu.com/item/%E7%8C%AB%E5%B9%B4/4943704" target="_blank" rel="noopener noreferrer">via</a></p>
 <ol start="2">
 <li>Web Development Acronyms</li>
 </ol>
@@ -1127,7 +1130,7 @@
 <p>When I first encountered this image, I didn't look carefully and saved it to my bookmarks. When I later had time to review it, I found the image was completely nonsense—it can be seen as a humor image from programmers. The real web development acronyms are shown below.</p>
 <p><img src="https://vip2.loli.net/2023/01/12/sxzMjkZQctoWeY3.webp" alt="Real web development acronyms"></p>
 <ol start="3">
-<li><a href="https://ossinsight.io/2022/">Trends and Insights from GitHub 2022</a></li>
+<li><a href="https://web.archive.org/web/20230102223325/https://ossinsight.io/2022/">Trends and Insights from GitHub 2022</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://vip2.loli.net/2023/01/12/OPmS3EAInfD5kNH.webp" alt="Developer behavior analysis"></p>
 <p>Chinese developers like to star repositories, with WatchEvent at 17.23% and ForkEvent at 2.7%. This probably describes GitHub users like me. In the past year, I starred nearly 3,000 repositories, but I've actually used and understood very few. So a few days ago, I removed all my stars. Using GitHub's API can quickly accomplish clearing all stars.</p>
@@ -1162,7 +1165,7 @@
 <p><img src="https://vip2.loli.net/2023/01/12/9vgWs65JLy4EbAM.webp" alt="Listen to Music Together"></p>
 <p>When hanging out with friends, why not create a room on this website and listen to music together? The project is <a href="https://github.com/JumpAlang/Jusic-serve">open source</a> and can be self-deployed.</p>
 <ol start="3">
-<li><a href="https://www.my80stv.com">My 80's TV!</a></li>
+<li><a href="https://web.archive.org/web/20230101091038/https://www.my80stv.com/">My 80's TV!</a> <em>(archived copy)</em></li>
 </ol>
 <p><img src="https://vip2.loli.net/2023/01/12/to5hZ2dkLvTUKeP.webp" alt="My 80&#x27;s TV!"></p>
 <p>This website was created by Joey Cato from the San Francisco Bay Area in California, USA. It shows us the content broadcast on American TVs in the 1980s. The TV I opened in the image above is playing a music program. Joey Cato likes to create interactive, nostalgic things in his spare time. He believes it's a fun way to exercise his passion for learning. <a href="https://www.joeycato.com">via</a></p>
@@ -1211,7 +1214,7 @@
 <p><img src="https://vip2.loli.net/2023/01/02/aEuIAXRplML1ib6.webp" alt="Unsplash 2022 Photo of the Year Award"></p>
 <p>"This image has an otherworldly quality to it, creating a moment of calm and tranquility in this otherwise chaotic world we live in." — Unsplash 2022 Photo of the Year Award. <a href="https://awards.unsplash.com/2022/#/community-photo">(via)</a></p>
 <h2 id="topic-hello-2023"><a aria-hidden="true" tabindex="-1" href="#topic-hello-2023"><span class="icon icon-link"></span></a>Topic: Hello 2023</h2>
-&#x3C;iframe src="https://player.bilibili.com/player.html?aid=519647638&#x26;bvid=BV1Wg411x7sx&#x26;cid=948309604&#x26;page=1&#x26;autoplay=0"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="A farewell to 2022" src="https://player.bilibili.com/player.html?aid=519647638&#x26;bvid=BV1Wg411x7sx&#x26;cid=948309604&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <p>It's been a long time since I wrote a newsletter. I still remember the last time I wrote was in June of last year. In the blink of an eye, 2022 has already left us. Just as shown in the video above, 2022 is no longer in the stream of time.</p>
 <p>Whether for the world or for me personally, 2022 was a challenging year.</p>
 <p>This year, the pandemic continued to plague the world. Humanity didn't successfully defeat COVID-19; instead, the process of coexisting with it accelerated. This year, many notable figures left us, and with their passing, the cruelty of time was once again displayed before the world. At the end of this year, I successfully joined the Communist Party of China, though I'm well aware that I still have some distance to becoming a qualified party member. This year, for the postgraduate entrance examination at year's end, I gave up programming, hobbies, and more. After the initial exam, knowing that I probably wouldn't succeed in becoming a graduate student on my first attempt, in about half a year I'll likely enter the workforce, learning from experience...</p>
@@ -1223,13 +1226,13 @@
 <li><a href="https://archiveprogram.github.com/">Preserving Open Source Software for Future Generations</a></li>
 </ol>
 <p>A project from the world's largest code hosting platform, GitHub—the Archive Program. Reportedly, on February 2, 2020, GitHub captured a snapshot of every active open-source repository and stored it in an abandoned coal mine deep in the Arctic mountains of Svalbard, Norway.</p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=711477211&#x26;bvid=BV1rD4y1m78m&#x26;cid=214423471&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="GitHub Archive Program in the Arctic" src="https://player.bilibili.com/player.html?aid=711477211&#x26;bvid=BV1rD4y1m78m&#x26;cid=214423471&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <p>Here's a location map of the Svalbard archipelago, located in northern Europe, close to the North Pole.</p>
 <p><img src="https://vip2.loli.net/2023/01/02/O3Q47U8tDaV1IH2.webp" alt="Svalbard location"></p>
 <ol start="2">
 <li><a href="https://www.reddit.com/r/MTRelaxation67/comments/z88ihb/what_happens_when_a_desert_gets_rain/">What happens when a desert gets continuous heavy rain?</a></li>
 </ol>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=222212428&#x26;bvid=BV198411E7e2&#x26;cid=948497301&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="Heavy rain and flooding in a desert" src="https://player.bilibili.com/player.html?aid=222212428&#x26;bvid=BV198411E7e2&#x26;cid=948497301&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <p>Surprisingly, it causes floods—I didn't expect that. Nature is truly amazing.</p>
 <ol start="3">
 <li><a href="https://www.reddit.com/r/weirddalle/comments/zi14ae/a_developer_finding_a_bug_now_even_more_literal/">AI-Generated Bug Illustration</a></li>
@@ -1237,7 +1240,7 @@
 <p>The term "Bug" in software refers to small errors or glitches in programs. The origin of this term is fascinating—it comes from a moth found in a relay. 2022 can be called the inaugural year of AI art, with various AI painting programs emerging one after another.</p>
 <p>A foreign netizen used Midjourney, an AI painting software, to create an image containing a giant bug.</p>
 <p><img src="https://vip2.loli.net/2023/01/02/2GXpwSm9gbKYNkP.webp" alt="A developer found a bug"></p>
-&#x3C;center>&#x3C;b>A developer found a bug.&#x3C;/b>&#x3C;/center>
+<center><b>A developer found a bug.</b></center>
 <h2 id="link-sharing"><a aria-hidden="true" tabindex="-1" href="#link-sharing"><span class="icon icon-link"></span></a>Link Sharing</h2>
 <ol>
 <li><a href="http://oldcomputers.net/">Steve's Old Computer Museum</a></li>
@@ -1251,18 +1254,18 @@
 <p>When was the last time you wrote a letter? Why not take some time to write a letter to your future self or your family? You can choose email delivery or physical mail delivery (postage at your own expense).</p>
 <p><img src="https://vip2.loli.net/2023/01/02/hqfUyZFOr8pT2cl.webp" alt="Cloud Time Post Office"></p>
 <ol start="3">
-<li><a href="https://smartynames.com/">Search Domain names with AI</a></li>
+<li><a href="https://web.archive.org/web/20240927005728/https://smartynames.com/">Search Domain names with AI</a> <em>(archived copy)</em></li>
 </ol>
 <p>Describe your company or project in the dialog box, and this AI program will suggest matching domain names.</p>
 <p><img src="https://vip2.loli.net/2023/01/03/qEVwyag3XLeK5T9.webp" alt="Search domain names with AI"></p>
 <h2 id="documentary"><a aria-hidden="true" tabindex="-1" href="#documentary"><span class="icon icon-link"></span></a>Documentary</h2>
 <p>Today I recommend a documentary called "The Internet's Own Boy." This documentary tells the story of Aaron Swartz, who gave his life for a freer and more open internet.</p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=16549975&#x26;bvid=BV1rx411V75r&#x26;cid=26994578&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="The Internet&#x27;s Own Boy documentary" src="https://player.bilibili.com/player.html?aid=16549975&#x26;bvid=BV1rx411V75r&#x26;cid=26994578&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <h2 id="quotes"><a aria-hidden="true" tabindex="-1" href="#quotes"><span class="icon icon-link"></span></a>Quotes</h2>
 <ol>
 <li>An Argentine fan fell from an overpass while trying to jump onto a bus carrying the World Cup champion team.</li>
 </ol>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=692206780&#x26;bvid=BV1Z24y1v7ix&#x26;cid=949017983&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="Argentine football fan falls from an overpass" src="https://player.bilibili.com/player.html?aid=692206780&#x26;bvid=BV1Z24y1v7ix&#x26;cid=949017983&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <blockquote>
 <p>That guy originally wanted to see Messi, but he ended up meeting Maradona (the late Argentine football star).</p>
 </blockquote>
@@ -1270,7 +1273,7 @@
 <ol start="2">
 <li>Kim Jong-un welcomes South Korea's Moon Jae-in in Pyongyang</li>
 </ol>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=31962726&#x26;bvid=BV1NW411C76X&#x26;cid=55906755&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="Kim Jong-un welcomes Moon Jae-in in Pyongyang" src="https://player.bilibili.com/player.html?aid=31962726&#x26;bvid=BV1NW411C76X&#x26;cid=55906755&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <blockquote>
 <p>I wonder why there are translators beside them when they both speak Korean.</p>
 </blockquote>
@@ -1284,11 +1287,11 @@
         <content type="html"><![CDATA[<p>Weekly BGM [College Entrance Exam Season Special].</p>
 <p>Welcome to the tenth issue of "Weekly Insights." This week's topic is "My past years."</p>
 <p><img src="https://vip2.loli.net/2022/09/20/BrVsEMzPYmdnSF8.jpg" alt="2019 college entrance exam send-off scene at my high school"></p>
-&#x3C;center>&#x3C;b>(Cover image: 2019 college entrance exam send-off scene at my high school)&#x3C;/b>&#x3C;/center>
+<center><b>(Cover image: 2019 college entrance exam send-off scene at my high school)</b></center>
 <h2 id="topic-my-past-years"><a aria-hidden="true" tabindex="-1" href="#topic-my-past-years"><span class="icon icon-link"></span></a>Topic: My Past Years</h2>
 <p>The 2022 college entrance exam (Gaokao) has concluded. Every year's exam season inevitably brings back memories of the past, and this year is no exception. On the afternoon of June 6th, I took some time to reminisce about my youth.</p>
 <p>That afternoon, I logged into the official websites of my elementary school, middle school, and high school, preparing to download some memorable things for future reminiscence. The results were greatly disappointing – none of my schools' websites could be accessed; they had all gone offline. The information channels for my elementary, middle, and high school had all switched to WeChat official accounts.</p>
-<p>I used <a href="https://www.oldestsearch.com/">Oldest Search</a>, which I recommended in issue 6, but still couldn't find historical snapshots of my schools' previous sites.</p>
+<p>I used <a href="https://web.archive.org/web/20221227200453/https://www.oldestsearch.com/">Oldest Search</a> <em>(archived copy)</em>, which I recommended in issue 6, but still couldn't find historical snapshots of my schools' previous sites.</p>
 <p>Eventually, I found historical snapshots of my <a href="https://web.archive.org/web/20161024113518/http://hmsyxx.com/">high school site</a>, <a href="https://web.archive.org/web/20180824200013/http://www.hmnrzx.com/">middle school site</a>, and <a href="https://web.archive.org/web/20130908231332/http://www.hmdx.net/">elementary school site</a> in the <a href="https://archive.org/">Internet Archive</a>.</p>
 <p>My high school's site was last updated in 2016. The historical snapshot matches what I remember seeing when I visited the school website during computer class in my first year of high school. The English listening MP3 files in the "hot articles" list next to the campus news section reminded me of doing listening exercises during morning reading in my freshman year. Back then, the last 20 minutes of every English morning reading session were used for listening practice.</p>
 <p><img src="https://vip2.loli.net/2022/09/20/Pl1N96rTXLHcg5q.png" alt="High school site snapshot"></p>
@@ -1345,7 +1348,7 @@
         <content type="html"><![CDATA[<p>Weekly BGM [Dragon Boat Festival Special].</p>
 <p>Welcome to the ninth issue of "Weekly Insights." This week's topic is "Technology first or tinkering first?"</p>
 <p><img src="https://vip2.loli.net/2022/11/12/3NoeEwjuitYS7Fa.jpg" alt="Cover image: Coding time"></p>
-&#x3C;center>&#x3C;b>(Cover image: Coding time)&#x3C;/b>&#x3C;/center>
+<center><b>(Cover image: Coding time)</b></center>
 <h2 id="international-perspective"><a aria-hidden="true" tabindex="-1" href="#international-perspective"><span class="icon icon-link"></span></a>International Perspective</h2>
 <p>The latest supercomputer rankings are out, with America's new Frontier supercomputer taking the top spot. See details at <a href="https://www.top500.org/">top500 official website</a></p>
 <p><img src="https://vip2.loli.net/2022/11/12/e6Y3bV1yXE97cTC.png" alt="2022 Global Supercomputer Performance Rankings"></p>
@@ -1383,7 +1386,7 @@
 </ol>
 <h2 id="link-sharing"><a aria-hidden="true" tabindex="-1" href="#link-sharing"><span class="icon icon-link"></span></a>Link Sharing</h2>
 <ol>
-<li><a href="https://pinball.flutter.dev/#/">Pinball</a></li>
+<li><a href="https://web.archive.org/web/20260608111305/https://pinball.flutter.dev/">Pinball</a> <em>(archived copy)</em></li>
 </ol>
 <p>A pinball game released before Google I/O 2022 last month, paying tribute to the classic while showcasing Google's Flutter application development kit.</p>
 <p>Note: The space bar charges up power; release to launch. Then use the left arrow key (or A) and right arrow key (or D) to control the flippers below to make the ball bounce multiple times for points. Requires VPN.</p>
@@ -1460,19 +1463,19 @@
 </ol>
 <p>As graduation approaches, why not write a letter to your future self? My college psychology course this semester required writing a letter to my future self. I already submitted my letter on this site in March. I look forward to receiving my March letter next year.</p>
 <ol start="2">
-<li><a href="https://earthly-tools.com/text-mode?url=">Text Mode</a></li>
+<li><a href="https://web.archive.org/web/20250219045250/https://earthly-tools.com/text-mode?url=">Text Mode</a> <em>(archived copy)</em></li>
 </ol>
 <p>View web pages in pure text form. Just enter the website address you want to view after <code>url=</code> in the address bar.</p>
 <ol start="3">
-<li><a href="https://www.pawmenow.com/what-dogs-can-eat/">What Human Foods are Healthy for Dogs to Eat?</a></li>
+<li><a href="https://web.archive.org/web/20250622081808/https://pawmenow.com/what-dogs-can-eat/">What Human Foods are Healthy for Dogs to Eat?</a> <em>(archived copy)</em></li>
 </ol>
 <p>A site to determine which human foods are healthy for dogs. For example, when I entered "rice," the following prompt appeared.</p>
 <ol start="4">
-<li><a href="https://emojied.net/">emojied</a></li>
+<li><a href="https://web.archive.org/web/20250405224514/https://emojied.net/">emojied</a> <em>(archived copy)</em></li>
 </ol>
 <p>Shorten your links using emojis. For example, my personal blog link is <code>https://jiakai.page</code>. After conversion through this site, it becomes <code>https://emojied.net/😉🙃😌😨😍😰</code>.</p>
 <ol start="5">
-<li><a href="https://batnoter.com/">batnoter</a></li>
+<li><a href="https://github.com/batnoter/batnoter">batnoter</a></li>
 </ol>
 <p>An open-source, Markdown-based, self-hosted-to-GitHub note-taking web application. You can use it as your own random notebook. [Note: This app was originally called gitnoter, later renamed to batnoter]</p>
 <p>After saving notes, they automatically sync to your GitHub repository.</p>
@@ -1571,7 +1574,7 @@
 </ol>
 <p>Andi is a next-generation search engine – bringing you a conversational, anonymous, and ad-free search experience. Andi gives you direct answers to complex questions. It also fights spam and protects you from ad tech.</p>
 <ol start="2">
-<li><a href="https://www.oldestsearch.com/">Oldest Search</a></li>
+<li><a href="https://web.archive.org/web/20221227200453/https://www.oldestsearch.com/">Oldest Search</a> <em>(archived copy)</em></li>
 </ol>
 <p>The oldest search engine.</p>
 <p>All results are page snapshots captured 10 years ago.</p>
@@ -1624,7 +1627,7 @@
         <link href="https://gujiakai.top/en/2022/04/weekly-issue-04"/>
         <updated>2022-04-29T00:00:00.000Z</updated>
         <content type="html"><![CDATA[<p>Welcome to the fourth issue of "Weekly Insights." This week's topic is "Are you being trapped in a filter bubble?"</p>
-&#x3C;center>&#x3C;b>Cover image: Filter Bubble&#x3C;/b>&#x3C;/center>
+<center><b>Cover image: Filter Bubble</b></center>
 <h2 id="topic-are-you-being-trapped-in-a-filter-bubble"><a aria-hidden="true" tabindex="-1" href="#topic-are-you-being-trapped-in-a-filter-bubble"><span class="icon icon-link"></span></a>Topic: Are You Being Trapped in a Filter Bubble?</h2>
 <p><em>What is a filter bubble (information cocoon)?</em></p>
 <p>If you keep browsing content about a single topic on platforms like TikTok or Bilibili, your homepage recommendations will soon be flooded with videos about that topic. I'm sure you've experienced this. The logic behind it is the recommendation algorithm at work, similar to Taobao's "Guess What You Like" feature.</p>
@@ -1676,7 +1679,7 @@
 <h2 id="topic-reject-homogenization"><a aria-hidden="true" tabindex="-1" href="#topic-reject-homogenization"><span class="icon icon-link"></span></a>Topic: Reject Homogenization</h2>
 <p><em>What is homogenization?</em></p>
 <p>Before entering university, I always heard rumors that once in college, I could freely choose my courses and have more options. But after entering university, I found reality was different. My schedule was still filled with courses I didn't like, and because I didn't like them, I had little motivation to study.</p>
-<p>This week, I read a blog post titled <a href="http://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/"><em>The Systematic Failure of Higher Education in China</em></a>. This article is the author's response to a <a href="https://www.zhihu.com/question/439622084/answer/1685314467">question</a> on Zhihu.</p>
+<p>This week, I read a blog post titled <a href="https://web.archive.org/web/20220601154606/https://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/"><em>The Systematic Failure of Higher Education in China</em></a> <em>(archived copy)</em>. This article is the author's response to a <a href="https://www.zhihu.com/question/439622084/answer/1685314467">question</a> on Zhihu.</p>
 <p>After reading it, I was deeply moved. Regarding "<strong>the score-only mentality and homogenized education before entering university</strong>," I personally relate to this. High scores in middle and high school only prove that you put in effort; they don't mean much else. The streaming system after middle school exams separates Chinese students into different levels too early, causing the gap to widen further, with struggling students falling further behind.</p>
 <p>Excellence isn't measured by scores but by actual ability – that is, how much you can contribute to society. Last summer, I accidentally clicked on a <a href="https://www.dandyweng.com/">blogger's website</a> and was amazed. The amazement wasn't because the blog was flashy, but because the blogger built it himself without using any existing framework.</p>
 <p>This blogger, named Weng Tianxin, is self-taught and has never attended a single day of school. He only acquires knowledge that interests him from nature and the internet. Completely separating from the conventional education system doesn't mean he's rebellious; rather, it has allowed him to understand himself and become the person he wants to be.</p>
@@ -1739,7 +1742,7 @@
 <p>A browser-based shooting game worth playing.</p>
 <p>After accumulating enough energy, you can press Enter to fire a super wave. 😄</p>
 <ol start="2">
-<li><a href="https://cloud.niucodata.com/">Word Cloud Tool</a></li>
+<li><a href="https://web.archive.org/web/20250710065926/http://cloud.niucodata.com/">Word Cloud Tool</a> <em>(archived copy)</em></li>
 </ol>
 <p>Generate word cloud images based on input text.</p>
 <ol start="3">
@@ -1769,10 +1772,10 @@
 <h2 id="link-sharing"><a aria-hidden="true" tabindex="-1" href="#link-sharing"><span class="icon icon-link"></span></a>Link Sharing</h2>
 <ol>
 <li>
-<p><a href="https://focus-sounds.vercel.app/">Focus Sound</a> – A site hosted on Vercel with many sounds to choose from. You can open it while studying to enhance your learning atmosphere.</p>
+<p><a href="https://web.archive.org/web/20241103121553/https://focus-sounds.vercel.app/">Focus Sound</a> <em>(archived copy)</em> – A site hosted on Vercel with many sounds to choose from. You can open it while studying to enhance your learning atmosphere.</p>
 </li>
 <li>
-<p><a href="https://www.thiswebsitewillselfdestruct.com/">The Self-Destructing Website</a> – A place to write down your feelings. If no new messages are received within 24 hours, the site will disappear. Tencent Cloud's official <a href="https://www.bilibili.com/video/BV1J3411J7Ym">video</a> on Bilibili describes this in detail.</p>
+<p><a href="https://web.archive.org/web/20250422213218/https://www.thiswebsitewillselfdestruct.com/">The Self-Destructing Website</a> <em>(archived copy)</em> – A place to write down your feelings. If no new messages are received within 24 hours, the site will disappear. Tencent Cloud's official <a href="https://www.bilibili.com/video/BV1J3411J7Ym">video</a> on Bilibili describes this in detail.</p>
 </li>
 </ol>
 <h2 id="have-a-great-weekend-"><a aria-hidden="true" tabindex="-1" href="#have-a-great-weekend-"><span class="icon icon-link"></span></a>Have a great weekend! 😆</h2>]]></content>

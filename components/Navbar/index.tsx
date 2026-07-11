@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import type { FocusEvent, KeyboardEvent } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import HomeIcon from '@mui/icons-material/Home'
@@ -9,7 +10,8 @@ import RssFeedIcon from '@mui/icons-material/RssFeed'
 import MenuIcon from '@mui/icons-material/Menu'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import TranslateIcon from '@mui/icons-material/Translate'
-import { Locale, i18n, getLocalePath } from '@/lib/i18n-config'
+import { getLocalePath } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n-config'
 
 interface NavbarProps {
   lang: Locale
@@ -19,54 +21,117 @@ interface NavbarProps {
       Archive: string
       About: string
       RSS: string
+      Navigation: string
+      OpenMenu: string
+      CloseMenu: string
+      ChangeLanguage: string
+      MoreOptions: string
     }
   }
   RenderThemeChanger: () => React.ReactNode
+}
+
+const supportedLocales: Record<Locale, string> = {
+	zh: '简体中文',
+	en: 'English',
 }
 
 export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) {
 	const [moreMenuVisible, setMoreMenuVisible] = useState(false)
 	const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 	const [translateMenuVisible, setTranslateMenuVisible] = useState(false)
-
-	const supportedLocales: Record<Locale, string> = {
-		zh: '简体中文',
-		en: 'English',
-	}
-
+	const translateMenuId = useId()
+	const moreMenuId = useId()
+	const mobileMenuId = useId()
+	const navRef = useRef<HTMLElement>(null)
 	const pathname = usePathname()
 
-	// Get path without locale prefix for language switching
-	const getPathWithoutLocale = () => {
-		const segments = pathname.split('/')
-		// Only /en/ has prefix, zh pages have no prefix (but internally routed to /zh/)
-		if (segments[1] === 'en' || segments[1] === 'zh') {
-			return '/' + segments.slice(2).join('/')
+	useEffect(() => {
+		if (!moreMenuVisible && !mobileMenuVisible && !translateMenuVisible) {
+			return
 		}
-		return pathname
+
+		const closeOutside = (event: PointerEvent) => {
+			if (event.target instanceof Node && !navRef.current?.contains(event.target)) {
+				setMoreMenuVisible(false)
+				setMobileMenuVisible(false)
+				setTranslateMenuVisible(false)
+			}
+		}
+
+		document.addEventListener('pointerdown', closeOutside)
+		return () => document.removeEventListener('pointerdown', closeOutside)
+	}, [mobileMenuVisible, moreMenuVisible, translateMenuVisible])
+
+	const segments = pathname.split('/')
+	const pathWithoutLocale = (
+		segments[1] === 'en' || segments[1] === 'zh'
+			? '/' + segments.slice(2).join('/')
+			: pathname
+	) || '/'
+	const sortedLocales: Locale[] = [
+		lang,
+		...Object.keys(supportedLocales).filter((locale) => locale !== lang) as Locale[],
+	]
+
+	const closeWhenFocusLeaves = (
+		event: FocusEvent<HTMLElement>,
+		close: () => void
+	) => {
+		if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+			close()
+		}
 	}
 
-	const pathWithoutLocale = getPathWithoutLocale()
+	const closeOnEscape = (
+		event: KeyboardEvent<HTMLElement>,
+		close: () => void
+	) => {
+		if (event.key === 'Escape') {
+			event.preventDefault()
+			close()
+			event.currentTarget.querySelector<HTMLButtonElement>('button[aria-controls]')?.focus()
+		}
+	}
 
-	const sortedLocales = Object.entries(supportedLocales).sort(([localeA]) => {
-		return localeA === lang ? -1 : 1
+	const localeChoices = (close: () => void) => sortedLocales.map((locale) => {
+		const displayName = supportedLocales[locale]
+		const className = `block w-full px-4 py-2 text-sm ${
+			lang !== locale
+				? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-blue-600 dark:hover:text-blue-400'
+				: 'text-blue-600 dark:text-blue-400 font-medium'
+		}`
+
+		return (
+			<li key={locale}>
+				{locale !== lang ? (
+					<Link
+						href={getLocalePath(locale, pathWithoutLocale)}
+						className={className}
+						hrefLang={locale === 'zh' ? 'zh-CN' : 'en-US'}
+						onClick={close}
+					>
+						{displayName}
+					</Link>
+				) : (
+					<span className={className} aria-current="true">
+						{displayName}
+					</span>
+				)}
+			</li>
+		)
 	})
-
-	const handleMobileMenuClick = () => {
-		setMobileMenuVisible(!mobileMenuVisible)
-	}
 
 	return (
 		<div className="w-full max-w-4xl">
-			<nav className="relative">
-				{/* Desktop navigation */}
+			<nav ref={navRef} className="relative" aria-label={dict.common.Navigation}>
 				<ul className="hidden md:flex items-center justify-center space-x-3 list-none">
 					<li>
 						<Link
 							href={getLocalePath(lang)}
 							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 						>
-							<HomeIcon className="w-5 h-5 flex-shrink-0" />
+							<HomeIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
 							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.Home}</span>
 						</Link>
 					</li>
@@ -76,6 +141,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 						>
 							<svg
+								aria-hidden
 								xmlns="http://www.w3.org/2000/svg"
 								className="w-5 h-5 flex-shrink-0"
 								viewBox="0 0 24 24"
@@ -93,89 +159,80 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 							href={getLocalePath(lang, '/about')}
 							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 						>
-							<InfoIcon className="w-5 h-5 flex-shrink-0" />
+							<InfoIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
 							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.About}</span>
 						</Link>
 					</li>
 					<li>
-						<Link
+						<a
 							href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
+							type="application/atom+xml"
 							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 						>
-							<RssFeedIcon className="w-5 h-5 flex-shrink-0" />
+							<RssFeedIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
 							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.RSS}</span>
-						</Link>
+						</a>
 					</li>
-					<div className="flex-grow" />
+					<li className="flex-grow" aria-hidden />
 					<li
 						className="hidden xl:block relative"
 						onMouseEnter={() => setTranslateMenuVisible(true)}
 						onMouseLeave={() => setTranslateMenuVisible(false)}
+						onBlur={(event) => closeWhenFocusLeaves(event, () => setTranslateMenuVisible(false))}
+						onKeyDown={(event) => closeOnEscape(event, () => setTranslateMenuVisible(false))}
 					>
 						<button
+							type="button"
 							className="flex items-center gap-1 p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-							aria-expanded={translateMenuVisible ? 'true' : 'false'}
+							aria-label={dict.common.ChangeLanguage}
+							aria-controls={translateMenuId}
+							aria-expanded={translateMenuVisible}
+							onClick={() => setTranslateMenuVisible((visible) => !visible)}
 						>
-							<TranslateIcon className="w-5 h-5" />
-							<svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<TranslateIcon aria-hidden className="w-5 h-5" />
+							<svg aria-hidden className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 							</svg>
 						</button>
 						{translateMenuVisible && (
-							<div className="absolute right-0 pt-2 w-36 z-50">
-								<div className="py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 dark:ring-gray-700">
-									{sortedLocales.map(([locale, displayName]) => (
-										<div
-											key={locale}
-											className={`block px-4 py-2 text-sm ${
-												lang !== locale
-													? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-blue-600 dark:hover:text-blue-400'
-													: 'text-blue-600 dark:text-blue-400 font-medium'
-											}`}
-										>
-											{locale !== lang ? (
-												<Link href={getLocalePath(locale as Locale, pathWithoutLocale)}>{displayName}</Link>
-											) : (
-												displayName
-											)}
-										</div>
-									))}
-								</div>
+							<div className="absolute right-0 pt-2 w-40 z-50">
+								<ul
+									id={translateMenuId}
+									className="py-2 list-none bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 dark:ring-gray-700"
+									aria-label={dict.common.ChangeLanguage}
+								>
+									{localeChoices(() => setTranslateMenuVisible(false))}
+								</ul>
 							</div>
 						)}
 					</li>
 					<li className="hidden xl:block">{RenderThemeChanger()}</li>
-
 					<li
 						className="hidden md:block xl:hidden relative"
 						onMouseEnter={() => setMoreMenuVisible(true)}
 						onMouseLeave={() => setMoreMenuVisible(false)}
+						onBlur={(event) => closeWhenFocusLeaves(event, () => setMoreMenuVisible(false))}
+						onKeyDown={(event) => closeOnEscape(event, () => setMoreMenuVisible(false))}
 					>
 						<button
+							type="button"
 							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-							aria-expanded={moreMenuVisible ? 'true' : 'false'}
+							aria-label={dict.common.MoreOptions}
+							aria-controls={moreMenuId}
+							aria-expanded={moreMenuVisible}
+							onClick={() => setMoreMenuVisible((visible) => !visible)}
 						>
-							<MoreHorizIcon className="w-5 h-5" />
+							<MoreHorizIcon aria-hidden className="w-5 h-5" />
 						</button>
 						{moreMenuVisible && (
-							<div className="absolute right-0 pt-2 w-36 z-50">
+							<div
+								id={moreMenuId}
+								className="absolute right-0 pt-2 w-40 z-50"
+							>
 								<div className="py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 dark:ring-gray-700">
-									{sortedLocales.map(([locale, displayName]) => (
-										<div
-											key={locale}
-											className={`block px-4 py-2 text-sm ${
-												lang !== locale
-													? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-blue-600 dark:hover:text-blue-400'
-													: 'text-blue-600 dark:text-blue-400 font-medium'
-											}`}
-										>
-											{locale !== lang ? (
-												<Link href={getLocalePath(locale as Locale, pathWithoutLocale)}>{displayName}</Link>
-											) : (
-												displayName
-											)}
-										</div>
-									))}
+									<ul className="list-none" aria-label={dict.common.ChangeLanguage}>
+										{localeChoices(() => setMoreMenuVisible(false))}
+									</ul>
 									<div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 px-4">
 										{RenderThemeChanger()}
 									</div>
@@ -185,103 +242,86 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					</li>
 				</ul>
 
-				{/* Mobile navigation */}
-				<div className="md:hidden">
+				<div
+					className="md:hidden"
+					onKeyDown={(event) => closeOnEscape(event, () => setMobileMenuVisible(false))}
+				>
 					<div className="flex justify-end">
 						<button
-							onClick={handleMobileMenuClick}
+							type="button"
+							onClick={() => setMobileMenuVisible((visible) => !visible)}
 							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-							aria-expanded={mobileMenuVisible ? 'true' : 'false'}
+							aria-label={mobileMenuVisible ? dict.common.CloseMenu : dict.common.OpenMenu}
+							aria-controls={mobileMenuId}
+							aria-expanded={mobileMenuVisible}
 						>
-							<MenuIcon className="w-6 h-6" />
+							<MenuIcon aria-hidden className="w-6 h-6" />
 						</button>
 					</div>
 
-					<div
-						className={`
-              absolute left-0 right-0
-              bg-white dark:bg-gray-900
-              shadow-lg
-              border-b border-gray-200 dark:border-gray-700
-              overflow-hidden
-              transition-all duration-300 ease-in-out
-              ${mobileMenuVisible ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}
-            `}
-					>
-						<nav className="px-2 py-2">
-							<Link
-								href={getLocalePath(lang)}
-								onClick={() => setMobileMenuVisible(false)}
-								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-							>
-								<HomeIcon className="w-5 h-5" />
-								<span className="ml-3 text-sm font-medium">{dict.common.Home}</span>
-							</Link>
-							<Link
-								href={getLocalePath(lang, '/archive')}
-								onClick={() => setMobileMenuVisible(false)}
-								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="w-5 h-5"
-									viewBox="0 0 24 24"
-								>
-									<path
-										fill="currentColor"
-										d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z"
-									/>
-								</svg>
-								<span className="ml-3 text-sm font-medium">{dict.common.Archive}</span>
-							</Link>
-							<Link
-								href={getLocalePath(lang, '/about')}
-								onClick={() => setMobileMenuVisible(false)}
-								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-							>
-								<InfoIcon className="w-5 h-5" />
-								<span className="ml-3 text-sm font-medium">{dict.common.About}</span>
-							</Link>
-							<Link
-								href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
-								onClick={() => setMobileMenuVisible(false)}
-								className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-							>
-								<RssFeedIcon className="w-5 h-5" />
-								<span className="ml-3 text-sm font-medium">{dict.common.RSS}</span>
-							</Link>
-
-							{/* Language switcher */}
-							<div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
-								{sortedLocales.map(([locale, displayName]) => (
-									<div
-										key={locale}
-										className={`px-4 py-2 text-sm ${
-											lang !== locale
-												? 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-												: 'text-blue-600 dark:text-blue-400 font-medium'
-										}`}
+					{mobileMenuVisible && (
+						<div
+							id={mobileMenuId}
+							className="absolute left-0 right-0 bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700"
+						>
+							<ul className="px-2 py-2 list-none">
+								<li>
+									<Link
+										href={getLocalePath(lang)}
+										onClick={() => setMobileMenuVisible(false)}
+										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
 									>
-										{locale !== lang ? (
-											<Link
-												href={getLocalePath(locale as Locale, pathWithoutLocale)}
-												onClick={() => setMobileMenuVisible(false)}
-											>
-												{displayName}
-											</Link>
-										) : (
-											displayName
-										)}
-									</div>
-								))}
-							</div>
+										<HomeIcon aria-hidden className="w-5 h-5" />
+										<span className="ml-3 text-sm font-medium">{dict.common.Home}</span>
+									</Link>
+								</li>
+								<li>
+									<Link
+										href={getLocalePath(lang, '/archive')}
+										onClick={() => setMobileMenuVisible(false)}
+										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+									>
+										<svg aria-hidden xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24">
+											<path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" />
+										</svg>
+										<span className="ml-3 text-sm font-medium">{dict.common.Archive}</span>
+									</Link>
+								</li>
+								<li>
+									<Link
+										href={getLocalePath(lang, '/about')}
+										onClick={() => setMobileMenuVisible(false)}
+										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+									>
+										<InfoIcon aria-hidden className="w-5 h-5" />
+										<span className="ml-3 text-sm font-medium">{dict.common.About}</span>
+									</Link>
+								</li>
+								<li>
+									<a
+										href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
+										type="application/atom+xml"
+										onClick={() => setMobileMenuVisible(false)}
+										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+									>
+										<RssFeedIcon aria-hidden className="w-5 h-5" />
+										<span className="ml-3 text-sm font-medium">{dict.common.RSS}</span>
+									</a>
+								</li>
+							</ul>
 
-							{/* Theme switcher */}
-							<div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 px-4">
+							<ul
+								className="mx-2 border-t border-gray-200 dark:border-gray-700 pt-2 list-none"
+								aria-label={dict.common.ChangeLanguage}
+							>
+								{localeChoices(() => setMobileMenuVisible(false))}
+							</ul>
+
+							<div className="mx-2 border-t border-gray-200 dark:border-gray-700 mt-2 py-2 px-4">
 								{RenderThemeChanger()}
 							</div>
-						</nav>
-					</div>
+						</div>
+					)}
 				</div>
 			</nav>
 		</div>

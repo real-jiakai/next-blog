@@ -45,7 +45,7 @@ The author also reflects on why he developed this information-collecting habit. 
 
 [Image source](https://www.youtube.com/watch?v=q5zv9_ZgYoQ)
 
-Actually, I've experienced this too and have only recently started to adjust. Before writing the blog post ["Read Later = Never Read"](https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html), I also suffered from FOMO, afraid of missing various exciting news or trending topics on the internet. But after collecting interesting information, I would put them in cold storage, leaving them to gather dust in my bookmarks.
+Actually, I've experienced this too and have only recently started to adjust. Before writing the blog post ["Read Later = Never Read"](https://web.archive.org/web/20250125100846/https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html) *(archived copy)*, I also suffered from FOMO, afraid of missing various exciting news or trending topics on the internet. But after collecting interesting information, I would put them in cold storage, leaving them to gather dust in my bookmarks.
 
 As my bookmarks accumulated more and more, I could no longer tolerate this inefficient, futile collecting. Although there are indeed gems in my bookmarks, most are certainly garbage that doesn't help my personal improvement. So I started clearing bookmarks across all platforms.
 

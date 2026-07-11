@@ -1,113 +1,121 @@
-# Contributing to Next.js Multilingual Blog
+# Contributing to the multilingual Next.js blog
 
-Thank you for considering contributing to this project! Your help and support are highly appreciated.
-
-## Tech Stack
-
-- **Framework**: Next.js 16 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Database**: Supabase (for comments)
-- **Package Manager**: pnpm
+Thank you for contributing.
 
 ## Prerequisites
 
-- Node.js 18+
-- pnpm 9+
+- Node.js 24 is required (the exact development version is in `.node-version`; the supported range is Node.js 24.10 through the latest Node.js 24 release).
+- pnpm 11.5.2, managed by Corepack from the `packageManager` field.
 
-## Getting Started
+Enable the pinned package manager and install dependencies:
 
-1. **Fork the repository** to your GitHub account
+```bash
+corepack enable pnpm
+pnpm install --frozen-lockfile
+```
 
-2. **Clone your fork**:
+## Local setup
+
+1. Fork and clone the repository:
+
    ```bash
-   git clone https://github.com/YOUR_USERNAME/next-blog-multilingual.git
-   cd next-blog-multilingual
+   git clone https://github.com/YOUR_USERNAME/next-blog.git
+   cd next-blog
    ```
 
-3. **Install dependencies**:
-   ```bash
-   pnpm install
+2. Create `.env.local`. There is intentionally no committed environment file to copy. At minimum, local builds need:
+
+   ```dotenv
+   NEXT_PUBLIC_SITE_URL=https://example.com
+   NEXT_PUBLIC_SITE_TITLE=My Blog
+   NEXT_PUBLIC_SITE_DESCRIPTION=My blog description
+   NEXT_PUBLIC_POSTS_PERPAGE=10
+   NEXT_PUBLIC_GITHUB_REPO=https://github.com/YOUR_USERNAME/next-blog
+   NEXT_PUBLIC_SHOW_COMMENT=false
    ```
 
-4. **Set up environment variables**:
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your values
-   ```
+   The comment feature additionally needs Supabase, Turnstile, and email settings. Keep all secret values server-side and out of Git.
 
-5. **Start the development server**:
+3. Start the development server:
+
    ```bash
    pnpm dev
    ```
 
-## Development Workflow
+## Quality checks
 
-1. **Create a new branch** for your feature or fix:
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/your-bug-fix
-   ```
+Run the same checks as CI before opening a pull request:
 
-2. **Make your changes** following the existing code style
-
-3. **Run linting** before committing:
-   ```bash
-   pnpm lint
-   ```
-
-4. **Commit your changes** with a clear message:
-   ```bash
-   git commit -m "feat: add new feature"
-   # or
-   git commit -m "fix: resolve specific issue"
-   ```
-
-5. **Push to your fork** and create a pull request
-
-## Code Style Guidelines
-
-- Use TypeScript for all new files
-- Follow existing naming conventions
-- Use functional components with hooks
-- Keep components focused and single-purpose
-- Use Tailwind CSS for styling
-
-## Project Structure
-
-```
-├── app/                 # Next.js App Router pages
-│   ├── [lang]/         # Locale-specific routes
-│   └── api/            # API routes
-├── components/         # React components
-├── lib/               # Utility functions and configurations
-│   ├── dictionaries/  # i18n translation files
-│   └── posts/         # Post processing utilities
-├── posts/             # Markdown blog posts
-│   ├── en/           # English posts
-│   └── zh/           # Chinese posts
-└── public/            # Static assets
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm test:smoke
 ```
 
-## Adding Blog Posts
+The production build also regenerates both Atom feeds and validates their required site metadata.
 
-Posts are stored in `posts/[locale]/` as Markdown files with frontmatter:
+## Adding posts
+
+Posts live in `posts/<locale>/` as Markdown files:
 
 ```markdown
 ---
-title: "Post Title"
-date: "2025-01-10"
+title: "Post title"
+date: "2026-01-10"
 slug: "post-slug"
-tags: ["tag1", "tag2"]
 summary: "Brief description"
+draft: false
 ---
 
-Your content here...
+Post content goes here.
 ```
 
-## Questions?
+Use filenames that are valid on Windows, macOS, and Linux. In particular, avoid `?`, `*`, `:`, `"`, `<`, `>`, `|`, and path separators.
 
-Feel free to open an issue if you have any questions or need clarification.
+Post content is read while Next.js builds the site. After adding or changing a post, rebuild and redeploy the application; mounting a different `posts` directory into an already-built container does not refresh static pages, the sitemap, or feeds.
 
-Thank you for contributing!
+When image URLs change, run `pnpm images:metadata` and commit the regenerated
+`lib/post-image-dimensions.json`. The build tests require measured dimensions
+for every post image so browsers can reserve the correct layout space.
+
+## Comments and deployment
+
+The Docker image uses standalone Next.js output and accepts secrets only at
+runtime. To enable comments:
+
+1. Apply `supabase/migrations/202607100001_secure_comments.sql` to Supabase.
+2. Build with `NEXT_PUBLIC_SHOW_COMMENT=true` and a
+   `NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY`.
+3. At runtime, set `COMMENT_API_ENABLED=true`, `SUPABASE_URL`,
+   `SUPABASE_SECRET_KEY`, `CLOUDFLARE_TURNSTILE_SECRET_KEY`, and a random
+   `COMMENT_EMAIL_VERIFICATION_SECRET` of at least 32 characters. Add SMTP
+   settings when verification/reply email should be delivered.
+4. Set `COMMENT_CLIENT_IP_HEADER` to exactly one header overwritten by the
+   trusted reverse proxy. Compose defaults to `x-real-ip`; configure the proxy
+   with an equivalent of `proxy_set_header X-Real-IP $remote_addr`. Do not pass
+   a client-supplied value through unchanged.
+
+Existing comments deliberately remain unverified after the migration and will
+not receive reply email until their owners complete a new verification flow.
+Before validating the migration's legacy-row constraints, follow the cleanup
+queries and `VALIDATE CONSTRAINT` instructions embedded in the SQL file.
+
+The application container binds only to `127.0.0.1`, drops Linux capabilities,
+and is read-only apart from its declared temporary filesystems. Post changes
+must be rebuilt into a new image.
+
+## Project structure
+
+```text
+app/             Next.js App Router pages and route handlers
+components/      React components
+lib/             Content, localization, and shared utilities
+posts/en/        English Markdown posts
+posts/zh/        Chinese Markdown posts
+public/          Static files and generated Atom feeds
+scripts/         Build-time scripts
+```
+
+Use a focused branch, follow the existing TypeScript and Tailwind conventions, and use a Conventional Commit message so semantic-release can classify the change.

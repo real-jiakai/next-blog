@@ -1,7 +1,9 @@
 import { Locale, getLocalePath } from '@/lib/i18n-config'
 import { getSortedPostsData, PostData } from '@/lib/posts'
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
+const baseUrl = (
+	process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
+).replace(/\/+$/, '')
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || '周见'
 const siteDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION || '专注于分享互联网上有趣的东西。'
 

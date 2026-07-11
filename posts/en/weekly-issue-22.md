@@ -63,7 +63,7 @@ Li Yanhong's funny statement fits my stereotype of Baidu. DeepSeek, Qwen, and ot
 
 This is a fun web game—playing Snake in the browser console.
 
-3. [Best Cursor](https://bestcursor.vercel.app/)
+3. [Best Cursor](https://web.archive.org/web/20250617114605/https://bestcursor.vercel.app/) *(archived copy)*
 
 ![Best Cursor](https://cdn.sa.net/2025/01/27/9iZfQC6nDFTVI2B.webp)
 
@@ -95,7 +95,7 @@ This website visually presents the evolution of AI technology through a timeline
 
 This is a satirical website demonstrating modern web browsing experiences, mainly showing various annoyances users frequently encounter on today's internet.
 
-3. [Open Operator](https://open-operator.vercel.app/)
+3. [Open Operator](https://web.archive.org/web/20260216102504/https://open-operator.vercel.app/) *(archived copy)*
 
 ![Open Operator](https://cdn.sa.net/2025/01/27/znVKuHm8ckF9fPW.webp)
 
@@ -119,7 +119,7 @@ This is a website recording AI benchmarks surpassed by large language models (LL
 
 2. Someone who can't even get into others' Moments, yet still dreams of getting into others' bodies? —Hostloc netizen
 
-![](https://cdn.sa.net/2025/01/27/v69JLwgTp8R1qlh.webp)
+![Hostloc forum post joking that someone unable to enter a friend's social feed still wants to enter their body](https://cdn.sa.net/2025/01/27/v69JLwgTp8R1qlh.webp)
 
 3. Benchmarks aren't the goal—user experience is king.
 

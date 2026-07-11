@@ -5,9 +5,28 @@ import { getDictionary } from '@/lib/dictionaries'
 import { getSortedPostsData } from '@/lib/posts'
 import Layout from '@/components/Layout'
 import PostCard from '@/components/PostCard'
+import { getPostsPerPage } from '@/lib/site-config'
 
-export const metadata: Metadata = {
-	title: process.env.NEXT_PUBLIC_SITE_TITLE,
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ lang: Locale }>
+}): Promise<Metadata> {
+	const { lang } = await params
+	return {
+		title: process.env.NEXT_PUBLIC_SITE_TITLE,
+		alternates: {
+			canonical: getLocalePath(lang),
+			languages: {
+				'zh-CN': getLocalePath('zh'),
+				'en-US': getLocalePath('en'),
+				'x-default': getLocalePath('zh'),
+			},
+			types: {
+				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
+			},
+		},
+	}
 }
 
 export default async function Home({
@@ -18,7 +37,7 @@ export default async function Home({
 	const { lang } = await params
 	const dict = await getDictionary(lang)
 	const allPostsData = getSortedPostsData(lang)
-	const postsPerPage = parseInt(process.env.NEXT_PUBLIC_POSTS_PERPAGE || '10')
+	const postsPerPage = getPostsPerPage()
 	const totalPages = Math.ceil(allPostsData.length / postsPerPage)
 	const postsToRender = allPostsData.slice(0, postsPerPage)
 

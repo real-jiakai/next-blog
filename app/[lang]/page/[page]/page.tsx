@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { i18n, Locale, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSortedPostsData } from '@/lib/posts'
+import { getPostsPerPage, parsePageNumber } from '@/lib/site-config'
 import Layout from '@/components/Layout'
 import PostCard from '@/components/PostCard'
 
@@ -11,20 +13,19 @@ interface PageParams {
   page: string
 }
 
-export async function generateStaticParams() {
-	const paths: PageParams[] = []
-	const postsPerPage = parseInt(process.env.NEXT_PUBLIC_POSTS_PERPAGE || '10')
+export async function generateStaticParams({
+	params,
+}: {
+	params: { lang: string; page?: string }
+}) {
+	const postsPerPage = getPostsPerPage()
+	if (!i18n.locales.includes(params.lang as Locale)) return []
+	const allPostsData = getSortedPostsData(params.lang as Locale)
+	const totalPages = Math.ceil(allPostsData.length / postsPerPage)
+	const paths: Array<{ page: string }> = []
 
-	for (const locale of i18n.locales) {
-		const allPostsData = getSortedPostsData(locale)
-		const totalPages = Math.ceil(allPostsData.length / postsPerPage)
-
-		for (let i = 1; i <= totalPages; i++) {
-			paths.push({
-				lang: locale,
-				page: i.toString(),
-			})
-		}
+	for (let page = 2; page <= totalPages; page++) {
+		paths.push({ page: page.toString() })
 	}
 
 	return paths
@@ -35,13 +36,34 @@ export async function generateMetadata({
 }: {
   params: Promise<PageParams>
 }): Promise<Metadata> {
-	const { page } = await params
-	const currentPage = parseInt(page)
+	const { lang, page } = await params
+	const currentPage = parsePageNumber(page)
+	const postsPerPage = getPostsPerPage()
+	const totalPages = Math.ceil(getSortedPostsData(lang).length / postsPerPage)
+
+	if (currentPage === null || currentPage > totalPages) {
+		notFound()
+	}
+
+	const pagePath = currentPage === 1 ? '' : `/page/${currentPage}`
 	return {
 		title:
 			currentPage === 1
 				? process.env.NEXT_PUBLIC_SITE_TITLE
-				: `Page ${currentPage}`,
+				: lang === 'zh'
+					? `第 ${currentPage} 页`
+					: `Page ${currentPage}`,
+		alternates: {
+			canonical: getLocalePath(lang, pagePath),
+			languages: {
+				'zh-CN': getLocalePath('zh', pagePath),
+				'en-US': getLocalePath('en', pagePath),
+				'x-default': getLocalePath('zh', pagePath),
+			},
+			types: {
+				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
+			},
+		},
 	}
 }
 
@@ -53,12 +75,20 @@ export default async function PaginationPage({
 	const { lang, page } = await params
 	const dict = await getDictionary(lang)
 	const allPostsData = getSortedPostsData(lang)
-	const currentPage = parseInt(page)
-	const postsPerPage = parseInt(process.env.NEXT_PUBLIC_POSTS_PERPAGE || '10')
+	const currentPage = parsePageNumber(page)
+	const postsPerPage = getPostsPerPage()
+	const totalPages = Math.ceil(allPostsData.length / postsPerPage)
+
+	if (currentPage === 1) {
+		permanentRedirect(getLocalePath(lang))
+	}
+	if (currentPage === null || currentPage > totalPages) {
+		notFound()
+	}
+
 	const startIndex = (currentPage - 1) * postsPerPage
 	const endIndex = startIndex + postsPerPage
 	const postsToRender = allPostsData.slice(startIndex, endIndex)
-	const totalPages = Math.ceil(allPostsData.length / postsPerPage)
 
 	return (
 		<Layout lang={lang} dict={dict}>

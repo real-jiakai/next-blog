@@ -12,6 +12,12 @@ interface LayoutProps {
       Archive: string
       About: string
       RSS: string
+      Navigation: string
+      OpenMenu: string
+      CloseMenu: string
+      ChangeLanguage: string
+      MoreOptions: string
+      ToggleTheme: string
     }
   }
 }

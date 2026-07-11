@@ -1,4 +1,4 @@
-# Keep the build context small: only source, posts, public and env files are needed.
+# Source-control and dependency/build output
 .git
 .github
 node_modules
@@ -8,11 +8,27 @@ build
 coverage
 images
 docs
+.vercel
+
+# Never send local configuration or credentials to the Docker daemon. The
+# example is explicitly safe to retain when the project adds one again.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+.npmrc.local
+
+# Local/editor noise
 .DS_Store
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.vercel
+
+# Docker metadata is supplied separately by the builder.
 Dockerfile
 docker-compose.yml
 .dockerignore

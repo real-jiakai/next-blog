@@ -5,18 +5,37 @@ import dynamic from 'next/dynamic'
 const APlayer = dynamic(() => import('./index'), {
 	ssr: false,
 	loading: () => (
-		<div className="aplayer-loading my-4 p-4 text-center">Loading APlayer...</div>
+		<div
+			className="my-4 h-16 animate-pulse rounded bg-gray-100 dark:bg-gray-800"
+			aria-hidden="true"
+		/>
 	),
 })
 
 interface AudioData {
-  name: string
-  artist: string
-  url: string
-  cover?: string
-  lrc?: string
+	name: string
+	artist: string
+	url: string
+	cover?: string
+	lrc?: string
 }
 
-export default function DynamicAPlayer({ audio }: { audio: AudioData }) {
-	return <APlayer audio={audio} />
+interface DynamicAPlayerProps {
+	audio: AudioData
+	loadingLabel: string
+	fallbackLabel: string
+}
+
+export default function DynamicAPlayer({
+	audio,
+	loadingLabel,
+	fallbackLabel,
+}: DynamicAPlayerProps) {
+	return (
+		<APlayer
+			audio={audio}
+			loadingLabel={loadingLabel}
+			fallbackLabel={fallbackLabel}
+		/>
+	)
 }

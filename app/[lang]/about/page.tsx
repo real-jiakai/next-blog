@@ -1,10 +1,41 @@
 import type { Metadata } from 'next'
-import { Locale } from '@/lib/i18n-config'
+import { getLocalePath } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import Layout from '@/components/Layout'
 
-export const metadata: Metadata = {
-	title: 'About',
+export async function generateMetadata({
+	params,
+}: {
+  params: Promise<{ lang: Locale }>
+}): Promise<Metadata> {
+	const { lang } = await params
+	const dict = await getDictionary(lang)
+
+	return {
+		title: dict.about.About,
+		description: dict.about.Intro,
+		alternates: {
+			canonical: getLocalePath(lang, '/about'),
+			languages: {
+				'zh-CN': '/about',
+				'en-US': '/en/about',
+				'x-default': '/about',
+			},
+			types: {
+				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
+			},
+		},
+		openGraph: {
+			type: 'website',
+			title: dict.about.About,
+			description: dict.about.Intro,
+			url: getLocalePath(lang, '/about'),
+			siteName: process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog',
+			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
+			alternateLocale: lang === 'zh' ? ['en_US'] : ['zh_CN'],
+		},
+	}
 }
 
 export default async function About({
@@ -15,9 +46,9 @@ export default async function About({
 	const { lang } = await params
 	const dict = await getDictionary(lang)
 
-	const rssUrl = lang === 'zh'
-		? 'https://gujiakai.top/index.xml'
-		: 'https://gujiakai.top/en/index.xml'
+	const rssUrl = lang === 'zh' ? '/index.xml' : '/en/index.xml'
+	const wordSpace = lang === 'en' ? ' ' : ''
+	const personalSiteUrl = 'https://github.com/real-jiakai'
 
 	return (
 		<Layout lang={lang} dict={dict}>
@@ -27,9 +58,10 @@ export default async function About({
 				<p className="my-4">{dict.about.WeeklyName}</p>
 				<p className="my-4">
 					{dict.about.RSSSubscribe}
+					{wordSpace}
 					<a
 						href={rssUrl}
-						target="_blank"
+						type="application/atom+xml"
 						className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
 					>
 						{dict.about.RSSLink}
@@ -38,9 +70,11 @@ export default async function About({
 				</p>
 				<p className="my-4">
 					{dict.about.MoreAboutMe}
+					{wordSpace}
 					<a
-						href="https://blog.gujiakai.top"
+						href={personalSiteUrl}
 						target="_blank"
+						rel="noopener noreferrer"
 						className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
 					>
 						{dict.about.Blog}

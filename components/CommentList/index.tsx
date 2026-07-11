@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Identicon from 'identicon.js'
 import CryptoJS from 'crypto-js'
 import Date from '@/components/Date'
+import type { Locale } from '@/lib/i18n-config'
 
 interface Comment {
   id: number
@@ -25,6 +26,7 @@ interface CommentListProps {
   quoteComment: (comment: Comment, id: number) => void
   updateList: boolean
   dict: CommentListDict
+  lang: Locale
 }
 
 // 生成头像
@@ -34,7 +36,7 @@ const generateIdenticon = (username: string): string => {
 	return `data:image/svg+xml;base64,${data}`
 }
 
-export default function CommentList({ quoteComment, updateList, dict }: CommentListProps) {
+export default function CommentList({ quoteComment, updateList, dict, lang }: CommentListProps) {
 	const [comments, setComments] = useState<Comment[]>([])
 
 	useEffect(() => {
@@ -97,7 +99,11 @@ export default function CommentList({ quoteComment, updateList, dict }: CommentL
 								</div>
 								<div className="flex justify-end items-center space-x-2">
 									<small>
-										<Date dateString={comment.created_at} format="h:mm A M/D/YYYY" />
+										<Date
+											dateString={comment.created_at}
+											format="h:mm A M/D/YYYY"
+											locale={lang}
+										/>
 									</small>
 									<Link
 										href={`${comment.url}#comment-${comment.id}`}

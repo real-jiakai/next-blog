@@ -1,11 +1,27 @@
-import { NextRequest, NextResponse, after } from 'next/server'
-import validator from 'email-validator'
-import supabase from '@/lib/supabase'
-import nodemailer from 'nodemailer'
-import { commentToPlainText, escapeHtml } from '@/lib/renderComment'
+import { createHash } from 'node:crypto'
 
-// Server-side field limits. The client validates too, but the API must not
-// trust it — direct calls bypass the form entirely.
+import validator from 'email-validator'
+import nodemailer from 'nodemailer'
+import { NextRequest, NextResponse, after } from 'next/server'
+
+import {
+	CommentRequestError,
+	CommentServiceUnavailableError,
+	FixedWindowRateLimiter,
+	createEmailVerificationToken,
+	getClientIp,
+	hasTrustedOrigin,
+	readLimitedJsonBody,
+	resolveCommentThread,
+	verifyEmailVerificationToken,
+	verifyTurnstileToken,
+} from '@/lib/commentSecurity'
+import { commentToPlainText, escapeHtml } from '@/lib/renderComment'
+import { getPostFilenameByParams } from '@/lib/posts'
+import { getSupabaseServerClient } from '@/lib/supabase'
+
+export const runtime = 'nodejs'
+
 const LIMITS = {
 	username: 64,
 	email: 254,
@@ -13,182 +29,534 @@ const LIMITS = {
 	content: 5000,
 } as const
 
-function isNonEmptyString(value: unknown): value is string {
-	return typeof value === 'string' && value.trim().length > 0
+const TURNSTILE_ACTION =
+	process.env.CLOUDFLARE_TURNSTILE_EXPECTED_ACTION ?? 'comment'
+// Bound the expensive upstream challenge before making the Cloudflare request.
+// The per-IP bucket handles normal abuse, while the bounded global bucket also
+// protects deployments whose proxy header is accidentally spoofable.
+const turnstileAttemptRateLimiter = new FixedWindowRateLimiter(
+	20,
+	10 * 60 * 1000
+)
+const globalTurnstileAttemptRateLimiter = new FixedWindowRateLimiter(
+	300,
+	10 * 60 * 1000,
+	1
+)
+const submissionRateLimiter = new FixedWindowRateLimiter(5, 10 * 60 * 1000)
+const emailRateLimiter = new FixedWindowRateLimiter(5, 60 * 60 * 1000)
+const verificationRateLimiter = new FixedWindowRateLimiter(30, 60 * 60 * 1000)
+const replyNotificationRateLimiter = new FixedWindowRateLimiter(
+	3,
+	60 * 60 * 1000
+)
+const masterNotificationRateLimiter = new FixedWindowRateLimiter(
+	30,
+	60 * 60 * 1000,
+	1
+)
+
+interface ValidatedCommentInput {
+	username: string
+	email: string
+	website: string
+	content: string
+	token: string
+	parentCommentId: number | null
 }
 
-async function getEmailsFromParentComments(commentId: number) {
-	const { data, error } = await supabase
-		.from('comment_emails')
-		.select('emails')
-		.eq('id', commentId)
-		.single()
-
-	if (error) {
-		console.error('Error fetching parent comment emails:', error)
-		return []
-	}
-
-	return data.emails
+interface ParentComment {
+	id: number
+	email: string
+	email_verified_at: string | null
+	url: string
 }
 
-const transporter = nodemailer.createTransport({
-	host: process.env.EMAIL_HOST,
-	port: parseInt(process.env.EMAIL_PORT || '587'),
-	secure: process.env.EMAIL_SECURE === 'true',
-	// On STARTTLS ports (587/2525) refuse to send credentials unencrypted
-	requireTLS: process.env.EMAIL_SECURE !== 'true',
-	auth: {
-		user: process.env.EMAIL_USERNAME,
-		pass: process.env.EMAIL_PASSWORD,
-	},
-	// Fail fast if SMTP is unreachable; nodemailer's 2-minute defaults
-	// otherwise leave sockets dangling long after the response is sent
-	connectionTimeout: 10_000,
-	greetingTimeout: 10_000,
-	socketTimeout: 20_000,
-})
+let cachedTransporter: ReturnType<typeof nodemailer.createTransport> | null | undefined
 
-export async function POST(request: NextRequest) {
-	let body: unknown
-	try {
-		body = await request.json()
-	} catch {
-		return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
-	}
+function noStoreHeaders(extra?: HeadersInit): Headers {
+	const headers = new Headers(extra)
+	headers.set('Cache-Control', 'no-store')
+	return headers
+}
 
-	const { username, email, website, content, token, parent_comment_id } =
-    (body ?? {}) as Record<string, unknown>
+function errorResponse(message: string, status: number, extra?: HeadersInit) {
+	return NextResponse.json(
+		{ error: message },
+		{ status, headers: noStoreHeaders(extra) }
+	)
+}
 
-	// Derive the page URL from the Referer. An empty or malformed header must
-	// not throw an unhandled error (which would 500 with a stack trace).
-	const referer = request.headers.get('referer') || ''
-	let cleanUrl: string
-	try {
-		const refererUrl = new URL(referer)
-		cleanUrl = `${refererUrl.origin}${refererUrl.pathname}`
-	} catch {
-		return NextResponse.json({ error: 'Invalid referer' }, { status: 400 })
-	}
-
-	// Validate every field before touching the database or SMTP.
-	if (!isNonEmptyString(username) || username.length > LIMITS.username) {
-		return NextResponse.json({ error: 'Invalid username' }, { status: 400 })
-	}
-	if (
-		typeof email !== 'string' ||
-    email.length > LIMITS.email ||
-    !validator.validate(email)
-	) {
-		return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
-	}
-	if (!isNonEmptyString(content) || content.length > LIMITS.content) {
-		return NextResponse.json({ error: 'Invalid content' }, { status: 400 })
-	}
-	if (
-		website != null &&
-    (typeof website !== 'string' || website.length > LIMITS.website)
-	) {
-		return NextResponse.json({ error: 'Invalid website' }, { status: 400 })
-	}
-	if (
-		parent_comment_id != null &&
-    !Number.isInteger(parent_comment_id)
-	) {
-		return NextResponse.json(
-			{ error: 'Invalid parent comment id' },
-			{ status: 400 }
-		)
-	}
-	if (typeof token !== 'string' || token.length === 0) {
-		return NextResponse.json({ error: 'Missing token' }, { status: 403 })
-	}
-
-	// Verify Cloudflare Turnstile token
-	const verifyEndpoint =
-    'https://challenges.cloudflare.com/turnstile/v0/siteverify'
-	const secret = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY
-
-	const result = await fetch(verifyEndpoint, {
-		method: 'POST',
-		body: `secret=${encodeURIComponent(secret || '')}&response=${encodeURIComponent(token)}`,
-		headers: {
-			'content-type': 'application/x-www-form-urlencoded',
-		},
+function rateLimitResponse(retryAfterSeconds: number) {
+	return errorResponse('Too many requests. Please try again later.', 429, {
+		'Retry-After': String(retryAfterSeconds),
 	})
+}
 
-	const data = await result.json()
-	if (!data.success) {
-		return NextResponse.json({ error: 'Invalid token' }, { status: 403 })
+function commentsEnabled() {
+	return process.env.COMMENT_API_ENABLED === 'true'
+}
+
+function disabledResponse() {
+	return errorResponse('Not found', 404)
+}
+
+function logServerError(context: string, error: unknown) {
+	console.error(
+		context,
+		error instanceof Error ? `${error.name}: ${error.message}` : 'Unknown error'
+	)
+}
+
+function logDatabaseError(context: string, error: unknown) {
+	const code =
+		typeof error === 'object' &&
+		error !== null &&
+		'code' in error &&
+		typeof error.code === 'string'
+			? error.code
+			: 'unknown'
+	console.error(context, code)
+}
+
+function getCommentDatabase() {
+	try {
+		return getSupabaseServerClient()
+	} catch (error) {
+		logServerError('Comment database configuration failed:', error)
+		throw new CommentServiceUnavailableError('Comment database is unavailable')
+	}
+}
+
+function normalizeWebsite(value: unknown): string {
+	if (value == null || value === '') return ''
+	if (typeof value !== 'string' || value.length > LIMITS.website) {
+		throw new CommentRequestError('Invalid website')
 	}
 
-	// Normalize validated values (email/username/content are strings by now).
-	const safeUsername = username.trim()
-	const safeContent = content
-	const safeWebsite = typeof website === 'string' ? website.trim() : ''
-	const safeParentId =
-    typeof parent_comment_id === 'number' ? parent_comment_id : null
+	let parsed: URL
+	try {
+		parsed = new URL(value.trim())
+	} catch {
+		throw new CommentRequestError('Invalid website')
+	}
+	if (
+		(parsed.protocol !== 'https:' && parsed.protocol !== 'http:') ||
+		parsed.username ||
+		parsed.password
+	) {
+		throw new CommentRequestError('Invalid website')
+	}
+	return parsed.href
+}
 
-	const { data: insertedData, error } = await supabase
+function validateCommentInput(body: unknown): ValidatedCommentInput {
+	if (!body || typeof body !== 'object' || Array.isArray(body)) {
+		throw new CommentRequestError('Invalid request body')
+	}
+
+	const {
+		username,
+		email,
+		website,
+		content,
+		token,
+		parent_comment_id: parentCommentId,
+	} = body as Record<string, unknown>
+
+	if (typeof username !== 'string') {
+		throw new CommentRequestError('Invalid username')
+	}
+	const normalizedUsername = username.trim()
+	if (!normalizedUsername || normalizedUsername.length > LIMITS.username) {
+		throw new CommentRequestError('Invalid username')
+	}
+
+	if (typeof email !== 'string') {
+		throw new CommentRequestError('Invalid email')
+	}
+	const normalizedEmail = email.trim().toLowerCase()
+	if (
+		normalizedEmail.length > LIMITS.email ||
+		!validator.validate(normalizedEmail)
+	) {
+		throw new CommentRequestError('Invalid email')
+	}
+
+	if (
+		typeof content !== 'string' ||
+		!content.trim() ||
+		content.length > LIMITS.content
+	) {
+		throw new CommentRequestError('Invalid content')
+	}
+	if (typeof token !== 'string' || !token) {
+		throw new CommentRequestError('Missing verification token', 403)
+	}
+	if (
+		parentCommentId != null &&
+		(!Number.isSafeInteger(parentCommentId) || (parentCommentId as number) < 1)
+	) {
+		throw new CommentRequestError('Invalid parent comment id')
+	}
+
+	return {
+		username: normalizedUsername,
+		email: normalizedEmail,
+		website: normalizeWebsite(website),
+		content,
+		token,
+		parentCommentId:
+			typeof parentCommentId === 'number' ? parentCommentId : null,
+	}
+}
+
+function getEmailTransporter() {
+	if (cachedTransporter !== undefined) return cachedTransporter
+
+	const host = process.env.EMAIL_HOST
+	const username = process.env.EMAIL_USERNAME
+	const password = process.env.EMAIL_PASSWORD
+	const port = Number(process.env.EMAIL_PORT ?? '587')
+	if (
+		!host ||
+		!username ||
+		!password ||
+		!Number.isInteger(port) ||
+		port < 1 ||
+		port > 65_535
+	) {
+		cachedTransporter = null
+		return cachedTransporter
+	}
+
+	const secure = process.env.EMAIL_SECURE === 'true'
+	cachedTransporter = nodemailer.createTransport({
+		host,
+		port,
+		secure,
+		requireTLS: !secure,
+		auth: { user: username, pass: password },
+		connectionTimeout: 10_000,
+		greetingTimeout: 10_000,
+		socketTimeout: 20_000,
+	})
+	return cachedTransporter
+}
+
+async function getValidatedParentComment(
+	parentCommentId: number | null,
+	candidateUrls: string[]
+): Promise<ParentComment | null> {
+	if (parentCommentId == null) return null
+
+	const { data, error } = await getCommentDatabase()
 		.from('comments')
-		.insert([
-			{
-				username: safeUsername,
-				email,
-				website: safeWebsite,
-				content: safeContent,
-				url: cleanUrl,
-				parent_comment_id: safeParentId,
-			},
-		])
-		.select()
+		.select('id, email, email_verified_at, url')
+		.eq('id', parentCommentId)
+		.in('url', candidateUrls)
+		.maybeSingle()
 
 	if (error) {
-		console.error('Error inserting comment:', error)
-		return NextResponse.json({ error: error.message }, { status: 500 })
+		logDatabaseError('Parent comment lookup failed:', error)
+		throw new Error('Parent comment lookup failed')
+	}
+	if (!data) throw new CommentRequestError('Invalid parent comment id')
+	return data as ParentComment
+}
+
+async function sendNotificationEmails({
+	commentId,
+	input,
+	parentComment,
+	canonicalUrl,
+}: {
+	commentId: number
+	input: ValidatedCommentInput
+	parentComment: ParentComment | null
+	canonicalUrl: string
+}) {
+	const transporter = getEmailTransporter()
+	if (!transporter) return
+
+	let plainText: string
+	try {
+		plainText = await commentToPlainText(input.content)
+	} catch (error) {
+		logServerError('Comment notification rendering failed:', error)
+		return
 	}
 
-	// Send notification emails after the response is delivered — a slow or
-	// unreachable SMTP server must never delay or fail the comment submission
-	after(async () => {
-		const commentId = insertedData?.[0]?.id
-		if (!commentId) return
+	const safeUsername = escapeHtml(input.username)
+	const safeText = escapeHtml(plainText)
+	const safeUrl = escapeHtml(canonicalUrl)
+	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE ?? 'Blog'
+	const from = process.env.EMAIL_FROM ?? process.env.EMAIL_USERNAME
 
-		const plainText = await commentToPlainText(safeContent)
-		const safeHtml = escapeHtml(plainText)
+	const verificationSecret = process.env.COMMENT_EMAIL_VERIFICATION_SECRET
+	if (verificationSecret && verificationSecret.length >= 32) {
+		try {
+			const token = createEmailVerificationToken(commentId, verificationSecret)
+			const verificationUrl = new URL('/api/comInsert', canonicalUrl)
+			verificationUrl.searchParams.set('verify', token)
+			const safeVerificationUrl = escapeHtml(verificationUrl.href)
+			await transporter.sendMail({
+				from,
+				to: input.email,
+				subject: `Verify comment notifications from ${siteTitle}`,
+				text: `Verify your email to receive replies to this comment: ${verificationUrl.href}`,
+				html: `<p>Verify your email to receive replies to this comment:</p><p><a href="${safeVerificationUrl}">Verify comment notifications</a></p>`,
+			})
+		} catch (error) {
+			logServerError('Comment email verification delivery failed:', error)
+		}
+	}
 
-		const parentCommentEmails = await getEmailsFromParentComments(commentId)
-
-		for (const parentCommentEmail of parentCommentEmails || []) {
+	if (
+		parentComment?.email_verified_at &&
+		typeof parentComment.email === 'string' &&
+		validator.validate(parentComment.email)
+	) {
+		const notificationLimit = replyNotificationRateLimiter.consume(
+			`parent:${parentComment.id}`
+		)
+		if (notificationLimit.allowed) {
 			try {
-				const info = await transporter.sendMail({
-					from: process.env.EMAIL_USERNAME,
-					to: parentCommentEmail,
-					subject: `New reply to your comment in ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
-					text: `${safeUsername} replied to your comment: ${plainText}. Please visit ${cleanUrl} to view it.`,
-					html: `<p>${escapeHtml(safeUsername)} replied to your comment: ${safeHtml}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
+				await transporter.sendMail({
+					from,
+					to: parentComment.email,
+					subject: `New reply to your comment in ${siteTitle}`,
+					text: `${input.username} replied to your comment: ${plainText}. Please visit ${canonicalUrl} to view it.`,
+					html: `<p>${safeUsername} replied to your comment: ${safeText}.<br> Please visit <a href="${safeUrl}">${safeUrl}</a> to view it.</p>`,
 				})
-				console.log(`Reply notification sent for comment ${commentId}: ${info.response}`)
-			} catch (err) {
-				console.error('Error sending email:', err)
+			} catch (error) {
+				logServerError('Reply notification delivery failed:', error)
 			}
 		}
+	}
 
-		// Send email to master
-		const masterEmail = process.env.MASTER_EMAIL
+	const masterEmail = process.env.MASTER_EMAIL
+	const masterLimit = masterNotificationRateLimiter.consume('master')
+	if (masterEmail && validator.validate(masterEmail) && masterLimit.allowed) {
 		try {
-			const info = await transporter.sendMail({
-				from: process.env.EMAIL_USERNAME,
+			await transporter.sendMail({
+				from,
 				to: masterEmail,
-				subject: `New comment on ${process.env.NEXT_PUBLIC_SITE_TITLE}`,
-				text: `${safeUsername} commented: ${plainText}. Please visit ${cleanUrl} to view it.`,
-				html: `<p>${escapeHtml(safeUsername)} commented: ${safeHtml}. <br/> Please visit <a href="${cleanUrl}">${cleanUrl}</a> to view it.</p>`,
+				subject: `New comment on ${siteTitle}`,
+				text: `${input.username} commented: ${plainText}. Please visit ${canonicalUrl} to view it.`,
+				html: `<p>${safeUsername} commented: ${safeText}.<br> Please visit <a href="${safeUrl}">${safeUrl}</a> to view it.</p>`,
 			})
-			console.log(`Master notification sent for comment ${commentId}: ${info.response}`)
-		} catch (err) {
-			console.error('Error sending email to master:', err)
+		} catch (error) {
+			logServerError('Master notification delivery failed:', error)
 		}
-	})
+	}
+}
 
-	return NextResponse.json(insertedData)
+export async function POST(request: NextRequest) {
+	if (!commentsEnabled()) return disabledResponse()
+	if (request.nextUrl.searchParams.has('verify')) {
+		return completeEmailVerification(request)
+	}
+
+	const clientIp = getClientIp(request.headers)
+
+	try {
+		if (!hasTrustedOrigin(request.headers.get('origin'))) {
+			throw new CommentRequestError('Invalid request origin', 403)
+		}
+		const fetchSite = request.headers.get('sec-fetch-site')
+		if (fetchSite && fetchSite !== 'same-origin') {
+			throw new CommentRequestError('Invalid request origin', 403)
+		}
+
+		const thread = resolveCommentThread(request.headers.get('referer'))
+		if (
+			!getPostFilenameByParams(
+				thread.year,
+				thread.month,
+				thread.slug,
+				thread.locale
+			)
+		) {
+			throw new CommentRequestError('Invalid comment page')
+		}
+		const input = validateCommentInput(await readLimitedJsonBody(request))
+		const attemptLimit = turnstileAttemptRateLimiter.consume(`ip:${clientIp}`)
+		if (!attemptLimit.allowed) {
+			return rateLimitResponse(attemptLimit.retryAfterSeconds)
+		}
+		const globalAttemptLimit = globalTurnstileAttemptRateLimiter.consume('global')
+		if (!globalAttemptLimit.allowed) {
+			return rateLimitResponse(globalAttemptLimit.retryAfterSeconds)
+		}
+
+		const turnstileResult = await verifyTurnstileToken(input.token, {
+			secret: process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY,
+			expectedAction: TURNSTILE_ACTION,
+			expectedHostname:
+				process.env.CLOUDFLARE_TURNSTILE_EXPECTED_HOSTNAME ?? thread.hostname,
+			remoteIp: clientIp,
+		})
+		if (!turnstileResult.valid) {
+			console.warn(`Turnstile rejected a comment: ${turnstileResult.reason}`)
+			return errorResponse('Verification failed', 403)
+		}
+		const submissionLimit = submissionRateLimiter.consume(`ip:${clientIp}`)
+		if (!submissionLimit.allowed) {
+			return rateLimitResponse(submissionLimit.retryAfterSeconds)
+		}
+
+		const emailHash = createHash('sha256').update(input.email).digest('hex')
+		const emailLimit = emailRateLimiter.consume(`email:${emailHash}`)
+		if (!emailLimit.allowed) {
+			return rateLimitResponse(emailLimit.retryAfterSeconds)
+		}
+
+		const parentComment = await getValidatedParentComment(
+			input.parentCommentId,
+			thread.candidateUrls
+		)
+		const { data: insertedComment, error } = await getCommentDatabase()
+			.from('comments')
+			.insert({
+				username: input.username,
+				email: input.email,
+				website: input.website,
+				content: input.content,
+				url: thread.canonicalUrl,
+				parent_comment_id: input.parentCommentId,
+			})
+			.select('id, username, content, created_at, url, parent_comment_id')
+			.single()
+
+		if (error || !insertedComment) {
+			if (error) logDatabaseError('Comment insert failed:', error)
+			throw new Error('Comment insert failed')
+		}
+
+		after(async () => {
+			try {
+				await sendNotificationEmails({
+					commentId: insertedComment.id,
+					input,
+					parentComment,
+					canonicalUrl: thread.canonicalUrl,
+				})
+			} catch (error) {
+				logServerError('Comment notification task failed:', error)
+			}
+		})
+
+		return NextResponse.json([insertedComment], {
+			headers: noStoreHeaders(),
+		})
+	} catch (error) {
+		if (error instanceof CommentRequestError) {
+			return errorResponse(error.message, error.status)
+		}
+		if (error instanceof CommentServiceUnavailableError) {
+			logServerError('Comment service configuration/upstream error:', error)
+			return errorResponse('Comment service is temporarily unavailable', 503)
+		}
+
+		logServerError('Comment submission failed:', error)
+		return errorResponse('Unable to save comment', 500)
+	}
+}
+
+function getValidEmailVerification(request: NextRequest) {
+	const token = request.nextUrl.searchParams.get('verify') ?? ''
+	const secret = process.env.COMMENT_EMAIL_VERIFICATION_SECRET
+	if (!secret || secret.length < 32) {
+		throw new CommentServiceUnavailableError(
+			'Comment email verification secret is not configured'
+		)
+	}
+	const verifiedToken = verifyEmailVerificationToken(token, secret)
+	if (!verifiedToken) {
+		throw new CommentRequestError('Verification link is invalid or expired')
+	}
+	return verifiedToken
+}
+
+async function completeEmailVerification(request: NextRequest) {
+	const clientIp = getClientIp(request.headers)
+
+	try {
+		if (!hasTrustedOrigin(request.headers.get('origin'))) {
+			throw new CommentRequestError('Invalid request origin', 403)
+		}
+		const fetchSite = request.headers.get('sec-fetch-site')
+		if (fetchSite && fetchSite !== 'same-origin') {
+			throw new CommentRequestError('Invalid request origin', 403)
+		}
+		const verifiedToken = getValidEmailVerification(request)
+		const limit = verificationRateLimiter.consume(`verify:${clientIp}`)
+		if (!limit.allowed) return rateLimitResponse(limit.retryAfterSeconds)
+
+		const { data, error } = await getCommentDatabase()
+			.from('comments')
+			.update({ email_verified_at: new Date().toISOString() })
+			.eq('id', verifiedToken.commentId)
+			.select('id, url')
+			.maybeSingle()
+		if (error || !data) {
+			if (error) logDatabaseError('Email verification update failed:', error)
+			throw new Error('Email verification update failed')
+		}
+
+		const thread = resolveCommentThread(data.url)
+		const redirectUrl = new URL(thread.canonicalUrl)
+		redirectUrl.hash = `comment-${data.id}`
+		return NextResponse.redirect(redirectUrl, {
+			status: 303,
+			headers: noStoreHeaders({
+				'Referrer-Policy': 'no-referrer',
+				'X-Robots-Tag': 'noindex, nofollow',
+			}),
+		})
+	} catch (error) {
+		if (error instanceof CommentRequestError) {
+			return errorResponse(error.message, error.status)
+		}
+		if (error instanceof CommentServiceUnavailableError) {
+			logServerError('Comment email verification unavailable:', error)
+			return errorResponse('Verification service is temporarily unavailable', 503)
+		}
+
+		logServerError('Comment email verification failed:', error)
+		return errorResponse('Unable to verify email', 500)
+	}
+}
+
+export async function GET(request: NextRequest) {
+	if (!commentsEnabled()) return disabledResponse()
+
+	const clientIp = getClientIp(request.headers)
+
+	try {
+		getValidEmailVerification(request)
+		const limit = verificationRateLimiter.consume(`verify-page:${clientIp}`)
+		if (!limit.allowed) return rateLimitResponse(limit.retryAfterSeconds)
+		const action = escapeHtml(request.nextUrl.pathname + request.nextUrl.search)
+		const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Confirm comment email</title></head><body><main><h1>Confirm comment email</h1><p>Confirm that you want reply notifications for this comment.</p><form method="post" action="${action}"><button type="submit">Confirm email</button></form></main></body></html>`
+		return new NextResponse(html, {
+			headers: noStoreHeaders({
+				'Content-Type': 'text/html; charset=utf-8',
+				'Referrer-Policy': 'no-referrer',
+				'X-Robots-Tag': 'noindex, nofollow',
+			}),
+		})
+	} catch (error) {
+		if (error instanceof CommentRequestError) {
+			return errorResponse(error.message, error.status)
+		}
+		if (error instanceof CommentServiceUnavailableError) {
+			logServerError('Comment email verification unavailable:', error)
+			return errorResponse('Verification service is temporarily unavailable', 503)
+		}
+
+		logServerError('Comment email verification page failed:', error)
+		return errorResponse('Unable to verify email', 500)
+	}
 }

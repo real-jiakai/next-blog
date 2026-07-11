@@ -26,7 +26,7 @@ The 2022 college entrance exam (Gaokao) has concluded. Every year's exam season 
 
 That afternoon, I logged into the official websites of my elementary school, middle school, and high school, preparing to download some memorable things for future reminiscence. The results were greatly disappointing – none of my schools' websites could be accessed; they had all gone offline. The information channels for my elementary, middle, and high school had all switched to WeChat official accounts.
 
-I used [Oldest Search](https://www.oldestsearch.com/), which I recommended in issue 6, but still couldn't find historical snapshots of my schools' previous sites.
+I used [Oldest Search](https://web.archive.org/web/20221227200453/https://www.oldestsearch.com/) *(archived copy)*, which I recommended in issue 6, but still couldn't find historical snapshots of my schools' previous sites.
 
 Eventually, I found historical snapshots of my [high school site](https://web.archive.org/web/20161024113518/http://hmsyxx.com/), [middle school site](https://web.archive.org/web/20180824200013/http://www.hmnrzx.com/), and [elementary school site](https://web.archive.org/web/20130908231332/http://www.hmdx.net/) in the [Internet Archive](https://archive.org/).
 

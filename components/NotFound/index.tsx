@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import zhDict from '@/lib/dictionaries/zh.json'
 import enDict from '@/lib/dictionaries/en.json'
-import { Locale, i18n, getLocalePath } from '@/lib/i18n-config'
+import { Locale, getLocalePath } from '@/lib/i18n-config'
 // The global (unmatched-path) boundary renders outside the [lang] layout, so it
 // wouldn't otherwise get the site stylesheet. Import it here so both boundaries
 // are styled.
@@ -14,27 +15,21 @@ import '@/app/globals.css'
 // the [lang] (app/[lang]/not-found.tsx — notFound() in matched routes) boundaries.
 //
 // A not-found boundary renders in Next's bare error shell — without the [lang]
-// layout, its <html lang>, or the next-themes provider — and reading the locale
-// from a server API would opt the whole [lang] tree out of static rendering. So
-// this 404 is self-contained: it detects the locale from the URL and reproduces
-// the site's class-based dark mode itself, on the client, after mount.
+// layout, its <html lang>, or the next-themes provider. usePathname is available
+// for the initial Client Component render, preventing an English 404 from first
+// rendering Chinese. Theme restoration remains a small client-side enhancement.
 export default function NotFound() {
-	const [lang, setLang] = useState<Locale>(i18n.defaultLocale)
+	const pathname = usePathname()
+	const lang: Locale = pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'zh'
 
 	useEffect(() => {
-		const locale: Locale = window.location.pathname.startsWith('/en') ? 'en' : 'zh'
-		// Intentional post-mount setState: the server and first client render must
-		// match (both use the default locale) to avoid a hydration mismatch, so the
-		// real locale can only be applied once window.location is readable.
-		// eslint-disable-next-line react-hooks/set-state-in-effect
-		setLang(locale)
-		document.documentElement.lang = locale
+		document.documentElement.lang = lang
 
 		const stored = localStorage.getItem('theme')
 		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 		const isDark = stored === 'dark' || ((!stored || stored === 'system') && prefersDark)
 		document.documentElement.classList.toggle('dark', isDark)
-	}, [])
+	}, [lang])
 
 	const dict = lang === 'en' ? enDict : zhDict
 	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'

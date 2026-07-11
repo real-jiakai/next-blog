@@ -71,7 +71,7 @@ Learning technology without tinkering, or learning without practice, is a major 
 
 ## Link Sharing
 
-1. [Pinball](https://pinball.flutter.dev/#/)
+1. [Pinball](https://web.archive.org/web/20260608111305/https://pinball.flutter.dev/) *(archived copy)*
 
 A pinball game released before Google I/O 2022 last month, paying tribute to the classic while showcasing Google's Flutter application development kit.
 

@@ -9,7 +9,6 @@ interface PostCardProps {
     date: string
     slug: string
     summary: string
-    tags?: string[]
   }
 }
 
@@ -24,7 +23,7 @@ function splitIssueNumber(title: string): { text: string; issue: string | null }
 }
 
 export default function PostCard({ lang, post }: PostCardProps) {
-	const { title, date, slug, summary, tags } = post
+	const { title, date, slug, summary } = post
 	const [year, month] = date.split('-')
 	const href = getLocalePath(lang, `/${year}/${month}/${slug}`)
 	const { text: displayTitle, issue } = splitIssueNumber(title)
@@ -33,16 +32,7 @@ export default function PostCard({ lang, post }: PostCardProps) {
 		<article className="group relative flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white px-5 py-4 transition-all duration-200 hover:border-gray-300 hover:shadow-sm sm:px-6 sm:py-5 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-600 dark:hover:bg-gray-800/60">
 			<div className="min-w-0 flex-1">
 				<div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-wide text-gray-400 dark:text-gray-500">
-					<Date dateString={date} />
-					{tags?.map((tag) => (
-						<Link
-							key={tag}
-							href={getLocalePath(lang, `/tag/${tag}`)}
-							className="relative z-10 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-						>
-							#{tag}
-						</Link>
-					))}
+					<Date dateString={date} locale={lang} />
 				</div>
 				<h2 className="mt-1.5 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 sm:text-xl dark:text-gray-100 dark:group-hover:text-blue-400">
 					<Link href={href} aria-label={title} className="after:absolute after:inset-0">

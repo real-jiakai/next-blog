@@ -45,7 +45,7 @@ A browser-based shooting game worth playing.
 
 After accumulating enough energy, you can press Enter to fire a super wave. 😄
 
-2. [Word Cloud Tool](https://cloud.niucodata.com/)
+2. [Word Cloud Tool](https://web.archive.org/web/20250710065926/http://cloud.niucodata.com/) *(archived copy)*
 
 Generate word cloud images based on input text.
 

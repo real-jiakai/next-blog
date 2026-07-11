@@ -1,20 +1,23 @@
 {
   "name": "nextjs-blog",
-  "private": false,
+  "private": true,
   "engines": {
-    "node": ">=22.13"
+    "node": ">=24.10 <25"
   },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "postbuild": "node scripts/generate-rss.mjs",
-    "clean": "rm -rf .next",
-    "lint": "eslint . --fix",
+    "start": "node .next/standalone/server.js",
+    "postbuild": "node scripts/generate-rss.mjs && node scripts/prepare-standalone.mjs",
+    "clean": "node -e \"require('node:fs').rmSync('.next', { recursive: true, force: true })\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",
     "semantic-release": "semantic-release",
-    "clear": "rm -rf .next",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:smoke": "node scripts/smoke-production.mjs",
+    "images:metadata": "node scripts/collect-image-dimensions.mjs --write"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -23,6 +26,7 @@
     "@mui/icons-material": "^9.1.0",
     "@mui/material": "^9.1.0",
     "@next/bundle-analyzer": "^16.2.9",
+    "@next/env": "16.2.9",
     "@supabase/supabase-js": "^2.108.0",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.21",
@@ -36,6 +40,7 @@
     "postcss": "^8.5.15",
     "react": "19.2.7",
     "react-dom": "19.2.7",
+    "react-markdown": "10.1.0",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-prism-plus": "^2.0.2",
@@ -47,6 +52,7 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "server-only": "0.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
     "yet-another-react-lightbox": "^3.32.0"
@@ -56,7 +62,6 @@
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.8",
-    "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/hast": "^3.0.4",
@@ -74,7 +79,7 @@
   "version": "0.0.1-development",
   "repository": {
     "type": "git",
-    "url": "https://github.com/simple-is-awesome/simple.git"
+    "url": "https://github.com/real-jiakai/next-blog.git"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

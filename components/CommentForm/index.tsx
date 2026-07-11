@@ -55,11 +55,15 @@ export default function CommentForm({
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+
+		if (!formRef.current || isSubmitting) {
+			return
+		}
+
+		const form = formRef.current
 		setIsSubmitting(true)
 
-		if (!formRef.current) return
-
-		const formData = new FormData(formRef.current)
+		const formData = new FormData(form)
 		const username = formData.get('username') as string
 		const email = formData.get('email') as string
 		const website = formData.get('website') as string
@@ -74,36 +78,44 @@ export default function CommentForm({
 			setEmailError('')
 		}
 
-		const res = await fetch('/api/comInsert', {
-			method: 'POST',
-			body: JSON.stringify({
-				username,
-				email,
-				website,
-				content,
-				token,
-				parent_comment_id: parentCommentId,
-			}),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
+		try {
+			const res = await fetch('/api/comInsert', {
+				method: 'POST',
+				body: JSON.stringify({
+					username,
+					email,
+					website,
+					content,
+					token,
+					parent_comment_id: parentCommentId,
+				}),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				signal: AbortSignal.timeout(15_000),
+			})
 
-		if (res.status === 200) {
-			alert(dict.CommentAccepted)
-			formRef.current.reset()
-			turnstileRef.current?.reset()
-			setQuote('')
-			setUpdateList((prev) => !prev)
-			setParentCommentId(null)
-		} else if (res.status === 403) {
-			alert(dict.PleaseVerify)
-			turnstileRef.current?.reset()
-		} else {
+			if (res.ok) {
+				alert(dict.CommentAccepted)
+				form.reset()
+				turnstileRef.current?.reset()
+				setQuote('')
+				setUpdateList((prev) => !prev)
+				setParentCommentId(null)
+			} else if (res.status === 403) {
+				alert(dict.PleaseVerify)
+				turnstileRef.current?.reset()
+			} else {
+				alert(dict.CommentError)
+				turnstileRef.current?.reset()
+			}
+		} catch (error) {
+			console.error('Submitting comment failed:', error)
 			alert(dict.CommentError)
 			turnstileRef.current?.reset()
+		} finally {
+			setIsSubmitting(false)
 		}
-		setIsSubmitting(false)
 	}
 
 	useEffect(() => {
@@ -132,6 +144,7 @@ export default function CommentForm({
 						name="username"
 						placeholder="NickName"
 						required
+						autoComplete="name"
 						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
 					/>
 				</div>
@@ -148,9 +161,16 @@ export default function CommentForm({
 						name="email"
 						placeholder="E-Mail"
 						required
+						autoComplete="email"
+						aria-invalid={emailError ? 'true' : undefined}
+						aria-describedby={emailError ? 'email-error' : undefined}
 						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
 					/>
-					{emailError && <p className="text-red-500 text-xs italic">{emailError}</p>}
+					{emailError && (
+						<p id="email-error" role="alert" className="text-red-500 text-xs italic">
+							{emailError}
+						</p>
+					)}
 				</div>
 				<div className="mb-4">
 					<label
@@ -164,6 +184,7 @@ export default function CommentForm({
 						id="website"
 						name="website"
 						placeholder="Website"
+						autoComplete="url"
 						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
 					/>
 				</div>
@@ -189,11 +210,13 @@ export default function CommentForm({
 					<Turnstile
 						siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY!}
 						ref={turnstileRef}
+						options={{ action: 'comment' }}
 					/>
 				</div>
 				<button
 					type="submit"
 					disabled={isSubmitting}
+					aria-busy={isSubmitting}
 					className="bg-blue-500 hover:bg-blue-700 disabled:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 				>
 					{isSubmitting ? dict.Submitting : dict.Submit}

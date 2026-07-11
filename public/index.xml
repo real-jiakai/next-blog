@@ -4,15 +4,15 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://gujiakai.top</id>
     <title>周见</title>
-    <updated>2026-06-10T07:03:57.562Z</updated>
+    <updated>2026-01-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>周见</name>
         <uri>https://gujiakai.top</uri>
     </author>
     <link rel="alternate" href="https://gujiakai.top"/>
+    <link rel="self" href="https://gujiakai.top/index.xml"/>
     <subtitle>专注于分享互联网上有趣的东西。</subtitle>
-    <rights>Made with ❤️ By Jiakai</rights>
     <entry>
         <title type="html"><![CDATA[站在校园与社会的十字路口 #23]]></title>
         <id>https://gujiakai.top/2026/01/weekly-issue-23</id>
@@ -95,7 +95,7 @@
 <p>2、<a href="https://matthewrayfield.com/goodies/inspect-this-snake/">Inspect This Snake</a></p>
 <p><img src="https://cdn.sa.net/2025/01/27/fhW1HzIyBx3vYl6.webp" alt="Inspect This Snake"></p>
 <p>这是一个有趣的网页小游戏，在控制台console中玩贪吃蛇游戏。</p>
-<p>3、<a href="https://bestcursor.vercel.app/">Best Cursor</a></p>
+<p>3、<a href="https://web.archive.org/web/20250617114605/https://bestcursor.vercel.app/">Best Cursor</a>（存档副本）</p>
 <p><img src="https://cdn.sa.net/2025/01/27/9iZfQC6nDFTVI2B.webp" alt="Best Cursor"></p>
 <p>v站老哥用cursor半小时做的一个整活网站。via: <a href="https://www.v2ex.com/t/1106981">https://www.v2ex.com/t/1106981</a></p>
 <p>4、<a href="https://www.nyan.cat/index.php">Nyan Cat</a></p>
@@ -111,7 +111,7 @@
 <p>2、<a href="https://how-i-experience-web-today.com/">How I experience web today</a></p>
 <p><img src="https://cdn.sa.net/2025/01/27/ARPeHYNzgnO89UT.webp" alt="How I experience web today"></p>
 <p>这是一个演示现代网页浏览体验的讽刺性网站，主要展示了用户在当今互联网上经常遇到的各种烦恼。</p>
-<p>3、<a href="https://open-operator.vercel.app/">Open Operator</a></p>
+<p>3、<a href="https://web.archive.org/web/20260216102504/https://open-operator.vercel.app/">Open Operator</a>（存档副本）</p>
 <p><img src="https://cdn.sa.net/2025/01/27/znVKuHm8ckF9fPW.webp" alt="Open Operator"></p>
 <p>OpenAI Operator的开源替代品，可以帮助你自动化你的AI任务。</p>
 <p>4、<a href="https://mszula.github.io/visual-sorting/">Visual Sorting</a></p>
@@ -123,7 +123,7 @@
 <h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
 <p>1、换位思考是提升写作和演讲的有效方法。</p>
 <p>2、一个连朋友圈都进不去的人，还在痴心妄想进入别人的身体？-hostloc网友</p>
-<p><img src="https://cdn.sa.net/2025/01/27/v69JLwgTp8R1qlh.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2025/01/27/v69JLwgTp8R1qlh.webp" alt="Hostloc 论坛截图，网友调侃连朋友圈都进不去的人却想进入别人的身体"></p>
 <p>3、基准测试不是终点，用户体验才是王道。</p>
 <p>4、对于想进入AI行业的年轻人，最重要的建议是动手玩模型。</p>
 <p>5、过早优化是万恶之源，先把系统搞出来再说。</p>
@@ -225,20 +225,23 @@
 <p>2、<a href="https://geekprank.com/">Online Windows XP Simulator</a></p>
 <p><img src="https://cdn.sa.net/2024/07/24/nsLmUzWMHZBVrXb.webp" alt="Online Windows XP Simulator"></p>
 <p>在线Windows XP模拟器。可以听歌，可以玩俄罗斯方块，可以浏览互联网......</p>
-<p>3、<a href="github.com/quackduck/devzat">devzat</a></p>
+<p>3、<a href="https://github.com/quackduck/devzat">devzat</a></p>
 <p><img src="https://cdn.sa.net/2024/07/24/ufD8siXlFWdM4gB.webp" alt="devzat"></p>
 <p>ssh聊天真不错，在命令行输入<code>ssh devzat.hackclub.com</code>即可体验。</p>
 <p>4、奥巴马把拜登扔进河里。</p>
-&#x3C;video width="100%" height="auto" controls>
-  &#x3C;source src="https://cdn.jiakai.page/videos/2024/obama-threw-biden-into-the-river.mp4" type="video/mp4">
+<figure>
+<video class="article-video" controls preload="metadata" title="奥巴马把拜登扔进河里的讽刺动画" aria-describedby="user-content-obama-biden-video-description-zh">
+  <source src="https://cdn.jiakai.page/videos/2024/obama-threw-biden-into-the-river.mp4" type="video/mp4">
   您的浏览器不支持视频标签。
-&#x3C;/video>
+</video>
+<figcaption id="user-content-obama-biden-video-description-zh"><strong>视频说明：</strong>一段讽刺动画中，奥巴马举起拜登并把他扔进河里。</figcaption>
+</figure>
 <p>可怜的老登，估计x上的退选声明都不是自己发的，墙倒众人推，和川宝6月底的第一次辩论后失去吸引力，川宝枪击后，老登众叛亲离，大势已去。子弹打中的是川宝的耳朵，但击穿的是老登的总统梦。😜</p>
 <p>5、Biden Eyes: O.o🤣</p>
 <p><img src="https://cdn.sa.net/2024/07/24/1cIfjoXQubeTJdY.webp" alt="Biden Eyes: O.o🤣"></p>
 <p>看川宝和拜登的辩论，老登登眼睛一大一小要笑死人。</p>
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
-<p>1、<a href="https://share.claude.asia/">claude号池</a></p>
+<p>1、<a href="https://web.archive.org/web/20241122081105/https://share.claude.asia/">claude号池</a>（存档副本）</p>
 <p><img src="https://cdn.sa.net/2024/07/24/el5LcC2ruxvNGhI.webp" alt="claude号池"></p>
 <p>在我的心目中，目前的大语言模型之王是Claude，而不是GPT。
 Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于其他任务。访问Claude有困难的小伙伴可以使用号池体验，有需求的可以去pro号池付费体验Claude会员。</p>
@@ -304,13 +307,13 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>1、<a href="https://vtuber-style-logos.vercel.app/">VTuber Style Logos</a></p>
 <p><img src="https://cdn.sa.net/2024/06/02/BqHK5ODJ9uvcaYF.webp" alt="VTuber Style Logos"></p>
 <p>一个各品牌的非官方 VTuber 风格标志收藏站点。</p>
-<p>2、<a href="https://www.farfalle.dev/">farfalle</a></p>
+<p>2、<a href="https://web.archive.org/web/20260418163232/https://www.farfalle.dev/">farfalle</a>（存档副本）</p>
 <p><img src="https://cdn.sa.net/2024/06/02/WdkcRxTL5BplKyH.webp" alt="farfalle"></p>
 <p>一个开源的AI驱动搜索引擎，支持本地和云模型。</p>
 <p>3、<a href="https://news.ycombinator.com/item?id=40474716">Ask HN: What is your ChatGPT customization prompt?</a></p>
 <p><img src="https://cdn.sa.net/2024/06/02/duJp21IsFXcNawb.webp" alt="Ask HN: What is your ChatGPT customization prompt?"></p>
 <p>Hacknews上网友分享自己的ChatGPT自定义prompt的帖子，值得借鉴。</p>
-<p>4、<a href="https://www.pinzimu.com/">拼字幕</a></p>
+<p>4、<a href="https://web.archive.org/web/20260310192509/http://www.pinzimu.com/">拼字幕</a>（存档副本）</p>
 <p><img src="https://cdn.sa.net/2024/06/02/DzfnBktYTKSOsQ1.webp" alt="拼字幕"></p>
 <p>一个快速制作社交媒体上流行的字幕图片软件。</p>
 <p>5、<a href="https://pao.lu/">再见，我们跑路了</a></p>
@@ -353,7 +356,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>3、<a href="https://js-naked-day.org/">JS Naked Day</a></p>
 <p>每年的4月24日是js裸奔日，参加该活动的方式为卸下网站的所有js代码。</p>
 <p><img src="https://cdn.sa.net/2024/05/05/fpbR1ZieGukwz3o.webp" alt="JS Naked Day"></p>
-<p>除了js裸奔日外，每年的4月9日是css的裸奔日，参加该活动的方式为卸下网站的所有css样式代码。via: <a href="https://css-naked-day.github.io/">CSS Naked Day</a></p>
+<p>除了js裸奔日外，每年的4月9日是css的裸奔日，参加该活动的方式为卸下网站的所有css样式代码。via: <a href="https://web.archive.org/web/20251222205438/https://css-naked-day.github.io/">CSS Naked Day</a>（存档副本）</p>
 <p><img src="https://cdn.sa.net/2024/05/05/TSGr9mteYw6dAIF.webp" alt="CSS Naked Day"></p>
 <p>4、<a href="https://mailoji.com/">Mailoji</a></p>
 <p>带有表情符号的邮箱地址，可以白嫖个玩玩。</p>
@@ -368,7 +371,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>3、<a href="https://seaside-station.com/">SeaSide Stations In Japan</a></p>
 <p>一个罗列日本的海景车站的网站。</p>
 <p><img src="https://cdn.sa.net/2024/05/05/iQYn2rAUVo3acxX.webp" alt="SeaSide Stations In Japan"></p>
-<p>4、<a href="https://www.forcecreat.com/">Redfeed锐读助手</a></p>
+<p>4、<a href="https://web.archive.org/web/20260315014229/http://www.forcecreat.com/">Redfeed锐读助手</a>（存档副本）</p>
 <p>Redfeed锐读助手，一个AI引擎驱动的个人信息助手，帮你提升信息获取效能，从而更好的思考。覆盖主流信息平台。</p>
 <p><img src="https://cdn.sa.net/2024/05/05/lHcCV6PFuELpgbR.webp" alt="Redfeed锐读助手"></p>
 <p>3月份看到产品发布后，白嫖了永久的免费摘要，给大家看一下锐读助手在微信生态的表现。</p>
@@ -395,12 +398,12 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
         <updated>2024-03-30T00:00:00.000Z</updated>
         <content type="html"><![CDATA[<p>一首非常温暖的歌曲，疲惫时听一下，能被治愈。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
-<p><img src="https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/UrtBANTC8VoDc9O.webp" alt="安静的大学实验室，桌上摆着电脑，隔板上搭着一个毛绒玩具"></p>
 <p>实验室的师兄预答辩结束后，搬离实验室。看到别人临近毕业，有些羡慕，又说不出有些伤感，</p>
 <p>羡慕师兄脱离苦海，人生开启新篇章；看到师兄的离去，我仿佛看到了去年自己在晓庄最后那段时光的缩影。</p>
 <h2 id="话题当mjj一周年有感"><a aria-hidden="true" tabindex="-1" href="#话题当mjj一周年有感"><span class="icon icon-link"></span></a>话题：当MJJ一周年有感</h2>
 <p>第一次接触VPS是在2021年年底，当时接近双十一，什么都不懂，买了搬瓦工首页的无优化线路的VPS。</p>
-<p><img src="https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp" alt="BandwagonHost 的 VPS 套餐页面，其中入门级 20GB 年付套餐被框出"></p>
 <p>这种情况一直持续到2023年1月底、2月初，当时我还是一个机场用户。手头只有3台VPS，1台搬瓦工的首页冤种套餐，另外两台分别是国内的阿里云、腾讯云的学生机。</p>
 <p>没有选择自建节点的原因在于买了瓦工的冤种套餐【自以为是优化线路】，按照Youtube博主的教程搭建节点，效果不佳。</p>
 <p>当时使用机场的美国节点访问GPT，发现只有部分节点解锁，一部分节点不解锁。于是我便开始了自建之旅。</p>
@@ -411,18 +414,18 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2024年给自己定一个小目标，争取将机器数量缩减到30~40台的规模，减少自己的开支，做会理财、不乱花钱的MJJ。</p>
 <h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
 <p>1、<a href="https://txstc55.github.io/ugly-avatar/">Ugly Avatar</a></p>
-<p><img src="https://cdn.sa.net/2024/03/30/XuZhTLFHBf9MvdG.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/XuZhTLFHBf9MvdG.webp" alt="Ugly Avatar 随机生成的搞怪人物头像"></p>
 <p>一个随机生成丑陋画像的站点。</p>
 <p>2、<a href="https://programmerhumor.io">Programmerhumor.io</a></p>
 <p>一个专注于分享有关程序员meme（梗）的站点。我见过有趣的与程序员有关的meme之一如下：</p>
-<p><img src="https://cdn.sa.net/2024/03/30/PEjYscf4zhvgB6p.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/PEjYscf4zhvgB6p.webp" alt="漫画中两位在网上配对的人分别坐在相邻的 00 号和 01 号桌"></p>
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
-<p>1、<a href="https://wheretohostmy.app/">Where to host my app?</a></p>
-<p><img src="https://cdn.sa.net/2024/03/30/8PWnERz51ehcFpf.webp" alt=""></p>
+<p>1、<a href="https://web.archive.org/web/20250302023016/https://www.wheretohostmy.app/">Where to host my app?</a>（存档副本）</p>
+<p><img src="https://cdn.sa.net/2024/03/30/8PWnERz51ehcFpf.webp" alt="Where to host my app 的无服务器托管商对比界面"></p>
 <p>输入技术栈，自动推荐托管服务提供商。如果你开通了GPT会员，可以使用<a href="https://chat.openai.com/g/g-KmtFkh4VU-where-to-host-my-app">Where to host my app?</a>的GPTs。</p>
-<p><img src="https://cdn.sa.net/2024/03/30/fDIhMvunq1EA8Js.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/fDIhMvunq1EA8Js.webp" alt="Where to host my app 助手在对话中推荐托管服务商"></p>
 <p>2、<a href="https://www.starlinkmap.org/">Starlink map</a></p>
-<p><img src="https://cdn.sa.net/2024/03/30/xFgS3ubr6EDmXpv.webp" alt=""></p>
+<p><img src="https://cdn.sa.net/2024/03/30/xFgS3ubr6EDmXpv.webp" alt="交互式地球仪上密集分布着数千颗星链卫星的红色标记"></p>
 <p>Elon Musk的星链地图，可以看到地球已经被星链卫星给密密麻麻覆盖住了。抛开政治因素不谈，马斯克的雄心和野心让人佩服。</p>
 <h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
 <p>1、AI won’t take your job, but someone using it might.（AI不会取代你的工作，但使用它的人可能会）</p>
@@ -634,7 +637,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p><img src="https://vip2.loli.net/2023/01/25/qJBXkKdEgYmHrUx.webp" alt="百度地图新疆阿拉山口"></p>
 <h2 id="话题互联网是有记忆的"><a aria-hidden="true" tabindex="-1" href="#话题互联网是有记忆的"><span class="icon icon-link"></span></a>话题：互联网是有记忆的？</h2>
 <p>互联网是这个时代最伟大的发明，推动着社会的发展与进步，影响着人们生活。但是其是否真的有记忆呢？当然，这是一个辩证性的话题，本次分享，我将从互联网记忆消散的角度来探讨。</p>
-<p>互联网档案馆的创始人—布鲁斯特·卡利，曾在其博文<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>中提及网页在更改或消失之前，平均寿命只有100天左右。</p>
+<p>互联网档案馆的创始人—布鲁斯特·卡利，曾在其博文<sup><a href="#user-content-fn-1" id="user-content-user-content-fnref-1" data-footnote-ref="" aria-describedby="user-content-footnote-label">1</a></sup>中提及网页在更改或消失之前，平均寿命只有100天左右。</p>
 <p><img src="https://vip2.loli.net/2023/01/27/Uw7ps89WRfVPkbl.webp" alt="布鲁斯特·卡利博文"></p>
 <p>每当点击若干年前第一次在互联网上公开的链接时，能正常打开的网站的建造者，很少是个人，大部分情况下是企业或公司。个人站点是互联网上最脆弱的一环。能坚持将个人站点做下去的是少数，很多站长会因为种种原因将网站下线。</p>
 <p>下线的站点如果没有被互联网档案馆给爬取过，那将彻底在互联网上消失，最多只有站长一人的记忆中依稀记得自己曾经搭建过一个网站，但对于网站的样子会随着时间的推移，一步一步走向消亡。因此互联网的记忆性并不绝对，你曾经来过，并不等于你在这个世界上留下痕迹。而记忆性讲究的是有迹可循，没有痕迹，自然而然谈记忆就有些唯心了。</p>
@@ -665,9 +668,9 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>1、<a href="http://info.cern.ch/">home of the first website</a></p>
 <p><img src="https://vip2.loli.net/2023/01/25/FOu4tKMCqvrXo1H.webp" alt="Screenshot of the recreated page of the first website (Image: CERN)"></p>
 <p>学习计算机网络时，我们仅仅了解到万维网(World Wide Web)的发明者是来自英国的蒂姆·伯纳斯·李爵士。但其实背后还有一段有关互联网起源的故事值得去探索。</p>
-<p>蒂姆·伯纳斯·李爵士于1990年12月20日发布了第一个网站，该站点托管于CERN（欧洲核子研究中心）的NeXT电脑上，仅可供CERN（欧洲核子研究中心）内部网络访问，它致力于提供关于万维网项目等信息。于1991年8月6日公开上线<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>。</p>
-<p>后来由于种种原因<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>，第一个网站丢失了。2013年，CERN（欧洲核子研究中心）恢复了该站点<sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>。但如果你使用现代的浏览器访问得到的可能并不是如上图所示的图片。因为上图使用的是行模式浏览器（世界上第二个web浏览器）访问第一个网站的截图。</p>
-<p>其实CERN（欧洲核子研究中心）在复原后的第一个网站首页也提供了使用行模式浏览器浏览的选项，但是目前（2023.1.26）使用现代浏览器点击进去会报503服务不可用的错误<sup><a href="#user-content-fn-5" id="user-content-fnref-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>。更多细节可见<a href="https://line-mode.cern.ch/">Line Mode Browser 2013</a>页面。</p>
+<p>蒂姆·伯纳斯·李爵士于1990年12月20日发布了第一个网站，该站点托管于CERN（欧洲核子研究中心）的NeXT电脑上，仅可供CERN（欧洲核子研究中心）内部网络访问，它致力于提供关于万维网项目等信息。于1991年8月6日公开上线<sup><a href="#user-content-fn-2" id="user-content-user-content-fnref-2" data-footnote-ref="" aria-describedby="user-content-footnote-label">2</a></sup>。</p>
+<p>后来由于种种原因<sup><a href="#user-content-fn-3" id="user-content-user-content-fnref-3" data-footnote-ref="" aria-describedby="user-content-footnote-label">3</a></sup>，第一个网站丢失了。2013年，CERN（欧洲核子研究中心）恢复了该站点<sup><a href="#user-content-fn-4" id="user-content-user-content-fnref-4" data-footnote-ref="" aria-describedby="user-content-footnote-label">4</a></sup>。但如果你使用现代的浏览器访问得到的可能并不是如上图所示的图片。因为上图使用的是行模式浏览器（世界上第二个web浏览器）访问第一个网站的截图。</p>
+<p>其实CERN（欧洲核子研究中心）在复原后的第一个网站首页也提供了使用行模式浏览器浏览的选项，但是目前（2023.1.26）使用现代浏览器点击进去会报503服务不可用的错误<sup><a href="#user-content-fn-5" id="user-content-user-content-fnref-5" data-footnote-ref="" aria-describedby="user-content-footnote-label">5</a></sup>。更多细节可见<a href="https://line-mode.cern.ch/">Line Mode Browser 2013</a>页面。</p>
 <p>附1：蒂姆·伯纳斯·李爵士在伦敦奥运会上被授予“万维网发明者”的荣誉，在开幕式上使用一台老式的NeXT电脑。<code>This Is For Everyone</code>充分展现了其开源精神。<a href="https://www.bilibili.com/video/BV1Nk4y1k7R1/">b站视频链接</a></p>
 <p>附2：2014年，计算机爱好者—Suhayl Khan展示了如何使用20世纪60年代的技术，访问行模式浏览器。以此纪念万维网诞生25周年。<a href="https://www.bilibili.com/video/BV1RW411w783/">b站视频链接</a></p>
 <p><img src="https://vip2.loli.net/2023/01/25/qatRHhN9sSzTPGe.webp" alt="This is for everyone."></p>
@@ -688,7 +691,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 </blockquote>
 <p>回复此条评论的网友表示开发者并不能在用户体验方面有发言权。确实，真正能定义用户体验的是老板，是资本。程序员为老板打工养家糊口，面对自己讨厌加之给用户的玩意，只能按照老板的意愿添加。</p>
 <p>希望未来能有一种技术能让用户体验不被资本所束缚，还互联网一片纯洁！</p>
-<p>5、<a href="https://reddit1.nbastreamlinks.net/">nbastreamlinks</a></p>
+<p>5、<a href="https://web.archive.org/web/20240426022059/https://reddit1.nbastreamlinks.net/">nbastreamlinks</a>（存档副本）</p>
 <p><img src="https://vip2.loli.net/2023/01/26/srzNEF2uip7bxIo.webp" alt="nbastreamlinks"></p>
 <p>6、<a href="https://nbastreams.app/">nbastreams</a></p>
 <p><img src="https://vip2.loli.net/2023/01/26/mB5GAIjMRJS1ChU.webp" alt="nbastreams"></p>
@@ -698,7 +701,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>-- <a href="https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework">You Don’t Need A UI Framework</a></p>
 <p><img src="https://vip2.loli.net/2023/01/23/8YnOj1xscTptVoz.webp" alt="言论一"></p>
 <p>2、什么样阅读器更智能更适合大众，将成为Google Reader的替代品？我和我的团队回答是基于算法的个性化推荐。</p>
-<p>-- <a href="http://m.techweb.com.cn/article/2013-03-14/1283033.shtml">为佩奇关闭Google Reader的魄力叫好！</a></p>
+<p>-- <a href="https://web.archive.org/web/20240111133349/https://m.techweb.com.cn/article/2013-03-14/1283033.shtml">为佩奇关闭Google Reader的魄力叫好！</a>（存档副本）</p>
 <p>3、基本上，如果我们想要让互联网回归到用户手中，我们需要解耦“服务”和“存储”部分，公司不应该被允许掌握用户数据，以作为人质。</p>
 <p>-- <a href="https://news.ycombinator.com/item?id=32687972">HackNews读者</a></p>
 <p><img src="https://vip2.loli.net/2023/01/21/CLP4Iq1r9bREMVa.webp" alt="言论三"></p>
@@ -709,23 +712,23 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>-- <a href="https://shkspr.mobi/blog/2022/12/you-dont-need-html/">YOU DON'T NEED HTML!</a></p>
 <p><img src="https://vip2.loli.net/2023/01/23/jZE2RIt4N7HYCno.webp" alt="言论五"></p>
 <p>6、没有人真正拥有一个域名，就像没有人真正拥有一片土地一样。在它属于任何人之前，它与许多当事人进行了交易；在这种情况下，当事人可以卖掉它，然后购入新的土地。一切都是借来的。</p>
-<p>-- <a href="https://thoughtstreams.io/higgins/permalinking-vs-transience/">Permalinking vs Transience.</a></p>
+<p>-- <a href="https://web.archive.org/web/20221206044104/https://thoughtstreams.io/higgins/permalinking-vs-transience/">Permalinking vs Transience.</a>（存档副本）</p>
 <p><img src="https://vip2.loli.net/2023/01/24/MxVIblHhuwYDy4z.webp" alt="言论六"></p>
-<section data-footnotes class="footnotes"><h2 class="sr-only" id="footnote-label"><a aria-hidden="true" tabindex="-1" href="#footnote-label"><span class="icon icon-link"></span></a>Footnotes</h2>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="user-content-footnote-label"><a aria-hidden="true" tabindex="-1" href="#user-content-footnote-label"><span class="icon icon-link"></span></a>Footnotes</h2>
 <ol>
-<li id="user-content-fn-1">
+<li id="user-content-user-content-fn-1">
 <p><a href="https://brewster.kahle.org/2015/08/11/locking-the-web-open-a-call-for-a-distributed-web-2/">布鲁斯特·卡利博文</a> <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-2">
+<li id="user-content-user-content-fn-2">
 <p><a href="https://www.wikiwand.com/en/Tim_Berners-Lee">Tim_Berners-Lee</a> <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-3">
+<li id="user-content-user-content-fn-3">
 <p>虽然翻阅了网络上很多资料，但都没有细说。网站下线，不外乎NeXT电脑的寿命有限等，那个年代托管网站需要自己有服务器，并且要保证服务器24小时不关机。24小时不关机对于那个年代的机器而言，坚挺不了几年。不像现在的云服务器硬件更新迭代，用户零感知。 <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-4">
-<p><a href="https://first-website.web.cern.ch/first-website/">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
+<li id="user-content-user-content-fn-4">
+<p><a href="https://info.cern.ch/hypertext/WWW/TheProject.html">Restoring the first website</a> <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
 </li>
-<li id="user-content-fn-5">
+<li id="user-content-user-content-fn-5">
 <p>我也尝试过在互联网档案馆中找寻当年在现代浏览器中使用行模式浏览器访问第一个网站网页的存档，但是存档的页面展示效果不佳。 <a href="#user-content-fnref-5" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
 </li>
 </ol>
@@ -757,7 +760,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>作者也反思了自己为什么会患上信息收集癖，可能是由于FOMO（Fear Of Missing Out，错失恐惧症），怕自己错过有趣的链接，也可能是某种形式的完美主义。但不管原因是什么，最终的结果是自己花了大量的精力去收集无休止的链接，却没有时间回头去整理。</p>
 <p><img src="https://vip2.loli.net/2023/01/20/aGX6jBYdVKgwmWq.webp" alt="FOMO"></p>
 <p><a href="https://www.youtube.com/watch?v=q5zv9_ZgYoQ">图片来源</a></p>
-<p>其实，我也有过这种情况，最近才开始慢慢调整。在写博客<a href="https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html">《稍后阅读=稍后不读》</a>之前，我也患上了错失恐惧症，害怕自己错过网络上各种劲爆的资讯或热点。但在收集完有趣的信息后，我会将它们打入冷宫，放在自己的收藏夹里面吃灰。</p>
+<p>其实，我也有过这种情况，最近才开始慢慢调整。在写博客<a href="https://web.archive.org/web/20250125100846/https://blog.gujiakai.top/2023/01/read-later-equals-to-not-read.html">《稍后阅读=稍后不读》</a>（存档副本）之前，我也患上了错失恐惧症，害怕自己错过网络上各种劲爆的资讯或热点。但在收集完有趣的信息后，我会将它们打入冷宫，放在自己的收藏夹里面吃灰。</p>
 <p>随着收藏夹的数量越积越多，我彻底忍受不了这种低效、无用功的收集。虽然收藏夹里面确实有精品，但可以肯定的是里面大多数是对我个人能力的提升没有多大帮助的垃圾。于是我开始清空各大平台的收藏夹。</p>
 <p>我依然会收集链接，但现在的收集比之前的收集多了一层过滤，这层过滤便是我的阅读。只有那些自己觉得有价值且自己看完的链接，我才会将它们放入我的书签，以备分享或再看。但这些能被我放进书签的是少数，一天中接触的大部分链接，我都会看完就关，不会再让它们污染我的书签。</p>
 <p>近些年，各类效率软件层出不穷，但这些效率软件真得提高我的效率了吗？我一直会反思这个问题。一开始，我只专注于在typora上写作，后来听说notion和obsidian很强大，也尝试在这些软件上写日记或笔记，但效果都不理想。notion新出的AI功能、obsidian新出的白板功能一推出，就在效率软件折腾圈掀起了热度，但是我最后还是选择了离开，继续使用typora来写作。</p>
@@ -824,7 +827,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
         <id>https://gujiakai.top/2023/01/weekly-issue-12</id>
         <link href="https://gujiakai.top/2023/01/weekly-issue-12"/>
         <updated>2023-01-12T00:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>这首歌曲是张栋梁在去年芒果台节目—《时光音乐会》中的演唱，视频版可见&#x3C;a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank">b站链接&#x3C;/a>。</p>
+        <content type="html"><![CDATA[<p>这首歌曲是张栋梁在去年芒果台节目—《时光音乐会》中的演唱，视频版可见<a href="https://www.bilibili.com/video/BV1dd4y1s7Sc/" target="_blank" rel="noopener noreferrer">b站链接</a>。</p>
 <h2 id="封面图"><a aria-hidden="true" tabindex="-1" href="#封面图"><span class="icon icon-link"></span></a>封面图</h2>
 <p><img src="https://vip2.loli.net/2023/01/12/cxfkZmjUBWdhG7O.webp" alt="蓝色大理石"></p>
 <p>1972年12月7日，阿波罗17号的宇航员在前往月球的途中拍摄了这张地球的照片。今天被称为“蓝色大理石”，这张照片已经成为我们家园最具标志性的图像之一。<a href="https://www.nasa.gov/content/blue-marble-image-of-the-earth-from-apollo-17">图一来源</a></p>
@@ -833,7 +836,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>神舟十四号载人飞行任务（2022.06.05~2022.12.04）是中国空间站建造阶段首次载人飞行任务，共搭载了3名航天员，分别是陈冬、蔡旭哲、刘洋。图二为陈冬航天员任务期间拍摄的照片。个人对比地图推测，图二为我国的黄河入海口。<a href="http://www.cmse.gov.cn/dmt/tj/202212/t20221217_51935.html">图二来源</a> <a href="https://maps.baidu.com/@13147931.71249071,4454683.06030799,9.13z/maptype%3DB_EARTH_MAP">图三来源</a></p>
 <p>阿波罗17号是人类最后一次踏上月球，人类在过去的50年没有再登月球，因为登月耗资巨大，而月球基本上是一片孤寂的荒漠，花大价钱送宇航员上月球溜达一圈不值。但我国至今还未登月过，登月的技术和经验必须得要有。目前我国载人航天工程三步走战略已经进行到了第三步，相信在未来的某天，中国也能实现登月梦。</p>
 <h2 id="话题毕业季如何突围"><a aria-hidden="true" tabindex="-1" href="#话题毕业季如何突围"><span class="icon icon-link"></span></a>话题：毕业季如何突围？</h2>
-<p>阮一峰老师在去年的一篇周刊—&#x3C;a href="https://www.ruanyifeng.com/blog/2022/12/weekly-issue-235.html#comment-text" target="_blank">青年失业率与选择创业&#x3C;/a>一文中，论述了为什么刚毕业的学生不容易创业以及如何应对严峻的就业形式，推荐阅读。</p>
+<p>阮一峰老师在去年的一篇周刊—<a href="https://www.ruanyifeng.com/blog/2022/12/weekly-issue-235.html#comment-text" target="_blank" rel="noopener noreferrer">青年失业率与选择创业</a>一文中，论述了为什么刚毕业的学生不容易创业以及如何应对严峻的就业形式，推荐阅读。</p>
 <p><img src="https://vip2.loli.net/2023/01/12/aIyWP4pF7fV3Kun.webp" alt="青年失业率与选择创业高亮分享"></p>
 <p>今天是2023年的1月12日，距离23届毕业仅剩5个月的时间，如果考研陪跑，那该如何是好？仅剩的5个月时间，我们计算机专业的学生可以怎样努力？我就以上两个问题来谈谈个人的看法。</p>
 <p>当然，如果你对于自己的考研初试非常有信心，可以提前开始备战复试，不必对未来的择业担忧过多，考上研究生能减缓你的就业期，你可以再过2~3年的学生生涯。如果你对于初试不自信，也可以提前备战复试，或者等分数出来后，再做复试打算。</p>
@@ -856,12 +859,12 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>1、越南猫年。</p>
 <p><img src="https://vip2.loli.net/2023/01/12/41sMXQYEyi6Hp29.webp" alt="2023年是越南的猫年"></p>
 <p><img src="https://vip2.loli.net/2023/01/12/oc4JLFOeq6m9KSA.webp" alt="2023春晚吉祥物—兔圆圆"></p>
-<p>同中国一样，春节是越南最重要的传统佳节。但与中国的不同之处在于越南的十二生肖中用猫取代了兔子。关于此的说法众说纷纭，有一种说法认为汉文化传播到越南时，越南人误将“卯年”误听为了“猫年”；也有说法坚持越南人讲究“生态平衡”观，十二生肖中有鼠，猫能克鼠。&#x3C;a href="https://baike.baidu.com/item/%E7%8C%AB%E5%B9%B4/4943704" target="_blank">via&#x3C;/a></p>
+<p>同中国一样，春节是越南最重要的传统佳节。但与中国的不同之处在于越南的十二生肖中用猫取代了兔子。关于此的说法众说纷纭，有一种说法认为汉文化传播到越南时，越南人误将“卯年”误听为了“猫年”；也有说法坚持越南人讲究“生态平衡”观，十二生肖中有鼠，猫能克鼠。<a href="https://baike.baidu.com/item/%E7%8C%AB%E5%B9%B4/4943704" target="_blank" rel="noopener noreferrer">via</a></p>
 <p>2、web开发术语缩写</p>
 <p><img src="https://vip2.loli.net/2023/01/12/NVBGYuXcKMor8m1.webp" alt="虚假的web开发术语缩写"></p>
 <p>一开始遇见上图的时候，我没仔细看，将此图保存至了收藏夹中，后来有时间翻看的时候，发现该图完全就是胡说，可以将其看成是程序员发的一张humor图，真正的web开发术语缩写如下图所示。</p>
 <p><img src="https://vip2.loli.net/2023/01/12/sxzMjkZQctoWeY3.webp" alt="真正的web开发术语缩写"></p>
-<p>3、<a href="https://ossinsight.io/2022/">Trends and Insights from GitHub 2022</a></p>
+<p>3、<a href="https://web.archive.org/web/20230102223325/https://ossinsight.io/2022/">Trends and Insights from GitHub 2022</a>（存档副本）</p>
 <p><img src="https://vip2.loli.net/2023/01/12/OPmS3EAInfD5kNH.webp" alt="开发者行为分析"></p>
 <p>中国开发者喜欢star仓库，WatchEvent占17.23%，ForkEvent占2.7%。可能说的就是我这种GitHub玩家吧，在过去的一年中，我一共star了接近3000个仓库，但是使用过、悟透的少之又少，因此我在前几天将所有的star全部取消掉了。借助GitHub的api能快速实现清空全部star的操作。</p>
 <p>在我看来，中国开发者需加倍努力，从Watch、Fork、Star转向Pull Request，多贡献代码，用代码改变世界。</p>
@@ -880,7 +883,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2、<a href="http://music.alang.run">一起听歌吧</a></p>
 <p><img src="https://vip2.loli.net/2023/01/12/9vgWs65JLy4EbAM.webp" alt="一起听歌吧"></p>
 <p>和朋友一起玩耍时，不妨到这个网站创建一个房间，一起听歌。项目<a href="https://github.com/JumpAlang/Jusic-serve">开源</a>，可自部署。</p>
-<p>3、<a href="https://www.my80stv.com">My 80's TV!</a></p>
+<p>3、<a href="https://web.archive.org/web/20230101091038/https://www.my80stv.com/">My 80's TV!</a>（存档副本）</p>
 <p><img src="https://vip2.loli.net/2023/01/12/to5hZ2dkLvTUKeP.webp" alt="My 80&#x27;s TV!"></p>
 <p>该网站由来自美国加州旧金山湾区的joey cato创办，向我们展示了美国80年代的电视机里面播放的内容，上图我打开的电视机中播放的是一档音乐节目。joey cato喜欢在业余时间做一些互动、怀旧的东西，他认为这是一种能锻炼自己学习热情的有趣方式。<a href="https://www.joeycato.com">via</a></p>
 <p>不难发现除了80年代的电视机，还有60年代、70年代、90年代、00年代的电视机。这位站长的创造精神值得我们学习。</p>
@@ -912,7 +915,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p><img src="https://vip2.loli.net/2023/01/02/aEuIAXRplML1ib6.webp" alt="Unsplash2022年度最佳照片奖"></p>
 <p>“这幅作品有一种超自然的感觉，它在我们现在生活的这个混乱的世界中创造了一个平静和安宁的时刻。” — Unsplash2022年度最佳照片奖。 <a href="https://awards.unsplash.com/2022/#/community-photo">(via)</a></p>
 <h2 id="话题你好2023"><a aria-hidden="true" tabindex="-1" href="#话题你好2023"><span class="icon icon-link"></span></a>话题：你好2023</h2>
-&#x3C;iframe src="https://player.bilibili.com/player.html?aid=519647638&#x26;bvid=BV1Wg411x7sx&#x26;cid=948309604&#x26;page=1&#x26;autoplay=0"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="告别 2022 年" src="https://player.bilibili.com/player.html?aid=519647638&#x26;bvid=BV1Wg411x7sx&#x26;cid=948309604&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <p>好久没有写周刊了，犹记上一次落笔是在去年的6月份，一转眼，2022已经离我们远去。就如上面视频里所呈现的那样，2022已经在时间的洪流中不在。</p>
 <p>无论是对于世界，还是对于我而言，2022都是充满不易的一年。</p>
 <p>这一年，疫情仍然困扰着世界，人类并没有成功战胜新冠，反而与之共存的进度越来越快；这一年，很多人物离开了我们，随着他们的离去，时间的残酷再一次在世人眼前展现；这一年年末，我成功加入了中国共产党，但我深知自己仍然离一名合格的共产党员仍有着些许差距；这一年，我为了年末的考研，放弃了编程、爱好等，初试后，知道自己并没有把握一战成硕，大概率再过半年我会进入社会，摸爬滚打......</p>
@@ -922,17 +925,17 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <h2 id="有趣"><a aria-hidden="true" tabindex="-1" href="#有趣"><span class="icon icon-link"></span></a>有趣</h2>
 <p>1、<a href="https://archiveprogram.github.com/">为后代保存开源软件</a></p>
 <p>来自全球最大的代码托管平台—GitHub的作品—代码归档项目。据说，GitHub在2020年的2月2号捕获了每一个活跃开源仓库的快照，并将其保存在了挪威的斯瓦尔巴群岛北极山脉深处的一个废弃煤矿中。</p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=711477211&#x26;bvid=BV1rD4y1m78m&#x26;cid=214423471&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="位于北极的 GitHub 代码归档项目" src="https://player.bilibili.com/player.html?aid=711477211&#x26;bvid=BV1rD4y1m78m&#x26;cid=214423471&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <p>附斯瓦尔巴群岛的位置图。其位于欧洲大陆北部，临近北极点。</p>
 <p><img src="https://vip2.loli.net/2023/01/02/O3Q47U8tDaV1IH2.webp" alt="斯瓦尔巴群岛位置"></p>
 <p>2、<a href="https://www.reddit.com/r/MTRelaxation67/comments/z88ihb/what_happens_when_a_desert_gets_rain/">当沙漠持续下大雨时会发生什么？</a></p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=222212428&#x26;bvid=BV198411E7e2&#x26;cid=948497301&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="沙漠持续暴雨并发生洪水" src="https://player.bilibili.com/player.html?aid=222212428&#x26;bvid=BV198411E7e2&#x26;cid=948497301&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <p>竟然会发生洪水，这是我没想到的，大自然真神奇。</p>
 <p>3、<a href="https://www.reddit.com/r/weirddalle/comments/zi14ae/a_developer_finding_a_bug_now_even_more_literal/">AI绘制的Bug</a></p>
 <p>Bug这个术语，在软件领域代指程序中的小错误、小毛病。这个术语的故事由来，耐人寻味，来自于一只继电器中的飞蛾。2022年，可以称得上是AI绘画的元年，各类AI绘画程序层出不穷。</p>
 <p>国外网友使用Midjourney这款AI绘画软件绘制出了一幅含有巨型Bug的图片。</p>
 <p><img src="https://vip2.loli.net/2023/01/02/2GXpwSm9gbKYNkP.webp" alt="开发人员发现了一只bug"></p>
-&#x3C;center>&#x3C;b>一名开发者发现了一只Bug。&#x3C;/b>&#x3C;/center>
+<center><b>一名开发者发现了一只Bug。</b></center>
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
 <p>1、<a href="http://oldcomputers.net/">Steve's Old Computer Museum</a></p>
 <p><img src="https://vip2.loli.net/2023/01/02/hvIUFY1OsCun3WG.webp" alt="Steve的旧电脑博物馆主页"></p>
@@ -941,21 +944,21 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>2、<a href="https://mail.totime.cn/">云寄·时光邮局</a></p>
 <p>你上一次写信是什么时候？不妨有空时给未来的自己或者自己的亲人写一封信，可以选择电子邮件投递或者线下投递（邮费需自理）。</p>
 <p><img src="https://vip2.loli.net/2023/01/02/hqfUyZFOr8pT2cl.webp" alt="云寄·时光邮局"></p>
-<p>3、<a href="https://smartynames.com/">Search Domain names with AI</a></p>
+<p>3、<a href="https://web.archive.org/web/20240927005728/https://smartynames.com/">Search Domain names with AI</a>（存档副本）</p>
 <p>在对话框中描述你的公司或项目，这个AI程序会给出与之相符的域名。</p>
 <p><img src="https://vip2.loli.net/2023/01/03/qEVwyag3XLeK5T9.webp" alt="用AI搜索域名"></p>
 <h2 id="纪录片"><a aria-hidden="true" tabindex="-1" href="#纪录片"><span class="icon icon-link"></span></a>纪录片</h2>
 <p>今天推荐一部名为《互联网之子》的纪录片。该纪录片讲述的是亚伦·斯沃茨的故事。他为了一个更加自由开放的互联网付出了生命。</p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=16549975&#x26;bvid=BV1rx411V75r&#x26;cid=26994578&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="纪录片《互联网之子》" src="https://player.bilibili.com/player.html?aid=16549975&#x26;bvid=BV1rx411V75r&#x26;cid=26994578&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <h2 id="言论"><a aria-hidden="true" tabindex="-1" href="#言论"><span class="icon icon-link"></span></a>言论</h2>
 <p>1、阿根廷球迷在试图跳上载有世界杯冠军球队的公共汽车时从立交桥上摔下。</p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=692206780&#x26;bvid=BV1Z24y1v7ix&#x26;cid=949017983&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="阿根廷球迷从立交桥上摔下" src="https://player.bilibili.com/player.html?aid=692206780&#x26;bvid=BV1Z24y1v7ix&#x26;cid=949017983&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <blockquote>
 <p>那个家伙原本想去见梅西，但是他见到了马拉多纳（已故的阿根廷球星）。</p>
 </blockquote>
 <p><img src="https://vip2.loli.net/2023/01/03/MJ3pTB2ifegnqxb.webp" alt="言论图一"></p>
 <p>2、金正恩在平壤欢迎韩国文在寅</p>
-&#x3C;iframe src="//player.bilibili.com/player.html?aid=31962726&#x26;bvid=BV1NW411C76X&#x26;cid=55906755&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> &#x3C;/iframe>
+<iframe title="金正恩在平壤欢迎文在寅" src="https://player.bilibili.com/player.html?aid=31962726&#x26;bvid=BV1NW411C76X&#x26;cid=55906755&#x26;page=1&#x26;autoplay=0" scrolling="no" border="0" frameborder="no" allowfullscreen class="bilibili" allow="autoplay; fullscreen; picture-in-picture" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation"> </iframe>
 <blockquote>
 <p>我想知道为什么在他们身边会有翻译官，我记得他们都说的都是韩语。</p>
 </blockquote>
@@ -969,11 +972,11 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
         <content type="html"><![CDATA[<p>周刊BGM【高考季专属】。</p>
 <p>欢迎打开第10期的「周见」，本期的话题是「我的那些年」。</p>
 <p><img src="https://vip2.loli.net/2022/09/20/BrVsEMzPYmdnSF8.jpg" alt="19年我的高中母校高考壮行场面"></p>
-&#x3C;center>&#x3C;b>(封面图：19年我的高中母校高考壮行场面)&#x3C;/b>&#x3C;/center>
+<center><b>(封面图：19年我的高中母校高考壮行场面)</b></center>
 <h2 id="话题我的那些年"><a aria-hidden="true" tabindex="-1" href="#话题我的那些年"><span class="icon icon-link"></span></a>话题：我的那些年</h2>
 <p>2022年高考已经落下帷幕。每年的高考季难免会勾起往日的回忆，今年也不例外，我在6月6日下午，好好地回忆了一把青春。</p>
 <p>那天下午，我分别登录了小学、初中、高中母校的官网，准备下载一些值得我回忆的东西，方便我日后回忆，结果令我大失所望。母校的官网一个都打不开，网站均已下线。小学、初中、高中母校对外发布信息的渠道均改成了微信公众号。</p>
-<p>我使用第6期周刊里推荐过的<a href="https://www.oldestsearch.com/">oldsearch</a>这一搜索工具，还是没有找到母校以前站点的历史快照。</p>
+<p>我使用第6期周刊里推荐过的<a href="https://web.archive.org/web/20221227200453/https://www.oldestsearch.com/">oldsearch</a>（存档副本）这一搜索工具，还是没有找到母校以前站点的历史快照。</p>
 <p>最终我在<a href="https://archive.org/">互联网档案馆</a>里，找到了<a href="https://web.archive.org/web/20161024113518/http://hmsyxx.com/">高中站点</a>、<a href="https://web.archive.org/web/20180824200013/http://www.hmnrzx.com/">初中站点</a>以及<a href="https://web.archive.org/web/20130908231332/http://www.hmdx.net/">小学站点</a>的历史快照。</p>
 <p>高中母校站点最后的更新时间停留在了2016年，历史快照和我高一上电脑课时访问学校官网的画面一致。校园新闻模块旁边，热门文章列表里面的英语听力mp3，让我想起了高一时早读做听力的画面。当时高中每逢英语早读，最后的20分钟会用来做英语听力。</p>
 <p><img src="https://vip2.loli.net/2022/09/20/Pl1N96rTXLHcg5q.png" alt="高中站点快照"></p>
@@ -1016,7 +1019,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
         <content type="html"><![CDATA[<p>周刊BGM【端午节专属】。</p>
 <p>欢迎打开第9期的「周见」，本期的话题是「技术优先还是折腾优先？」。</p>
 <p><img src="https://vip2.loli.net/2022/11/12/3NoeEwjuitYS7Fa.jpg" alt="封面图：coding时光"></p>
-&#x3C;center>&#x3C;b>(封面图：coding时光)&#x3C;/b>&#x3C;/center>
+<center><b>(封面图：coding时光)</b></center>
 <h2 id="国际视野国际视野"><a aria-hidden="true" tabindex="-1" href="#国际视野国际视野"><span class="icon icon-link"></span></a>国际视野国际视野</h2>
 <p>最新一期的超算榜单出炉，美国最新的超算Frontier登顶。详情可见<a href="https://www.top500.org/">top500官网</a></p>
 <p><img src="https://vip2.loli.net/2022/11/12/e6Y3bV1yXE97cTC.png" alt="2022年全球超级计算机性能排行"></p>
@@ -1043,7 +1046,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>3.这世界上的绝大多数人，都分不清什么是「自己的想法」，什么是「别人灌输给自己的想法」。 人生很苦，盲从恰恰是一种简单方便获得归属感、自我价值、人生意义的方式，思考太痛苦了。放弃独立思考的能力，只能换取舒适但虚假的生活。</p>
 <p>4.自制力从来不是早睡早起多吃蔬菜，自制力是永远只做最重要的事。[[推特语录精选01]]</p>
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
-<p>1.<a href="https://pinball.flutter.dev/#/">pinball</a></p>
+<p>1.<a href="https://web.archive.org/web/20260608111305/https://pinball.flutter.dev/">pinball</a>（存档副本）</p>
 <p>上个月Google I/O 2022开发者大会活动前夕发布的弹珠台游戏，致敬经典的同时，也展示了Google旗下的Flutter这一应用软件开发套件。</p>
 <p>注：空格键可以蓄力，蓄力完毕后发射，接着用方向键的←键(或A键)和→键(或D键)来控制下方的两侧挡板，以使得弹珠在视野内多次弹射得分。体验需魔法。</p>
 <p><img src="https://vip2.loli.net/2022/11/12/MDpeirhc1Wm5y3w.png" alt="pinball样例图"></p>
@@ -1098,13 +1101,13 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>你也可以尝试使用这款收集素材软件，但是这款软件不适合有拖延症的群体，因为只要一个礼拜不整理，你的收集箱就会变成垃圾堆，需要你花费很多时间来打理。我使用这款软件的宗旨就是天天清。</p>
 <p>1.<a href="https://www.timemailer.cn/#/">时光邮局</a></p>
 <p>临近毕业，不妨给未来的自己写封信，这个学期的大学生心理健康教育课程就要求给未来的自己写一封信。我在3月份的时候已经在此站点投递了信件。期待明年收到今年3月份信件时候的情景。</p>
-<p>2.<a href="https://earthly-tools.com/text-mode?url=">text-mode</a></p>
+<p>2.<a href="https://web.archive.org/web/20250219045250/https://earthly-tools.com/text-mode?url=">text-mode</a>（存档副本）</p>
 <p>以纯文本的形式来查看网页，只需在地址栏中的<code>url=</code>后面输入你想要查看的网站地址。</p>
-<p>3.<a href="https://www.pawmenow.com/what-dogs-can-eat/">What Human Foods are Healthy for Dogs to Eat?</a></p>
+<p>3.<a href="https://web.archive.org/web/20250622081808/https://pawmenow.com/what-dogs-can-eat/">What Human Foods are Healthy for Dogs to Eat?</a>（存档副本）</p>
 <p>判断哪些人类的食物给狗吃是健康的的站点，如我输入rice【米饭】，出现了如下图所示的提示信息。</p>
-<p>4.<a href="https://emojied.net/">emojied</a></p>
+<p>4.<a href="https://web.archive.org/web/20250405224514/https://emojied.net/">emojied</a>（存档副本）</p>
 <p>使用表情符号缩短你的链接。如我的个人博客的链接为<code>https://jiakai.page</code>，经过这个站点的转换后就是<code>https://emojied.net/😉🙃😌😨😍😰</code>。</p>
-<p>5.<a href="https://batnoter.com/">batnoter</a></p>
+<p>5.<a href="https://github.com/batnoter/batnoter">batnoter</a></p>
 <p>一款开源的、基于Markdown语法的、自托管至GitHub的笔记Web应用程序，可以当做自己的随机本使用。【注：这款应用一开始名叫gitnoter，后来改名为了batnoter】</p>
 <p>记录完笔记保存后，会自动同步至GitHub仓库。</p>
 <p>我会在自己不忙时，使用这款软件，记录自己遇见的有趣、新鲜的事物。自己忙碌时，还是会使用Cubox来对有趣、新鲜的事物进行收藏，待自己空闲时整理。</p>
@@ -1183,7 +1186,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
 <p>1.<a href="https://andisearch.com/">Andi</a></p>
 <p>Andi 是下一代的搜索引擎——给您带来对话式、匿名和无广告的搜索体验。 Andi 为您提供复杂问题的直接答案。 此外它还可以对抗垃圾邮件并保护您免受广告技术的侵害。</p>
-<p>2.<a href="https://www.oldestsearch.com/">oldestsearch</a></p>
+<p>2.<a href="https://web.archive.org/web/20221227200453/https://www.oldestsearch.com/">oldestsearch</a>（存档副本）</p>
 <p>最旧的搜索引擎。</p>
 <p>搜出来的结果全是10年前抓取的页面快照。</p>
 <h2 id="明天工作日早些休息"><a aria-hidden="true" tabindex="-1" href="#明天工作日早些休息"><span class="icon icon-link"></span></a>明天工作日，早些休息。😆</h2>]]></content>
@@ -1225,7 +1228,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
         <link href="https://gujiakai.top/2022/04/weekly-issue-04"/>
         <updated>2022-04-29T00:00:00.000Z</updated>
         <content type="html"><![CDATA[<p>欢迎打开第4期的「周见」，本期的话题是「你被信息茧房玩弄了嘛？」。</p>
-&#x3C;center>&#x3C;b>封面图：信息茧房&#x3C;/b>&#x3C;/center>
+<center><b>封面图：信息茧房</b></center>
 <h2 id="话题你被信息茧房玩弄了嘛"><a aria-hidden="true" tabindex="-1" href="#话题你被信息茧房玩弄了嘛"><span class="icon icon-link"></span></a>话题：你被信息茧房玩弄了嘛？</h2>
 <p><em>什么是信息茧房？</em></p>
 <p>在抖音、b站等网站上一直浏览一个话题，接着主页推送就充斥了关于这个话题的视频。这种场景，我相信你应该经历过。其背后的逻辑是推荐算法在起作用，这类似于淘宝的猜你喜欢。</p>
@@ -1265,7 +1268,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <h2 id="话题拒绝同质化"><a aria-hidden="true" tabindex="-1" href="#话题拒绝同质化"><span class="icon icon-link"></span></a>话题：拒绝同质化</h2>
 <p><em>什么是同质化？</em></p>
 <p>上大学前，一直听闻上了大学，自己可以自由选课，有更多选择的传言，但是上了大学后，发现现实并不是这样的。课表里面还是塞满了自己不喜欢的课程，因为不喜欢，所以学习的动力也就没有多少。</p>
-<p>这个礼拜看了一篇题名为<a href="http://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/">《中国高等教育的系统性失败》</a>的博文，这篇文章是作者对于知乎上一个<a href="https://www.zhihu.com/question/439622084/answer/1685314467">问题</a>的回答。</p>
+<p>这个礼拜看了一篇题名为<a href="https://web.archive.org/web/20220601154606/https://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/">《中国高等教育的系统性失败》</a>（存档副本）的博文，这篇文章是作者对于知乎上一个<a href="https://www.zhihu.com/question/439622084/answer/1685314467">问题</a>的回答。</p>
 <p>我看了以后，很受触动。对于「<strong>进大学前唯分数论和同质化教育</strong>」这一点，个人深有感触。初高中分数考得高，只能证明你付出过，并不能说明什么，中考分流，过早地将中国的学生群体分层次，致使差距越拉越大，摆乱的同学愈摆愈烂。</p>
 <p>优秀不是用分数来评判的，而是自身的实力，即你能给社会带来多大的贡献。去年夏天，无意间点开了一个博主的<a href="https://www.dandyweng.com/">博客</a>，有被惊艳到。这里所谓的惊艳并不是因为其博客花里胡哨，而是因为这个博客是作者自己动手写的，根本没有套用现成的框架。</p>
 <p>这名博主叫翁天信，他自学成才，根本没有上过一天学，只从大自然和互联网获取自己感兴趣的知识。彻底脱离常规的教育体系，并不意味着他的桀骜不驯，反而使得他认识了自我，成为了自己想成为的样子。</p>
@@ -1309,7 +1312,7 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>1.<a href="https://spacecraft.vercel.app/">spacecraft</a></p>
 <p>一个打飞机的网页端游戏，值得一玩。</p>
 <p>积攒了一定的能量后，可以按enter键，发射超级光波。😄</p>
-<p>2.<a href="https://cloud.niucodata.com/">词云小工具</a></p>
+<p>2.<a href="https://web.archive.org/web/20250710065926/http://cloud.niucodata.com/">词云小工具</a>（存档副本）</p>
 <p>根据输入的文本生成词云图。</p>
 <p>3.<a href="https://music.163.com/outchain/player?type=2&#x26;id=5276810">《少女的祈祷》</a>钢琴曲，一首纯洁清丽的曲子，分享给你，愿你在这喧嚣的尘世，心灵永远年轻。</p>
 <h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
@@ -1334,8 +1337,8 @@ Claude 3 Opus专注于写作、论文润色，而Claude 3.5 Sonnet则专注于�
 <p>无人驾驶、电池等一系列技术，均是马斯克具有创新精神的体现。虽然这部分并不是他实现的，但是是由他牵头发起研制的，正是他追求创新，才会使得他具备创新意识。</p>
 <p>阮一峰老师的第200期周刊《<a href="https://www.ruanyifeng.com/blog/2022/03/weekly-issue-200.html">低期望，多尝试</a>》中写道:"我们应该像芒格那样谨慎，像马斯克那样做事"。芒格是美国一家投资控股公司的副董事长，为人做事很谨慎，不会打心里没底的牌，而马斯克却敢于挑战未知，他认为电动汽车会是未来的出路。结果电动汽车正契合当下的环保绿色主题，特斯拉的成功使得马斯克迎来事业巅峰。</p>
 <h2 id="链享"><a aria-hidden="true" tabindex="-1" href="#链享"><span class="icon icon-link"></span></a>链享</h2>
-<p>1.<a href="https://focus-sounds.vercel.app/">Focus Sound</a>，一个在vercel上托管的站点，里面有许多声音供你选择，自习时可以打开，增加学习的氛围。</p>
-<p>2.<a href="https://www.thiswebsitewillselfdestruct.com/">会自毁的网站</a>——一个写下你的感受的地方。如果 24 小时内没有收到新消息，该站点将消失。b站腾讯云官方的<a href="https://www.bilibili.com/video/BV1J3411J7Ym">视频</a>对此有详细描述。</p>
+<p>1.<a href="https://web.archive.org/web/20241103121553/https://focus-sounds.vercel.app/">Focus Sound</a>（存档副本），一个在vercel上托管的站点，里面有许多声音供你选择，自习时可以打开，增加学习的氛围。</p>
+<p>2.<a href="https://web.archive.org/web/20250422213218/https://www.thiswebsitewillselfdestruct.com/">会自毁的网站</a>（存档副本）——一个写下你的感受的地方。如果 24 小时内没有收到新消息，该站点将消失。b站腾讯云官方的<a href="https://www.bilibili.com/video/BV1J3411J7Ym">视频</a>对此有详细描述。</p>
 <h2 id="周末愉快"><a aria-hidden="true" tabindex="-1" href="#周末愉快"><span class="icon icon-link"></span></a>周末愉快。😆</h2>]]></content>
     </entry>
 </feed>

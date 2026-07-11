@@ -31,8 +31,8 @@ In his 200th weekly newsletter [*Low Expectations, More Attempts*](https://www.r
 
 ## Link Sharing
 
-1. [Focus Sound](https://focus-sounds.vercel.app/) – A site hosted on Vercel with many sounds to choose from. You can open it while studying to enhance your learning atmosphere.
+1. [Focus Sound](https://web.archive.org/web/20241103121553/https://focus-sounds.vercel.app/) *(archived copy)* – A site hosted on Vercel with many sounds to choose from. You can open it while studying to enhance your learning atmosphere.
 
-2. [The Self-Destructing Website](https://www.thiswebsitewillselfdestruct.com/) – A place to write down your feelings. If no new messages are received within 24 hours, the site will disappear. Tencent Cloud's official [video](https://www.bilibili.com/video/BV1J3411J7Ym) on Bilibili describes this in detail.
+2. [The Self-Destructing Website](https://web.archive.org/web/20250422213218/https://www.thiswebsitewillselfdestruct.com/) *(archived copy)* – A place to write down your feelings. If no new messages are received within 24 hours, the site will disappear. Tencent Cloud's official [video](https://www.bilibili.com/video/BV1J3411J7Ym) on Bilibili describes this in detail.
 
 ## Have a great weekend! 😆

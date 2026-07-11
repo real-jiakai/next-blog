@@ -20,7 +20,7 @@ audio:
 
 ## Topic: Hello 2023
 
-<iframe src="https://player.bilibili.com/player.html?aid=519647638&bvid=BV1Wg411x7sx&cid=948309604&page=1&autoplay=0"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
+<iframe title="A farewell to 2022" src="https://player.bilibili.com/player.html?aid=519647638&bvid=BV1Wg411x7sx&cid=948309604&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
 It's been a long time since I wrote a newsletter. I still remember the last time I wrote was in June of last year. In the blink of an eye, 2022 has already left us. Just as shown in the video above, 2022 is no longer in the stream of time.
 
@@ -42,7 +42,7 @@ For me, the keywords of 2022 were the postgraduate exam and graduation. After un
 
 A project from the world's largest code hosting platform, GitHub—the Archive Program. Reportedly, on February 2, 2020, GitHub captured a snapshot of every active open-source repository and stored it in an abandoned coal mine deep in the Arctic mountains of Svalbard, Norway.
 
-<iframe src="//player.bilibili.com/player.html?aid=711477211&bvid=BV1rD4y1m78m&cid=214423471&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
+<iframe title="GitHub Archive Program in the Arctic" src="https://player.bilibili.com/player.html?aid=711477211&bvid=BV1rD4y1m78m&cid=214423471&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
 Here's a location map of the Svalbard archipelago, located in northern Europe, close to the North Pole.
 
@@ -52,7 +52,7 @@ Here's a location map of the Svalbard archipelago, located in northern Europe, c
 
 2. [What happens when a desert gets continuous heavy rain?](https://www.reddit.com/r/MTRelaxation67/comments/z88ihb/what_happens_when_a_desert_gets_rain/)
 
-<iframe src="//player.bilibili.com/player.html?aid=222212428&bvid=BV198411E7e2&cid=948497301&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
+<iframe title="Heavy rain and flooding in a desert" src="https://player.bilibili.com/player.html?aid=222212428&bvid=BV198411E7e2&cid=948497301&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
 Surprisingly, it causes floods—I didn't expect that. Nature is truly amazing.
 
@@ -84,7 +84,7 @@ When was the last time you wrote a letter? Why not take some time to write a let
 
 ![Cloud Time Post Office](https://vip2.loli.net/2023/01/02/hqfUyZFOr8pT2cl.webp)
 
-3. [Search Domain names with AI](https://smartynames.com/)
+3. [Search Domain names with AI](https://web.archive.org/web/20240927005728/https://smartynames.com/) *(archived copy)*
 
 Describe your company or project in the dialog box, and this AI program will suggest matching domain names.
 
@@ -96,7 +96,7 @@ Describe your company or project in the dialog box, and this AI program will sug
 
 Today I recommend a documentary called "The Internet's Own Boy." This documentary tells the story of Aaron Swartz, who gave his life for a freer and more open internet.
 
-<iframe src="//player.bilibili.com/player.html?aid=16549975&bvid=BV1rx411V75r&cid=26994578&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
+<iframe title="The Internet's Own Boy documentary" src="https://player.bilibili.com/player.html?aid=16549975&bvid=BV1rx411V75r&cid=26994578&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
 
 
@@ -104,7 +104,7 @@ Today I recommend a documentary called "The Internet's Own Boy." This documentar
 
 1. An Argentine fan fell from an overpass while trying to jump onto a bus carrying the World Cup champion team.
 
-<iframe src="//player.bilibili.com/player.html?aid=692206780&bvid=BV1Z24y1v7ix&cid=949017983&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
+<iframe title="Argentine football fan falls from an overpass" src="https://player.bilibili.com/player.html?aid=692206780&bvid=BV1Z24y1v7ix&cid=949017983&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
 > That guy originally wanted to see Messi, but he ended up meeting Maradona (the late Argentine football star).
 
@@ -112,7 +112,7 @@ Today I recommend a documentary called "The Internet's Own Boy." This documentar
 
 2. Kim Jong-un welcomes South Korea's Moon Jae-in in Pyongyang
 
-<iframe src="//player.bilibili.com/player.html?aid=31962726&bvid=BV1NW411C76X&cid=55906755&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
+<iframe title="Kim Jong-un welcomes Moon Jae-in in Pyongyang" src="https://player.bilibili.com/player.html?aid=31962726&bvid=BV1NW411C76X&cid=55906755&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
 > I wonder why there are translators beside them when they both speak Korean.
 

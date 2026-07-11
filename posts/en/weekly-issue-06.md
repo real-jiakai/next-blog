@@ -55,7 +55,7 @@ I checked some related domain names for musichub. Good domain names were registe
 
 Andi is a next-generation search engine – bringing you a conversational, anonymous, and ad-free search experience. Andi gives you direct answers to complex questions. It also fights spam and protects you from ad tech.
 
-2. [Oldest Search](https://www.oldestsearch.com/)
+2. [Oldest Search](https://web.archive.org/web/20221227200453/https://www.oldestsearch.com/) *(archived copy)*
 
 The oldest search engine.
 

@@ -8,6 +8,36 @@ This repo stores my [weekly website](https://gujiakai.top) source code.
 
 > Blog theme based on [Simple](https://github.com/simple-is-awesome/simple) project.
 
+The site uses Next.js 16, React 19, local Markdown content, and bilingual
+prefix-less Chinese/`/en` routes. Posts are rendered and sanitized on the
+server; optional comments run through a server-only Supabase API with
+Cloudflare Turnstile.
+
+## Development
+
+Node.js 24.10 or newer within the Node 24 release line is required. Corepack installs the pnpm version pinned by the
+repository:
+
+```bash
+corepack enable pnpm
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Before opening a pull request, run:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm test:smoke
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for environment setup, post format, and
+the full deployment notes. Post changes require a rebuild because pages,
+sitemap entries, and Atom feeds are generated from Markdown at build time.
+
 ## Updates
 
 - 2025.7.23

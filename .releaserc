@@ -1,4 +1,5 @@
 {
+    "repositoryUrl": "https://github.com/real-jiakai/next-blog.git",
     "branches": [
         "main"
     ],
@@ -9,12 +10,6 @@
             "@semantic-release/changelog",
             {
                 "changelogFile": "docs/CHANGELOG.md"
-            }
-        ],
-        [
-            "@semantic-release/npm",
-            {
-                "npmPublish": false
             }
         ],
         "@semantic-release/github",

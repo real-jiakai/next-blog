@@ -11,7 +11,7 @@ export type Locale = (typeof i18n)['locales'][number]
  * - English: /en prefix (e.g., /en/about, /en/2025/01/post)
  */
 export function getLocalePath(locale: Locale, path: string = ''): string {
-	const cleanPath = path.startsWith('/') ? path : `/${path}`
+	const cleanPath = path === '' ? '' : path.startsWith('/') ? path : `/${path}`
 	if (locale === i18n.defaultLocale) {
 		return cleanPath || '/'
 	}

@@ -114,7 +114,7 @@ Appendix 2: In 2014, computer enthusiast Suhayl Khan demonstrated how to access 
 
 [^2]: [Tim_Berners-Lee](https://www.wikiwand.com/en/Tim_Berners-Lee)
 [^3]: Although I've reviewed many online resources, none explain in detail. Website going offline is likely due to the NeXT computer's limited lifespan, etc. In that era, hosting a website required having your own server and keeping it running 24/7. Keeping it on 24/7 couldn't last many years for machines of that era—unlike today's cloud servers where hardware updates and iterations happen without user awareness.
-[^4]: [Restoring the first website](https://first-website.web.cern.ch/first-website/)
+[^4]: [Restoring the first website](https://info.cern.ch/hypertext/WWW/TheProject.html)
 
 [^5]: I also tried finding archives in the Internet Archive of when you could use the Line Mode Browser to access the first website in modern browsers, but the archived pages display poorly.
 
@@ -150,7 +150,7 @@ Commenters replying to this note that developers don't have a say in user experi
 
 I hope in the future, there's technology that can free user experience from capital's grip and return the internet to purity!
 
-5. [nbastreamlinks](https://reddit1.nbastreamlinks.net/)
+5. [nbastreamlinks](https://web.archive.org/web/20240426022059/https://reddit1.nbastreamlinks.net/) *(archived copy)*
 
 ![nbastreamlinks](https://vip2.loli.net/2023/01/26/srzNEF2uip7bxIo.webp)
 
@@ -173,7 +173,7 @@ These two foreign websites allow you to watch NBA live streams for free. Achieve
 
 2. What reader is smarter and more suitable for the masses, and will become a replacement for Google Reader? My team and I answered: algorithm-based personalized recommendations.
 
--- [Applauding Page's Courage to Shut Down Google Reader!](http://m.techweb.com.cn/article/2013-03-14/1283033.shtml)
+-- [Applauding Page's Courage to Shut Down Google Reader!](https://web.archive.org/web/20240111133349/https://m.techweb.com.cn/article/2013-03-14/1283033.shtml) *(archived copy)*
 
 3. Basically, if we want to return the internet to users' hands, we need to decouple "services" from "storage." Companies should not be allowed to hold user data hostage.
 
@@ -195,6 +195,6 @@ These two foreign websites allow you to watch NBA live streams for free. Achieve
 
 6. Nobody truly owns a domain name, just as nobody truly owns a piece of land. Before it belongs to anyone, it has been traded with many parties; in this case, the parties can sell it and buy new land. Everything is borrowed.
 
--- [Permalinking vs Transience.](https://thoughtstreams.io/higgins/permalinking-vs-transience/)
+-- [Permalinking vs Transience.](https://web.archive.org/web/20221206044104/https://thoughtstreams.io/higgins/permalinking-vs-transience/) *(archived copy)*
 
 ![Quote six](https://vip2.loli.net/2023/01/24/MxVIblHhuwYDy4z.webp)

@@ -81,7 +81,7 @@ This website called "True size of countries" provides a free map showing the tru
 
 A collection site of unofficial VTuber-style logos from various brands.
 
-2. [farfalle](https://www.farfalle.dev/)
+2. [farfalle](https://web.archive.org/web/20260418163232/https://www.farfalle.dev/) *(archived copy)*
 
 ![farfalle](https://cdn.sa.net/2024/06/02/WdkcRxTL5BplKyH.webp)
 
@@ -93,7 +93,7 @@ An open-source AI-powered search engine supporting both local and cloud models.
 
 A HackerNews thread where users share their ChatGPT custom prompts. Worth learning from.
 
-4. [Pin Subtitle](https://www.pinzimu.com/)
+4. [Pin Subtitle](https://web.archive.org/web/20260310192509/http://www.pinzimu.com/) *(archived copy)*
 
 ![Pin Subtitle](https://cdn.sa.net/2024/06/02/DzfnBktYTKSOsQ1.webp)
 

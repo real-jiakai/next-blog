@@ -88,7 +88,7 @@ When I first encountered this image, I didn't look carefully and saved it to my 
 
 ![Real web development acronyms](https://vip2.loli.net/2023/01/12/sxzMjkZQctoWeY3.webp)
 
-3. [Trends and Insights from GitHub 2022](https://ossinsight.io/2022/)
+3. [Trends and Insights from GitHub 2022](https://web.archive.org/web/20230102223325/https://ossinsight.io/2022/) *(archived copy)*
 
 ![Developer behavior analysis](https://vip2.loli.net/2023/01/12/OPmS3EAInfD5kNH.webp)
 
@@ -128,7 +128,7 @@ This website shows the monthly income levels of families around the world. You c
 
 When hanging out with friends, why not create a room on this website and listen to music together? The project is [open source](https://github.com/JumpAlang/Jusic-serve) and can be self-deployed.
 
-3. [My 80's TV!](https://www.my80stv.com)
+3. [My 80's TV!](https://web.archive.org/web/20230101091038/https://www.my80stv.com/) *(archived copy)*
 
 ![My 80's TV!](https://vip2.loli.net/2023/01/12/to5hZ2dkLvTUKeP.webp)
 

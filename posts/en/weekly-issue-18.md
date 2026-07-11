@@ -55,7 +55,7 @@ April 24th every year is JS Naked Day. To participate, remove all JS code from y
 
 ![JS Naked Day](https://cdn.sa.net/2024/05/05/fpbR1ZieGukwz3o.webp)
 
-Besides JS Naked Day, April 9th every year is CSS Naked Day. To participate, remove all CSS styling from your website. via: [CSS Naked Day](https://css-naked-day.github.io/)
+Besides JS Naked Day, April 9th every year is CSS Naked Day. To participate, remove all CSS styling from your website. via: [CSS Naked Day](https://web.archive.org/web/20251222205438/https://css-naked-day.github.io/) *(archived copy)*
 
 ![CSS Naked Day](https://cdn.sa.net/2024/05/05/TSGr9mteYw6dAIF.webp)
 
@@ -85,7 +85,7 @@ A website listing seaside train stations in Japan.
 
 ![SeaSide Stations In Japan](https://cdn.sa.net/2024/05/05/iQYn2rAUVo3acxX.webp)
 
-4. [Redfeed Reading Assistant](https://www.forcecreat.com/)
+4. [Redfeed Reading Assistant](https://web.archive.org/web/20260315014229/http://www.forcecreat.com/) *(archived copy)*
 
 Redfeed Reading Assistant, an AI-powered personal information assistant that helps improve your information acquisition efficiency for better thinking. Covers mainstream information platforms.
 

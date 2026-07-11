@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import CommentForm from '@/components/CommentForm'
 import CommentList from '@/components/CommentList'
+import type { Locale } from '@/lib/i18n-config'
 
 interface CommentDict {
   Comments: string
@@ -31,7 +32,7 @@ interface CommentData {
 
 interface CommentProps {
   dict: CommentDict
-  lang: string
+  lang: Locale
 }
 
 export default function Comment({ dict, lang }: CommentProps) {
@@ -57,7 +58,12 @@ export default function Comment({ dict, lang }: CommentProps) {
 	return (
 		<>
 			<h2 className="text-3xl font-bold mt-8 mb-4">{dict.Comments}</h2>
-			<CommentList quoteComment={quoteComment} updateList={updateList} dict={dict} />
+			<CommentList
+				quoteComment={quoteComment}
+				updateList={updateList}
+				dict={dict}
+				lang={lang}
+			/>
 			<h2 className="text-3xl font-bold mt-8 mb-4">{dict.LeaveComment}</h2>
 			<CommentForm
 				quote={quote}

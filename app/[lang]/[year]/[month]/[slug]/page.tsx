@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
-import { Locale, getLocalePath } from '@/lib/i18n-config'
+import { i18n, Locale, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import {
-	getAllPostMetadataAllLocales,
+	getAllPostMetadata,
 	getPostDataByFileName,
 	getSortedPostsData,
 } from '@/lib/posts'
@@ -16,6 +16,9 @@ import ArticleToc from '@/components/ArticleToc'
 import Comment from '@/components/Comment'
 import ScrollToTop from '@/components/ScrollToTop'
 import DynamicAPlayer from '@/components/APlayer/DynamicAPlayer'
+import { renderPostMarkdown } from '@/lib/renderPost'
+
+const ARTICLE_CONTAINER_ID = 'article-content'
 
 interface PostParams {
   lang: Locale
@@ -24,11 +27,20 @@ interface PostParams {
   slug: string
 }
 
-export async function generateStaticParams() {
-	const allPostMetadata = getAllPostMetadataAllLocales()
+export async function generateStaticParams({
+	params,
+}: {
+	params: {
+		lang: string
+		year?: string
+		month?: string
+		slug?: string
+	}
+}) {
+	if (!i18n.locales.includes(params.lang as Locale)) return []
+	const allPostMetadata = getAllPostMetadata(params.lang as Locale)
 
 	return allPostMetadata.map((post) => ({
-		lang: post.locale,
 		year: post.year.toString(),
 		month: post.month.toString().padStart(2, '0'),
 		slug: post.slug,
@@ -44,17 +56,37 @@ export async function generateMetadata({
 	const postData = await getPostDataByFileName(year, month, slug, lang)
 
 	if (!postData) {
-		return { title: 'Post' }
+		notFound()
 	}
 
-	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
-	const url = `${siteUrl}${getLocalePath(lang, `/${year}/${month}/${slug}`)}`
-	const description = postData.summary || process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+	const siteUrl = (
+		process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
+	).replace(/\/$/, '')
+	const postPath = `/${year}/${month}/${encodeURIComponent(slug)}`
+	const url = `${siteUrl}${getLocalePath(lang, postPath)}`
+	const localizedSiteDescription =
+		lang === 'zh'
+			? process.env.NEXT_PUBLIC_SITE_DESCRIPTION_ZH
+			: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN
+	const description =
+		postData.summary ||
+		localizedSiteDescription ||
+		process.env.NEXT_PUBLIC_SITE_DESCRIPTION
 
 	return {
 		title: postData.title,
 		description,
-		alternates: { canonical: url },
+		alternates: {
+			canonical: url,
+			languages: {
+				'zh-CN': `${siteUrl}${getLocalePath('zh', postPath)}`,
+				'en-US': `${siteUrl}${getLocalePath('en', postPath)}`,
+				'x-default': `${siteUrl}${getLocalePath('zh', postPath)}`,
+			},
+			types: {
+				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
+			},
+		},
 		openGraph: {
 			type: 'article',
 			title: postData.title,
@@ -62,6 +94,7 @@ export async function generateMetadata({
 			url,
 			siteName: process.env.NEXT_PUBLIC_SITE_TITLE,
 			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
+			alternateLocale: lang === 'zh' ? ['en_US'] : ['zh_CN'],
 			publishedTime: postData.date,
 		},
 		twitter: {
@@ -88,6 +121,10 @@ export default async function Post({
 	}
 
 	const stats = readingTime(postData.contentMarkdown)
+	const { content, headings } = renderPostMarkdown(postData.contentMarkdown)
+	const githubRepository =
+		process.env.NEXT_PUBLIC_GITHUB_REPO ||
+		'https://github.com/real-jiakai/next-blog'
 
 	// Get all posts sorted by date (newest first) for this locale
 	const allPosts = getSortedPostsData(lang)
@@ -136,14 +173,15 @@ export default async function Post({
 
 						{/* Meta info */}
 						<p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-							<Date dateString={postData.date} format="YYYY-M-D" />
+							<Date dateString={postData.date} format="YYYY-M-D" locale={lang} />
 							<span className="mx-2">·</span>
-							{Math.ceil(stats.minutes)} min read
+							{Math.ceil(stats.minutes)} {dict.common.MinuteRead}
 							<span className="mx-2">·</span>
 							<a
-								href={`${process.env.NEXT_PUBLIC_GITHUB_REPO}/edit/main/posts/${lang}/${encodeURIComponent(postData.filename)}`}
+								href={`${githubRepository}/edit/main/posts/${lang}/${encodeURIComponent(postData.filename)}`}
 								className="hover:text-blue-500 dark:hover:text-blue-400"
 								target="_blank"
+								rel="noopener noreferrer"
 							>
 								{dict.common.EditThisPage}
 							</a>
@@ -155,7 +193,11 @@ export default async function Post({
 								<p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
 									{dict.common.WeeklyBGM}: {postData.audio.name} - {postData.audio.artist}
 								</p>
-								<DynamicAPlayer audio={postData.audio} />
+								<DynamicAPlayer
+									audio={postData.audio}
+									loadingLabel={dict.common.LoadingAudio}
+									fallbackLabel={dict.common.PlayAudioFallback}
+								/>
 							</div>
 						)}
 
@@ -163,7 +205,11 @@ export default async function Post({
 						<hr className="my-8 border-gray-200 dark:border-gray-800" />
 
 						{/* Article body */}
-						<ArticleContent contentHtml={postData.contentHtml} />
+						<ArticleContent
+							content={content}
+							containerId={ARTICLE_CONTAINER_ID}
+							openLabel={dict.common.OpenImage}
+						/>
 
 						{/* Previous/Next navigation */}
 						<nav className="mt-16 flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-6">
@@ -211,7 +257,7 @@ export default async function Post({
 					<aside className="hidden lg:block relative z-0">
 						<div className="sticky top-24">
 							<ArticleToc
-								contentMarkdown={postData.contentMarkdown}
+								headings={headings}
 								showtoc={postData.showtoc}
 								tocLabel={dict.common.TOC}
 							/>

@@ -84,6 +84,20 @@
 
     .article-content img {
         @apply rounded-lg my-8 max-w-full max-h-[70svh] w-auto h-auto cursor-zoom-in transition-all duration-200 hover:opacity-90 hover:shadow-lg;
+        content-visibility: auto;
+        contain-intrinsic-size: auto 800px 450px;
+    }
+
+    .article-content img[role="button"]:focus-visible {
+        @apply outline-2 outline-offset-4 outline-blue-500;
+    }
+
+    .article-content a img {
+        @apply cursor-pointer;
+    }
+
+    .article-content .article-video {
+        @apply w-full h-auto rounded-lg;
     }
 
     .article-content a {

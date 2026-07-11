@@ -54,19 +54,19 @@ You can also try using this material collection software, but it's not suitable 
 
 As graduation approaches, why not write a letter to your future self? My college psychology course this semester required writing a letter to my future self. I already submitted my letter on this site in March. I look forward to receiving my March letter next year.
 
-2. [Text Mode](https://earthly-tools.com/text-mode?url=)
+2. [Text Mode](https://web.archive.org/web/20250219045250/https://earthly-tools.com/text-mode?url=) *(archived copy)*
 
 View web pages in pure text form. Just enter the website address you want to view after `url=` in the address bar.
 
-3. [What Human Foods are Healthy for Dogs to Eat?](https://www.pawmenow.com/what-dogs-can-eat/)
+3. [What Human Foods are Healthy for Dogs to Eat?](https://web.archive.org/web/20250622081808/https://pawmenow.com/what-dogs-can-eat/) *(archived copy)*
 
 A site to determine which human foods are healthy for dogs. For example, when I entered "rice," the following prompt appeared.
 
-4. [emojied](https://emojied.net/)
+4. [emojied](https://web.archive.org/web/20250405224514/https://emojied.net/) *(archived copy)*
 
 Shorten your links using emojis. For example, my personal blog link is `https://jiakai.page`. After conversion through this site, it becomes `https://emojied.net/😉🙃😌😨😍😰`.
 
-5. [batnoter](https://batnoter.com/)
+5. [batnoter](https://github.com/batnoter/batnoter)
 
 An open-source, Markdown-based, self-hosted-to-GitHub note-taking web application. You can use it as your own random notebook. [Note: This app was originally called gitnoter, later renamed to batnoter]
 

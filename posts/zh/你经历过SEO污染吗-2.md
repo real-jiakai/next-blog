@@ -46,7 +46,7 @@ showtoc: true
 
 积攒了一定的能量后，可以按enter键，发射超级光波。😄
 
-2.[词云小工具](https://cloud.niucodata.com/)
+2.[词云小工具](https://web.archive.org/web/20250710065926/http://cloud.niucodata.com/)（存档副本）
 
 根据输入的文本生成词云图。
 

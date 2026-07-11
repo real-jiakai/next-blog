@@ -15,6 +15,12 @@ interface HeaderProps {
       Archive: string
       About: string
       RSS: string
+      Navigation: string
+      OpenMenu: string
+      CloseMenu: string
+      ChangeLanguage: string
+      MoreOptions: string
+      ToggleTheme: string
     }
   }
 }
@@ -26,14 +32,16 @@ export default function Header({ lang, dict }: HeaderProps) {
 	const RenderThemeChanger = () => {
 		return (
 			<button
-				aria-label="Toggle theme"
+				type="button"
+				aria-label={dict.common.ToggleTheme}
+				title={dict.common.ToggleTheme}
 				onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
 				className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
 			>
 				{/* Sun icon - visible in light mode, hidden in dark mode */}
-				<Brightness5Icon className="w-5 h-5 text-gray-600 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 dark:absolute" />
+				<Brightness5Icon aria-hidden className="w-5 h-5 text-gray-600 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 dark:absolute" />
 				{/* Moon icon - hidden in light mode, visible in dark mode */}
-				<Brightness4Icon className="absolute top-2 left-2 w-5 h-5 text-gray-300 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 dark:relative dark:top-0 dark:left-0" />
+				<Brightness4Icon aria-hidden className="absolute top-2 left-2 w-5 h-5 text-gray-300 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 dark:relative dark:top-0 dark:left-0" />
 			</button>
 		)
 	}
@@ -48,12 +56,12 @@ export default function Header({ lang, dict }: HeaderProps) {
 							href={getLocalePath(lang)}
 							className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
 						>
-							{process.env.NEXT_PUBLIC_SITE_TITLE}
+							{process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'}
 						</Link>
 					</div>
-					<nav className="flex-1 flex justify-center">
+					<div className="flex-1 flex justify-center">
 						<Navbar lang={lang} dict={dict} RenderThemeChanger={RenderThemeChanger} />
-					</nav>
+					</div>
 				</div>
 			</div>
 		</header>

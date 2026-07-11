@@ -69,7 +69,7 @@ You can never hit Trump! Fight! Fight! Fight! 😎
 
 Online Windows XP simulator. You can listen to music, play Tetris, browse the internet...
 
-3. [devzat](github.com/quackduck/devzat)
+3. [devzat](https://github.com/quackduck/devzat)
 
 ![devzat](https://cdn.sa.net/2024/07/24/ufD8siXlFWdM4gB.webp)
 
@@ -77,10 +77,13 @@ SSH chat is really nice. Type `ssh devzat.hackclub.com` in the command line to e
 
 4. Obama throws Biden into the river.
 
-<video width="100%" height="auto" controls>
+<figure>
+<video class="article-video" controls preload="metadata" title="Satirical animation of Obama throwing Biden into a river" aria-describedby="obama-biden-video-description-en">
   <source src="https://cdn.jiakai.page/videos/2024/obama-threw-biden-into-the-river.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+<figcaption id="obama-biden-video-description-en"><strong>Video description:</strong> A short satirical animation shows Barack Obama lifting Joe Biden and throwing him into a river.</figcaption>
+</figure>
 
 Poor old Biden—his withdrawal statement on X probably wasn't even written by himself. When things go bad, everyone piles on. After the first debate with Trump at the end of June, he lost his appeal. After Trump's shooting, Biden was abandoned by everyone. The bullet hit Trump's ear but pierced Biden's presidential dream. 😜
 
@@ -92,7 +95,7 @@ Watching Trump and Biden's debate, Biden's eyes being different sizes is hilario
 
 ## Link Sharing
 
-1. [Claude Pool](https://share.claude.asia/)
+1. [Claude Pool](https://web.archive.org/web/20241122081105/https://share.claude.asia/) *(archived copy)*
 
 ![Claude Pool](https://cdn.sa.net/2024/07/24/el5LcC2ruxvNGhI.webp)
 

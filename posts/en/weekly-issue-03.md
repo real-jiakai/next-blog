@@ -20,7 +20,7 @@ Welcome to the third issue of "Weekly Insights." This week's topic is "Say no to
 
 Before entering university, I always heard rumors that once in college, I could freely choose my courses and have more options. But after entering university, I found reality was different. My schedule was still filled with courses I didn't like, and because I didn't like them, I had little motivation to study.
 
-This week, I read a blog post titled [*The Systematic Failure of Higher Education in China*](http://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/). This article is the author's response to a [question](https://www.zhihu.com/question/439622084/answer/1685314467) on Zhihu.
+This week, I read a blog post titled [*The Systematic Failure of Higher Education in China*](https://web.archive.org/web/20220601154606/https://huangxuan.me/2021/01/19/the-systematic-failure-of-higher-education-in-china/) *(archived copy)*. This article is the author's response to a [question](https://www.zhihu.com/question/439622084/answer/1685314467) on Zhihu.
 
 After reading it, I was deeply moved. Regarding "**the score-only mentality and homogenized education before entering university**," I personally relate to this. High scores in middle and high school only prove that you put in effort; they don't mean much else. The streaming system after middle school exams separates Chinese students into different levels too early, causing the gap to widen further, with struggling students falling further behind.
 

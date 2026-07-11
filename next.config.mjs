@@ -13,6 +13,7 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 const csp = [
 	"default-src 'self'",
 	"script-src 'self' 'unsafe-inline' https://umami.gujiakai.top https://challenges.cloudflare.com",
+	"script-src-attr 'none'",
 	"style-src 'self' 'unsafe-inline'",
 	"img-src 'self' data: https:",
 	"font-src 'self' data:",
@@ -46,15 +47,35 @@ export default withBundleAnalyzer({
 	reactStrictMode: true,
 	output: 'standalone',
 	turbopack: {},
+	experimental: {
+		globalNotFound: true,
+	},
 	async headers() {
 		return [{ source: '/:path*', headers: securityHeaders }]
 	},
-	// i18n is now handled by proxy, no config needed here
+	// Canonicalize explicit default-locale URLs before applying the prefix-less
+	// Chinese route rewrites below.
+	async redirects() {
+		return [
+			{ source: '/page/1', destination: '/', permanent: true },
+			{ source: '/en/page/1', destination: '/en', permanent: true },
+			{ source: '/zh/page/1', destination: '/', permanent: true },
+			{ source: '/zh', destination: '/', permanent: true },
+			{ source: '/zh/:path*', destination: '/:path*', permanent: true },
+		]
+	},
+	// Map prefix-less Chinese routes directly onto the locale segment. Config
+	// rewrites run after redirects, so their `/zh` destinations are not fed back
+	// through the canonical redirect (which caused a self-redirect in Proxy).
 	async rewrites() {
 		return [
+			{ source: '/', destination: '/zh' },
+			{ source: '/about', destination: '/zh/about' },
+			{ source: '/archive', destination: '/zh/archive' },
+			{ source: '/page/:page', destination: '/zh/page/:page' },
 			{
-				source: '/:locale/index.xml',
-				destination: '/index.xml',
+				source: '/:year(\\d{4})/:month(\\d{2})/:slug',
+				destination: '/zh/:year/:month/:slug',
 			},
 		]
 	},

@@ -4,9 +4,28 @@ import { Locale, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSortedPostsData } from '@/lib/posts'
 import Layout from '@/components/Layout'
+import Date from '@/components/Date'
 
-export const metadata: Metadata = {
-	title: 'Archive',
+export async function generateMetadata({
+	params,
+}: {
+	params: Promise<{ lang: Locale }>
+}): Promise<Metadata> {
+	const { lang } = await params
+	return {
+		title: lang === 'zh' ? '归档' : 'Archive',
+		alternates: {
+			canonical: getLocalePath(lang, '/archive'),
+			languages: {
+				'zh-CN': getLocalePath('zh', '/archive'),
+				'en-US': getLocalePath('en', '/archive'),
+				'x-default': getLocalePath('zh', '/archive'),
+			},
+			types: {
+				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
+			},
+		},
+	}
 }
 
 export default async function Archive({
@@ -47,9 +66,13 @@ export default async function Archive({
 								{postsByYear[year].map(({ date, slug, title }) => (
 									<li key={slug} className="group">
 										<div className="flex items-baseline gap-4 hover:bg-gray-100/70 dark:hover:bg-gray-800 p-3 rounded-lg transition-all duration-200 cursor-pointer">
-											<time className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-												{date.split('-').slice(1).join('-')}
-											</time>
+											<span className="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+												<Date
+													dateString={date}
+													format={lang === 'zh' ? 'M月D日' : 'MMM D'}
+													locale={lang}
+												/>
+											</span>
 											<Link
 												href={getLocalePath(lang, `/${date.split('-')[0]}/${date.split('-')[1]}/${slug}`)}
 											>

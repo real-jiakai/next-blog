@@ -1,41 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const i18n = {
-	defaultLocale: 'zh',
-	locales: ['zh', 'en'],
-} as const
+const LOCALE_HEADER = 'x-blog-locale'
 
+/**
+ * Preserve the requested locale for the routing-level global 404 document.
+ * Redirects and locale rewrites stay in next.config.mjs; this proxy only adds a
+ * trusted internal request header and therefore cannot create rewrite loops.
+ */
 export function proxy(request: NextRequest) {
-	const { pathname } = request.nextUrl
+	const requestHeaders = new Headers(request.headers)
+	const pathname = request.nextUrl.pathname
+	requestHeaders.set(
+		LOCALE_HEADER,
+		pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'zh'
+	)
 
-	// Skip API routes, static files, and RSS
-	if (
-		pathname.startsWith('/api') ||
-    pathname.startsWith('/_next') ||
-    pathname.includes('.') ||
-    pathname === '/index.xml'
-	) {
-		return
-	}
-
-	// If URL starts with /zh/, redirect to URL without prefix (zh is default, no prefix needed)
-	if (pathname.startsWith('/zh/') || pathname === '/zh') {
-		const newPath = pathname.replace(/^\/zh/, '') || '/'
-		return NextResponse.redirect(new URL(newPath, request.url))
-	}
-
-	// If URL starts with /en/, let it pass through to App Router
-	if (pathname.startsWith('/en/') || pathname === '/en') {
-		return
-	}
-
-	// For all other URLs (no locale prefix), internally rewrite to /zh/... for App Router
-	// This is invisible to the user - URL stays the same
-	const url = request.nextUrl.clone()
-	url.pathname = `/zh${pathname}`
-	return NextResponse.rewrite(url)
+	return NextResponse.next({ request: { headers: requestHeaders } })
 }
 
 export const config = {
-	matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)'],
+	matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }

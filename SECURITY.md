@@ -1,47 +1,28 @@
 # Security Policy
 
-## Supported Versions
+## Supported code
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.x     | :white_check_mark: |
-| 4.x     | :x:                |
-| < 4.0   | :x:                |
+Security fixes are applied to the current `main` branch. Older tags and forks are not maintained.
 
-Only the latest major version (v5.x) receives security updates.
+## Reporting a vulnerability
 
-## Reporting a Vulnerability
+Please do not open a public issue for a suspected vulnerability. Email **gujiakai28@gmail.com** with:
 
-If you discover a security vulnerability, please report it responsibly:
+- a description of the issue and its impact;
+- reproducible steps or a minimal proof of concept;
+- affected routes, commits, or versions; and
+- a suggested mitigation, if available.
 
-1. **Do NOT** open a public issue
-2. Email the maintainer directly at: **gujiakai28@gmail.com**
-3. Include:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if any)
+The maintainer will acknowledge the report, investigate it, and coordinate disclosure when a fix is ready. Please avoid accessing data that is not yours or disrupting the production service while testing.
 
-### Response Timeline
+## Deployment guidance
 
-- **Initial Response**: Within 48 hours
-- **Status Update**: Within 7 days
-- **Resolution Target**: Within 30 days (depending on severity)
-
-### What to Expect
-
-- Acknowledgment of your report
-- Regular updates on the fix progress
-- Credit in the security advisory (unless you prefer anonymity)
-- Notification when the fix is released
-
-## Security Best Practices
-
-When deploying this blog:
-
-1. **Environment Variables**: Never commit `.env.local` or expose API keys
-2. **Supabase**: Use Row Level Security (RLS) policies
-3. **Cloudflare Turnstile**: Keep secret keys server-side only
-4. **Dependencies**: Regularly run `pnpm audit` to check for vulnerabilities
-
-Thank you for helping keep this project secure!
+- Keep environment files and credentials out of Git and container build contexts.
+- Enforce Supabase Row Level Security and least-privilege grants.
+- Validate Cloudflare Turnstile tokens on the server.
+- Keep `COMMENT_API_ENABLED=false` until the comment migration and all secrets
+  are configured.
+- Trust only the client-IP header that the loopback reverse proxy overwrites;
+  set `COMMENT_CLIENT_IP_HEADER` to that exact header name.
+- Keep production dependencies and base images updated.
+- Run `pnpm audit` and the repository's CI checks regularly.
