@@ -97,10 +97,10 @@ runtime. To enable comments:
    explicitly to `false` for an emergency runtime kill switch, or to `true`
    for an explicit override.
 4. Set `COMMENT_CLIENT_IP_HEADER` to exactly one header overwritten by the
-   trusted reverse proxy. Put it in `.env.local`; for Caddy's default proxy
-   headers use `x-forwarded-for`. Do not pass a client-supplied value through
-   unchanged, and never expose the application port directly when trusting a
-   forwarding header.
+   trusted reverse proxy. Put it in the deployment `.env`; for Caddy's default
+   proxy headers use `x-forwarded-for`. Do not pass a client-supplied value
+   through unchanged, and never expose the application port directly when
+   trusting a forwarding header.
 
 Existing comments deliberately remain unverified after the migration and will
 not receive reply email until their owners complete a new verification flow.

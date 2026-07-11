@@ -48,4 +48,4 @@ sitemap entries, and Atom feeds are generated from Markdown at build time.
 
 ## Acknowledgements
 
-- Made with ❤️ with Claude Code.
+- Built and maintained with help from Claude Code and [Codex](https://github.com/codex).

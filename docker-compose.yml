@@ -16,17 +16,17 @@ services:
         NEXT_PUBLIC_GITHUB_REPO: ${NEXT_PUBLIC_GITHUB_REPO:-https://github.com/real-jiakai/next-blog}
         NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY:-}
     image: next-blog:latest
-    # Runtime-only server secrets belong in this ignored file. For build-time
-    # public overrides, run: docker compose --env-file .env.local up --build
+    # Compose uses the ignored production .env for build interpolation and
+    # injects the same values into the running container.
     env_file:
-      - path: .env.local
-        required: false
+      - path: .env
+        required: true
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gujiakai.top}
       NEXT_PUBLIC_SITE_TITLE: ${NEXT_PUBLIC_SITE_TITLE:-周见}
       NEXT_PUBLIC_SITE_DESCRIPTION: ${NEXT_PUBLIC_SITE_DESCRIPTION:-专注于分享互联网上有趣的东西。}
-      # COMMENT_API_ENABLED is loaded from .env.local when explicitly set.
+      # COMMENT_API_ENABLED is loaded from .env when explicitly set.
       # Otherwise the API follows the build-time NEXT_PUBLIC_SHOW_COMMENT flag.
     ports:
       - '127.0.0.1:3802:3000'
