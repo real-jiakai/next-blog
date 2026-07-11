@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/real-jiakai/next-blog/compare/v1.0.1...v1.0.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* **deploy:** load production environment ([ec06085](https://github.com/real-jiakai/next-blog/commit/ec0608539deb208532460899345aa00451a594c6))
+
 ## [1.0.1](https://github.com/real-jiakai/next-blog/compare/v1.0.0...v1.0.1) (2026-07-11)
 
 
