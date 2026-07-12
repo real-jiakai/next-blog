@@ -26,7 +26,7 @@ export default function ArticleLayout({ children, lang, dict }: ArticleLayoutPro
 		<div className="flex flex-col min-h-screen">
 			<Header lang={lang} dict={dict} />
 
-			<main className="text-lg font-sans antialiased font-normal py-6 flex-grow">
+			<main className="text-lg font-sans antialiased font-normal py-4 md:py-6 flex-grow">
 				{children}
 			</main>
 

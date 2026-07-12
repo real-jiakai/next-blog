@@ -1,8 +1,11 @@
 'use client'
 
 import { useRef, useEffect, useState, FormEvent } from 'react'
-import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import validator from 'email-validator'
+
+const TURNSTILE_FLEXIBLE_MIN_WIDTH = 300
+type ResponsiveTurnstileSize = 'compact' | 'flexible'
 
 interface CommentDict {
   YourName: string
@@ -50,8 +53,11 @@ export default function CommentForm({
 }: CommentFormProps) {
 	const formRef = useRef<CommentFormElement>(null)
 	const turnstileRef = useRef<TurnstileInstance>(null)
+	const turnstileContainerRef = useRef<HTMLDivElement>(null)
 	const [emailError, setEmailError] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [turnstileSize, setTurnstileSize] =
+		useState<ResponsiveTurnstileSize>('compact')
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -124,17 +130,40 @@ export default function CommentForm({
 		}
 	}, [quote])
 
+	useEffect(() => {
+		const container = turnstileContainerRef.current
+		if (!container) return
+
+		const updateSize = (width: number) => {
+			const nextSize: ResponsiveTurnstileSize =
+				width >= TURNSTILE_FLEXIBLE_MIN_WIDTH ? 'flexible' : 'compact'
+			setTurnstileSize((currentSize) =>
+				currentSize === nextSize ? currentSize : nextSize
+			)
+		}
+
+		updateSize(container.getBoundingClientRect().width)
+		if (typeof ResizeObserver === 'undefined') return
+
+		const observer = new ResizeObserver(([entry]) => {
+			if (entry) updateSize(entry.contentRect.width)
+		})
+		observer.observe(container)
+
+		return () => observer.disconnect()
+	}, [])
+
 	return (
 		<>
 			<form
 				ref={formRef}
 				onSubmit={handleSubmit}
-				className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 dark:bg-gray-600 dark:text-white"
+				className="bg-site-surface text-site-copy shadow-md rounded border border-site-line px-4 sm:px-8 pt-6 pb-8 mb-4"
 			>
 				<div className="mb-4">
 					<label
 						htmlFor="username"
-						className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+						className="block text-site-heading text-sm font-bold mb-2"
 					>
 						{dict.YourName}
 					</label>
@@ -145,13 +174,13 @@ export default function CommentForm({
 						placeholder="NickName"
 						required
 						autoComplete="name"
-						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
+						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
 					/>
 				</div>
 				<div className="mb-4">
 					<label
 						htmlFor="email"
-						className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+						className="block text-site-heading text-sm font-bold mb-2"
 					>
 						{dict.Email}
 					</label>
@@ -164,7 +193,7 @@ export default function CommentForm({
 						autoComplete="email"
 						aria-invalid={emailError ? 'true' : undefined}
 						aria-describedby={emailError ? 'email-error' : undefined}
-						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
+						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
 					/>
 					{emailError && (
 						<p id="email-error" role="alert" className="text-red-500 text-xs italic">
@@ -175,7 +204,7 @@ export default function CommentForm({
 				<div className="mb-4">
 					<label
 						htmlFor="website"
-						className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+						className="block text-site-heading text-sm font-bold mb-2"
 					>
 						{dict.Website}
 					</label>
@@ -185,13 +214,13 @@ export default function CommentForm({
 						name="website"
 						placeholder="Website"
 						autoComplete="url"
-						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:text-white"
+						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
 					/>
 				</div>
 				<div className="mb-4">
 					<label
 						htmlFor="content"
-						className="block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+						className="block text-site-heading text-sm font-bold mb-2"
 					>
 						{dict.YourComment}
 					</label>
@@ -200,24 +229,29 @@ export default function CommentForm({
 						name="content"
 						placeholder={dict.CommentPlaceholder}
 						required
-						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32 dark:text-white"
+						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface h-32"
 					/>
-					<p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
+					<p className="text-site-muted text-xs mt-1">
 						{dict.MarkdownTip}
 					</p>
 				</div>
-				<div className="mb-4">
+				<div
+					ref={turnstileContainerRef}
+					className="mb-4 w-full min-w-0"
+					data-turnstile-size={turnstileSize}
+				>
 					<Turnstile
 						siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY!}
 						ref={turnstileRef}
-						options={{ action: 'comment' }}
+						className="mx-auto max-w-full"
+						options={{ action: 'comment', size: turnstileSize }}
 					/>
 				</div>
 				<button
 					type="submit"
 					disabled={isSubmitting}
 					aria-busy={isSubmitting}
-					className="bg-blue-500 hover:bg-blue-700 disabled:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+					className="bg-blue-500 hover:bg-blue-700 disabled:bg-blue-300 text-[#f4f4f5] font-bold py-2 px-4 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
 				>
 					{isSubmitting ? dict.Submitting : dict.Submit}
 				</button>

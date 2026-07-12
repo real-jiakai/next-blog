@@ -35,8 +35,8 @@ export default function NotFound() {
 	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
 
 	return (
-		<div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 dark:bg-black dark:text-gray-100">
-			<header className="mx-auto w-full max-w-5xl px-4 py-4 sm:px-6 lg:px-8">
+		<div className="flex min-h-screen flex-col bg-site-page text-site-copy">
+			<header className="mx-auto w-full max-w-5xl px-4 py-4 md:px-6 lg:px-8">
 				<Link
 					href={getLocalePath(lang)}
 					className="text-xl font-medium tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400"
@@ -53,7 +53,7 @@ export default function NotFound() {
 				<p className="mt-3 text-gray-500 dark:text-gray-400">{dict.common.NotFoundMessage}</p>
 				<Link
 					href={getLocalePath(lang)}
-					className="mt-8 inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-100"
+					className="mt-8 inline-flex items-center rounded-lg border border-site-line bg-site-surface px-4 py-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-site-heading"
 				>
 					{dict.common.BackHome}
 				</Link>

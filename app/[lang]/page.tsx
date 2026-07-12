@@ -45,7 +45,7 @@ export default async function Home({
 	if (allPostsData.length === 0) {
 		return (
 			<Layout lang={lang} dict={dict}>
-				<section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+				<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
 					<div className="min-h-[calc(100vh-12rem)] flex flex-col items-center justify-center">
 						<p className="text-gray-600 dark:text-gray-300 text-lg">
 							{dict.common.NoPostsAvailable || 'No posts available in this language yet.'}
@@ -58,21 +58,21 @@ export default async function Home({
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			<section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col">
+			<section className="max-w-5xl mx-auto px-0 md:px-6 lg:px-8 w-full flex-1 flex flex-col">
 				<div className="w-full flex-1 flex flex-col">
-					<div className="w-full space-y-4 flex-1">
+					<div className="w-full space-y-3 md:space-y-4 flex-1">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
 						))}
 					</div>
 					<div className="flex justify-center py-4 gap-2 text-sm">
-						<span className="px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+						<span className="px-4 py-2 rounded-lg border border-site-line bg-site-surface text-site-muted">
               1 / {totalPages}
 						</span>
 						{totalPages > 1 && (
 							<Link
 								href={getLocalePath(lang, '/page/2')}
-								className="px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-100"
+								className="px-4 py-2 rounded-lg border border-site-line bg-site-surface text-site-muted transition-colors hover:bg-site-surface-muted hover:text-site-heading"
 							>
 								{dict.common.NextPage}
 							</Link>

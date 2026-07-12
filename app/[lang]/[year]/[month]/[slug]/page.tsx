@@ -162,17 +162,17 @@ export default async function Post({
 
 	return (
 		<ArticleLayout lang={lang} dict={dict}>
-			<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
 				<div className="lg:grid lg:grid-cols-[1fr_200px] lg:gap-8">
 					{/* Main content area */}
 					<article className="min-w-0 pt-4 pb-16">
 						{/* Title */}
-						<h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+						<h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-site-heading">
 							{postData.title}
 						</h1>
 
 						{/* Meta info */}
-						<p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+						<p className="mt-4 text-sm text-site-muted">
 							<Date dateString={postData.date} format="YYYY-M-D" locale={lang} />
 							<span className="mx-2">·</span>
 							{Math.ceil(stats.minutes)} {dict.common.MinuteRead}
@@ -190,7 +190,7 @@ export default async function Post({
 						{/* Audio player */}
 						{postData.audio && (
 							<div className="mt-8 mb-4">
-								<p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+								<p className="text-sm font-medium text-site-heading mb-2">
 									{dict.common.WeeklyBGM}: {postData.audio.name} - {postData.audio.artist}
 								</p>
 								<DynamicAPlayer
@@ -202,7 +202,7 @@ export default async function Post({
 						)}
 
 						{/* Divider */}
-						<hr className="my-8 border-gray-200 dark:border-gray-800" />
+						<hr className="my-8 border-site-line" />
 
 						{/* Article body */}
 						<ArticleContent
@@ -212,13 +212,13 @@ export default async function Post({
 						/>
 
 						{/* Previous/Next navigation */}
-						<nav className="mt-16 flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-6">
+						<nav className="mt-16 flex items-center justify-between border-t border-site-line pt-6">
 							{prevPostData ? (
 								<Link
 									href={getLocalePath(lang, `/${prevPostData.year}/${prevPostData.month}/${prevPostData.slug}`)}
 									className="group flex flex-col"
 								>
-									<span className="text-sm text-gray-500 dark:text-gray-400">
+									<span className="text-sm text-site-muted">
                     ← {dict.common.PreviousPost}
 									</span>
 									<span className="mt-1 text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
@@ -233,7 +233,7 @@ export default async function Post({
 									href={getLocalePath(lang, `/${nextPostData.year}/${nextPostData.month}/${nextPostData.slug}`)}
 									className="group flex flex-col text-right"
 								>
-									<span className="text-sm text-gray-500 dark:text-gray-400">
+									<span className="text-sm text-site-muted">
 										{dict.common.NextPost} →
 									</span>
 									<span className="mt-1 text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
@@ -247,7 +247,7 @@ export default async function Post({
 
 						{/* Comments */}
 						{process.env.NEXT_PUBLIC_SHOW_COMMENT === 'true' && (
-							<section className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+							<section className="mt-16 pt-8 border-t border-site-line">
 								<Comment dict={dict.comment} lang={lang} />
 							</section>
 						)}

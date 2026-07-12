@@ -31,7 +31,7 @@ const LIMITS = {
 } as const
 
 const TURNSTILE_ACTION =
-	process.env.CLOUDFLARE_TURNSTILE_EXPECTED_ACTION ?? 'comment'
+	process.env.CLOUDFLARE_TURNSTILE_EXPECTED_ACTION || 'comment'
 // Bound the expensive upstream challenge before making the Cloudflare request.
 // The per-IP bucket handles normal abuse, while the bounded global bucket also
 // protects deployments whose proxy header is accidentally spoofable.
@@ -391,7 +391,7 @@ export async function POST(request: NextRequest) {
 			secret: process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY,
 			expectedAction: TURNSTILE_ACTION,
 			expectedHostname:
-				process.env.CLOUDFLARE_TURNSTILE_EXPECTED_HOSTNAME ?? thread.hostname,
+				process.env.CLOUDFLARE_TURNSTILE_EXPECTED_HOSTNAME || thread.hostname,
 			remoteIp: clientIp,
 		})
 		if (!turnstileResult.valid) {

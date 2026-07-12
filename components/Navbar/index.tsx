@@ -98,7 +98,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 		const displayName = supportedLocales[locale]
 		const className = `block w-full px-4 py-2 text-sm ${
 			lang !== locale
-				? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-blue-600 dark:hover:text-blue-400'
+				? 'text-site-muted hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400'
 				: 'text-blue-600 dark:text-blue-400 font-medium'
 		}`
 
@@ -129,7 +129,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					<li>
 						<Link
 							href={getLocalePath(lang)}
-							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<HomeIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
 							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.Home}</span>
@@ -138,7 +138,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					<li>
 						<Link
 							href={getLocalePath(lang, '/archive')}
-							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<svg
 								aria-hidden
@@ -157,7 +157,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					<li>
 						<Link
 							href={getLocalePath(lang, '/about')}
-							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<InfoIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
 							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.About}</span>
@@ -167,7 +167,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 						<a
 							href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
 							type="application/atom+xml"
-							className="inline-flex items-center px-3 py-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<RssFeedIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
 							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.RSS}</span>
@@ -183,7 +183,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					>
 						<button
 							type="button"
-							className="flex items-center gap-1 p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="flex items-center gap-1 p-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 							aria-label={dict.common.ChangeLanguage}
 							aria-controls={translateMenuId}
 							aria-expanded={translateMenuVisible}
@@ -198,7 +198,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 							<div className="absolute right-0 pt-2 w-40 z-50">
 								<ul
 									id={translateMenuId}
-									className="py-2 list-none bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 dark:ring-gray-700"
+									className="py-2 list-none bg-site-surface rounded-lg shadow-lg ring-1 ring-site-line"
 									aria-label={dict.common.ChangeLanguage}
 								>
 									{localeChoices(() => setTranslateMenuVisible(false))}
@@ -216,7 +216,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					>
 						<button
 							type="button"
-							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="p-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 							aria-label={dict.common.MoreOptions}
 							aria-controls={moreMenuId}
 							aria-expanded={moreMenuVisible}
@@ -229,11 +229,11 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 								id={moreMenuId}
 								className="absolute right-0 pt-2 w-40 z-50"
 							>
-								<div className="py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-gray-900/5 dark:ring-gray-700">
+								<div className="py-2 bg-site-surface rounded-lg shadow-lg ring-1 ring-site-line">
 									<ul className="list-none" aria-label={dict.common.ChangeLanguage}>
 										{localeChoices(() => setMoreMenuVisible(false))}
 									</ul>
-									<div className="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 px-4">
+									<div className="border-t border-site-line mt-2 pt-2 px-4">
 										{RenderThemeChanger()}
 									</div>
 								</div>
@@ -250,7 +250,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 						<button
 							type="button"
 							onClick={() => setMobileMenuVisible((visible) => !visible)}
-							className="p-2 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+							className="p-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 							aria-label={mobileMenuVisible ? dict.common.CloseMenu : dict.common.OpenMenu}
 							aria-controls={mobileMenuId}
 							aria-expanded={mobileMenuVisible}
@@ -262,14 +262,14 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 					{mobileMenuVisible && (
 						<div
 							id={mobileMenuId}
-							className="absolute left-0 right-0 bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700"
+							className="absolute left-0 right-0 bg-site-surface shadow-lg border-b border-site-line"
 						>
 							<ul className="px-2 py-2 list-none">
 								<li>
 									<Link
 										href={getLocalePath(lang)}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+										className="flex items-center px-4 py-2.5 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 hover:bg-site-surface-muted rounded-lg transition-colors"
 									>
 										<HomeIcon aria-hidden className="w-5 h-5" />
 										<span className="ml-3 text-sm font-medium">{dict.common.Home}</span>
@@ -279,7 +279,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 									<Link
 										href={getLocalePath(lang, '/archive')}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+										className="flex items-center px-4 py-2.5 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 hover:bg-site-surface-muted rounded-lg transition-colors"
 									>
 										<svg aria-hidden xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24">
 											<path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" />
@@ -291,7 +291,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 									<Link
 										href={getLocalePath(lang, '/about')}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+										className="flex items-center px-4 py-2.5 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 hover:bg-site-surface-muted rounded-lg transition-colors"
 									>
 										<InfoIcon aria-hidden className="w-5 h-5" />
 										<span className="ml-3 text-sm font-medium">{dict.common.About}</span>
@@ -302,7 +302,7 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 										href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
 										type="application/atom+xml"
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex items-center px-4 py-2.5 text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+										className="flex items-center px-4 py-2.5 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 hover:bg-site-surface-muted rounded-lg transition-colors"
 									>
 										<RssFeedIcon aria-hidden className="w-5 h-5" />
 										<span className="ml-3 text-sm font-medium">{dict.common.RSS}</span>
@@ -311,13 +311,13 @@ export default function Navbar({ lang, dict, RenderThemeChanger }: NavbarProps) 
 							</ul>
 
 							<ul
-								className="mx-2 border-t border-gray-200 dark:border-gray-700 pt-2 list-none"
+								className="mx-2 border-t border-site-line pt-2 list-none"
 								aria-label={dict.common.ChangeLanguage}
 							>
 								{localeChoices(() => setMobileMenuVisible(false))}
 							</ul>
 
-							<div className="mx-2 border-t border-gray-200 dark:border-gray-700 mt-2 py-2 px-4">
+							<div className="mx-2 border-t border-site-line mt-2 py-2 px-4">
 								{RenderThemeChanger()}
 							</div>
 						</div>

@@ -100,7 +100,7 @@ export default function APlayer({
 			/>
 			{scriptStatus === 'loading' && (
 				<div
-					className="my-4 h-16 animate-pulse rounded bg-gray-100 dark:bg-gray-800"
+					className="my-4 h-16 animate-pulse rounded bg-site-surface-muted"
 					role="status"
 					aria-label={`${loadingLabel}: ${audio.name}`}
 				/>

@@ -75,9 +75,9 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 						<div
 							key={comment.id}
 							id={`comment-${comment.id}`}
-							className="comment p-4 bg-white dark:bg-gray-800 shadow-md rounded-lg flex flex-col"
+							className="comment p-4 bg-site-surface border border-site-line shadow-md rounded-lg flex flex-col"
 						>
-							<div className="flex justify-between items-center mb-2 border-b border-gray-30">
+							<div className="flex justify-between items-center mb-2 border-b border-site-line">
 								<div className="flex items-center space-x-2">
 									<Image
 										src={generateIdenticon(comment.username)}

@@ -31,12 +31,12 @@ export default function ScrollToTop() {
 
 	return (
 		isVisible && (
-			<div className="fixed bottom-2 right-2">
+			<div className="fixed bottom-2 right-2 hidden md:block">
 				<button
 					type="button"
 					aria-label="Scroll to top"
 					onClick={scrollToTop}
-					className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-500 ease-in-out transform-gpu"
+					className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-[#f4f4f5] bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-500 ease-in-out transform-gpu"
 				>
 					<KeyboardArrowUpIcon />
 				</button>

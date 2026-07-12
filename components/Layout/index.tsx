@@ -28,7 +28,7 @@ export default function Layout({ children, lang, dict }: LayoutProps) {
 			<div className="flex flex-col min-h-screen">
 				<Header lang={lang} dict={dict} />
 
-				<main className="text-lg font-sans antialiased font-normal flex-grow flex flex-col w-full py-6">
+				<main className="text-lg font-sans antialiased font-normal flex-grow flex flex-col w-full py-4 md:py-6">
 					{children}
 				</main>
 

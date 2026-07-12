@@ -72,7 +72,7 @@ export default function ArticleToc({ headings, showtoc, tocLabel }: ArticleTocPr
 
 	return (
 		<nav aria-label={tocLabel}>
-			<h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">
+			<h3 className="text-sm font-semibold text-site-heading mb-4">
 				{tocLabel}
 			</h3>
 			<ul className="space-y-2.5 text-sm list-none">
@@ -86,7 +86,7 @@ export default function ArticleToc({ headings, showtoc, tocLabel }: ArticleTocPr
 							} ${
 								activeId === heading.id
 									? 'text-blue-500 dark:text-blue-400 font-medium'
-									: 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+									: 'text-site-muted hover:text-site-heading'
 							}`}
 						>
 							{heading.value}

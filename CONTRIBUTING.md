@@ -83,7 +83,8 @@ for every post image so browsers can reserve the correct layout space.
 ## Comments and deployment
 
 The Docker image uses standalone Next.js output and accepts secrets only at
-runtime. To enable comments:
+runtime. Docker Compose reads the deployment `.env` automatically and
+allowlists the runtime values passed into the container. To enable comments:
 
 1. Apply `supabase/migrations/202607100001_secure_comments.sql` to Supabase.
 2. Build with `NEXT_PUBLIC_SHOW_COMMENT=true` and a
@@ -96,9 +97,9 @@ runtime. To enable comments:
    `NEXT_PUBLIC_SHOW_COMMENT` value carried into the Docker runner. Set it
    explicitly to `false` for an emergency runtime kill switch, or to `true`
    for an explicit override.
-4. Set `COMMENT_CLIENT_IP_HEADER` to exactly one header overwritten by the
-   trusted reverse proxy. Put it in the deployment `.env`; for Caddy's default
-   proxy headers use `x-forwarded-for`. Do not pass a client-supplied value
+4. `COMMENT_CLIENT_IP_HEADER` defaults to `x-forwarded-for` for this Caddy
+   deployment. If the proxy setup changes, set it to exactly one header that
+   the trusted reverse proxy overwrites. Do not pass a client-supplied value
    through unchanged, and never expose the application port directly when
    trusting a forwarding header.
 

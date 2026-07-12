@@ -1,10 +1,43 @@
 @import "tailwindcss";
 
+@theme inline {
+    --color-site-page: var(--site-page);
+    --color-site-surface: var(--site-surface);
+    --color-site-surface-muted: var(--site-surface-muted);
+    --color-site-copy: var(--site-copy);
+    --color-site-heading: var(--site-heading);
+    --color-site-muted: var(--site-muted);
+    --color-site-line: var(--site-line);
+    --color-site-header: var(--site-header);
+}
+
 @variant dark (&:where(.dark, .dark *));
+
+:root {
+    --site-page: #f5f4ed;
+    --site-surface: #ffffff;
+    --site-surface-muted: #eeede6;
+    --site-copy: rgb(36 41 47 / 90%);
+    --site-heading: #24292f;
+    --site-muted: #535b62;
+    --site-line: rgb(0 0 0 / 12.5%);
+    --site-header: rgb(255 255 255 / 86%);
+}
+
+.dark {
+    --site-page: #1a1a2e;
+    --site-surface: #16213e;
+    --site-surface-muted: #202d4d;
+    --site-copy: #e0e0e0;
+    --site-heading: #e0e0e0;
+    --site-muted: #bec5cc;
+    --site-line: rgb(255 255 255 / 10%);
+    --site-header: rgb(22 33 62 / 88%);
+}
 
 @layer base {
     body {
-        @apply dark:bg-black dark:text-gray-100 bg-gray-50 text-gray-900
+        @apply bg-site-page text-site-copy;
     }
 
     h1 {
@@ -32,12 +65,12 @@
     }
 
     blockquote {
-        @apply bg-gray-100 border-l-4 border-gray-500 text-gray-700 p-4 dark:bg-black dark:text-gray-100;
+        @apply bg-site-surface-muted border-l-4 border-site-line text-site-copy p-4;
     }
 
     table th,
     td {
-        @apply border border-gray-300 p-2;
+        @apply border border-site-line p-2;
     }
 
     p {
@@ -52,14 +85,9 @@
 }
 
 @layer components {
-    .aplayer-author,
-    .aplayer-title {
-        @apply !text-black;
-    }
-
     /* Article content styling - Next.js docs inspired */
     .article-content {
-        @apply text-base text-gray-700 dark:text-gray-300;
+        @apply text-base text-site-copy;
     }
 
     .article-content > * + * {
@@ -67,15 +95,15 @@
     }
 
     .article-content h2 {
-        @apply text-2xl font-semibold text-gray-900 dark:text-white mt-12 mb-4 scroll-mt-24;
+        @apply text-2xl font-semibold text-site-heading mt-12 mb-4 scroll-mt-24;
     }
 
     .article-content h3 {
-        @apply text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3 scroll-mt-24;
+        @apply text-xl font-semibold text-site-heading mt-8 mb-3 scroll-mt-24;
     }
 
     .article-content h4 {
-        @apply text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-2 scroll-mt-24;
+        @apply text-lg font-semibold text-site-heading mt-6 mb-2 scroll-mt-24;
     }
 
     .article-content p {
@@ -105,7 +133,7 @@
     }
 
     .article-content strong {
-        @apply font-semibold text-gray-900 dark:text-white;
+        @apply font-semibold text-site-heading;
     }
 
     .article-content ul {
@@ -125,7 +153,7 @@
     }
 
     .article-content blockquote {
-        @apply my-6 pl-4 border-l-2 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 italic;
+        @apply my-6 pl-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted italic;
     }
 
     .article-content blockquote p {
@@ -137,11 +165,11 @@
     }
 
     .article-content code:not(pre code) {
-        @apply text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-1.5 py-0.5 rounded font-mono;
+        @apply text-sm bg-site-surface-muted text-site-copy px-1.5 py-0.5 rounded font-mono;
     }
 
     .article-content hr {
-        @apply my-12 border-gray-200 dark:border-gray-800;
+        @apply my-12 border-site-line;
     }
 
     .article-content table {
@@ -149,16 +177,16 @@
     }
 
     .article-content th {
-        @apply text-left font-semibold text-gray-900 dark:text-white p-3 border-b border-gray-200 dark:border-gray-700;
+        @apply text-left font-semibold text-site-heading p-3 border-b border-site-line;
     }
 
     .article-content td {
-        @apply p-3 border-b border-gray-100 dark:border-gray-800;
+        @apply p-3 border-b border-site-line;
     }
 
     /* Comment content styling - compact prose for user comments */
     .comment-content {
-        @apply text-base text-gray-700 dark:text-gray-300 break-words;
+        @apply text-base text-site-copy break-words;
     }
 
     .comment-content > * + * {
@@ -168,7 +196,7 @@
     .comment-content h1,
     .comment-content h2,
     .comment-content h3 {
-        @apply text-lg font-semibold text-gray-900 dark:text-white mt-4 mb-2;
+        @apply text-lg font-semibold text-site-heading mt-4 mb-2;
     }
 
     .comment-content p {
@@ -180,7 +208,7 @@
     }
 
     .comment-content strong {
-        @apply font-semibold text-gray-900 dark:text-white;
+        @apply font-semibold text-site-heading;
     }
 
     .comment-content em {
@@ -204,7 +232,7 @@
     }
 
     .comment-content blockquote {
-        @apply my-3 pl-4 border-l-2 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400;
+        @apply my-3 pl-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted;
     }
 
     .comment-content blockquote p {
@@ -212,11 +240,11 @@
     }
 
     .comment-content pre {
-        @apply my-3 p-3 rounded-lg overflow-x-auto text-sm bg-gray-100 dark:bg-gray-900;
+        @apply my-3 p-3 rounded-lg overflow-x-auto text-sm bg-site-surface-muted;
     }
 
     .comment-content code:not(pre code) {
-        @apply text-sm bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 px-1.5 py-0.5 rounded font-mono;
+        @apply text-sm bg-site-surface-muted text-site-copy px-1.5 py-0.5 rounded font-mono;
     }
 
     .comment-content img {
@@ -224,7 +252,7 @@
     }
 
     .comment-content hr {
-        @apply my-4 border-gray-200 dark:border-gray-700;
+        @apply my-4 border-site-line;
     }
 
     .comment-content table {
@@ -232,11 +260,11 @@
     }
 
     .comment-content th {
-        @apply text-left font-semibold text-gray-900 dark:text-white p-2 border-b border-gray-200 dark:border-gray-700;
+        @apply text-left font-semibold text-site-heading p-2 border-b border-site-line;
     }
 
     .comment-content td {
-        @apply p-2 border-b border-gray-100 dark:border-gray-800;
+        @apply p-2 border-b border-site-line;
     }
 }
 
@@ -249,4 +277,43 @@
     justify-content: center;
     align-items: center;
     padding: 20px 0;
+}
+
+/* APlayer ships with a fixed white skin. Keep its controls readable while
+   bringing the embedded surface into the site's non-pure night palette. */
+.aplayer.aplayer .aplayer-title,
+.aplayer.aplayer .aplayer-author {
+    color: #24292f !important;
+}
+
+.dark .aplayer.aplayer,
+.dark .aplayer.aplayer-fixed .aplayer-body {
+    background: var(--site-surface);
+    color: var(--site-copy);
+}
+
+html.dark .aplayer.aplayer .aplayer-title,
+html.dark .aplayer.aplayer .aplayer-author,
+.dark .aplayer .aplayer-info .aplayer-controller .aplayer-time,
+.dark .aplayer .aplayer-list ol li .aplayer-list-index,
+.dark .aplayer .aplayer-list ol li .aplayer-list-author {
+    color: var(--site-copy) !important;
+}
+
+.dark .aplayer.aplayer-withlist .aplayer-info,
+.dark .aplayer.aplayer-fixed .aplayer-info,
+.dark .aplayer .aplayer-list ol li {
+    border-color: var(--site-line);
+}
+
+.dark .aplayer .aplayer-list ol li:hover,
+.dark .aplayer .aplayer-list ol li.aplayer-list-light,
+.dark .aplayer .aplayer-miniswitcher {
+    background: var(--site-surface-muted);
+}
+
+.dark .aplayer svg circle,
+.dark .aplayer svg path,
+.dark .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+    fill: var(--site-copy);
 }
