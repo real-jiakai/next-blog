@@ -58,9 +58,9 @@ export default async function Home({
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			<section className="max-w-5xl mx-auto px-0 md:px-6 lg:px-8 w-full flex-1 flex flex-col">
+			<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 w-full flex-1 flex flex-col">
 				<div className="w-full flex-1 flex flex-col">
-					<div className="w-full space-y-3 md:space-y-4 flex-1">
+					<div className="w-full flex-1 divide-y divide-site-line md:space-y-4 md:divide-y-0">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
 						))}

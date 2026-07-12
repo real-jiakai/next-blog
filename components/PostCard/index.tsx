@@ -29,18 +29,18 @@ export default function PostCard({ lang, post }: PostCardProps) {
 	const { text: displayTitle, issue } = splitIssueNumber(title)
 
 	return (
-		<article className="group relative flex items-center justify-between gap-4 border-y border-site-line bg-site-surface px-4 py-5 transition-all duration-200 hover:bg-site-surface-muted md:rounded-xl md:border md:px-6 dark:hover:bg-site-surface-muted">
+		<article className="group relative flex items-center justify-between gap-4 bg-transparent px-0 py-4 transition-colors md:rounded-xl md:border md:border-site-line md:bg-site-surface md:px-6 md:py-5 md:transition-all md:duration-200 md:hover:bg-site-surface-muted">
 			<div className="min-w-0 flex-1">
 				<div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-wide text-site-muted">
 					<Date dateString={date} locale={lang} />
 					{issue && <span aria-hidden className="md:hidden">#{issue}</span>}
 				</div>
-				<h2 className="mt-1.5 text-lg font-semibold text-site-heading transition-colors group-hover:text-blue-600 sm:text-xl dark:group-hover:text-blue-400">
+				<h2 className="mt-1.5 mb-0 text-lg font-semibold leading-snug text-site-heading transition-colors group-hover:text-blue-600 md:text-xl dark:group-hover:text-blue-400">
 					<Link href={href} aria-label={title} className="after:absolute after:inset-0">
 						{displayTitle}
 					</Link>
 				</h2>
-				<p className="mt-1.5 mb-0 line-clamp-2 text-sm leading-relaxed text-site-muted">
+				<p className="mt-1.5 mb-0 hidden text-sm leading-relaxed text-site-muted md:line-clamp-2">
 					{summary}
 				</p>
 			</div>

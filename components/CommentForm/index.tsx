@@ -142,15 +142,26 @@ export default function CommentForm({
 			)
 		}
 
-		updateSize(container.getBoundingClientRect().width)
-		if (typeof ResizeObserver === 'undefined') return
+		const updateFromContainer = () => {
+			updateSize(container.getBoundingClientRect().width)
+		}
 
-		const observer = new ResizeObserver(([entry]) => {
-			if (entry) updateSize(entry.contentRect.width)
-		})
-		observer.observe(container)
+		updateFromContainer()
+		const animationFrameId = window.requestAnimationFrame(updateFromContainer)
+		const observer =
+			typeof ResizeObserver === 'undefined'
+				? null
+				: new ResizeObserver(([entry]) => {
+					if (entry) updateSize(entry.contentRect.width)
+				})
+		observer?.observe(container)
+		window.addEventListener('resize', updateFromContainer)
 
-		return () => observer.disconnect()
+		return () => {
+			window.cancelAnimationFrame(animationFrameId)
+			observer?.disconnect()
+			window.removeEventListener('resize', updateFromContainer)
+		}
 	}, [])
 
 	return (
@@ -244,7 +255,13 @@ export default function CommentForm({
 						siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY!}
 						ref={turnstileRef}
 						className="mx-auto max-w-full"
-						options={{ action: 'comment', size: turnstileSize }}
+						options={{
+							action: 'comment',
+							appearance: 'interaction-only',
+							execution: 'render',
+							size: turnstileSize,
+							theme: 'auto',
+						}}
 					/>
 				</div>
 				<button
