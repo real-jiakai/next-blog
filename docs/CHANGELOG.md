@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/real-jiakai/next-blog/compare/v1.0.3...v1.0.4) (2026-07-12)
+
+
+### Bug Fixes
+
+* **ui:** polish mobile posts and Turnstile ([7cdf16e](https://github.com/real-jiakai/next-blog/commit/7cdf16e49d72a548c586dc7b413ffac1b46a30df))
+
 ## [1.0.3](https://github.com/real-jiakai/next-blog/compare/v1.0.2...v1.0.3) (2026-07-12)
 
 
