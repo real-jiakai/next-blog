@@ -248,7 +248,7 @@ export default function CommentForm({
 				</div>
 				<div
 					ref={turnstileContainerRef}
-					className="mb-4 w-full min-w-0"
+					className="mb-4 -mx-1 w-[calc(100%+0.5rem)] min-w-0 sm:mx-0 sm:w-full"
 					data-turnstile-size={turnstileSize}
 				>
 					<Turnstile
@@ -257,7 +257,7 @@ export default function CommentForm({
 						className="mx-auto max-w-full"
 						options={{
 							action: 'comment',
-							appearance: 'interaction-only',
+							appearance: 'always',
 							execution: 'render',
 							size: turnstileSize,
 							theme: 'auto',

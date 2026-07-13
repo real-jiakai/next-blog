@@ -29,14 +29,31 @@ export default function PostCard({ lang, post }: PostCardProps) {
 	const { text: displayTitle, issue } = splitIssueNumber(title)
 
 	return (
-		<article className="group relative flex items-center justify-between gap-4 bg-transparent px-0 py-4 transition-colors md:rounded-xl md:border md:border-site-line md:bg-site-surface md:px-6 md:py-5 md:transition-all md:duration-200 md:hover:bg-site-surface-muted">
-			<div className="min-w-0 flex-1">
-				<div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-wide text-site-muted">
-					<Date dateString={date} locale={lang} />
-					{issue && <span aria-hidden className="md:hidden">#{issue}</span>}
+		<article className="group relative min-h-24 overflow-hidden rounded-xl border border-site-line bg-site-surface px-4 py-4 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition-colors duration-200 active:bg-site-surface-muted focus-within:ring-2 focus-within:ring-blue-500/50 md:flex md:min-h-0 md:items-center md:justify-between md:gap-4 md:px-6 md:py-5 md:shadow-none md:hover:bg-site-surface-muted">
+			<span
+				aria-hidden
+				className="absolute inset-y-4 left-0 w-0.5 rounded-full bg-blue-500/70 transition-colors group-hover:bg-blue-600 md:hidden"
+			/>
+			<div className="min-w-0 flex-1 pl-1 md:pl-0">
+				<div className="flex items-center justify-between gap-3">
+					<div className="font-mono text-[0.72rem] tracking-wide text-site-muted md:text-xs">
+						<Date dateString={date} locale={lang} />
+					</div>
+					{issue && (
+						<span
+							aria-hidden
+							className="rounded-md bg-site-surface-muted px-2 py-0.5 font-mono text-[0.68rem] font-medium tracking-wider text-blue-600 dark:text-blue-400 md:hidden"
+						>
+							No. {issue}
+						</span>
+					)}
 				</div>
-				<h2 className="mt-1.5 mb-0 text-lg font-semibold leading-snug text-site-heading transition-colors group-hover:text-blue-600 md:text-xl dark:group-hover:text-blue-400">
-					<Link href={href} aria-label={title} className="after:absolute after:inset-0">
+				<h2 className="mt-2 mb-0 text-[1.08rem] font-semibold leading-6 text-site-heading transition-colors group-hover:text-blue-600 md:mt-1.5 md:text-xl md:leading-snug dark:group-hover:text-blue-400">
+					<Link
+						href={href}
+						aria-label={title}
+						className="after:absolute after:inset-0 focus-visible:outline-none"
+					>
 						{displayTitle}
 					</Link>
 				</h2>

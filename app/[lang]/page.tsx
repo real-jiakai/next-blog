@@ -60,24 +60,32 @@ export default async function Home({
 		<Layout lang={lang} dict={dict}>
 			<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 w-full flex-1 flex flex-col">
 				<div className="w-full flex-1 flex flex-col">
-					<div className="w-full flex-1 divide-y divide-site-line md:space-y-4 md:divide-y-0">
+					<div className="w-full space-y-3 md:space-y-4">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
 						))}
 					</div>
-					<div className="flex justify-center py-4 gap-2 text-sm">
-						<span className="px-4 py-2 rounded-lg border border-site-line bg-site-surface text-site-muted">
-              1 / {totalPages}
+					<nav
+						aria-label={lang === 'zh' ? '分页' : 'Pagination'}
+						className="mt-6 flex flex-wrap items-center justify-center gap-2 pb-2 text-sm"
+					>
+						<span
+							aria-current="page"
+							className="inline-flex min-h-11 items-center px-3 font-mono text-xs tracking-wide text-site-muted"
+						>
+							1 / {totalPages}
 						</span>
 						{totalPages > 1 && (
 							<Link
+								rel="next"
 								href={getLocalePath(lang, '/page/2')}
-								className="px-4 py-2 rounded-lg border border-site-line bg-site-surface text-site-muted transition-colors hover:bg-site-surface-muted hover:text-site-heading"
+								className="inline-flex min-h-11 items-center gap-2 rounded-full border border-site-line bg-site-surface px-4 font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
 							>
 								{dict.common.NextPage}
+								<span aria-hidden>→</span>
 							</Link>
 						)}
-					</div>
+					</nav>
 				</div>
 			</section>
 		</Layout>
