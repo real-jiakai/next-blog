@@ -29,13 +29,13 @@ export default function PostCard({ lang, post }: PostCardProps) {
 	const { text: displayTitle, issue } = splitIssueNumber(title)
 
 	return (
-		<article className="group relative min-h-24 overflow-hidden rounded-xl border border-site-line bg-site-surface px-4 py-4 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition-colors duration-200 active:bg-site-surface-muted focus-within:ring-2 focus-within:ring-blue-500/50 md:flex md:min-h-0 md:items-center md:justify-between md:gap-4 md:px-6 md:py-5 md:shadow-none md:hover:bg-site-surface-muted">
+		<article className="group relative min-h-24 overflow-hidden rounded-xl border border-site-line bg-site-surface px-4 py-4 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition-colors duration-200 active:bg-site-surface-muted focus-within:ring-2 focus-within:ring-blue-500/50 md:block md:min-h-0 md:rounded-lg md:px-0 md:py-0 md:shadow-none md:hover:bg-site-surface-muted">
 			<span
 				aria-hidden
 				className="absolute inset-y-4 left-0 w-0.5 rounded-full bg-blue-500/70 transition-colors group-hover:bg-blue-600 md:hidden"
 			/>
-			<div className="min-w-0 flex-1 pl-1 md:pl-0">
-				<div className="flex items-center justify-between gap-3">
+			<div className="min-w-0 flex-1 pl-1 md:px-5 md:pb-3 md:pt-4">
+				<div className="flex items-center justify-between gap-3 md:hidden">
 					<div className="font-mono text-[0.72rem] tracking-wide text-site-muted md:text-xs">
 						<Date dateString={date} locale={lang} />
 					</div>
@@ -48,7 +48,7 @@ export default function PostCard({ lang, post }: PostCardProps) {
 						</span>
 					)}
 				</div>
-				<h2 className="mt-2 mb-0 text-[1.08rem] font-semibold leading-6 text-site-heading transition-colors group-hover:text-blue-600 md:mt-1.5 md:text-xl md:leading-snug dark:group-hover:text-blue-400">
+				<h2 className="mt-2 mb-0 text-[1.08rem] font-semibold leading-6 text-site-heading transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 md:mt-0 md:text-lg md:leading-7 md:text-blue-600 md:dark:text-blue-400">
 					<Link
 						href={href}
 						aria-label={title}
@@ -57,18 +57,21 @@ export default function PostCard({ lang, post }: PostCardProps) {
 						{displayTitle}
 					</Link>
 				</h2>
-				<p className="mt-1.5 mb-0 hidden text-sm leading-relaxed text-site-muted md:line-clamp-2">
+				<p className="mt-1.5 mb-0 hidden text-sm leading-6 text-site-muted md:line-clamp-2">
 					{summary}
 				</p>
 			</div>
-			{issue && (
-				<span
-					aria-hidden
-					className="pointer-events-none hidden shrink-0 select-none font-mono text-6xl font-bold leading-none tracking-tighter text-gray-200 transition-colors group-hover:text-blue-200 md:block dark:text-gray-700 dark:group-hover:text-blue-900/70"
-				>
-					#{issue}
-				</span>
-			)}
+			<div className="hidden min-h-9 items-center gap-3 border-t border-site-line px-5 py-2 font-mono text-xs tracking-wide text-site-muted md:flex">
+				<Date dateString={date} locale={lang} />
+				{issue && (
+					<>
+						<span aria-hidden className="h-3 w-px bg-site-line" />
+						<span aria-hidden className="font-medium text-blue-600 md:dark:text-blue-400">
+							No. {issue}
+						</span>
+					</>
+				)}
+			</div>
 		</article>
 	)
 }

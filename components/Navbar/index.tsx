@@ -141,7 +141,15 @@ export default function Navbar({
 	return (
 		<div className="mx-auto w-full max-w-4xl">
 			<nav ref={navRef} className="relative" aria-label={dict.common.Navigation}>
-				<ul className="hidden h-14 md:flex items-center justify-center space-x-3 list-none">
+				<ul className="hidden h-14 items-center space-x-1 list-none md:flex">
+					<li className="mr-3 min-w-0 shrink">
+						<Link
+							href={getLocalePath(lang)}
+							className="block max-w-44 truncate text-base font-semibold tracking-wide text-site-heading transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+						>
+							{siteTitle}
+						</Link>
+					</li>
 					<li>
 						<Link
 							href={getLocalePath(lang)}

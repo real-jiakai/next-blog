@@ -47,7 +47,7 @@ export default function Header({ lang, dict }: HeaderProps) {
 
 	return (
 		<header className="sticky top-0 z-40 bg-site-header backdrop-blur-sm border-b border-site-line">
-			<div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
+			<div className="max-w-4xl mx-auto px-4 md:px-6">
 				<Navbar
 					lang={lang}
 					dict={dict}
