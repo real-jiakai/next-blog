@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/real-jiakai/next-blog/compare/v1.0.6...v1.1.0) (2026-07-13)
+
+
+### Features
+
+* **ui:** introduce compact editorial homepage ([f368494](https://github.com/real-jiakai/next-blog/commit/f36849486b38d0a467b1648b483ca4398a2889c3))
+
 ## [1.0.6](https://github.com/real-jiakai/next-blog/compare/v1.0.5...v1.0.6) (2026-07-13)
 
 
