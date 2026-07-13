@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/real-jiakai/next-blog/compare/v1.1.2...v1.1.3) (2026-07-13)
+
+
+### Bug Fixes
+
+* **ui:** stretch the post list so short pages have no bottom void ([2454a8f](https://github.com/real-jiakai/next-blog/commit/2454a8fde0f96750889805dbfe8b5d1fd0402cae))
+
 ## [1.1.2](https://github.com/real-jiakai/next-blog/compare/v1.1.1...v1.1.2) (2026-07-13)
 
 
