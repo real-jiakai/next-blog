@@ -10,9 +10,14 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 // Emotion/MUI and the lightbox inject at runtime, and for Next's inline
 // bootstrap scripts (static export rules out per-request nonces). img/media are
 // left broad (https:) because post content embeds images from arbitrary hosts.
+// React dev mode evaluates modules with eval, so `next dev` needs
+// 'unsafe-eval' in script-src or hydration crashes; it is never emitted in
+// production builds.
+const isDev = process.env.NODE_ENV === 'development'
+
 const csp = [
 	"default-src 'self'",
-	"script-src 'self' 'unsafe-inline' https://umami.gujiakai.top https://challenges.cloudflare.com https://static.cloudflareinsights.com",
+	`script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://umami.gujiakai.top https://challenges.cloudflare.com https://static.cloudflareinsights.com`,
 	"script-src-attr 'none'",
 	"style-src 'self' 'unsafe-inline'",
 	"img-src 'self' data: https:",
