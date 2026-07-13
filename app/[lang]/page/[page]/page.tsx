@@ -96,7 +96,7 @@ export default async function PaginationPage({
 			    spacing between cards (matters on the shorter last page too) */}
 			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
 				<div className="flex w-full flex-1 flex-col">
-					<div className="flex w-full flex-1 flex-col justify-evenly gap-3">
+					<div className="flex w-full flex-1 flex-col justify-evenly gap-2.5">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
 						))}

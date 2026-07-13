@@ -56,7 +56,7 @@ export default function Pagination({
 	return (
 		<nav
 			aria-label={lang === 'zh' ? '分页' : 'Pagination'}
-			className="mx-auto mt-6 w-full pb-1 md:mt-5 md:pb-0"
+			className="mx-auto mt-5 w-full pb-1 md:mt-3 md:pb-0"
 		>
 			<div className="mx-auto grid w-full max-w-sm grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-sm md:hidden">
 				{hasPreviousPage && (

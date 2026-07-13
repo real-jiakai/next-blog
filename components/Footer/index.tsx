@@ -7,7 +7,7 @@ export default function Footer() {
 	const footerName = process.env.NEXT_PUBLIC_FOOTER || 'Jiakai Gu'
 
 	return (
-		<footer className="flex justify-center items-center my-3 space-x-3 text-site-muted">
+		<footer className="flex justify-center items-center my-2 space-x-3 text-site-muted">
 			<span className="text-base text-center font-medium">
 				© 2022-{new Date().getFullYear()} {footerName}
 			</span>

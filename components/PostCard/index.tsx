@@ -34,7 +34,7 @@ export default function PostCard({ lang, post }: PostCardProps) {
 				aria-hidden
 				className="absolute inset-y-4 left-0 w-0.5 rounded-full bg-blue-500/70 transition-colors group-hover:bg-blue-600 md:hidden"
 			/>
-			<div className="min-w-0 flex-1 pl-1 md:px-5 md:pb-3 md:pt-4">
+			<div className="min-w-0 flex-1 pl-1 md:px-5 md:pb-2.5 md:pt-3">
 				<div className="flex items-center justify-between gap-3 md:hidden">
 					<div className="font-mono text-[0.72rem] tracking-wide text-site-muted md:text-xs">
 						<Date dateString={date} locale={lang} />
@@ -61,7 +61,7 @@ export default function PostCard({ lang, post }: PostCardProps) {
 					{summary}
 				</p>
 			</div>
-			<div className="hidden min-h-9 items-center gap-3 border-t border-site-line px-5 py-2 font-mono text-xs tracking-wide text-site-muted md:flex">
+			<div className="hidden min-h-8 items-center gap-3 border-t border-site-line px-5 py-1.5 font-mono text-xs tracking-wide text-site-muted md:flex">
 				<Date dateString={date} locale={lang} />
 				{issue && (
 					<>
