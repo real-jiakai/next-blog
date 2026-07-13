@@ -36,19 +36,20 @@ export default function PostCard({ lang, post }: PostCardProps) {
 			/>
 			<div className="min-w-0 flex-1 pl-1 md:px-5 md:pb-2.5 md:pt-3">
 				<div className="flex items-center justify-between gap-3 md:hidden">
-					<div className="font-mono text-[0.72rem] tracking-wide text-site-muted md:text-xs">
+					<div className="font-mono text-[0.8rem] tracking-wide text-site-muted md:text-xs">
 						<Date dateString={date} locale={lang} />
 					</div>
 					{issue && (
 						<span
 							aria-hidden
-							className="rounded-md bg-site-surface-muted px-2 py-0.5 font-mono text-[0.68rem] font-medium tracking-wider text-blue-600 dark:text-blue-400 md:hidden"
+							className="rounded-md bg-site-surface-muted px-2 py-0.5 font-mono text-[0.75rem] font-medium tracking-wider text-blue-600 dark:text-blue-400 md:hidden"
 						>
 							No. {issue}
 						</span>
 					)}
 				</div>
-				<h2 className="mt-2 mb-0 text-[1.08rem] font-semibold leading-6 text-site-heading transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 md:mt-0 md:text-lg md:leading-7 md:text-blue-600 md:dark:text-blue-400">
+				{/* 1.35rem = 21.6px, matching the Hugo blog's body size */}
+				<h2 className="mt-2 mb-0 text-lg font-semibold leading-7 text-site-heading transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 md:mt-0 md:text-[1.35rem] md:leading-8 md:text-blue-600 md:dark:text-blue-400">
 					<Link
 						href={href}
 						aria-label={title}
@@ -57,11 +58,11 @@ export default function PostCard({ lang, post }: PostCardProps) {
 						{displayTitle}
 					</Link>
 				</h2>
-				<p className="mt-1.5 mb-0 hidden text-sm leading-6 text-site-muted md:line-clamp-2">
+				<p className="mt-1.5 mb-0 hidden text-base leading-7 text-site-muted md:line-clamp-2">
 					{summary}
 				</p>
 			</div>
-			<div className="hidden min-h-8 items-center gap-3 border-t border-site-line px-5 py-1.5 font-mono text-xs tracking-wide text-site-muted md:flex">
+			<div className="hidden min-h-8 items-center gap-3 border-t border-site-line px-5 py-1.5 font-mono text-[0.8125rem] tracking-wide text-site-muted md:flex">
 				<Date dateString={date} locale={lang} />
 				{issue && (
 					<>

@@ -145,7 +145,7 @@ export default function Navbar({
 					<li className="mr-3 min-w-0 shrink">
 						<Link
 							href={getLocalePath(lang)}
-							className="block max-w-44 truncate text-base font-semibold tracking-wide text-site-heading transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+							className="block max-w-44 truncate text-xl font-semibold tracking-wide text-site-heading transition-colors hover:text-blue-600 dark:hover:text-blue-400"
 						>
 							{siteTitle}
 						</Link>
@@ -156,7 +156,7 @@ export default function Navbar({
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<HomeIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
-							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.Home}</span>
+							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Home}</span>
 						</Link>
 					</li>
 					<li>
@@ -175,7 +175,7 @@ export default function Navbar({
 									d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z"
 								/>
 							</svg>
-							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.Archive}</span>
+							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Archive}</span>
 						</Link>
 					</li>
 					<li>
@@ -184,7 +184,7 @@ export default function Navbar({
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<InfoIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
-							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.About}</span>
+							<span className="ml-2 text-base whitespace-nowrap">{dict.common.About}</span>
 						</Link>
 					</li>
 					<li>
@@ -194,7 +194,7 @@ export default function Navbar({
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
 							<RssFeedIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
-							<span className="ml-2 text-sm whitespace-nowrap">{dict.common.RSS}</span>
+							<span className="ml-2 text-base whitespace-nowrap">{dict.common.RSS}</span>
 						</a>
 					</li>
 					<li className="flex-grow" aria-hidden />
@@ -302,7 +302,7 @@ export default function Navbar({
 									<Link
 										href={getLocalePath(lang)}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-sm font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
 									>
 										<HomeIcon aria-hidden className="h-5 w-5" />
 										{dict.common.Home}
@@ -312,7 +312,7 @@ export default function Navbar({
 									<Link
 										href={getLocalePath(lang, '/archive')}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-sm font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
 									>
 										<svg aria-hidden xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24">
 											<path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" />
@@ -324,7 +324,7 @@ export default function Navbar({
 									<Link
 										href={getLocalePath(lang, '/about')}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-sm font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
 									>
 										<InfoIcon aria-hidden className="h-5 w-5" />
 										{dict.common.About}
@@ -335,7 +335,7 @@ export default function Navbar({
 										href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
 										type="application/atom+xml"
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-sm font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
 									>
 										<RssFeedIcon aria-hidden className="h-5 w-5" />
 										{dict.common.RSS}
