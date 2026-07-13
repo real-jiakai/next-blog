@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/real-jiakai/next-blog/compare/v1.0.4...v1.0.5) (2026-07-13)
+
+
+### Bug Fixes
+
+* **ui:** refine mobile cards and restore Turnstile ([70260cd](https://github.com/real-jiakai/next-blog/commit/70260cdc0a5b117030a7a89012778f15bca5748c))
+
 ## [1.0.4](https://github.com/real-jiakai/next-blog/compare/v1.0.3...v1.0.4) (2026-07-12)
 
 
