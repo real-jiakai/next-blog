@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/real-jiakai/next-blog/compare/v1.1.1...v1.1.2) (2026-07-13)
+
+
+### Bug Fixes
+
+* **rss:** translate the Chinese feed preview hint into Chinese ([6f07052](https://github.com/real-jiakai/next-blog/commit/6f0705273aa5ce49a645aa9bdd477ba8e0aff559))
+
 ## [1.1.1](https://github.com/real-jiakai/next-blog/compare/v1.1.0...v1.1.1) (2026-07-13)
 
 
