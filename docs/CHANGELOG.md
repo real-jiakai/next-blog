@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/real-jiakai/next-blog/compare/v1.1.3...v1.1.4) (2026-07-13)
+
+
+### Bug Fixes
+
+* **ui:** fit six posts above the fold on 16-inch MacBook Chrome ([919b0fd](https://github.com/real-jiakai/next-blog/commit/919b0fd6587d6d126a32abeb49189b95bf946204))
+
 ## [1.1.3](https://github.com/real-jiakai/next-blog/compare/v1.1.2...v1.1.3) (2026-07-13)
 
 
