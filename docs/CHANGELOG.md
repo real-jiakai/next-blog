@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/real-jiakai/next-blog/compare/v1.1.0...v1.1.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* **csp:** allow unsafe-eval in script-src during development ([bd5c044](https://github.com/real-jiakai/next-blog/commit/bd5c044894cf6ab8b04b2a080984d04f5251b577))
+* **ui:** pin footer to viewport bottom and align content with the header ([d924cb6](https://github.com/real-jiakai/next-blog/commit/d924cb679e408a9c9ff5b0ed9fc1abf78bd9fe52))
+
 # [1.1.0](https://github.com/real-jiakai/next-blog/compare/v1.0.6...v1.1.0) (2026-07-13)
 
 
