@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/real-jiakai/next-blog/compare/v1.0.5...v1.0.6) (2026-07-13)
+
+
+### Bug Fixes
+
+* **ui:** refine navigation and pagination layout ([cb792d0](https://github.com/real-jiakai/next-blog/commit/cb792d02e0edac2b705f5da624371e5267003b33))
+
 ## [1.0.5](https://github.com/real-jiakai/next-blog/compare/v1.0.4...v1.0.5) (2026-07-13)
 
 
