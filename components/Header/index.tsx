@@ -4,8 +4,7 @@ import { useTheme } from 'next-themes'
 import Brightness5Icon from '@mui/icons-material/Brightness5'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Navbar from '@/components/Navbar'
-import Link from 'next/link'
-import { Locale, getLocalePath } from '@/lib/i18n-config'
+import { Locale } from '@/lib/i18n-config'
 
 interface HeaderProps {
   lang: Locale
@@ -49,20 +48,12 @@ export default function Header({ lang, dict }: HeaderProps) {
 	return (
 		<header className="sticky top-0 z-40 bg-site-header backdrop-blur-sm border-b border-site-line">
 			<div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
-				<div className="flex items-center justify-between h-14">
-					{/* Mobile title */}
-					<div className="min-w-0 md:hidden text-xl font-medium tracking-wide text-site-heading">
-						<Link
-							href={getLocalePath(lang)}
-							className="block truncate hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-						>
-							{process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'}
-						</Link>
-					</div>
-					<div className="flex-1 flex justify-center">
-						<Navbar lang={lang} dict={dict} RenderThemeChanger={RenderThemeChanger} />
-					</div>
-				</div>
+				<Navbar
+					lang={lang}
+					dict={dict}
+					siteTitle={process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'}
+					RenderThemeChanger={RenderThemeChanger}
+				/>
 			</div>
 		</header>
 	)

@@ -57,9 +57,9 @@ export default async function Home({
 	}
 
 	return (
-		<Layout lang={lang} dict={dict}>
-			<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 w-full flex-1 flex flex-col">
-				<div className="w-full flex-1 flex flex-col">
+		<Layout lang={lang} dict={dict} naturalFooter>
+			<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 w-full">
+				<div className="w-full">
 					<div className="w-full space-y-3 md:space-y-4">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
@@ -67,11 +67,11 @@ export default async function Home({
 					</div>
 					<nav
 						aria-label={lang === 'zh' ? '分页' : 'Pagination'}
-						className="mt-6 flex flex-wrap items-center justify-center gap-2 pb-2 text-sm"
+						className="mx-auto mt-6 grid w-full max-w-sm grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 pb-2 text-sm"
 					>
 						<span
 							aria-current="page"
-							className="inline-flex min-h-11 items-center px-3 font-mono text-xs tracking-wide text-site-muted"
+							className="col-start-2 row-start-1 inline-flex min-h-11 items-center justify-self-center whitespace-nowrap px-2 font-mono text-xs tracking-wide text-site-muted"
 						>
 							1 / {totalPages}
 						</span>
@@ -79,7 +79,7 @@ export default async function Home({
 							<Link
 								rel="next"
 								href={getLocalePath(lang, '/page/2')}
-								className="inline-flex min-h-11 items-center gap-2 rounded-full border border-site-line bg-site-surface px-4 font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
+								className="col-start-3 row-start-1 inline-flex min-h-11 w-full max-w-32 items-center justify-center justify-self-start gap-1.5 whitespace-nowrap rounded-full border border-site-line bg-site-surface px-2 text-xs font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 sm:max-w-36 sm:px-4 sm:text-sm"
 							>
 								{dict.common.NextPage}
 								<span aria-hidden>→</span>
