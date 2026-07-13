@@ -91,7 +91,7 @@ export default async function PaginationPage({
 	const postsToRender = allPostsData.slice(startIndex, endIndex)
 
 	return (
-		<Layout lang={lang} dict={dict} naturalFooter>
+		<Layout lang={lang} dict={dict}>
 			<section className="max-w-4xl mx-auto w-full px-4 md:px-6">
 				<div className="w-full">
 					<div className="w-full space-y-3">

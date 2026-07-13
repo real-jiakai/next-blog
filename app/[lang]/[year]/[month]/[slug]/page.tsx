@@ -162,8 +162,10 @@ export default async function Post({
 
 	return (
 		<ArticleLayout lang={lang} dict={dict}>
-			<div className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
-				<div className="lg:grid lg:grid-cols-[1fr_200px] lg:gap-8">
+			{/* Same container as the site header (max-w-4xl + px) so the article
+			    column lines up with the nav; the TOC hangs in the right margin. */}
+			<div className="max-w-4xl mx-auto px-4 md:px-6">
+				<div className="relative">
 					{/* Main content area */}
 					<article className="min-w-0 pt-4 pb-16">
 						{/* Title */}
@@ -253,8 +255,9 @@ export default async function Post({
 						)}
 					</article>
 
-					{/* Table of contents - Right sidebar */}
-					<aside className="hidden lg:block relative z-0">
+					{/* Table of contents - floats in the right margin beside the
+					    article; only shown when the viewport has room for it */}
+					<aside className="hidden min-[88rem]:block absolute inset-y-0 left-full w-56 pl-8">
 						<div className="sticky top-24">
 							<ArticleToc
 								headings={headings}

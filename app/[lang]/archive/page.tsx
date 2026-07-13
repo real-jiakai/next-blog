@@ -55,7 +55,7 @@ export default async function Archive({
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 w-full">
+			<section className="max-w-4xl mx-auto px-4 md:px-6 w-full">
 				<div>
 					{years.map((year) => (
 						<section key={year} id={year} className="mb-12">

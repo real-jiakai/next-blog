@@ -45,7 +45,7 @@ export default async function Home({
 	if (allPostsData.length === 0) {
 		return (
 			<Layout lang={lang} dict={dict}>
-				<section className="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
+				<section className="max-w-4xl mx-auto px-4 md:px-6">
 					<div className="min-h-[calc(100vh-12rem)] flex flex-col items-center justify-center">
 						<p className="text-gray-600 dark:text-gray-300 text-lg">
 							{dict.common.NoPostsAvailable || 'No posts available in this language yet.'}
@@ -57,7 +57,7 @@ export default async function Home({
 	}
 
 	return (
-		<Layout lang={lang} dict={dict} naturalFooter>
+		<Layout lang={lang} dict={dict}>
 			<section className="max-w-4xl mx-auto w-full px-4 md:px-6">
 				<div className="w-full">
 					<div className="w-full space-y-3">

@@ -6,7 +6,6 @@ import { Locale } from '@/lib/i18n-config'
 interface LayoutProps {
   children: React.ReactNode
   lang: Locale
-  naturalFooter?: boolean
   dict: {
     common: {
       Home: string
@@ -27,14 +26,13 @@ export default function Layout({
 	children,
 	lang,
 	dict,
-	naturalFooter = false,
 }: LayoutProps) {
 	return (
 		<>
-			<div className={`flex flex-col ${naturalFooter ? '' : 'min-h-screen'}`}>
+			<div className="flex flex-col min-h-screen">
 				<Header lang={lang} dict={dict} />
 
-				<main className={`text-lg font-sans antialiased font-normal flex flex-col w-full py-4 md:py-6 ${naturalFooter ? '' : 'flex-grow'}`}>
+				<main className="text-lg font-sans antialiased font-normal flex flex-col w-full py-4 md:py-6 flex-grow">
 					{children}
 				</main>
 
