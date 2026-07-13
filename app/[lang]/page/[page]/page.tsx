@@ -92,9 +92,11 @@ export default async function PaginationPage({
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			<section className="max-w-4xl mx-auto w-full px-4 md:px-6">
-				<div className="w-full">
-					<div className="w-full space-y-3">
+			{/* Same elastic list as the homepage: leftover height turns into even
+			    spacing between cards (matters on the shorter last page too) */}
+			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
+				<div className="flex w-full flex-1 flex-col">
+					<div className="flex w-full flex-1 flex-col justify-evenly gap-3">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
 						))}

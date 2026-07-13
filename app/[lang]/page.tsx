@@ -58,9 +58,12 @@ export default async function Home({
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			<section className="max-w-4xl mx-auto w-full px-4 md:px-6">
-				<div className="w-full">
-					<div className="w-full space-y-3">
+			{/* flex-1 + justify-evenly: when the list is shorter than the viewport,
+			    the leftover height becomes even breathing room between the cards
+			    instead of a void above the footer; gap-3 stays the minimum */}
+			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
+				<div className="flex w-full flex-1 flex-col">
+					<div className="flex w-full flex-1 flex-col justify-evenly gap-3">
 						{postsToRender.map((post) => (
 							<PostCard key={post.slug} lang={lang} post={post} />
 						))}

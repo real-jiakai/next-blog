@@ -29,7 +29,9 @@ export default function Layout({
 }: LayoutProps) {
 	return (
 		<>
-			<div className="flex flex-col min-h-screen">
+			{/* svh, not vh: on phones 100vh includes the collapsed URL bar, which
+			    forces a scrollbar even when the content fits the visible screen */}
+			<div className="flex flex-col min-h-svh">
 				<Header lang={lang} dict={dict} />
 
 				<main className="text-lg font-sans antialiased font-normal flex flex-col w-full py-4 md:py-6 flex-grow">
