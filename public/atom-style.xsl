@@ -6,7 +6,7 @@
   <xsl:template match="/">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
       <head>
-        <title><xsl:value-of select="/atom:feed/atom:title"/> - RSS Feed</title>
+        <title><xsl:value-of select="/atom:feed/atom:title"/> - RSS 订阅</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <style type="text/css">
@@ -205,7 +205,7 @@
           <p><xsl:value-of select="/atom:feed/atom:subtitle"/></p>
         </div>
         <div class="subscribe-box">
-          <p>This is an RSS feed. Subscribe by copying the URL into your news reader.</p>
+          <p>这是一个 RSS 订阅源。将此网址复制到你的 RSS 阅读器中即可订阅。</p>
           <code><xsl:value-of select="/atom:feed/atom:link[@rel='alternate']/@href"/>/index.xml</code>
         </div>
         <xsl:for-each select="/atom:feed/atom:entry">
