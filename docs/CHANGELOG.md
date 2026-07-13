@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/real-jiakai/next-blog/compare/v1.1.4...v1.2.0) (2026-07-13)
+
+
+### Features
+
+* **ui:** raise header and post-list type to match the Hugo blog ([20df98c](https://github.com/real-jiakai/next-blog/commit/20df98c3121a9c78b8b898b40d49758da7c84219))
+
 ## [1.1.4](https://github.com/real-jiakai/next-blog/compare/v1.1.3...v1.1.4) (2026-07-13)
 
 
