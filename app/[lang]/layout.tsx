@@ -1,9 +1,26 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
+import { Noto_Sans_SC } from 'next/font/google'
 import { getLocalePath, i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import '@/app/globals.css'
 import '@/public/css/prism-night-owl.css'
+
+// One family for both scripts. Noto Sans SC draws its Latin from Source Sans
+// and its Chinese from Source Han Sans, which were designed as a pair, so
+// mixed zh/en sentences keep a single voice instead of visibly switching face
+// mid-line — the usual failing of a Latin webfont plus a system CJK fallback.
+//
+// `next/font` fetches it at build time and serves it from this origin, so the
+// CSP stays at `font-src 'self'` and no reader request leaves the site. Google
+// splits the family into ~200 unicode ranges and that split is preserved, so a
+// browser downloads only the slices holding characters the page actually uses.
+const sans = Noto_Sans_SC({
+	subsets: ['latin'],
+	weight: ['400', '500', '600', '700'],
+	display: 'swap',
+	variable: '--font-sans-cjk',
+})
 
 // Only the locales returned below are valid for this segment. Without this,
 // an arbitrary first path component (for example `/fr`) reaches dictionary
@@ -82,7 +99,11 @@ export default async function RootLayout({
 	const { lang } = await params
 
 	return (
-		<html lang={lang} suppressHydrationWarning>
+		<html
+			lang={lang}
+			suppressHydrationWarning
+			className={sans.variable}
+		>
 			<head>
 				<script
 					async

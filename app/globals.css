@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
+    /* Noto Sans SC carries both scripts, so the system faces behind it are only
+       a fallback for the moment before it loads, or if it fails to. */
+    --font-sans: var(--font-sans-cjk), "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, "PingFang SC", monospace;
+
     --color-site-page: var(--site-page);
     --color-site-surface: var(--site-surface);
     --color-site-surface-muted: var(--site-surface-muted);
@@ -14,6 +20,13 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
+    /* Height of one PostCard. The post list reserves a full page of these so
+       the pagination sits at the same height on every page, including the last
+       one when it holds fewer posts. Keep in step with PostCard's own box. */
+    --post-card-height: 7.9375rem;
+    /* Ceiling for the growth above; beyond this a card stops filling and the
+       remaining slack goes back to the page. */
+    --post-card-max: 12rem;
     --site-page: #f5f4ed;
     --site-surface: #ffffff;
     --site-surface-muted: #eeede6;
@@ -21,7 +34,19 @@
     --site-heading: #24292f;
     --site-muted: #535b62;
     --site-line: rgb(0 0 0 / 12.5%);
-    --site-header: rgb(255 255 255 / 86%);
+    /* The page colour, not white: the header is separated by its rule, and a
+       white bar over the warm page read as a strip that did not belong. Kept
+       translucent for the sticky header's backdrop blur. */
+    --site-header: rgb(245 244 237 / 86%);
+}
+
+/* Must follow the :root above, not precede it — equal specificity, so the
+   later rule wins and an earlier media query would simply be overridden. */
+@media (min-width: 768px) {
+    :root {
+        --post-card-height: 8.5625rem;
+        --post-card-max: 14rem;
+    }
 }
 
 .dark {
@@ -32,7 +57,7 @@
     --site-heading: #e0e0e0;
     --site-muted: #bec5cc;
     --site-line: rgb(255 255 255 / 10%);
-    --site-header: rgb(22 33 62 / 88%);
+    --site-header: rgb(26 26 46 / 88%);
 }
 
 @layer base {
