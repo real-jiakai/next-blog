@@ -214,11 +214,16 @@ export default async function Post({
 						/>
 
 						{/* Previous/Next navigation */}
-						<nav className="mt-16 flex items-center justify-between border-t border-site-line pt-6">
+						{/* Previous hugs the left edge, next the right, both vertically
+						    centred so a title that wraps onto two lines still sits level
+						    with a one-line title opposite. The auto margins do the
+						    pushing, so a post with only one neighbour still lands on its
+						    own side without an empty placeholder to prop it up. */}
+						<nav className="mt-16 flex items-center gap-8 border-t border-site-line pt-6">
 							{prevPostData ? (
 								<Link
 									href={getLocalePath(lang, `/${prevPostData.year}/${prevPostData.month}/${prevPostData.slug}`)}
-									className="group flex flex-col"
+									className="group mr-auto flex max-w-[45%] flex-col"
 								>
 									<span className="text-sm text-site-muted">
                     ← {dict.common.PreviousPost}
@@ -227,13 +232,11 @@ export default async function Post({
 										{prevPostData.title}
 									</span>
 								</Link>
-							) : (
-								<div />
-							)}
+							) : null}
 							{nextPostData ? (
 								<Link
 									href={getLocalePath(lang, `/${nextPostData.year}/${nextPostData.month}/${nextPostData.slug}`)}
-									className="group flex flex-col text-right"
+									className="group ml-auto flex max-w-[45%] flex-col text-right"
 								>
 									<span className="text-sm text-site-muted">
 										{dict.common.NextPost} →
@@ -242,9 +245,7 @@ export default async function Post({
 										{nextPostData.title}
 									</span>
 								</Link>
-							) : (
-								<div />
-							)}
+							) : null}
 						</nav>
 
 						{/* Comments */}
