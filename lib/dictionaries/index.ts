@@ -6,3 +6,10 @@ const dictionaries = {
 }
 
 export const getDictionary = async (locale: Locale) => dictionaries[locale]()
+
+export type Dictionary = Awaited<ReturnType<typeof getDictionary>>
+
+// The strings the layout chrome (header, navbar, search) shares. Kept as one
+// type so adding a string does not mean editing the same inline prop type in
+// four components.
+export type CommonDictionary = Dictionary['common']

@@ -5,23 +5,11 @@ import Brightness5Icon from '@mui/icons-material/Brightness5'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Navbar from '@/components/Navbar'
 import { Locale } from '@/lib/i18n-config'
+import { CommonDictionary } from '@/lib/dictionaries'
 
 interface HeaderProps {
   lang: Locale
-  dict: {
-    common: {
-      Home: string
-      Archive: string
-      About: string
-      RSS: string
-      Navigation: string
-      OpenMenu: string
-      CloseMenu: string
-      ChangeLanguage: string
-      MoreOptions: string
-      ToggleTheme: string
-    }
-  }
+  dict: { common: CommonDictionary }
 }
 
 export default function Header({ lang, dict }: HeaderProps) {

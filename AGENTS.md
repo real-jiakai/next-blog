@@ -13,6 +13,9 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 
 - `app/[lang]/` — home, pagination, archive, about, and post pages.
 - `app/api/comInsert|comSelect/route.ts` — server-only comment API.
+- `app/api/search/route.ts` — server-only Meilisearch query proxy.
+- `components/Search/` — the Cmd/Ctrl+K search dialog.
+- `lib/search/` — shapes shared by the search route and the search UI.
 - `components/` — UI components; client boundaries are intentionally narrow.
 - `lib/posts/index.ts` — reads and validates local post data.
 - `lib/renderPost.tsx` — sanitized post Markdown rendering and heading data.
@@ -56,6 +59,23 @@ through the latest Node 24 release.
   Keep the RSS renderer's security rules equivalent.
 - Comment database access must remain server-only. Never restore browser anon
   access, expose emails, trust arbitrary origins/referers, or skip Turnstile.
+- Search indexes are built and owned by a sync job on the search VPS, not by
+  this repository. This app only reads them, through `/api/search`, with a
+  search-only key. Never add an indexing script or a write key here.
+- That sync job builds its documents from this repository's `posts/**` using
+  `gray-matter`, `unified`, `remark-parse`, `remark-gfm`, `remark-rehype`, and
+  `rehype-slug`. The app uses all six itself, so they are not dead weight —
+  but dropping one would break the search index build, not just this app.
+- The browser must never call Meilisearch directly. Routing every query through
+  `/api/search` keeps the CSP at `connect-src 'self'`, needs no CORS on the
+  search host, and keeps the key server-side.
+- Search results carry Meilisearch's match markers as U+0001/U+0002 rather than
+  HTML tags, and the UI renders them as `<mark>` elements. Never switch to
+  `dangerouslySetInnerHTML` for hit text; post content is not escaped by
+  Meilisearch.
+- Report no result total. `estimatedTotalHits` is computed before
+  `distinctAttribute` collapses a post's sections, so it overcounts; an exact
+  total needs the `hitsPerPage`/`page` form of the search API.
 - Apply `supabase/migrations/202607100001_secure_comments.sql` before enabling
   the current comment API.
 - Post files are build-time content. Rebuild and redeploy after changes; do not
@@ -74,6 +94,20 @@ Turnstile site key. Comment secrets are runtime-only: `SUPABASE_URL`,
 `COMMENT_EMAIL_VERIFICATION_SECRET`, `COMMENT_API_ENABLED`, an explicitly
 trusted `COMMENT_CLIENT_IP_HEADER`, and optional SMTP settings. Never place
 secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
+
+Search needs `NEXT_PUBLIC_SHOW_SEARCH`, plus the runtime-only
+`MEILISEARCH_HOST`, `MEILISEARCH_SEARCH_KEY`, and optional
+`MEILISEARCH_INDEX_PREFIX`. The key must be search-scoped; a write-capable key
+does not belong in this application.
+
+The two halves are set in different places and both are required.
+`NEXT_PUBLIC_SHOW_SEARCH` is compiled into the browser bundle, so it is a
+Docker **build arg** and cannot be switched on at runtime; it alone decides
+whether the search button and the Cmd/Ctrl+K shortcut exist. The Meilisearch
+host and key are runtime values in the compose `environment:` allowlist, and
+without them `/api/search` answers 503. Building with the flag on but no key
+therefore ships a visible button whose every query reports search as
+unavailable.
 
 ## Validation
 

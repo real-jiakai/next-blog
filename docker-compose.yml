@@ -13,6 +13,7 @@ services:
         NEXT_PUBLIC_FOOTER: ${NEXT_PUBLIC_FOOTER:-Jiakai Gu}
         NEXT_PUBLIC_POSTS_PERPAGE: ${NEXT_PUBLIC_POSTS_PERPAGE:-10}
         NEXT_PUBLIC_SHOW_COMMENT: ${NEXT_PUBLIC_SHOW_COMMENT:-false}
+        NEXT_PUBLIC_SHOW_SEARCH: ${NEXT_PUBLIC_SHOW_SEARCH:-false}
         NEXT_PUBLIC_GITHUB_REPO: ${NEXT_PUBLIC_GITHUB_REPO:-https://github.com/real-jiakai/next-blog}
         NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY:-}
     image: next-blog:latest
@@ -38,6 +39,12 @@ services:
       EMAIL_PASSWORD: ${EMAIL_PASSWORD:-}
       EMAIL_FROM: ${EMAIL_FROM:-${EMAIL_USERNAME:-}}
       MASTER_EMAIL: ${MASTER_EMAIL:-}
+      # Search is read-only: the key must be search-scoped, never write-capable.
+      # NEXT_PUBLIC_SHOW_SEARCH is a build arg above, not a runtime value — it is
+      # compiled into the browser bundle and cannot be switched on here.
+      MEILISEARCH_HOST: ${MEILISEARCH_HOST:-}
+      MEILISEARCH_SEARCH_KEY: ${MEILISEARCH_SEARCH_KEY:-}
+      MEILISEARCH_INDEX_PREFIX: ${MEILISEARCH_INDEX_PREFIX:-next-blog-posts}
     ports:
       - '127.0.0.1:3802:3000'
     read_only: true
