@@ -13,7 +13,17 @@ interface HeaderProps {
 }
 
 export default function Header({ lang, dict }: HeaderProps) {
-	const { setTheme, resolvedTheme } = useTheme()
+	const { setTheme, resolvedTheme, systemTheme } = useTheme()
+
+	// The toggle has two states but the theme has three, and picking either one
+	// explicitly used to pin the site for good — a reader who ever pressed this
+	// stopped following their system, including when it switches at sunset.
+	// Landing back on the system's own appearance therefore stores `system`
+	// rather than the matching literal, so following resumes.
+	const toggleTheme = () => {
+		const next = resolvedTheme === 'dark' ? 'light' : 'dark'
+		setTheme(next === systemTheme ? 'system' : next)
+	}
 
 	// CSS-based icon switching - no hydration mismatch since visibility is controlled by CSS
 	const RenderThemeChanger = () => {
@@ -22,7 +32,7 @@ export default function Header({ lang, dict }: HeaderProps) {
 				type="button"
 				aria-label={dict.common.ToggleTheme}
 				title={dict.common.ToggleTheme}
-				onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+				onClick={toggleTheme}
 				className="relative p-2 rounded-lg hover:bg-site-surface-muted transition-colors"
 			>
 				{/* Sun icon - visible in light mode, hidden in dark mode */}
