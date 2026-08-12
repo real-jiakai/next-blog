@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
 import type { FocusEvent, KeyboardEvent } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -11,25 +11,16 @@ import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import TranslateIcon from '@mui/icons-material/Translate'
+import SearchIcon from '@mui/icons-material/Search'
 import { getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
+import type { CommonDictionary } from '@/lib/dictionaries'
+import SearchDialog, { useSearchHotkey } from '@/components/Search'
 
 interface NavbarProps {
   lang: Locale
   siteTitle: string
-  dict: {
-    common: {
-      Home: string
-      Archive: string
-      About: string
-      RSS: string
-      Navigation: string
-      OpenMenu: string
-      CloseMenu: string
-      ChangeLanguage: string
-      MoreOptions: string
-    }
-  }
+  dict: { common: CommonDictionary }
   RenderThemeChanger: () => React.ReactNode
 }
 
@@ -37,6 +28,20 @@ const supportedLocales: Record<Locale, string> = {
 	zh: '简体中文',
 	en: 'English',
 }
+
+// Short forms for the mobile bar, where there is no room for the full name.
+const localeShortLabels: Record<Locale, string> = {
+	zh: '中',
+	en: 'EN',
+}
+
+const searchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH === 'true'
+
+// The hint never changes for a given device, so there is nothing to subscribe
+// to; the snapshot is a plain string and compares stably between renders.
+const subscribeToNothing = () => () => {}
+const getShortcutHint = () =>
+	/Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? '⌘K' : 'Ctrl K'
 
 export default function Navbar({
 	lang,
@@ -47,12 +52,20 @@ export default function Navbar({
 	const [moreMenuVisible, setMoreMenuVisible] = useState(false)
 	const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 	const [translateMenuVisible, setTranslateMenuVisible] = useState(false)
+	const [searchOpen, setSearchOpen] = useState(false)
 	const translateMenuId = useId()
 	const moreMenuId = useId()
 	const mobileMenuId = useId()
 	const navRef = useRef<HTMLElement>(null)
 	const mobileMenuButtonRef = useRef<HTMLButtonElement>(null)
 	const pathname = usePathname()
+
+	useSearchHotkey(setSearchOpen, searchEnabled)
+
+	// The modifier key depends on the platform, which the server cannot know.
+	// The server snapshot is null and the badge appears after hydration, so the
+	// two renders agree instead of mismatching.
+	const shortcutHint = useSyncExternalStore(subscribeToNothing, getShortcutHint, () => null)
 
 	useEffect(() => {
 		if (!moreMenuVisible && !mobileMenuVisible && !translateMenuVisible) {
@@ -81,6 +94,9 @@ export default function Navbar({
 		lang,
 		...Object.keys(supportedLocales).filter((locale) => locale !== lang) as Locale[],
 	]
+	// With exactly two locales, the mobile bar can switch straight to the other
+	// one instead of opening a menu to choose.
+	const otherLocale = sortedLocales[1]
 
 	const closeWhenFocusLeaves = (
 		event: FocusEvent<HTMLElement>,
@@ -198,6 +214,28 @@ export default function Navbar({
 						</a>
 					</li>
 					<li className="flex-grow" aria-hidden />
+					{searchEnabled && (
+						<li className="mr-1">
+							{/* A boxed field rather than a nav link, sitting with the other
+							    controls on the right: it opens a search input, so it reads
+							    as one. */}
+							<button
+								type="button"
+								onClick={() => setSearchOpen(true)}
+								className="inline-flex w-56 items-center gap-2 rounded-lg border border-site-line bg-site-surface py-1.5 pl-3 pr-2 text-site-muted transition-colors hover:border-blue-500/60 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+							>
+								<SearchIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
+								<span className="text-base whitespace-nowrap">{dict.common.Search}</span>
+								{/* Rendered only after mount: the modifier depends on the
+								    platform, which the server cannot know. */}
+								{shortcutHint && (
+									<kbd className="ml-auto rounded border border-site-line px-1.5 py-0.5 font-mono text-[0.6875rem] leading-none text-site-muted">
+										{shortcutHint}
+									</kbd>
+								)}
+							</button>
+						</li>
+					)}
 					<li
 						className="hidden xl:block relative"
 						onMouseEnter={() => setTranslateMenuVisible(true)}
@@ -275,21 +313,46 @@ export default function Navbar({
 						>
 							{siteTitle}
 						</Link>
-						<button
-							ref={mobileMenuButtonRef}
-							type="button"
-							onClick={() => setMobileMenuVisible((visible) => !visible)}
-							className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
-							aria-label={mobileMenuVisible ? dict.common.CloseMenu : dict.common.OpenMenu}
-							aria-controls={mobileMenuId}
-							aria-expanded={mobileMenuVisible}
-						>
-							{mobileMenuVisible ? (
-								<CloseIcon aria-hidden className="h-6 w-6" />
-							) : (
-								<MenuIcon aria-hidden className="h-6 w-6" />
+						{/* Search, language and theme sit in the bar itself rather than
+						    behind the menu: they are switches, not destinations, and
+						    burying them costs two taps each. */}
+						<div className="flex shrink-0 items-center">
+							{searchEnabled && (
+								<button
+									type="button"
+									onClick={() => setSearchOpen(true)}
+									aria-label={dict.common.Search}
+									className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+								>
+									<SearchIcon aria-hidden className="h-6 w-6" />
+								</button>
 							)}
-						</button>
+							<Link
+								href={getLocalePath(otherLocale, pathWithoutLocale)}
+								hrefLang={otherLocale === 'zh' ? 'zh-CN' : 'en-US'}
+								onClick={() => setMobileMenuVisible(false)}
+								aria-label={dict.common.ChangeLanguage}
+								className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+							>
+								{localeShortLabels[otherLocale]}
+							</Link>
+							{RenderThemeChanger()}
+							<button
+								ref={mobileMenuButtonRef}
+								type="button"
+								onClick={() => setMobileMenuVisible((visible) => !visible)}
+								className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+								aria-label={mobileMenuVisible ? dict.common.CloseMenu : dict.common.OpenMenu}
+								aria-controls={mobileMenuId}
+								aria-expanded={mobileMenuVisible}
+							>
+								{mobileMenuVisible ? (
+									<CloseIcon aria-hidden className="h-6 w-6" />
+								) : (
+									<MenuIcon aria-hidden className="h-6 w-6" />
+								)}
+							</button>
+						</div>
 					</div>
 
 					{mobileMenuVisible && (
@@ -297,6 +360,8 @@ export default function Navbar({
 							id={mobileMenuId}
 							className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain border-t border-site-line bg-site-header pb-3 pt-3"
 						>
+							{/* Destinations only — search, language and theme live in the
+							    bar above. */}
 							<ul className="grid grid-cols-2 gap-2 list-none">
 								<li>
 									<Link
@@ -342,17 +407,19 @@ export default function Navbar({
 									</a>
 								</li>
 							</ul>
-
-							<div className="mt-3 flex items-center justify-between gap-3 border-t border-site-line pt-3">
-								<ul className="flex min-w-0 gap-1 list-none" aria-label={dict.common.ChangeLanguage}>
-									{localeChoices(() => setMobileMenuVisible(false))}
-								</ul>
-								<div className="shrink-0">{RenderThemeChanger()}</div>
-							</div>
 						</div>
 					)}
 				</div>
 			</nav>
+
+			{searchEnabled && (
+				<SearchDialog
+					lang={lang}
+					dict={dict}
+					open={searchOpen}
+					onOpenChange={setSearchOpen}
+				/>
+			)}
 		</div>
 	)
 }
