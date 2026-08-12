@@ -2,24 +2,12 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import { Locale } from '@/lib/i18n-config'
+import { CommonDictionary } from '@/lib/dictionaries'
 
 interface LayoutProps {
   children: React.ReactNode
   lang: Locale
-  dict: {
-    common: {
-      Home: string
-      Archive: string
-      About: string
-      RSS: string
-      Navigation: string
-      OpenMenu: string
-      CloseMenu: string
-      ChangeLanguage: string
-      MoreOptions: string
-      ToggleTheme: string
-    }
-  }
+  dict: { common: CommonDictionary }
 }
 
 export default function Layout({
@@ -34,7 +22,7 @@ export default function Layout({
 			<div className="flex flex-col min-h-svh">
 				<Header lang={lang} dict={dict} />
 
-				<main className="text-lg font-sans antialiased font-normal flex flex-col w-full pt-4 pb-2 flex-grow">
+				<main className="text-lg font-sans antialiased font-normal flex flex-col w-full py-4 flex-grow">
 					{children}
 				</main>
 

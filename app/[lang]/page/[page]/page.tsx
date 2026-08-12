@@ -5,7 +5,7 @@ import { getDictionary } from '@/lib/dictionaries'
 import { getSortedPostsData } from '@/lib/posts'
 import { getPostsPerPage, parsePageNumber } from '@/lib/site-config'
 import Layout from '@/components/Layout'
-import PostCard from '@/components/PostCard'
+import PostCard, { listMinHeight } from '@/components/PostCard'
 import Pagination from '@/components/Pagination'
 
 interface PageParams {
@@ -89,18 +89,29 @@ export default async function PaginationPage({
 	const startIndex = (currentPage - 1) * postsPerPage
 	const endIndex = startIndex + postsPerPage
 	const postsToRender = allPostsData.slice(startIndex, endIndex)
+	// See the homepage: only a full list stretches to fill the viewport.
+	const listFillsPage = postsToRender.length === postsPerPage
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			{/* Same elastic list as the homepage: leftover height turns into even
-			    spacing between cards (matters on the shorter last page too) */}
+			{/* Same as the homepage. The last page holds fewer posts, so its cards
+			    keep their natural size and the leftover height trails after the
+			    pagination rather than being pushed into the cards. */}
 			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
-				<div className="flex w-full flex-1 flex-col">
-					<div className="flex w-full flex-1 flex-col justify-evenly gap-2.5">
-						{postsToRender.map((post) => (
-							<PostCard key={post.slug} lang={lang} post={post} />
-						))}
-					</div>
+				{/* See the homepage: the list always fills, its cards only when the
+				    page is full. */}
+				<div
+					className={`flex w-full flex-1 flex-col gap-3 ${
+						listFillsPage ? '[&>article]:flex-1' : ''
+					}`}
+					style={listMinHeight(postsPerPage)}
+				>
+					{postsToRender.map((post) => (
+						<PostCard key={post.slug} lang={lang} post={post} />
+					))}
+				</div>
+				{/* Not `flex-1` — see the homepage. */}
+				<div className="flex justify-center">
 					<Pagination
 						lang={lang}
 						currentPage={currentPage}

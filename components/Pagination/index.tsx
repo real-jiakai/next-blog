@@ -54,9 +54,13 @@ export default function Pagination({
 	const paginationItems = getPaginationItems(currentPage, totalPages)
 
 	return (
+		// The gap above and below has to read as the same space. Only the top is
+		// padded here because the pagination is the last thing on the page and
+		// the layout's own bottom padding supplies the matching space below;
+		// padding both sides would make the lower gap twice the upper one.
 		<nav
 			aria-label={lang === 'zh' ? '分页' : 'Pagination'}
-			className="mx-auto mt-5 w-full pb-1 md:mt-3 md:pb-0"
+			className="mx-auto w-full pt-4"
 		>
 			<div className="mx-auto grid w-full max-w-sm grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-sm md:hidden">
 				{hasPreviousPage && (
