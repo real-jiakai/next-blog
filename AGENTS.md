@@ -22,6 +22,7 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `lib/renderComment.ts` — sanitized comment Markdown rendering.
 - `lib/commentSecurity.ts` — comment origin, Turnstile, limits, and verification.
 - `posts/zh/`, `posts/en/` — Markdown content.
+- `tests/` — every Vitest suite, covering `lib/` and `scripts/`.
 - `scripts/generate-rss.mjs` — deterministic Atom feed generation.
 - `supabase/migrations/` — database changes required before deployment.
 - `next.config.mjs` — locale redirects/rewrites, standalone output, and headers.

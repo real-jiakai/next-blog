@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getLocalePath } from './i18n-config'
+import { getLocalePath } from '../lib/i18n-config'
 
 describe('getLocalePath', () => {
 	it('uses one canonical home URL per locale', () => {

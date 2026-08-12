@@ -19,7 +19,7 @@ describe('Supabase server client', () => {
 	})
 
 	it('loads configuration lazily and fails closed without a server secret', async () => {
-		const { getSupabaseServerClient } = await import('./supabase')
+		const { getSupabaseServerClient } = await import('../lib/supabase')
 		expect(createClient).not.toHaveBeenCalled()
 		expect(() => getSupabaseServerClient()).toThrow(/configuration is missing/)
 		expect(createClient).not.toHaveBeenCalled()
@@ -29,7 +29,7 @@ describe('Supabase server client', () => {
 		process.env.SUPABASE_URL = 'https://project.supabase.co'
 		process.env.SUPABASE_SECRET_KEY = 'server-secret'
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'public-anon-key'
-		const { getSupabaseServerClient } = await import('./supabase')
+		const { getSupabaseServerClient } = await import('../lib/supabase')
 
 		getSupabaseServerClient()
 		expect(createClient).toHaveBeenCalledWith(
@@ -48,7 +48,7 @@ describe('Supabase server client', () => {
 	it('reuses a client while the server configuration is unchanged', async () => {
 		process.env.SUPABASE_URL = 'https://project.supabase.co'
 		process.env.SUPABASE_SECRET_KEY = 'server-secret'
-		const { getSupabaseServerClient } = await import('./supabase')
+		const { getSupabaseServerClient } = await import('../lib/supabase')
 
 		const first = getSupabaseServerClient()
 		const second = getSupabaseServerClient()
@@ -63,7 +63,7 @@ describe('Supabase server client', () => {
 	])('allows HTTP only for local Supabase development at %s', async (url) => {
 		process.env.SUPABASE_URL = url
 		process.env.SUPABASE_SECRET_KEY = 'server-secret'
-		const { getSupabaseServerClient } = await import('./supabase')
+		const { getSupabaseServerClient } = await import('../lib/supabase')
 
 		expect(() => getSupabaseServerClient()).not.toThrow()
 		expect(createClient).toHaveBeenCalledWith(url, 'server-secret', expect.anything())
@@ -80,7 +80,7 @@ describe('Supabase server client', () => {
 	])('rejects an unsafe Supabase URL: %s', async (url) => {
 		process.env.SUPABASE_URL = url
 		process.env.SUPABASE_SECRET_KEY = 'server-secret'
-		const { getSupabaseServerClient } = await import('./supabase')
+		const { getSupabaseServerClient } = await import('../lib/supabase')
 
 		expect(() => getSupabaseServerClient()).toThrow(/HTTP\(S\) origin|HTTPS/)
 		expect(createClient).not.toHaveBeenCalled()

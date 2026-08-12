@@ -23,4 +23,4 @@ Cloudflare Turnstile.
 
 ## Acknowledgements
 
-- Built and maintained with help from Claude Code.
+- Built and maintained with help from Claude Code and Codex.
