@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
+	MAX_FEED_ITEMS,
 	createAtomFeed,
 	readFeedConfig,
 	renderMarkdown,
+	selectFeedPosts,
 } from './generate-rss.mjs'
 
 const config = {
@@ -116,5 +118,32 @@ describe('Atom output', () => {
 		}
 		const feed = createAtomFeed([], 'en', localizedConfig)
 		expect(feed).toContain('<subtitle>English description</subtitle>')
+	})
+})
+
+describe('feed length', () => {
+	const posts = (count) =>
+		Array.from({ length: count }, (_, index) => ({
+			title: `Post ${count - index}`,
+			// Newest first, as getSortedPostsData returns them.
+			date: new Date(Date.UTC(2026, 0, count - index)),
+			slug: `post-${count - index}`,
+			contentMarkdown: 'body',
+		}))
+
+	it('caps a long archive at the newest items', () => {
+		const selected = selectFeedPosts(posts(40))
+		expect(selected).toHaveLength(MAX_FEED_ITEMS)
+		expect(selected[0].slug).toBe('post-40')
+		expect(selected.at(-1).slug).toBe(`post-${40 - MAX_FEED_ITEMS + 1}`)
+	})
+
+	it('leaves a short archive alone', () => {
+		expect(selectFeedPosts(posts(5))).toHaveLength(5)
+	})
+
+	it('keeps the feed to the cap end to end', () => {
+		const feed = createAtomFeed(selectFeedPosts(posts(40)), 'en', config)
+		expect(feed.match(/<entry>/g)).toHaveLength(MAX_FEED_ITEMS)
 	})
 })

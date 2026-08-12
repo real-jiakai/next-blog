@@ -231,6 +231,16 @@ export function getSortedPostsData(locale, postsBase) {
 		.sort((a, b) => b.date.getTime() - a.date.getTime())
 }
 
+// Feed readers show recent items, not an archive, and every entry carries the
+// post's full rendered HTML — so the whole history makes the file grow without
+// bound for no reader benefit. The site itself remains the complete archive.
+export const MAX_FEED_ITEMS = 20
+
+/** The newest posts a feed should carry. Input is already newest-first. */
+export function selectFeedPosts(posts) {
+	return posts.slice(0, MAX_FEED_ITEMS)
+}
+
 function newestPostDate(posts) {
 	if (posts.length === 0) return new Date(0)
 	return new Date(Math.max(...posts.map((post) => post.date.getTime())))
@@ -300,7 +310,7 @@ export function main(cwd = process.cwd()) {
 
 	for (const locale of locales) {
 		writeFeed(
-			getSortedPostsData(locale, postsBase),
+			selectFeedPosts(getSortedPostsData(locale, postsBase)),
 			locale,
 			config,
 			publicDirectory,
