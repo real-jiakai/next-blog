@@ -66,7 +66,9 @@ export default async function Archive({
 								{postsByYear[year].map(({ date, slug, title }) => (
 									<li key={slug} className="group">
 										<div className="flex items-baseline gap-4 hover:bg-site-surface-muted p-3 rounded-lg transition-all duration-200 cursor-pointer">
-											<span className="text-sm text-site-muted whitespace-nowrap">
+											{/* Fixed-width and right-aligned so every title starts at the
+											    same x, whatever the length of the date beside it. */}
+											<span className="w-20 shrink-0 text-right font-mono text-sm tabular-nums text-site-muted whitespace-nowrap">
 												<Date
 													dateString={date}
 													format={lang === 'zh' ? 'M月D日' : 'MMM D'}
@@ -88,24 +90,28 @@ export default async function Archive({
 					))}
 				</div>
 
-				{/* Right side year navigation */}
-				<nav className="hidden lg:block fixed top-24 right-8 xl:right-16 2xl:right-24">
-					<div className="bg-site-header backdrop-blur-sm rounded-xl p-3 shadow-sm border border-site-line">
+				{/* Right side year navigation: one chip per year, the count carried
+				    beside the year as smaller, quieter text so it reads as a detail
+				    of the label rather than a competing number. */}
+				<nav
+					aria-label={lang === 'zh' ? '按年份浏览' : 'Browse by year'}
+					className="hidden lg:block fixed top-24 right-8 xl:right-16 2xl:right-24"
+				>
+					<ul className="flex list-none flex-col items-stretch gap-2">
 						{years.map((year) => (
-							<a
-								key={year}
-								href={`#${year}`}
-								className="group flex items-center gap-2 py-1.5 px-2.5 rounded-lg hover:bg-site-surface-muted transition-all duration-200"
-							>
-								<span className="text-base text-site-copy font-medium">
-									{year}
-								</span>
-								<span className="flex items-center justify-center bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 text-sm font-medium rounded-full h-5 min-w-[20px] px-1.5">
-									{postsByYear[year].length}
-								</span>
-							</a>
+							<li key={year} className="flex">
+								<a
+									href={`#${year}`}
+									className="flex flex-1 items-baseline gap-2 rounded-lg border border-site-line bg-site-surface px-3 py-1.5 transition-colors hover:border-blue-500/50 hover:bg-site-surface-muted"
+								>
+									<span className="text-base font-medium text-site-heading">{year}</span>
+									<span className="text-xs tabular-nums text-site-muted">
+										{postsByYear[year].length}
+									</span>
+								</a>
+							</li>
 						))}
-					</div>
+					</ul>
 				</nav>
 			</section>
 		</Layout>
