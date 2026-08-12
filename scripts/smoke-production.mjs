@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 import path from 'node:path'
-import { getSortedPostsData } from './generate-rss.mjs'
+import { getSortedPostsData, selectFeedPosts } from './generate-rss.mjs'
 
 const hostname = '127.0.0.1'
 const port = 3017
@@ -146,9 +146,11 @@ try {
 		const response = await request(pathname)
 		expectStatus(pathname, response, 200)
 		const feed = await response.text()
-		const expectedEntries = getSortedPostsData(
-			locale,
-			path.join(process.cwd(), 'posts'),
+		// The feed carries the newest posts, not the whole archive, so this has
+		// to apply the same cap the generator does rather than counting every
+		// post on disk.
+		const expectedEntries = selectFeedPosts(
+			getSortedPostsData(locale, path.join(process.cwd(), 'posts')),
 		).length
 		if ((feed.match(/<entry>/g) || []).length !== expectedEntries) {
 			throw new Error(`${pathname}: expected ${expectedEntries} Atom entries`)
