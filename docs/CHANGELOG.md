@@ -1,3 +1,21 @@
+# [1.3.0](https://github.com/real-jiakai/next-blog/compare/v1.2.0...v1.3.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **rss:** apply the feed cap in the production smoke test ([87da2d6](https://github.com/real-jiakai/next-blog/commit/87da2d65828de18838fd5aa136bebff00b358d4d))
+* **ui:** align post navigation to the article column edges ([d9916b3](https://github.com/real-jiakai/next-blog/commit/d9916b3c927260b5eb3c44dc7ab88d35aa679869))
+
+
+### Features
+
+* **rss:** limit both feeds to the 20 newest posts ([a309616](https://github.com/real-jiakai/next-blog/commit/a309616ae8c3f4ddd994f5f681fb312ffd6a8b88))
+* **search:** add Meilisearch-backed post search ([da2bea3](https://github.com/real-jiakai/next-blog/commit/da2bea3457901cb52f5a45a6fe0c9a19a926789c))
+* **ui:** adopt Noto Sans SC for both Chinese and English ([606277f](https://github.com/real-jiakai/next-blog/commit/606277f2f234fba6fd57d5f223c3b725b5a763c9))
+* **ui:** keep the post list filling the page and the pagination fixed ([a475574](https://github.com/real-jiakai/next-blog/commit/a4755743580dd59a06093a27abbde5c892a7b5c2))
+* **ui:** move search, language, and theme into the mobile header ([54cca15](https://github.com/real-jiakai/next-blog/commit/54cca159d12eb34a457894df48275f2274914fd5))
+* **ui:** restyle the archive year navigation as chips ([97c4833](https://github.com/real-jiakai/next-blog/commit/97c4833576a00468427074d821dfc11098a4bed6))
+
 # [1.2.0](https://github.com/real-jiakai/next-blog/compare/v1.1.4...v1.2.0) (2026-07-13)
 
 
