@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/real-jiakai/next-blog/compare/v1.3.0...v1.3.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* **ui:** let the theme toggle hand control back to the system ([b774eb4](https://github.com/real-jiakai/next-blog/commit/b774eb4949c7e69aa13929e33c28b14d13e1c8b2))
+
 # [1.3.0](https://github.com/real-jiakai/next-blog/compare/v1.2.0...v1.3.0) (2026-08-12)
 
 
