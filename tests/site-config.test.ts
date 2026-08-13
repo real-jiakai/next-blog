@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getPostsPerPage, parsePageNumber } from '../lib/site-config'
+import { getPostsPerPage, parsePageNumber } from '@/lib/site-config'
 
 describe('getPostsPerPage', () => {
 	it('uses a stable default when the setting is omitted', () => {

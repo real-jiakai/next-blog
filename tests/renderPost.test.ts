@@ -2,8 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import { renderPostMarkdown } from '../lib/renderPost'
-import postImageDimensions from '../lib/post-image-dimensions.json'
+import { renderPostMarkdown } from '@/lib/renderPost'
+import postImageDimensions from '@/lib/post-image-dimensions.json'
 
 describe('renderPostMarkdown', () => {
 	it('sanitizes active HTML without using a raw HTML sink', () => {

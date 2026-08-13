@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { MARK_END, MARK_START, splitHighlights } from '../lib/search'
+import { MARK_END, MARK_START, splitHighlights } from '@/lib/search'
 
 const mark = (text: string) => `${MARK_START}${text}${MARK_END}`
 

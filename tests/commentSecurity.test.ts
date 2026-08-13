@@ -14,7 +14,7 @@ import {
 	resolveCommentThread,
 	verifyEmailVerificationToken,
 	verifyTurnstileToken,
-} from '../lib/commentSecurity'
+} from '@/lib/commentSecurity'
 
 const SITE_URL = 'https://example.com'
 

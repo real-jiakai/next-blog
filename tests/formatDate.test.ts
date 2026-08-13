@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate } from '../lib/formatDate'
+import { formatDate } from '@/lib/formatDate'
 
 describe('formatDate', () => {
 	it('formats English dates with an English month name', () => {

@@ -5,7 +5,7 @@ import {
 	readFeedConfig,
 	renderMarkdown,
 	selectFeedPosts,
-} from '../scripts/generate-rss.mjs'
+} from '@/scripts/generate-rss.mjs'
 
 const config = {
 	siteUrl: 'https://example.com',

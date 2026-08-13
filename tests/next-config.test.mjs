@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import nextConfig from '../next.config.mjs'
+import nextConfig from '@/next.config.mjs'
 
 describe('locale route configuration', () => {
 	it('allows the Cloudflare Web Analytics beacon required in production', async () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { renderCommentHtml, commentToPlainText, escapeHtml } from '../lib/renderComment'
+import { renderCommentHtml, commentToPlainText, escapeHtml } from '@/lib/renderComment'
 
 describe('renderCommentHtml — XSS neutralization', () => {
 	it('removes <script> elements', async () => {
