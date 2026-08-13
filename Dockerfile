@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1.7
 
-FROM node:24.16.0-alpine AS base
+FROM node:26.7.0-alpine AS base
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
