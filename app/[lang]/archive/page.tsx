@@ -64,8 +64,14 @@ export default async function Archive({
 							</h2>
 							<ul className="space-y-4 list-none">
 								{postsByYear[year].map(({ date, slug, title }) => (
-									<li key={slug} className="group">
-										<div className="flex items-baseline gap-4 hover:bg-site-surface-muted p-3 rounded-lg transition-all duration-200 cursor-pointer">
+									<li key={slug}>
+										{/* The whole row is the link. It already looked like one —
+										    hover tint and pointer cursor — so the target must match
+										    what the styling promises, not just the title text. */}
+										<Link
+											href={getLocalePath(lang, `/${date.split('-')[0]}/${date.split('-')[1]}/${slug}`)}
+											className="group flex items-baseline gap-4 rounded-lg p-3 transition-colors duration-200 hover:bg-site-surface-muted"
+										>
 											{/* Fixed-width and right-aligned so every title starts at the
 											    same x, whatever the length of the date beside it. */}
 											<span className="w-20 shrink-0 text-right font-mono text-sm tabular-nums text-site-muted whitespace-nowrap">
@@ -75,14 +81,10 @@ export default async function Archive({
 													locale={lang}
 												/>
 											</span>
-											<Link
-												href={getLocalePath(lang, `/${date.split('-')[0]}/${date.split('-')[1]}/${slug}`)}
-											>
-												<span className="text-site-copy group-hover:text-blue-600 dark:group-hover:text-blue-400">
-													{title}
-												</span>
-											</Link>
-										</div>
+											<span className="text-site-copy group-hover:text-blue-600 dark:group-hover:text-blue-400">
+												{title}
+											</span>
+										</Link>
 									</li>
 								))}
 							</ul>
