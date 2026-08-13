@@ -264,6 +264,7 @@ export default async function Post({
 								headings={headings}
 								showtoc={postData.showtoc}
 								tocLabel={dict.common.TOC}
+								title={postData.title}
 							/>
 						</div>
 					</aside>
