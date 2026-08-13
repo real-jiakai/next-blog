@@ -27,13 +27,17 @@
     /* Ceiling for the growth above; beyond this a card stops filling and the
        remaining slack goes back to the page. */
     --post-card-max: 12rem;
+    /* Anthropic-style warm neutrals: ivory paper, white cards, and text in
+       warm near-blacks (#141413 family). The previous copy/muted values were
+       GitHub's cool slate greys, which sat blue against the cream page —
+       every grey here carries the same warm cast as the paper. */
     --site-page: #f5f4ed;
     --site-surface: #ffffff;
-    --site-surface-muted: #eeede6;
-    --site-copy: rgb(36 41 47 / 90%);
-    --site-heading: #24292f;
-    --site-muted: #535b62;
-    --site-line: rgb(0 0 0 / 12.5%);
+    --site-surface-muted: #edeae1;
+    --site-copy: rgb(20 20 19 / 88%);
+    --site-heading: #141413;
+    --site-muted: #63615a;
+    --site-line: rgb(20 20 19 / 13%);
     /* The page colour, not white: the header is separated by its rule, and a
        white bar over the warm page read as a strip that did not belong. Kept
        translucent for the sticky header's backdrop blur. */
@@ -49,15 +53,19 @@
     }
 }
 
+/* ChatGPT-style neutral charcoal: #212121 canvas, slightly lifted surfaces,
+   and grey text with no colour cast. The previous palette was navy-tinted,
+   which pushed every grey towards blue and made the theme read as "blue
+   dark" rather than a neutral night surface. */
 .dark {
-    --site-page: #1a1a2e;
-    --site-surface: #16213e;
-    --site-surface-muted: #202d4d;
-    --site-copy: #e0e0e0;
-    --site-heading: #e0e0e0;
-    --site-muted: #bec5cc;
+    --site-page: #212121;
+    --site-surface: #2b2b2b;
+    --site-surface-muted: #343434;
+    --site-copy: #ececec;
+    --site-heading: #f7f7f7;
+    --site-muted: #b4b4b4;
     --site-line: rgb(255 255 255 / 10%);
-    --site-header: rgb(26 26 46 / 88%);
+    --site-header: rgb(33 33 33 / 88%);
 }
 
 @layer base {
@@ -308,7 +316,7 @@
    bringing the embedded surface into the site's non-pure night palette. */
 .aplayer.aplayer .aplayer-title,
 .aplayer.aplayer .aplayer-author {
-    color: #24292f !important;
+    color: #141413 !important;
 }
 
 .dark .aplayer.aplayer,
