@@ -1,9 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import {
+	COMMENT_LIMITS,
 	CommentRequestError,
 	CommentServiceUnavailableError,
 	FixedWindowRateLimiter,
+	TURNSTILE_TOKEN_MAX_LENGTH,
 	createEmailVerificationToken,
 	getClientIp,
 	hasTrustedOrigin,
@@ -12,6 +14,7 @@ import {
 	parseCommentPagination,
 	readLimitedJsonBody,
 	resolveCommentThread,
+	validateCommentInput,
 	verifyEmailVerificationToken,
 	verifyTurnstileToken,
 } from '@/lib/commentSecurity'
@@ -83,6 +86,19 @@ describe('comment thread validation', () => {
 		})
 	})
 
+	it('stores a percent-encoded slug under its canonical spelling', () => {
+		const thread = resolveCommentThread(
+			'https://example.com/2026/07/weekly%2Dissue',
+			SITE_URL
+		)
+
+		expect(thread.canonicalUrl).toBe('https://example.com/2026/07/weekly-issue')
+		expect(thread.slug).toBe('weekly-issue')
+		expect(thread.candidateUrls).toContain(
+			'https://example.com/2026/07/weekly%2Dissue'
+		)
+	})
+
 	it.each([
 		'https://attacker.example/2026/07/weekly-issue',
 		'https://example.com/about',
@@ -122,6 +138,24 @@ describe('bounded request parsing', () => {
 		})
 	})
 
+	it('accepts a full-length Chinese comment at the default limit', async () => {
+		const request = new Request('https://example.com/api/comInsert', {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({
+				username: '读'.repeat(COMMENT_LIMITS.username),
+				email: `${'a'.repeat(240)}@example.com`,
+				website: `https://example.com/${'a'.repeat(180)}`,
+				content: '留'.repeat(COMMENT_LIMITS.content),
+				token: 'x'.repeat(TURNSTILE_TOKEN_MAX_LENGTH),
+				parent_comment_id: 123456,
+			}),
+		})
+		await expect(readLimitedJsonBody(request)).resolves.toMatchObject({
+			content: '留'.repeat(COMMENT_LIMITS.content),
+		})
+	})
+
 	it('rejects unsupported content types before parsing', async () => {
 		const request = new Request('https://example.com/api/comInsert', {
 			method: 'POST',
@@ -146,6 +180,14 @@ describe('bounded rate limiting and pagination', () => {
 			expect(getClientIp(headers)).toBe('unknown')
 			process.env.COMMENT_CLIENT_IP_HEADER = 'x-real-ip'
 			expect(getClientIp(headers)).toBe('192.0.2.7')
+			process.env.COMMENT_CLIENT_IP_HEADER = 'x-forwarded-for'
+			expect(getClientIp(headers)).toBe('unknown')
+			expect(
+				getClientIp(new Headers({ 'x-forwarded-for': '203.0.113.9, 10.0.0.1' }))
+			).toBe('203.0.113.9')
+			expect(
+				getClientIp(new Headers({ 'x-forwarded-for': 'not-an-ip, 10.0.0.1' }))
+			).toBe('unknown')
 		} finally {
 			if (previous === undefined) delete process.env.COMMENT_CLIENT_IP_HEADER
 			else process.env.COMMENT_CLIENT_IP_HEADER = previous
@@ -192,7 +234,12 @@ describe('bounded rate limiting and pagination', () => {
 })
 
 describe('Turnstile verification', () => {
-	it('requires success, the configured hostname, and action', async () => {
+	const respondWith = (body: unknown) =>
+		vi.fn(async () =>
+			new Response(JSON.stringify(body), { status: 200 })
+		) as unknown as typeof fetch
+
+	it('accepts a successful challenge for the configured hostname and action', async () => {
 		const fetchImplementation = vi.fn(async () =>
 			new Response(
 				JSON.stringify({
@@ -214,6 +261,68 @@ describe('Turnstile verification', () => {
 			})
 		).resolves.toEqual({ valid: true })
 		expect(fetchImplementation).toHaveBeenCalledOnce()
+	})
+
+	it('rejects a failed challenge', async () => {
+		await expect(
+			verifyTurnstileToken('valid-token', {
+				secret: 'secret',
+				expectedAction: 'comment',
+				expectedHostname: 'example.com',
+				fetchImplementation: respondWith({
+					success: false,
+					hostname: 'example.com',
+					action: 'comment',
+				}),
+			})
+		).resolves.toEqual({ valid: false, reason: 'challenge' })
+	})
+
+	it.each([
+		{ hostname: 'attacker.example' },
+		{ hostname: 'example.com.attacker.example' },
+		{},
+	])('rejects a challenge solved for another hostname: %o', async (host) => {
+		await expect(
+			verifyTurnstileToken('valid-token', {
+				secret: 'secret',
+				expectedAction: 'comment',
+				expectedHostname: 'example.com',
+				fetchImplementation: respondWith({
+					success: true,
+					action: 'comment',
+					...host,
+				}),
+			})
+		).resolves.toEqual({ valid: false, reason: 'hostname' })
+	})
+
+	it('fails closed without a configured secret', async () => {
+		const fetchImplementation = vi.fn() as unknown as typeof fetch
+		await expect(
+			verifyTurnstileToken('valid-token', {
+				secret: undefined,
+				expectedAction: 'comment',
+				expectedHostname: 'example.com',
+				fetchImplementation,
+			})
+		).rejects.toBeInstanceOf(CommentServiceUnavailableError)
+		expect(fetchImplementation).not.toHaveBeenCalled()
+	})
+
+	it('rejects blank, padded or oversized tokens without calling Cloudflare', async () => {
+		const fetchImplementation = vi.fn() as unknown as typeof fetch
+		for (const token of ['', ' ', ' t', 't\n', 'x'.repeat(TURNSTILE_TOKEN_MAX_LENGTH + 1)]) {
+			await expect(
+				verifyTurnstileToken(token, {
+					secret: 's',
+					expectedAction: 'comment',
+					expectedHostname: 'example.com',
+					fetchImplementation,
+				})
+			).resolves.toEqual({ valid: false, reason: 'challenge' })
+		}
+		expect(fetchImplementation).not.toHaveBeenCalled()
 	})
 
 	it('rejects a valid challenge issued for another action', async () => {
@@ -265,6 +374,60 @@ describe('Turnstile verification', () => {
 				fetchImplementation,
 			})
 		).rejects.toThrow('too large')
+	})
+})
+
+describe('comment input validation', () => {
+	const valid = {
+		username: ' Alice ',
+		email: ' Alice@Example.com ',
+		website: '',
+		content: 'Hello',
+		token: 'token',
+		parent_comment_id: null,
+	}
+
+	it('normalizes valid input', () => {
+		expect(
+			validateCommentInput({ ...valid, website: 'https://example.com', parent_comment_id: 7 })
+		).toEqual({
+			username: 'Alice',
+			email: 'alice@example.com',
+			website: 'https://example.com/',
+			content: 'Hello',
+			token: 'token',
+			parentCommentId: 7,
+		})
+	})
+
+	it.each([
+		['username', '', 'Invalid username'],
+		['username', 'a\u0000b', 'Invalid username'],
+		['username', 'a\nb', 'Invalid username'],
+		['username', '\u200b\u200b', 'Invalid username'],
+		['username', 'x'.repeat(65), 'Invalid username'],
+		['content', 'a\u0000b', 'Invalid content'],
+		['content', ' \n ', 'Invalid content'],
+		['website', 'ftp://example.com', 'Invalid website'],
+		['website', 'https://user:pass@example.com', 'Invalid website'],
+		// 190 characters raw, but percent-encoding makes the stored URL far longer.
+		['website', `https://example.com/${'文章'.repeat(85)}`, 'Invalid website'],
+	])('rejects an invalid %s: %j', (field, value, message) => {
+		expect(() => validateCommentInput({ ...valid, [field]: value })).toThrow(
+			new CommentRequestError(message)
+		)
+	})
+
+	it('keeps pasted control characters other than NUL in content', () => {
+		expect(validateCommentInput({ ...valid, content: 'a\tb\r\nc' }).content).toBe(
+			'a\tb\r\nc'
+		)
+	})
+
+	it('treats a missing token as a failed challenge', () => {
+		expect(() => validateCommentInput({ ...valid, token: '' })).toThrow(
+			expect.objectContaining({ status: 403 })
+		)
 	})
 })
 

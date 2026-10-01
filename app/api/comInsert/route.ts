@@ -14,21 +14,16 @@ import {
 	isCommentApiEnabled,
 	readLimitedJsonBody,
 	resolveCommentThread,
+	validateCommentInput,
 	verifyEmailVerificationToken,
 	verifyTurnstileToken,
+	type ValidatedCommentInput,
 } from '@/lib/commentSecurity'
 import { commentToPlainText, escapeHtml } from '@/lib/renderComment'
 import { getPostFilenameByParams } from '@/lib/posts'
 import { getSupabaseServerClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
-
-const LIMITS = {
-	username: 64,
-	email: 254,
-	website: 200,
-	content: 5000,
-} as const
 
 const TURNSTILE_ACTION =
 	process.env.CLOUDFLARE_TURNSTILE_EXPECTED_ACTION || 'comment'
@@ -56,15 +51,6 @@ const masterNotificationRateLimiter = new FixedWindowRateLimiter(
 	60 * 60 * 1000,
 	1
 )
-
-interface ValidatedCommentInput {
-	username: string
-	email: string
-	website: string
-	content: string
-	token: string
-	parentCommentId: number | null
-}
 
 interface ParentComment {
 	id: number
@@ -98,6 +84,88 @@ function disabledResponse() {
 	return errorResponse('Not found', 404)
 }
 
+// The verification routes are opened from an email link, so they answer with
+// pages rather than JSON. They set no route-level Referrer-Policy: the global
+// strict-origin-when-cross-origin from next.config.mjs wins, and no-referrer
+// would make the confirm form POST send `Origin: null`, which hasTrustedOrigin
+// rejects.
+const VERIFICATION_MESSAGES = {
+	invalid: [
+		'验证链接无效或已过期，链接在发送后 48 小时内有效。',
+		'This verification link is invalid or has expired. Links are valid for 48 hours.',
+	],
+	origin: [
+		'无法确认此请求，请重新打开邮件中的验证链接。',
+		'This request could not be confirmed. Please open the link in the email again.',
+	],
+	rateLimited: [
+		'请求过于频繁，请稍后再试。',
+		'Too many requests. Please try again later.',
+	],
+	unavailable: [
+		'验证服务暂时不可用，请稍后再试。',
+		'The verification service is temporarily unavailable. Please try again later.',
+	],
+	failed: [
+		'无法完成邮箱验证，请稍后再试。',
+		'Unable to verify the email address. Please try again later.',
+	],
+} as const
+
+function verificationPage(
+	heading: readonly [string, string],
+	body: string,
+	status = 200,
+	extra?: Record<string, string>
+) {
+	const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${heading[0]} / ${heading[1]}</title></head><body><main><h1>${heading[0]} <span lang="en">/ ${heading[1]}</span></h1>${body}</main></body></html>`
+	return new NextResponse(html, {
+		status,
+		headers: noStoreHeaders({
+			'Content-Type': 'text/html; charset=utf-8',
+			'X-Robots-Tag': 'noindex, nofollow',
+			...extra,
+		}),
+	})
+}
+
+function verificationErrorPage(
+	[zh, en]: readonly [string, string],
+	status: number,
+	extra?: Record<string, string>
+) {
+	return verificationPage(
+		['邮箱验证失败', 'Email verification failed'],
+		`<p>${zh}</p><p lang="en">${en}</p>`,
+		status,
+		extra
+	)
+}
+
+function verificationRateLimitPage(retryAfterSeconds: number) {
+	return verificationErrorPage(VERIFICATION_MESSAGES.rateLimited, 429, {
+		'Retry-After': String(retryAfterSeconds),
+	})
+}
+
+function verificationFailurePage(error: unknown, context: string) {
+	if (error instanceof CommentRequestError) {
+		return verificationErrorPage(
+			error.status === 403
+				? VERIFICATION_MESSAGES.origin
+				: VERIFICATION_MESSAGES.invalid,
+			error.status
+		)
+	}
+	if (error instanceof CommentServiceUnavailableError) {
+		logServerError('Comment email verification unavailable:', error)
+		return verificationErrorPage(VERIFICATION_MESSAGES.unavailable, 503)
+	}
+
+	logServerError(context, error)
+	return verificationErrorPage(VERIFICATION_MESSAGES.failed, 500)
+}
+
 function logServerError(context: string, error: unknown) {
 	console.error(
 		context,
@@ -122,89 +190,6 @@ function getCommentDatabase() {
 	} catch (error) {
 		logServerError('Comment database configuration failed:', error)
 		throw new CommentServiceUnavailableError('Comment database is unavailable')
-	}
-}
-
-function normalizeWebsite(value: unknown): string {
-	if (value == null || value === '') return ''
-	if (typeof value !== 'string' || value.length > LIMITS.website) {
-		throw new CommentRequestError('Invalid website')
-	}
-
-	let parsed: URL
-	try {
-		parsed = new URL(value.trim())
-	} catch {
-		throw new CommentRequestError('Invalid website')
-	}
-	if (
-		(parsed.protocol !== 'https:' && parsed.protocol !== 'http:') ||
-		parsed.username ||
-		parsed.password
-	) {
-		throw new CommentRequestError('Invalid website')
-	}
-	return parsed.href
-}
-
-function validateCommentInput(body: unknown): ValidatedCommentInput {
-	if (!body || typeof body !== 'object' || Array.isArray(body)) {
-		throw new CommentRequestError('Invalid request body')
-	}
-
-	const {
-		username,
-		email,
-		website,
-		content,
-		token,
-		parent_comment_id: parentCommentId,
-	} = body as Record<string, unknown>
-
-	if (typeof username !== 'string') {
-		throw new CommentRequestError('Invalid username')
-	}
-	const normalizedUsername = username.trim()
-	if (!normalizedUsername || normalizedUsername.length > LIMITS.username) {
-		throw new CommentRequestError('Invalid username')
-	}
-
-	if (typeof email !== 'string') {
-		throw new CommentRequestError('Invalid email')
-	}
-	const normalizedEmail = email.trim().toLowerCase()
-	if (
-		normalizedEmail.length > LIMITS.email ||
-		!validator.validate(normalizedEmail)
-	) {
-		throw new CommentRequestError('Invalid email')
-	}
-
-	if (
-		typeof content !== 'string' ||
-		!content.trim() ||
-		content.length > LIMITS.content
-	) {
-		throw new CommentRequestError('Invalid content')
-	}
-	if (typeof token !== 'string' || !token) {
-		throw new CommentRequestError('Missing verification token', 403)
-	}
-	if (
-		parentCommentId != null &&
-		(!Number.isSafeInteger(parentCommentId) || (parentCommentId as number) < 1)
-	) {
-		throw new CommentRequestError('Invalid parent comment id')
-	}
-
-	return {
-		username: normalizedUsername,
-		email: normalizedEmail,
-		website: normalizeWebsite(website),
-		content,
-		token,
-		parentCommentId:
-			typeof parentCommentId === 'number' ? parentCommentId : null,
 	}
 }
 
@@ -267,11 +252,13 @@ async function sendNotificationEmails({
 	input,
 	parentComment,
 	canonicalUrl,
+	locale,
 }: {
 	commentId: number
 	input: ValidatedCommentInput
 	parentComment: ParentComment | null
 	canonicalUrl: string
+	locale: 'zh' | 'en'
 }) {
 	const transporter = getEmailTransporter()
 	if (!transporter) return
@@ -297,13 +284,23 @@ async function sendNotificationEmails({
 			const verificationUrl = new URL('/api/comInsert', canonicalUrl)
 			verificationUrl.searchParams.set('verify', token)
 			const safeVerificationUrl = escapeHtml(verificationUrl.href)
-			await transporter.sendMail({
-				from,
-				to: input.email,
-				subject: `Verify comment notifications from ${siteTitle}`,
-				text: `Verify your email to receive replies to this comment: ${verificationUrl.href}`,
-				html: `<p>Verify your email to receive replies to this comment:</p><p><a href="${safeVerificationUrl}">Verify comment notifications</a></p>`,
-			})
+			await transporter.sendMail(
+				locale === 'zh'
+					? {
+						from,
+						to: input.email,
+						subject: `请验证 ${siteTitle} 的留言回复通知`,
+						text: `请点击以下链接验证邮箱，以便在留言被回复时收到邮件通知：${verificationUrl.href}`,
+						html: `<p>请点击以下链接验证邮箱，以便在留言被回复时收到邮件通知：</p><p><a href="${safeVerificationUrl}">验证留言回复通知</a></p>`,
+					}
+					: {
+						from,
+						to: input.email,
+						subject: `Verify comment notifications from ${siteTitle}`,
+						text: `Verify your email to receive replies to this comment: ${verificationUrl.href}`,
+						html: `<p>Verify your email to receive replies to this comment:</p><p><a href="${safeVerificationUrl}">Verify comment notifications</a></p>`,
+					}
+			)
 		} catch (error) {
 			logServerError('Comment email verification delivery failed:', error)
 		}
@@ -319,12 +316,13 @@ async function sendNotificationEmails({
 		)
 		if (notificationLimit.allowed) {
 			try {
+				// The parent commenter's language is not stored, so this one is bilingual.
 				await transporter.sendMail({
 					from,
 					to: parentComment.email,
-					subject: `New reply to your comment in ${siteTitle}`,
-					text: `${input.username} replied to your comment: ${plainText}. Please visit ${canonicalUrl} to view it.`,
-					html: `<p>${safeUsername} replied to your comment: ${safeText}.<br> Please visit <a href="${safeUrl}">${safeUrl}</a> to view it.</p>`,
+					subject: `您在 ${siteTitle} 的留言有了新回复 / New reply to your comment in ${siteTitle}`,
+					text: `${input.username} 回复了您的留言 / replied to your comment:\n\n${plainText}\n\n请访问 / Please visit ${canonicalUrl}`,
+					html: `<p>${safeUsername} 回复了您的留言 / replied to your comment:</p><p>${safeText}</p><p>请访问 / Please visit <a href="${safeUrl}">${safeUrl}</a></p>`,
 				})
 			} catch (error) {
 				logServerError('Reply notification delivery failed:', error)
@@ -438,6 +436,7 @@ export async function POST(request: NextRequest) {
 					input,
 					parentComment,
 					canonicalUrl: thread.canonicalUrl,
+					locale: thread.locale,
 				})
 			} catch (error) {
 				logServerError('Comment notification task failed:', error)
@@ -489,7 +488,7 @@ async function completeEmailVerification(request: NextRequest) {
 		}
 		const verifiedToken = getValidEmailVerification(request)
 		const limit = verificationRateLimiter.consume(`verify:${clientIp}`)
-		if (!limit.allowed) return rateLimitResponse(limit.retryAfterSeconds)
+		if (!limit.allowed) return verificationRateLimitPage(limit.retryAfterSeconds)
 
 		const { data, error } = await getCommentDatabase()
 			.from('comments')
@@ -507,22 +506,10 @@ async function completeEmailVerification(request: NextRequest) {
 		redirectUrl.hash = `comment-${data.id}`
 		return NextResponse.redirect(redirectUrl, {
 			status: 303,
-			headers: noStoreHeaders({
-				'Referrer-Policy': 'no-referrer',
-				'X-Robots-Tag': 'noindex, nofollow',
-			}),
+			headers: noStoreHeaders({ 'X-Robots-Tag': 'noindex, nofollow' }),
 		})
 	} catch (error) {
-		if (error instanceof CommentRequestError) {
-			return errorResponse(error.message, error.status)
-		}
-		if (error instanceof CommentServiceUnavailableError) {
-			logServerError('Comment email verification unavailable:', error)
-			return errorResponse('Verification service is temporarily unavailable', 503)
-		}
-
-		logServerError('Comment email verification failed:', error)
-		return errorResponse('Unable to verify email', 500)
+		return verificationFailurePage(error, 'Comment email verification failed:')
 	}
 }
 
@@ -534,26 +521,13 @@ export async function GET(request: NextRequest) {
 	try {
 		getValidEmailVerification(request)
 		const limit = verificationRateLimiter.consume(`verify-page:${clientIp}`)
-		if (!limit.allowed) return rateLimitResponse(limit.retryAfterSeconds)
+		if (!limit.allowed) return verificationRateLimitPage(limit.retryAfterSeconds)
 		const action = escapeHtml(request.nextUrl.pathname + request.nextUrl.search)
-		const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Confirm comment email</title></head><body><main><h1>Confirm comment email</h1><p>Confirm that you want reply notifications for this comment.</p><form method="post" action="${action}"><button type="submit">Confirm email</button></form></main></body></html>`
-		return new NextResponse(html, {
-			headers: noStoreHeaders({
-				'Content-Type': 'text/html; charset=utf-8',
-				'Referrer-Policy': 'no-referrer',
-				'X-Robots-Tag': 'noindex, nofollow',
-			}),
-		})
+		return verificationPage(
+			['确认留言邮箱', 'Confirm comment email'],
+			`<p>确认后，您的留言被回复时会收到邮件通知。</p><p lang="en">Confirm that you want reply notifications for this comment.</p><form method="post" action="${action}"><button type="submit">确认邮箱 <span lang="en">/ Confirm email</span></button></form>`
+		)
 	} catch (error) {
-		if (error instanceof CommentRequestError) {
-			return errorResponse(error.message, error.status)
-		}
-		if (error instanceof CommentServiceUnavailableError) {
-			logServerError('Comment email verification unavailable:', error)
-			return errorResponse('Verification service is temporarily unavailable', 503)
-		}
-
-		logServerError('Comment email verification page failed:', error)
-		return errorResponse('Unable to verify email', 500)
+		return verificationFailurePage(error, 'Comment email verification page failed:')
 	}
 }

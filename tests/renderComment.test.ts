@@ -79,15 +79,59 @@ describe('renderCommentHtml — link hardening', () => {
 		expect(html).toContain('target="_blank"')
 		expect(html).toContain('rel="nofollow noopener noreferrer"')
 	})
+
+	it('keeps same-page fragment links in the current tab', async () => {
+		const html = await renderCommentHtml(
+			'[jump](#comment-3) <a href="#x" target="_top" rel="opener">x</a>'
+		)
+		expect(html).toContain('<a href="#comment-3">jump</a>')
+		expect(html).toContain('<a href="#x">x</a>')
+		expect(html).not.toContain('target=')
+	})
+
+	it('points footnote links at their prefixed ids', async () => {
+		const html = await renderCommentHtml('Footnote[^1]\n\n[^1]: note')
+		const hrefs = [...html.matchAll(/href="#([^"]+)"/g)].map((match) => match[1])
+		const ids = [...html.matchAll(/id="([^"]+)"/g)].map((match) => match[1])
+
+		expect(hrefs).toEqual(['user-content-fn-1', 'user-content-fnref-1'])
+		for (const href of hrefs) expect(ids).toContain(href)
+		expect(html).not.toContain('user-content-user-content-')
+	})
+
+	it('still prefixes user-supplied ids', async () => {
+		const html = await renderCommentHtml('<p id="evil">x</p>')
+		expect(html).toContain('id="user-content-evil"')
+	})
 })
 
 describe('renderCommentHtml — Quote feature compatibility', () => {
-	it('preserves the blockquote/pre/p structure produced by the Quote feature', async () => {
-		const quote = '<blockquote><pre>Quoting Bob:</pre><p>original</p></blockquote>\n\nmy reply'
-		const html = await renderCommentHtml(quote)
-		expect(html).toContain('<blockquote>')
-		expect(html).toContain('<pre>')
-		expect(html).toContain('original')
+	// The shape components/Comment builds: an escaped name in the <pre>
+	// header, the quoted HTML with blank lines encoded, then a blank line.
+	const quote = (name: string, quotedHtml: string, reply: string) =>
+		`<blockquote><pre>Quoting ${name}'s comment:</pre>${quotedHtml}</blockquote>\n\n${reply}`
+
+	it('renders the reply after a quote as Markdown', async () => {
+		const html = await renderCommentHtml(
+			quote('Bob', '<p>original</p>', 'I **agree**, see [docs](https://example.com)')
+		)
+		expect(html).toContain('<blockquote><pre>Quoting Bob\'s comment:</pre><p>original</p></blockquote>')
+		expect(html).toContain('<strong>agree</strong>')
+		expect(html).toContain('href="https://example.com"')
+		expect(html).not.toContain('<p></p>')
+	})
+
+	it('keeps an escaped name inside the quote header', async () => {
+		const html = await renderCommentHtml(quote('a&lt;b', '<p>original</p>', 'reply'))
+		expect(html).toContain('<pre>Quoting a&#x3C;b\'s comment:</pre><p>original</p>')
+	})
+
+	it('keeps a quoted code block with blank lines inside the quote', async () => {
+		const html = await renderCommentHtml(
+			quote('Bob', '<pre><code>a&#10;\nb\n</code></pre>', 'reply')
+		)
+		expect(html).toContain('<pre><code>a\n\nb\n</code></pre></blockquote>')
+		expect(html).toContain('<p>reply</p>')
 	})
 })
 
@@ -104,6 +148,21 @@ describe('commentToPlainText', () => {
 		expect(text).toContain('bold')
 		expect(text).not.toContain('<')
 		expect(text).not.toContain('>')
+	})
+
+	it('decodes every character reference', async () => {
+		expect(await commentToPlainText('Tom & Jerry <3 `a && b`')).toBe(
+			'Tom & Jerry <3 a && b'
+		)
+	})
+
+	it('never leaks attribute values', async () => {
+		expect(await commentToPlainText('[l](https://e.example "x>y") after')).toBe(
+			'l after'
+		)
+		expect(await commentToPlainText('![a>b](https://x.example/y.png) after')).toBe(
+			'after'
+		)
 	})
 })
 

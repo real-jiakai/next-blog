@@ -1,7 +1,18 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import { isIP } from 'node:net'
 
-export const COMMENT_BODY_LIMIT_BYTES = 12 * 1024
+import validator from 'email-validator'
+
+export const COMMENT_LIMITS = {
+	username: 64,
+	email: 254,
+	website: 200,
+	content: 5000,
+} as const
+// JSON.stringify leaves CJK unescaped at 3 UTF-8 bytes per UTF-16 unit, so a
+// full-length Chinese comment is ~15 KB, plus the 2048-character Turnstile
+// token and ~1 KB for the other fields and JSON syntax.
+export const COMMENT_BODY_LIMIT_BYTES = 20 * 1024
 export const TURNSTILE_TOKEN_MAX_LENGTH = 2048
 export const DEFAULT_COMMENT_PAGE_SIZE = 100
 export const MAX_COMMENT_PAGE_SIZE = 100
@@ -141,11 +152,16 @@ export function resolveCommentThread(
 		throw new CommentRequestError('Invalid comment page')
 	}
 
-	const basePath = `/${match[2]}/${match[3]}/${match[4]}`
+	// Store threads under one spelling of the slug, whichever percent-encoding
+	// the Referer used; the raw spelling stays queryable for older rows.
+	const basePath = `/${match[2]}/${match[3]}/${encodeURIComponent(decodedSlug)}`
+	const rawBasePath = `/${match[2]}/${match[3]}/${match[4]}`
 	const candidateUrls = new Set<string>()
-	addUrlVariant(candidateUrls, siteUrl.origin, basePath)
-	addUrlVariant(candidateUrls, siteUrl.origin, `/en${basePath}`)
-	addUrlVariant(candidateUrls, siteUrl.origin, `/zh${basePath}`)
+	for (const path of new Set([basePath, rawBasePath])) {
+		addUrlVariant(candidateUrls, siteUrl.origin, path)
+		addUrlVariant(candidateUrls, siteUrl.origin, `/en${path}`)
+		addUrlVariant(candidateUrls, siteUrl.origin, `/zh${path}`)
+	}
 
 	return {
 		canonicalUrl: `${siteUrl.origin}${basePath}`,
@@ -175,6 +191,114 @@ export function hasTrustedOrigin(
 		)
 	} catch {
 		return false
+	}
+}
+
+export interface ValidatedCommentInput {
+	username: string
+	email: string
+	website: string
+	content: string
+	token: string
+	parentCommentId: number | null
+}
+
+// Postgres text cannot store U+0000, and a name made only of control, format
+// or separator characters would render blank.
+const USERNAME_INVALID_CHARACTER = /[\u0000-\u001f\u007f]/
+const USERNAME_INVISIBLE = /^[\p{Cf}\p{Z}]*$/u
+const CONTENT_UNSTORABLE_CHARACTER = /\u0000/
+
+function normalizeWebsite(value: unknown): string {
+	if (value == null || value === '') return ''
+	if (typeof value !== 'string' || value.length > COMMENT_LIMITS.website) {
+		throw new CommentRequestError('Invalid website')
+	}
+
+	let parsed: URL
+	try {
+		parsed = new URL(value.trim())
+	} catch {
+		throw new CommentRequestError('Invalid website')
+	}
+	if (
+		(parsed.protocol !== 'https:' && parsed.protocol !== 'http:') ||
+		parsed.username ||
+		parsed.password
+	) {
+		throw new CommentRequestError('Invalid website')
+	}
+	// Serialization percent-encodes non-ASCII paths and punycodes hosts, so the
+	// stored value can be much longer than the input.
+	if (parsed.href.length > COMMENT_LIMITS.website) {
+		throw new CommentRequestError('Invalid website')
+	}
+	return parsed.href
+}
+
+export function validateCommentInput(body: unknown): ValidatedCommentInput {
+	if (!body || typeof body !== 'object' || Array.isArray(body)) {
+		throw new CommentRequestError('Invalid request body')
+	}
+
+	const {
+		username,
+		email,
+		website,
+		content,
+		token,
+		parent_comment_id: parentCommentId,
+	} = body as Record<string, unknown>
+
+	if (typeof username !== 'string') {
+		throw new CommentRequestError('Invalid username')
+	}
+	const normalizedUsername = username.trim()
+	if (
+		normalizedUsername.length > COMMENT_LIMITS.username ||
+		USERNAME_INVALID_CHARACTER.test(normalizedUsername) ||
+		USERNAME_INVISIBLE.test(normalizedUsername)
+	) {
+		throw new CommentRequestError('Invalid username')
+	}
+
+	if (typeof email !== 'string') {
+		throw new CommentRequestError('Invalid email')
+	}
+	const normalizedEmail = email.trim().toLowerCase()
+	if (
+		normalizedEmail.length > COMMENT_LIMITS.email ||
+		!validator.validate(normalizedEmail)
+	) {
+		throw new CommentRequestError('Invalid email')
+	}
+
+	if (
+		typeof content !== 'string' ||
+		!content.trim() ||
+		content.length > COMMENT_LIMITS.content ||
+		CONTENT_UNSTORABLE_CHARACTER.test(content)
+	) {
+		throw new CommentRequestError('Invalid content')
+	}
+	if (typeof token !== 'string' || !token) {
+		throw new CommentRequestError('Missing verification token', 403)
+	}
+	if (
+		parentCommentId != null &&
+		(!Number.isSafeInteger(parentCommentId) || (parentCommentId as number) < 1)
+	) {
+		throw new CommentRequestError('Invalid parent comment id')
+	}
+
+	return {
+		username: normalizedUsername,
+		email: normalizedEmail,
+		website: normalizeWebsite(website),
+		content,
+		token,
+		parentCommentId:
+			typeof parentCommentId === 'number' ? parentCommentId : null,
 	}
 }
 
