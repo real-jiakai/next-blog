@@ -42,7 +42,7 @@ For those not confident about the initial exam and not busy with interview prepa
 
 First, choose one programming language to study deeply, gradually meeting the requirements of your desired position. That is, learn relevant technologies based on job requirements.
 
-As shown in the image below, describing the requirements for a Go language backend development position. If you're interested in this position, you can follow the description and learn the relevant technologies step by step.
+The image below shows the requirements for a Go language backend development position. If you're interested in this position, you can follow the description and learn the relevant technologies step by step.
 
 ![Go language backend development requirements](https://vip2.loli.net/2023/01/13/Rdk8iwLGzchN2jE.webp)
 
@@ -58,7 +58,7 @@ Self-learning ability isn't innate or achieved overnight. It requires deliberate
 
 Third, find the value, meaning, and original intention of learning. Don't let learning become low-level, inefficient training. [via](https://weibo.com/2365961811/MijbVmz6O) Cultivate your own personality and interests.
 
-High school study might just be to cope with the college entrance exam; university study might just be for graduation and postgraduate exams. But think carefully—how much does this actually improve you? Never let your student life wear down your edges.
+High school study might just be to cope with the college entrance exam; university study might just be for graduation and the "big three" exams (graduate school, civil service, and public-sector jobs). But think carefully—how much does this actually improve you? Never let your student life wear down your edges.
 
 There's an interesting phenomenon on university campuses: in freshman year, there are still several students who actively speak up in class. But as time goes on, few students actively participate. After a teacher poses a question, there's dead silence. In my view, this deserves attention. If you have ideas, you should boldly raise your hand to share and demonstrate your ideas and confidence.
 
@@ -142,7 +142,7 @@ It's not hard to see that besides 80s TV, there are also 60s, 70s, 90s, and 00s 
 
 Su Shi, a poet from China's Northern Song Dynasty, once wrote: "Ask about my life's achievements: Huangzhou, Huizhou, Danzhou." This fully demonstrates his open-minded self-deprecation despite being demoted.
 
-But a question remains: where exactly are Huangzhou, Huizhou, and Danzhou? Through this website, you can clearly see Su Dongpo's footprints throughout his life and the locations of those three states at that time.
+But a question remains: where exactly are Huangzhou, Huizhou, and Danzhou? Through this website, you can clearly see Su Dongpo's footprints throughout his life and the locations of those three prefectures at that time.
 
 ![Su Shi's life footprints](https://vip2.loli.net/2023/01/12/2oCdlOL5GZ4c7kE.webp)
 
@@ -166,7 +166,7 @@ When it comes to football, people's first impression is Messi and Ronaldo. The r
 
 ![Quote two](https://vip2.loli.net/2023/01/12/1y5OBJEK4RFUIhC.webp)
 
-3. The best way to break information silos is sharing—a power everyone has.
+3. The best way to break information silos is sharing—a right everyone has.
 
 4. In the learning pyramid, note that those belonging to "active learning" are behaviors with "strong output" characteristics. So conversely, it shows that more output leads to better learning. [via](https://t.me/codedump_notes/237)
 

@@ -18,7 +18,7 @@ Welcome to the sixth issue of "Weekly Insights." This week's topic is "Have you 
 
 I'm sure you've encountered situations where you have to pay to listen to music. Domestic music giant QQ Music has gone so far as to mark all of Jay Chou's classic songs as VIP-exclusive – they'll do anything for money. 😮‍💨 Jay Chou is a leading figure in Chinese pop music. Just imagine how many fans in mainland China would pay for membership just to listen to his songs.
 
-QQ Music is the vendor with the most music copyrights in mainland China, but their money-grabbing behavior based on their abundant resources disgusts me. [Last month, I had a momentary lapse of judgment and got a QQ Music membership just to listen to a song called "Star Moon Candy." ~~I probably won't renew it~~. **QQ Music is the largest local music platform, and among all music platforms, it offers the best support for Chinese songs. If there's a need, I'll definitely renew!** (Added on 2022.11.12)]
+QQ Music is the vendor with the most music copyrights in mainland China, but their money-grabbing behavior based on their abundant resources disgusts me. [The month before last, I had a momentary lapse of judgment and got a QQ Music membership just to listen to a song called "Star Moon Candy." ~~I probably won't renew it~~. **QQ Music is the largest local music platform, and among all music platforms, it offers the best support for Chinese songs. If there's a need, I'll definitely renew!** (Added on 2022.11.12)]
 
 NetEase Cloud Music also has songs that require VIP to listen to...
 

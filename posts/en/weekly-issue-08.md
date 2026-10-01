@@ -46,7 +46,7 @@ In this age of information explosion, may you avoid falling into the trap of ove
 
 ## Link Sharing
 
-In my workflow, I use [Cubox](https://cubox.pro/) for collecting materials. I've been using this software since last year, collecting for nearly half a year, and the contents became messy and numerous. On the evening of May 22nd, I spent an entire evening archiving materials I wouldn't use again and tagging materials I might use in the future for easy reference later. Originally, this link sharing section only recommends 2 interesting websites, but because I organized my collection box last Sunday, I'm recommending 5 (3+2) interesting websites this time. The first 3 are carefully selected from my past six months of collection.
+In my workflow, I use [Cubox](https://cubox.pro/) for collecting materials. I've been using this software since last year, collecting for nearly half a year, and the contents became messy and numerous. On the evening of May 22nd, I spent an entire evening archiving materials I wouldn't use again and tagging materials I might use in the future for easy reference later. Normally, this link sharing section only recommends 2 interesting websites, but because I organized my collection box last Sunday, I'm recommending 5 (3+2) interesting websites this time. The first 3 are carefully selected from my past six months of collection.
 
 You can also try using this material collection software, but it's not suitable for procrastinators – if you don't organize for just one week, your collection box becomes a garbage dump requiring lots of time to clean up. My principle for using this software is to clear it daily.
 
@@ -68,7 +68,7 @@ Shorten your links using emojis. For example, my personal blog link is `https://
 
 5. [batnoter](https://github.com/batnoter/batnoter)
 
-An open-source, Markdown-based, self-hosted-to-GitHub note-taking web application. You can use it as your own random notebook. [Note: This app was originally called gitnoter, later renamed to batnoter]
+An open-source, Markdown-based, self-hosted-to-GitHub note-taking web application. You can use it as your own notebook for jotting things down. [Note: This app was originally called gitnoter, later renamed to batnoter]
 
 After saving notes, they automatically sync to your GitHub repository.
 

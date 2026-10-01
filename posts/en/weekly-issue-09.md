@@ -83,7 +83,7 @@ Note: The space bar charges up power; release to launch. Then use the left arrow
 
 A newly launched productivity tool, similar to foreign [Notion](https://www.notion.so/zh-cn) and domestic [Wolai](https://www.wolai.com/). Can be used to build your own knowledge base or as cloud storage. Those who like to share can use such productivity tools to build personal blogs/homepages. Just fill in the content and click share in the upper right corner.
 
-Ruanyifeng's latest [Tech Enthusiast Weekly](https://www.ruanyifeng.com/blog/2022/05/weekly-issue-208.html) has a detailed experience report on FlowUs – click the link to view.
+Ruan Yifeng's latest [Tech Enthusiast Weekly](https://www.ruanyifeng.com/blog/2022/05/weekly-issue-208.html) has a detailed experience report on FlowUs – click the link to view.
 
 ![FlowUs example image](https://vip2.loli.net/2022/11/12/OZRj2rLf8aXdSFG.png)
 

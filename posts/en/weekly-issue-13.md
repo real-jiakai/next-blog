@@ -16,7 +16,7 @@ The song title is "You Have Me," not "Fearless You." The original singer is Zhou
 
 ## Cover Image
 
-![Image a World Without Free Knowledge](https://vip2.loli.net/2023/01/19/E7F2urLpvn6WK9j.webp)
+![Imagine a World Without Free Knowledge](https://vip2.loli.net/2023/01/19/E7F2urLpvn6WK9j.webp)
 
 Translation:
 
@@ -55,13 +55,13 @@ In recent years, various productivity software has emerged endlessly, but have t
 
 Actually, tinkering with productivity software and hoarding information are the same principle. The essence is that you're trying to use your limited energy to gather unlimited knowledge or engage in endless tinkering to obtain continuous dopamine hits. In this process, you do gain pleasure, but you also scatter your energy, thus reducing your quality of life.
 
-In the [HackerNews discussion](https://news.ycombinator.com/item?id=34272834) about the [My bad habit of hoarding information](https://andreisurugiu.com/blog/bad-habit/) article, I saw some comments like this. The commenter below is a cautionary tale—he has 24,000+ links stored in the OneTab browser extension. If he doesn't clear them, I estimate he'll have difficulty consuming so many links in his lifetime.
+In the [Hacker News discussion](https://news.ycombinator.com/item?id=34272834) about the [My bad habit of hoarding information](https://andreisurugiu.com/blog/bad-habit/) article, I saw some comments like this. The commenter below is a cautionary tale—he has 24,000+ links stored in the OneTab browser extension. If he doesn't clear them, I estimate he'll have difficulty consuming so many links in his lifetime.
 
-![HackerNews discussion image one](https://vip2.loli.net/2023/01/20/7yOU8I2wqclXbnT.webp)
+![Hacker News discussion image one](https://vip2.loli.net/2023/01/20/7yOU8I2wqclXbnT.webp)
 
 One commenter shared experience drawn from recent reading: focus on knowledge output rather than knowledge consumption.
 
-![HackerNews discussion image two](https://vip2.loli.net/2023/01/20/ZvlDN7FImTPnes2.webp)
+![Hacker News discussion image two](https://vip2.loli.net/2023/01/20/ZvlDN7FImTPnes2.webp)
 
 I quite agree with this view. Writing newsletters is a form of knowledge output. Even if the newsletter goes unnoticed, that's not something I should worry about. My focus is on completing and proofreading the newsletter and publishing it, sharing my thoughts with the world—being a knowledge producer in addition to being a consumer.
 
@@ -132,7 +132,7 @@ When mentioning Dunhuang, people's first reaction is the Mogao Caves, but there'
 
 ![Science Rumor Debunking](https://vip2.loli.net/2023/01/20/2ZrhiXGw4kVmNj1.webp)
 
-A rumor-debunking website launched by the Cyberspace Administration of China, answering people's questions.
+A rumor-debunking website launched by the China Association for Science and Technology (Kepu China), answering people's questions.
 
 9. [Top Level Domain List](https://zh-hans.tld-list.com)
 

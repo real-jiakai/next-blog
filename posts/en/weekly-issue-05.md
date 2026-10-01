@@ -7,7 +7,7 @@ summary: "This week's topic: How to efficiently prepare for graduate school entr
 showtoc: true
 audio:
   name: "Friends"
-  artist: "Muji"
+  artist: "Michael & Victor"
   url: "https://music.gujiakai.top/2023/friends.mp3"
   cover: "https://vip2.loli.net/2023/04/27/SQUAqT64L8EDNac.webp"
 ---
@@ -51,7 +51,7 @@ Software designed for keyboard workers to memorize vocabulary and train English 
 
 A website that helps you find "similar websites." For example, when I entered "4399.com" in the search box, the site listed many websites similar to 4399 Mini Games, with 7k7k Mini Games having the highest similarity.
 
-✍️ I originally wanted to completely abandon the weekly newsletter and focus solely on exam preparation. But after thinking about it, I decided to continue with this issue. Since I spend about ten hours a day in the study room, I have plenty of time. Squeezing out 2-3 hours a week to complete the newsletter is more than enough.
+✍️ I originally wanted to completely abandon the weekly newsletter and focus solely on exam preparation. But after thinking about it, I decided to continue with this issue. Since I spend more than ten hours a day in the study room, I have plenty of time. Squeezing out 2-3 hours a week to complete the newsletter is more than enough.
 
 ✨ I believe in my efficiency, and I firmly believe that persisting with newsletter writing will make me fall in love with writing over time. Years from now, when I look back at my immature words, I think I'll be moved by my former self.
 
