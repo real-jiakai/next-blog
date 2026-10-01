@@ -48,8 +48,9 @@ describe('sitemap', () => {
 		const entries = sitemap()
 		const byUrl = new Map(entries.map((entry) => [entry.url, entry]))
 
-		expect(byUrl.get('https://example.com/2026/03/c')?.alternates).toBeUndefined()
-		expect(byUrl.get('https://example.com/page/3')?.alternates).toBeUndefined()
+		// toHaveProperty also fails if the entry itself went missing.
+		expect(byUrl.get('https://example.com/2026/03/c')).toHaveProperty('alternates', undefined)
+		expect(byUrl.get('https://example.com/page/3')).toHaveProperty('alternates', undefined)
 		expect(byUrl.get('https://example.com/2026/02/b')?.alternates?.languages).toEqual({
 			zh: 'https://example.com/2026/02/b',
 			en: 'https://example.com/en/2026/02/b',

@@ -33,11 +33,17 @@ afterEach(() => {
 })
 
 describe('getSortedPostsData', () => {
-	it('orders same-day posts by the higher issue slug, whatever the file order', async () => {
+	// The directory order is forced both ways, since a filesystem may return
+	// either and the old comparator only got one of them right.
+	it.each([
+		['a.md', 'b.md', 'c.md', 'd.md'],
+		['b.md', 'a.md', 'c.md', 'd.md'],
+	])('orders same-day posts by the higher issue slug, whatever the file order (%s %s)', async (...order) => {
 		writePost('a.md', { title: 'Nine', date: '2024-01-01', slug: 'weekly-issue-9', summary: '' })
 		writePost('b.md', { title: 'Ten', date: '2024-01-01', slug: 'weekly-issue-10', summary: '' })
 		writePost('c.md', { title: 'Older', date: '2023-12-01', slug: 'weekly-issue-11', summary: '' })
 		writePost('d.md', { title: 'Newer', date: '2024-02-01', slug: 'weekly-issue-08', summary: '' })
+		vi.spyOn(fs, 'readdirSync').mockReturnValueOnce(order as never)
 
 		const { getSortedPostsData } = await loadPosts()
 
