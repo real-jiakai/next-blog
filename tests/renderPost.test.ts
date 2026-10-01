@@ -14,8 +14,20 @@ describe('renderPostMarkdown', () => {
 
 		expect(html).not.toContain('<script')
 		expect(html).not.toContain('onerror')
-		expect(html).toContain('loading="lazy"')
 		expect(html).not.toContain('width="800"')
+	})
+
+	it('loads the first image eagerly and defers the rest', () => {
+		const { content } = renderPostMarkdown(
+			'![Cover](https://example.com/cover.png)\n\n![Later](https://example.com/later.png)'
+		)
+		const images = renderToStaticMarkup(content).match(/<img\b[^>]*>/g) ?? []
+
+		expect(images).toHaveLength(2)
+		expect(images[0]).toContain('loading="eager"')
+		expect(images[0]).toMatch(/fetchPriority="high"/i)
+		expect(images[1]).toContain('loading="lazy"')
+		expect(images[1]).not.toMatch(/fetchPriority/i)
 	})
 
 	it('preserves explicit image dimensions from sanitized post HTML', () => {
@@ -35,6 +47,8 @@ describe('renderPostMarkdown', () => {
 
 		expect(html).toContain('width="2242"')
 		expect(html).toContain('height="1328"')
+		// Off-screen images reserve their real box rather than the CSS fallback.
+		expect(html).toContain('contain-intrinsic-size:auto 2242px auto 1328px')
 	})
 
 	it('renders every current post image with measured dimensions', () => {
@@ -91,11 +105,86 @@ describe('renderPostMarkdown', () => {
 	})
 
 	it('derives the table of contents from the rendered heading IDs', () => {
-		const { headings } = renderPostMarkdown('## Hello, *world*\n\n### Details')
+		const { content, headings } = renderPostMarkdown('## Hello, *world*\n\n### Details')
 
 		expect(headings).toEqual([
 			{ depth: 2, value: 'Hello, world', id: 'hello-world' },
 			{ depth: 3, value: 'Details', id: 'details' },
 		])
+		expect(renderToStaticMarkup(content)).toContain(
+			'<h2 id="hello-world" class="scroll-mt-24">Hello, <em>world</em></h2>'
+		)
+	})
+
+	it('links footnotes to their sanitized IDs in both directions', () => {
+		const { content } = renderPostMarkdown('Text[^1] and again[^1].\n\n[^1]: A note.', 'en')
+		const html = renderToStaticMarkup(content)
+		const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]))
+		const targets = [...html.matchAll(/\bhref="#([^"]+)"/g)].map((match) => match[1])
+
+		expect(html).toContain('id="user-content-fn-1"')
+		expect(html).toContain('href="#user-content-fn-1"')
+		expect(html).toContain('id="user-content-fnref-1"')
+		expect(html).toContain('href="#user-content-fnref-1"')
+		expect(html).toContain('aria-describedby="user-content-footnote-label"')
+		expect(html).not.toContain('user-content-user-content')
+		expect(targets).toHaveLength(4)
+		expect(targets.filter((target) => !ids.has(target))).toEqual([])
+	})
+
+	it('localizes the footnote labels and keeps them out of the table of contents', () => {
+		const markdown = '## A\n\nText[^1] and again[^1].\n\n[^1]: A note.'
+		const zh = renderPostMarkdown(markdown, 'zh')
+		const en = renderPostMarkdown(markdown, 'en')
+		const zhHtml = renderToStaticMarkup(zh.content)
+		const enHtml = renderToStaticMarkup(en.content)
+
+		expect(zhHtml).toContain('>脚注</h2>')
+		expect(zhHtml).toContain('aria-label="返回引用 1"')
+		expect(zhHtml).toContain('aria-label="返回引用 1-2"')
+		expect(zhHtml).not.toContain('Back to reference')
+		expect(enHtml).toContain('>Footnotes</h2>')
+		expect(enHtml).toContain('aria-label="Back to reference 1-2"')
+		expect(zh.headings).toEqual([{ depth: 2, value: 'A', id: 'a' }])
+		expect(en.headings).toEqual([{ depth: 2, value: 'A', id: 'a' }])
+	})
+
+	it('points every in-page link in current posts at an existing ID', () => {
+		const postRoot = path.join(process.cwd(), 'posts')
+		const files = fs
+			.readdirSync(postRoot, { recursive: true, withFileTypes: true })
+			.filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+		const broken: string[] = []
+
+		for (const entry of files) {
+			const locale = path.basename(entry.parentPath) === 'en' ? 'en' : 'zh'
+			const markdown = fs.readFileSync(path.join(entry.parentPath, entry.name), 'utf8')
+			const html = renderToStaticMarkup(renderPostMarkdown(markdown, locale).content)
+			const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]))
+			for (const [, target] of html.matchAll(/\bhref="#([^"]*)"/g)) {
+				if (!ids.has(target)) broken.push(`${entry.name}: #${target}`)
+			}
+		}
+
+		expect(broken).toEqual([])
+	})
+
+	it('highlights known code languages and leaves unknown ones as plain code', () => {
+		const render = (markdown: string) =>
+			renderToStaticMarkup(renderPostMarkdown(markdown).content)
+
+		expect(() => render('```zsh\necho hi\n```')).not.toThrow()
+		expect(render('```zsh\necho hi\n```')).toContain('echo hi')
+		expect(render('```bash\necho hi\n```')).toContain('class="token')
+	})
+
+	it('gives post links colours that stay readable in dark mode', () => {
+		const html = renderToStaticMarkup(
+			renderPostMarkdown('[Link](https://example.com)').content
+		)
+
+		expect(html).toContain(
+			'class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"'
+		)
 	})
 })

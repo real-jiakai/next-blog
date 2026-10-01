@@ -1,7 +1,11 @@
-import { describe, expect, it } from 'vitest'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { afterEach, describe, expect, it } from 'vitest'
 import {
 	MAX_FEED_ITEMS,
 	createAtomFeed,
+	getSortedPostsData,
 	readFeedConfig,
 	renderMarkdown,
 	selectFeedPosts,
@@ -13,6 +17,21 @@ const config = {
 	description: 'Example description',
 	copyright: '',
 }
+
+const post = (overrides = {}) => ({
+	title: 'Post',
+	date: new Date('2025-02-03T00:00:00.000Z'),
+	slug: 'post',
+	contentMarkdown: 'Hello',
+	...overrides,
+})
+
+const fragmentTargets = (html) =>
+	[...html.matchAll(/href="[^"#]*#([^"]+)"/g)].map((match) => match[1])
+
+// What remains once every CDATA section is removed must hold no CDATA syntax,
+// or a section was ended early.
+const textOutsideCdata = (xml) => xml.replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, '')
 
 describe('RSS configuration', () => {
 	it('fails clearly when required variables are absent', () => {
@@ -88,27 +107,256 @@ describe('RSS Markdown rendering', () => {
 		expect(html).toContain('rel="noopener noreferrer"')
 		expect(html).toContain('🚀')
 	})
+
+	it('points footnote links at the ids sanitization gives them', () => {
+		const html = renderMarkdown('Text[^1] again[^1]\n\n[^1]: Note')
+		const targets = fragmentTargets(html)
+
+		expect(targets).toContain('user-content-fn-1')
+		expect(targets).toContain('user-content-fnref-1')
+		for (const target of targets) {
+			expect(html).toContain(`id="${target}"`)
+		}
+		expect(html).not.toContain('user-content-user-content')
+	})
+
+	it('labels footnotes in the feed language', () => {
+		const markdown = '中文[^1]\n\n[^1]: 注释'
+		const chinese = renderMarkdown(markdown, { locale: 'zh' })
+		const english = renderMarkdown(markdown, { locale: 'en' })
+
+		expect(chinese).toContain('脚注')
+		expect(chinese).toContain('aria-label="返回引用 1"')
+		expect(chinese).not.toContain('Footnotes')
+		expect(english).toContain('Footnotes')
+		expect(english).toContain('aria-label="Back to reference 1"')
+	})
+
+	it('renders a code fence in a language Prism does not know', () => {
+		expect(renderMarkdown('```zsh\necho hi\n```')).toContain('echo hi')
+	})
+
+	it('keeps classes only where the post schema allows them', () => {
+		const html = renderMarkdown(
+			'<div class="subscribe-box"><p class="header">hi</p></div>\n\n' +
+				'<iframe class="bilibili" src="https://player.bilibili.com/player.html"></iframe>',
+		)
+
+		expect(html).not.toContain('subscribe-box')
+		expect(html).not.toContain('class="header"')
+		expect(html).toContain('class="bilibili"')
+	})
+
+	it('drops a video poster with an unsafe protocol', () => {
+		const html = renderMarkdown(
+			'<video poster="javascript:alert(1)" src="https://example.com/v.mp4"></video>',
+		)
+
+		expect(html).not.toContain('javascript:')
+		expect(html).toContain('src="https://example.com/v.mp4"')
+	})
+
+	it('lazy-loads images', () => {
+		const html = renderMarkdown('![Alt](https://example.com/a.png)')
+
+		expect(html).toContain('loading="lazy"')
+		expect(html).toContain('decoding="async"')
+	})
+
+	it('resolves relative URLs against the post when given its URL', () => {
+		const html = renderMarkdown(
+			'![Alt](/gif/a.gif) [Top](#top) [Out](https://other.example/x) [Mail](mailto:a@example.com)',
+			{ baseUrl: 'https://example.com/2025/02/post' },
+		)
+
+		expect(html).toContain('src="https://example.com/gif/a.gif"')
+		expect(html).toContain('href="https://example.com/2025/02/post#top"')
+		expect(html).toContain('href="https://other.example/x"')
+		expect(html).toContain('href="mailto:a@example.com"')
+	})
+})
+
+describe('post loading', () => {
+	let directory
+
+	afterEach(() => {
+		if (directory) fs.rmSync(directory, { recursive: true, force: true })
+		directory = undefined
+	})
+
+	const writePosts = (files) => {
+		directory = fs.mkdtempSync(path.join(os.tmpdir(), 'rss-posts-'))
+		fs.mkdirSync(path.join(directory, 'zh'))
+		for (const [name, source] of Object.entries(files)) {
+			fs.writeFileSync(path.join(directory, 'zh', name), source)
+		}
+		return directory
+	}
+
+	it('skips a draft before checking its frontmatter', () => {
+		const postsBase = writePosts({
+			'wip.md': '---\ntitle: "WIP"\ndraft: true\n---\nBody',
+		})
+
+		expect(getSortedPostsData('zh', postsBase)).toEqual([])
+	})
+
+	it('still rejects a published post with missing frontmatter', () => {
+		const postsBase = writePosts({ 'broken.md': '---\ntitle: "Broken"\n---\nBody' })
+
+		expect(() => getSortedPostsData('zh', postsBase)).toThrow(
+			'Missing title, slug, or date',
+		)
+	})
+
+	it('reads the featured track', () => {
+		const postsBase = writePosts({
+			'post.md': [
+				'---',
+				'title: "Post"',
+				'slug: "post"',
+				'date: "2025-02-03"',
+				'audio:',
+				'  name: "Song"',
+				'  artist: "Singer"',
+				'  url: "https://music.example.com/song.mp3"',
+				'---',
+				'Body',
+			].join('\n'),
+		})
+
+		expect(getSortedPostsData('zh', postsBase)[0].audio).toEqual({
+			name: 'Song',
+			artist: 'Singer',
+			url: 'https://music.example.com/song.mp3',
+		})
+	})
 })
 
 describe('Atom output', () => {
 	it('uses the newest post date rather than build time', () => {
-		const posts = [
-			{
-				title: 'Post',
-				date: new Date('2025-02-03T00:00:00.000Z'),
-				slug: 'post',
-				contentMarkdown: 'Hello',
-			},
-		]
+		const posts = [post()]
 
 		const first = createAtomFeed(posts, 'en', config)
 		const second = createAtomFeed(posts, 'en', config)
 
 		expect(first).toBe(second)
-		expect(first).toContain('<updated>2025-02-03T00:00:00.000Z</updated>')
+		expect(first.split('<entry>')[0]).toContain(
+			'<updated>2025-02-03T00:00:00.000Z</updated>',
+		)
 		expect(first).toContain(
 			'<link rel="self" href="https://example.com/en/index.xml"/>',
 		)
+	})
+
+	it('dates the feed by its newest post whatever the order', () => {
+		const newer = post({ slug: 'new' })
+		const older = post({
+			date: new Date('2025-01-01T00:00:00.000Z'),
+			slug: 'old',
+		})
+
+		for (const posts of [
+			[newer, older],
+			[older, newer],
+		]) {
+			const header = createAtomFeed(posts, 'en', config).split('<entry>')[0]
+			expect(header).toContain('<updated>2025-02-03T00:00:00.000Z</updated>')
+		}
+	})
+
+	it('builds the default Chinese feed without the /en prefix', () => {
+		const feed = createAtomFeed([post()], 'zh', {
+			...config,
+			descriptions: { zh: '中文描述', en: 'English description' },
+		})
+
+		expect(feed).toContain('<subtitle>中文描述</subtitle>')
+		expect(feed).toContain(
+			'<link rel="self" href="https://example.com/index.xml"/>',
+		)
+		expect(feed).toContain('<id>https://example.com/2025/02/post</id>')
+		expect(feed).toContain('href="/atom-style.xsl"')
+		expect(feed).not.toContain('https://example.com/en')
+		expect(feed).not.toContain('/en/atom-style.xsl')
+	})
+
+	it('declares the feed language', () => {
+		expect(createAtomFeed([], 'zh', config)).toContain(
+			'<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh">',
+		)
+		expect(createAtomFeed([], 'en', config)).toContain(
+			'<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">',
+		)
+	})
+
+	it('makes entry links and images absolute', () => {
+		const feed = createAtomFeed(
+			[post({ contentMarkdown: '![Alt](/gif/a.gif)\n\nText[^1]\n\n[^1]: Note' })],
+			'en',
+			config,
+		)
+
+		expect(feed).toContain('src="https://example.com/gif/a.gif"')
+		expect(feed).toContain(
+			'href="https://example.com/en/2025/02/post#user-content-fn-1"',
+		)
+	})
+
+	it('keeps every CDATA section intact when a post repeats its terminator', () => {
+		const feed = createAtomFeed(
+			[
+				post({
+					title: 'A ]]> B ]]> C',
+					contentMarkdown: 'Use `]]>` to end one, and a second `]]>` ends another.',
+				}),
+			],
+			'en',
+			config,
+		)
+		const outside = textOutsideCdata(feed)
+
+		expect(outside).not.toContain(']]>')
+		expect(outside).not.toContain('<![CDATA[')
+		expect(feed).toContain('<code>]]&gt;</code>')
+	})
+
+	it('removes control characters XML does not allow', () => {
+		const feed = createAtomFeed(
+			[
+				post({
+					title: 'T\u0008itle',
+					contentMarkdown: '```\nconst red = "\u001b[31m"\n```',
+				}),
+			],
+			'en',
+			config,
+		)
+
+		expect(feed).not.toMatch(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/)
+		expect(feed).toContain('<![CDATA[Title]]>')
+	})
+
+	it('names the featured track with an escaped link', () => {
+		const feed = createAtomFeed(
+			[
+				post({
+					audio: {
+						name: '<b>*Song*</b>',
+						artist: 'Singer',
+						url: 'https://music.example.com/song.mp3',
+					},
+				}),
+			],
+			'zh',
+			config,
+		)
+
+		expect(feed).toContain(
+			'周刊BGM: <a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> - Singer</a>',
+		)
+		expect(feed).not.toContain('<b>')
+		expect(feed).not.toContain('<em>Song</em>')
 	})
 
 	it('uses the requested locale description', () => {

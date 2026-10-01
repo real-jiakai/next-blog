@@ -8,11 +8,11 @@ import rehypeSanitize, {
 	type Options as SanitizeSchema,
 } from 'rehype-sanitize'
 import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrism from 'rehype-prism-plus'
 import { visit } from 'unist-util-visit'
 import type { Element, Root, RootContent } from 'hast'
 import type { ReactElement } from 'react'
+import { i18n, type Locale } from './i18n-config'
 import postImageDimensions from './post-image-dimensions.json'
 
 export interface ArticleHeading {
@@ -87,6 +87,14 @@ const postSchema: SanitizeSchema = {
 	},
 }
 
+const clobberPrefix = postSchema.clobberPrefix || ''
+
+// The visually hidden GFM footnote heading and each back-link's aria-label.
+const footnoteLabels: Record<Locale, { heading: string; backToReference: string }> = {
+	zh: { heading: '脚注', backToReference: '返回引用' },
+	en: { heading: 'Footnotes', backToReference: 'Back to reference' },
+}
+
 function textContent(node: RootContent): string {
 	if (node.type === 'text') return node.value
 	if ('children' in node) return node.children.map(textContent).join('')
@@ -98,6 +106,8 @@ function collectHeadings(target: ArticleHeading[]) {
 		return (tree: Root) => {
 			visit(tree, 'element', (node: Element) => {
 				if (!/^h[1-6]$/.test(node.tagName)) return
+				const className = node.properties?.className
+				if (Array.isArray(className) && className.includes('sr-only')) return
 				const id = node.properties?.id
 				if (typeof id !== 'string') return
 				target.push({
@@ -158,11 +168,12 @@ function hardenEmbeds() {
 	}
 }
 
-// Style content links and mark images for progressive loading. This runs after
-// sanitization, so only properties created here or explicitly allowed above
-// can reach React.
+// Style content links, point footnote links at their sanitized ids, and mark
+// images for progressive loading. This runs after sanitization, so only
+// properties created here or explicitly allowed above can reach React.
 function enhancePostHtml() {
 	return (tree: Root) => {
+		let isFirstImage = true
 		visit(tree, 'element', (node: Element) => {
 			if (node.tagName === 'a') {
 				const existing = node.properties?.className
@@ -171,9 +182,23 @@ function enhancePostHtml() {
 					: existing != null
 						? [String(existing)]
 						: []
+				const href = node.properties?.href
+				const isFootnoteLink =
+					node.properties?.dataFootnoteRef != null ||
+					node.properties?.dataFootnoteBackref != null
 				node.properties = {
 					...node.properties,
-					className: [...classes, 'text-blue-600', 'hover:text-blue-800'],
+					// Sanitization prefixed the footnote ids, but not the links to them.
+					...(isFootnoteLink && typeof href === 'string' && href.startsWith('#')
+						? { href: `#${clobberPrefix}${href.slice(1)}` }
+						: {}),
+					className: [
+						...classes,
+						'text-blue-600',
+						'hover:text-blue-800',
+						'dark:text-blue-400',
+						'dark:hover:text-blue-300',
+					],
 					...(node.properties?.target === '_blank'
 						? { rel: ['noopener', 'noreferrer'] }
 						: {}),
@@ -189,6 +214,7 @@ function enhancePostHtml() {
 					height > 0
 				const collectedDimensions =
 					typeof source === 'string' ? knownImageDimensions[source] : undefined
+				const box = hasIntrinsicDimensions ? { width, height } : collectedDimensions
 				node.properties = {
 					...node.properties,
 					// Markdown image syntax has no dimension fields. A checked-in
@@ -197,9 +223,18 @@ function enhancePostHtml() {
 					...(hasIntrinsicDimensions || !collectedDimensions
 						? {}
 						: collectedDimensions),
-					loading: 'lazy',
+					// The first image is usually the cover near the top of the page,
+					// and so the likely LCP element; only later images wait.
+					loading: isFirstImage ? 'eager' : 'lazy',
 					decoding: 'async',
+					...(isFirstImage ? { fetchPriority: 'high' } : {}),
+					// globals.css skips rendering off-screen images and reserves a
+					// generic 800×450 box for them; a known size reserves the real one.
+					...(box
+						? { style: `contain-intrinsic-size: auto ${box.width}px auto ${box.height}px` }
+						: {}),
 				}
+				isFirstImage = false
 			} else if (/^h[1-6]$/.test(node.tagName)) {
 				const existing = node.properties?.className
 				node.properties = {
@@ -214,8 +249,12 @@ function enhancePostHtml() {
 	}
 }
 
-export function renderPostMarkdown(markdown: string): RenderedPost {
+export function renderPostMarkdown(
+	markdown: string,
+	locale: Locale = i18n.defaultLocale
+): RenderedPost {
 	const headings: ArticleHeading[] = []
+	const labels = footnoteLabels[locale]
 	const remarkPlugins: PluggableList = [gfm, gemoji]
 	const rehypePlugins: PluggableList = [
 		rehypeRaw,
@@ -223,15 +262,23 @@ export function renderPostMarkdown(markdown: string): RenderedPost {
 		rehypeSlug,
 		hardenEmbeds,
 		enhancePostHtml,
-		rehypeAutolinkHeadings,
-		rehypePrism,
+		[rehypePrism, { ignoreMissing: true }],
 		collectHeadings(headings),
 	]
 
 	const content = Markdown({
 		children: markdown,
 		remarkPlugins,
-		remarkRehypeOptions: { allowDangerousHtml: true },
+		remarkRehypeOptions: {
+			allowDangerousHtml: true,
+			// Sanitization prefixes every id; a prefix here would be applied twice.
+			clobberPrefix: '',
+			footnoteLabel: labels.heading,
+			footnoteBackLabel: (referenceIndex, rereferenceIndex) =>
+				`${labels.backToReference} ${referenceIndex + 1}${
+					rereferenceIndex > 1 ? `-${rereferenceIndex}` : ''
+				}`,
+		},
 		rehypePlugins,
 	})
 

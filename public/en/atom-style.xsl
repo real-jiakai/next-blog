@@ -112,6 +112,24 @@
             height: auto;
             border-radius: 4px;
           }
+          .entry-content figure {
+            margin: 1em 0;
+          }
+          .entry-content video {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+          }
+          .entry-content iframe {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            border: 0;
+          }
           .entry-content h2 {
             font-size: 1.2em;
             margin-top: 20px;
@@ -185,6 +203,12 @@
             .entry-content summary:hover {
               color: #93c5fd;
             }
+            .entry-content a {
+              color: #60a5fa;
+            }
+            .entry-content a:hover {
+              color: #93c5fd;
+            }
             .entry-content blockquote {
               border-left-color: #374151;
               color: #9ca3af;
@@ -222,12 +246,21 @@
               <xsl:value-of select="substring(atom:updated, 1, 10)"/>
             </div>
             <div class="entry-content">
-              <details>
-                <summary>Expand content</summary>
-                <div class="content-body">
-                  <xsl:value-of select="atom:content" disable-output-escaping="yes"/>
-                </div>
-              </details>
+              <xsl:choose>
+                <!-- Firefox's XSLT engine ignores disable-output-escaping and
+                     would show the post HTML as text, so it links out instead. -->
+                <xsl:when test="system-property('xsl:vendor') = 'Transformiix'">
+                  <a href="{atom:link/@href}">Read the full post →</a>
+                </xsl:when>
+                <xsl:otherwise>
+                  <details>
+                    <summary>Expand content</summary>
+                    <div class="content-body">
+                      <xsl:value-of select="atom:content" disable-output-escaping="yes"/>
+                    </div>
+                  </details>
+                </xsl:otherwise>
+              </xsl:choose>
             </div>
           </div>
         </xsl:for-each>
