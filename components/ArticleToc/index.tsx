@@ -49,9 +49,21 @@ export default function ArticleToc({ headings, showtoc, tocLabel, title }: Artic
 				}
 			}
 			// A closing heading with little below it never reaches the line, so
-			// the bottom of a page that scrolls counts as reaching the last one.
+			// the bottom of a page that scrolls counts as reaching the last one,
+			// unless the reader jumped to the heading that did reach it: clicking
+			// a short second-to-last section lands on the same bottom scroll.
 			const doc = document.documentElement
-			if (window.scrollY > 0 && window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+			let target = ''
+			try {
+				target = decodeURIComponent(window.location.hash.slice(1))
+			} catch {
+				// A malformed escape in the hash names no heading.
+			}
+			if (
+				current !== target &&
+				window.scrollY > 0 &&
+				window.innerHeight + window.scrollY >= doc.scrollHeight - 2
+			) {
 				current = headings[headings.length - 1].id
 			}
 			setActiveId((previous) => previous === current ? previous : current)
