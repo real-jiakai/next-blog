@@ -1,25 +1,26 @@
 # Source-control and dependency/build output
 .git
 .github
-node_modules
-.next
+**/node_modules
+**/.next
 out
 build
 coverage
 images
 docs
 .vercel
+.claude
 
 # Never send local configuration or credentials to the Docker daemon. The
 # example is explicitly safe to retain when the project adds one again.
-.env
-.env.*
+**/.env
+**/.env.*
 !.env.example
-*.key
-*.pem
-*.p12
-*.pfx
-.npmrc.local
+**/*.key
+**/*.pem
+**/*.p12
+**/*.pfx
+**/.npmrc.local
 
 # Local/editor noise
 .DS_Store

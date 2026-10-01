@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "node .next/standalone/server.js",
+    "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.production --env-file-if-exists=.env.local --env-file-if-exists=.env.production.local .next/standalone/server.js",
     "postbuild": "node scripts/generate-rss.mjs && node scripts/prepare-standalone.mjs",
     "clean": "node -e \"require('node:fs').rmSync('.next', { recursive: true, force: true })\"",
     "lint": "eslint .",
@@ -43,7 +43,6 @@
     "react-dom": "19.2.7",
     "react-markdown": "10.1.0",
     "reading-time": "^1.5.0",
-    "rehype-autolink-headings": "^7.1.0",
     "rehype-prism-plus": "^2.0.2",
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
@@ -86,7 +85,7 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --fix"
+    "*.{js,jsx,mjs,ts,tsx}": "eslint --fix"
   },
   "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
 }

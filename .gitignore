@@ -10,6 +10,7 @@
 
 # typescript
 tsconfig.tsbuildinfo
+next-env.d.ts
 
 # next.js
 /.next/
