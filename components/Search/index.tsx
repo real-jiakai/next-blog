@@ -9,7 +9,7 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
 import NorthEastIcon from '@mui/icons-material/NorthEast'
 
 import type { Locale } from '@/lib/i18n-config'
-import { splitHighlights } from '@/lib/search'
+import { MAX_QUERY_LENGTH, hasSearchableText, splitHighlights } from '@/lib/search'
 import type { SearchHit, SearchResponse } from '@/lib/search'
 import Date from '@/components/Date'
 
@@ -22,6 +22,7 @@ interface SearchDialogProps {
       SearchPrompt: string
       SearchResults: string
       SearchNoResults: string
+      SearchSearching: string
       SearchError: string
       SearchDismiss: string
       SearchSelect: string
@@ -31,27 +32,6 @@ interface SearchDialogProps {
   }
   open: boolean
   onOpenChange: (open: boolean) => void
-}
-
-/**
- * Toggle the search dialog with Cmd/Ctrl+K. Lives here rather than in the
- * navbar so the shortcut and the dialog stay together.
- */
-export function useSearchHotkey(onOpenChange: (open: boolean) => void, enabled = true) {
-	useEffect(() => {
-		// Do not swallow the browser's own Cmd+K when there is no dialog to open.
-		if (!enabled) return
-
-		const onKeyDown = (event: globalThis.KeyboardEvent) => {
-			if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-				event.preventDefault()
-				onOpenChange(true)
-			}
-		}
-
-		window.addEventListener('keydown', onKeyDown)
-		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [onOpenChange, enabled])
 }
 
 /** Render Meilisearch's marked-up text as <mark> elements, never as HTML. */
@@ -88,12 +68,23 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 	const panelRef = useRef<HTMLDivElement>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
 	const optionRefs = useRef<(HTMLLIElement | null)[]>([])
+	const pressedOutside = useRef(false)
 
 	const [query, setQuery] = useState('')
+	// What is searched for: the field's text, except while an IME composition
+	// holds unconverted input such as raw pinyin.
+	const [searchQuery, setSearchQuery] = useState('')
 	const [hits, setHits] = useState<SearchHit[]>([])
 	const [failed, setFailed] = useState(false)
 	const [pending, setPending] = useState(false)
+	// The term that `hits` and `failed` answer, so neither is shown as the
+	// answer to a newer term that has not been searched yet.
+	const [answered, setAnswered] = useState('')
 	const [active, setActive] = useState(0)
+
+	const term = searchQuery.trim()
+	const searchable = hasSearchableText(term)
+	const current = answered === term
 
 	// Drive the native <dialog>. showModal() puts it in the top layer, so the
 	// header's backdrop blur — which would otherwise become the containing block
@@ -110,14 +101,20 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 		}
 	}, [open])
 
-	// Keep the page behind the dialog from scrolling.
+	// Keep the page behind the dialog from scrolling, and pad for the
+	// scrollbar that hides so the page does not shift sideways.
 	useEffect(() => {
 		if (!open) return
 
-		const previous = document.body.style.overflow
-		document.body.style.overflow = 'hidden'
+		const { body, documentElement } = document
+		const previousOverflow = body.style.overflow
+		const previousPadding = body.style.paddingRight
+		const scrollbar = window.innerWidth - documentElement.clientWidth
+		body.style.overflow = 'hidden'
+		if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`
 		return () => {
-			document.body.style.overflow = previous
+			body.style.overflow = previousOverflow
+			body.style.paddingRight = previousPadding
 		}
 	}, [open])
 
@@ -130,19 +127,20 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 		let superseded = false
 
 		const timer = setTimeout(async () => {
-			// Nothing typed: show the prompt rather than filling the panel with
-			// posts the reader did not ask for.
-			if (!query) {
+			// Nothing searchable typed: show the prompt rather than filling the
+			// panel with posts the reader did not ask for.
+			if (!searchable) {
 				setHits([])
 				setFailed(false)
 				setPending(false)
+				setAnswered(term)
 				return
 			}
 
 			setPending(true)
 			try {
 				const response = await fetch(
-					`/api/search?q=${encodeURIComponent(query)}&lang=${lang}`,
+					`/api/search?q=${encodeURIComponent(term)}&lang=${lang}`,
 					{ signal: controller.signal },
 				)
 				if (!response.ok) throw new Error(`search responded ${response.status}`)
@@ -150,23 +148,25 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 				setHits(data.hits)
 				setActive(0)
 				setFailed(false)
+				setAnswered(term)
 			} catch (error) {
 				if (error instanceof DOMException && error.name === 'AbortError') return
 				setHits([])
 				setFailed(true)
+				setAnswered(term)
 			} finally {
 				// Leave the indicator up when a newer query has already taken over,
 				// so it does not flicker off between keystrokes.
 				if (!superseded) setPending(false)
 			}
-		}, query ? 180 : 0)
+		}, searchable ? 180 : 0)
 
 		return () => {
 			superseded = true
 			clearTimeout(timer)
 			controller.abort()
 		}
-	}, [open, query, lang])
+	}, [open, term, searchable, lang])
 
 	// Keep the highlighted result in view when arrowing past the fold.
 	useEffect(() => {
@@ -176,6 +176,10 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 	const close = () => onOpenChange(false)
 
 	const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+		// Keys that confirm or move through an IME composition belong to the IME.
+		// Safari ends the composition before this keydown, so there only keyCode
+		// 229 shows it.
+		if (event.nativeEvent.isComposing || event.keyCode === 229) return
 		if (event.key === 'ArrowDown') {
 			event.preventDefault()
 			setActive((index) => (hits.length ? (index + 1) % hits.length : 0))
@@ -183,7 +187,8 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 			event.preventDefault()
 			setActive((index) => (hits.length ? (index - 1 + hits.length) % hits.length : 0))
 		} else if (event.key === 'Enter') {
-			const hit = hits[active]
+			// Results still showing for an earlier term are not what was asked for.
+			const hit = current ? hits[active] : undefined
 			if (hit) {
 				event.preventDefault()
 				close()
@@ -192,12 +197,31 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 		}
 	}
 
+	// Announced once the current term has its answer, and emptied while it is
+	// pending, so each new answer is read out even when its text is unchanged.
+	let status = ''
+	if (searchable && current && !pending) {
+		status = failed
+			? dict.common.SearchError
+			: hits.length
+				? dict.common.SearchResults
+				: dict.common.SearchNoResults
+	}
+	const stale = pending || !current
+
 	return (
 		<dialog
 			ref={dialogRef}
 			onClose={close}
+			onPointerDown={(event) => {
+				pressedOutside.current = !panelRef.current?.contains(event.target as Node)
+			}}
 			onClick={(event) => {
-				if (!panelRef.current?.contains(event.target as Node)) close()
+				// A drag that starts in the field to select text and is released past
+				// the panel's edge also ends in a click out here, so the press must
+				// have started outside the panel too.
+				if (pressedOutside.current && !panelRef.current?.contains(event.target as Node)) close()
+				pressedOutside.current = false
 			}}
 			aria-label={dict.common.Search}
 			className="fixed inset-0 m-0 h-full max-h-full w-full max-w-full bg-transparent p-0 text-site-copy backdrop:bg-black/60 backdrop:backdrop-blur-[2px]"
@@ -217,18 +241,28 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 									className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-site-line border-t-blue-600 dark:border-t-blue-400"
 								/>
 							) : (
-								<SearchIcon aria-hidden className="h-5 w-5 shrink-0 text-site-muted" />
+								<SearchIcon aria-hidden fontSize="small" className="shrink-0 text-site-muted" />
 							)}
 							<input
 								ref={inputRef}
 								value={query}
-								onChange={(event) => setQuery(event.target.value)}
+								onChange={(event) => {
+									setQuery(event.target.value)
+									// Mid-composition text is not a term yet; compositionend
+									// brings the converted one.
+									if (!(event.nativeEvent as InputEvent).isComposing) {
+										setSearchQuery(event.target.value)
+									}
+								}}
+								onCompositionEnd={(event) => setSearchQuery(event.currentTarget.value)}
 								onKeyDown={onKeyDown}
+								maxLength={MAX_QUERY_LENGTH}
 								placeholder={dict.common.SearchPlaceholder}
 								aria-label={dict.common.SearchPlaceholder}
 								role="combobox"
-								aria-expanded
-								aria-controls="search-results"
+								aria-expanded={hits.length > 0}
+								aria-controls={hits.length > 0 ? 'search-results' : undefined}
+								aria-autocomplete="list"
 								aria-activedescendant={hits[active] ? `search-hit-${active}` : undefined}
 								autoComplete="off"
 								spellCheck={false}
@@ -240,26 +274,34 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 							<button
 								type="button"
 								onClick={close}
-								aria-label={dict.common.SearchDismiss}
 								className="shrink-0 rounded border border-site-line px-1.5 py-0.5 font-mono text-xs leading-none text-site-muted transition-colors hover:border-site-muted hover:text-site-heading"
 							>
-                esc
+								{/* The visible "esc" leads the accessible name, so a
+								    speech-input user can say what they see. */}
+								esc
+								<span className="sr-only"> {dict.common.SearchDismiss}</span>
 							</button>
 						</div>
 					</div>
+
+					<p role="status" className="sr-only">
+						{status}
+					</p>
 
 					<div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-3 sm:px-4 sm:pb-4">
 						{failed || hits.length === 0 ? (
 							// One centred block for every empty state, so the panel never
 							// shows a lone line of text floating against its left edge.
 							<div className="flex flex-col items-center justify-center gap-2.5 px-6 py-9 text-center">
-								<SearchIcon aria-hidden className="h-7 w-7 text-site-muted/40" />
+								<SearchIcon aria-hidden sx={{ fontSize: 28 }} className="text-site-muted/40" />
 								<p className="mb-0 max-w-xs text-sm leading-relaxed text-site-muted">
-									{failed
-										? dict.common.SearchError
-										: query
-											? dict.common.SearchNoResults
-											: dict.common.SearchPrompt}
+									{!searchable
+										? dict.common.SearchPrompt
+										: !current
+											? dict.common.SearchSearching
+											: failed
+												? dict.common.SearchError
+												: dict.common.SearchNoResults}
 								</p>
 							</div>
 						) : (
@@ -271,8 +313,8 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 									id="search-results"
 									role="listbox"
 									aria-label={dict.common.Search}
-									aria-busy={pending}
-									className={`list-none space-y-1.5 transition-opacity ${pending ? 'opacity-60' : ''}`}
+									aria-busy={stale}
+									className={`list-none space-y-1.5 transition-opacity ${stale ? 'opacity-60' : ''}`}
 								>
 									{hits.map((hit, index) => (
 										<li
@@ -299,7 +341,8 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 											>
 												<ArticleOutlinedIcon
 													aria-hidden
-													className={`mt-0.5 h-5 w-5 shrink-0 ${
+													fontSize="small"
+													className={`mt-0.5 shrink-0 ${
 														index === active
 															? 'text-blue-600 dark:text-blue-400'
 															: 'text-site-muted'
@@ -319,20 +362,21 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 															<Highlighted text={hit.heading} />
 														</span>
 													)}
-													<span className="mt-1 block line-clamp-2 text-sm leading-relaxed text-site-muted">
+													<span className="mt-1 line-clamp-2 text-sm leading-relaxed text-site-muted">
 														<Highlighted text={hit.snippet} />
 													</span>
 												</span>
 												{/* The display utility sits on the wrapper, not the icon:
-												    MUI injects its own `display` rule for SvgIcon at
-												    runtime, which lands after Tailwind and wins. */}
+												    MUI's runtime SvgIcon rules are unlayered, so they beat
+												    Tailwind's `display` and size utilities. Icons here are
+												    sized through MUI instead. */}
 												<span
 													aria-hidden
 													className={`mt-0.5 hidden shrink-0 sm:block ${
 														index === active ? 'opacity-100' : 'opacity-0'
 													}`}
 												>
-													<NorthEastIcon className="h-4 w-4 text-site-muted" />
+													<NorthEastIcon sx={{ fontSize: 16 }} className="text-site-muted" />
 												</span>
 											</Link>
 										</li>

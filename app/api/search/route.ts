@@ -3,7 +3,7 @@ import { Meilisearch, MeilisearchRequestError } from 'meilisearch'
 
 import { i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
-import { MARK_START, MARK_END } from '@/lib/search'
+import { MARK_START, MARK_END, MAX_QUERY_LENGTH, hasSearchableText } from '@/lib/search'
 import type { SearchHit, SearchResponse } from '@/lib/search'
 
 // The browser never talks to Meilisearch; it calls this route, which holds the
@@ -13,10 +13,10 @@ import type { SearchHit, SearchResponse } from '@/lib/search'
 
 export const runtime = 'nodejs'
 
-const MAX_QUERY_LENGTH = 100
 const MAX_RESULTS = 8
 // A result that takes longer than this is of no use to a type-ahead UI, and
-// the bound keeps a hung socket from holding the route open.
+// the bound keeps a hung socket from holding the route open. It covers the
+// retry as well, so a slow host is not waited on twice.
 const REQUEST_TIMEOUT_MS = 5000
 
 // `content` is deliberately absent: Meilisearch still returns the cropped,
@@ -49,10 +49,11 @@ function getClient(): Meilisearch | null {
 	const apiKey = process.env.MEILISEARCH_SEARCH_KEY
 	if (!host || !apiKey) return null
 	if (!client) {
+		// No `timeout` here: the client ignores it for a request that carries
+		// its own signal, and every search does.
 		client = new Meilisearch({
 			host,
 			apiKey,
-			timeout: REQUEST_TIMEOUT_MS,
 			// Identifies this app's traffic in the search host's logs.
 			clientAgents: ['next-blog'],
 		})
@@ -64,13 +65,15 @@ function getClient(): Meilisearch | null {
  * Searching is one cross-network call per keystroke, so a transient TLS reset
  * on the way to the search host would otherwise surface to the reader as
  * "search unavailable". Retry once, and only for a transport failure — an
- * error Meilisearch itself returned would just fail again identically.
+ * error Meilisearch itself returned would just fail again identically. Nor is
+ * an aborted `signal` worth a retry: the deadline has passed, or the reader
+ * has typed on and the dialog dropped this request.
  */
-async function withRetry<T>(run: () => Promise<T>): Promise<T> {
+async function withRetry<T>(signal: AbortSignal, run: () => Promise<T>): Promise<T> {
 	try {
 		return await run()
 	} catch (error) {
-		if (!(error instanceof MeilisearchRequestError)) throw error
+		if (!(error instanceof MeilisearchRequestError) || signal.aborted) throw error
 		return run()
 	}
 }
@@ -83,7 +86,9 @@ function parseLocale(value: string | null): Locale {
 
 export async function GET(request: NextRequest) {
 	const { searchParams } = new URL(request.url)
-	const query = (searchParams.get('q') ?? '').slice(0, MAX_QUERY_LENGTH).trim()
+	// Cut by code point: a cut through an emoji's surrogate pair would leave
+	// half of it, which Meilisearch rejects as invalid JSON.
+	const query = Array.from(searchParams.get('q') ?? '').slice(0, MAX_QUERY_LENGTH).join('').trim()
 	const lang = parseLocale(searchParams.get('lang'))
 
 	const meilisearch = getClient()
@@ -93,28 +98,40 @@ export async function GET(request: NextRequest) {
 
 	// The dialog shows a prompt until something is typed, so an empty query has
 	// nothing to answer and should not cost a round trip to the search host.
-	if (!query) {
+	// Nor should one of only punctuation, such as '#': Meilisearch would run it
+	// as a placeholder search and return posts nobody asked for.
+	if (!hasSearchableText(query)) {
 		return NextResponse.json({ query, hits: [], processingTimeMs: 0 } satisfies SearchResponse)
 	}
 
 	try {
 		const index = meilisearch.index<PostSection>(searchIndexUid(lang))
+		// One deadline for both attempts, ended early if the reader has gone.
+		const signal = AbortSignal.any([request.signal, AbortSignal.timeout(REQUEST_TIMEOUT_MS)])
 
-		const result = await withRetry(() =>
-			index.search(query, {
-				limit: MAX_RESULTS,
-				attributesToRetrieve: RETRIEVED,
-				attributesToHighlight: ['title', 'heading', 'content'],
-				attributesToCrop: ['content'],
-				cropLength: 40,
-				cropMarker: '…',
-				highlightPreTag: MARK_START,
-				highlightPostTag: MARK_END,
-			}),
+		const result = await withRetry(signal, () =>
+			index.search(
+				query,
+				{
+					limit: MAX_RESULTS,
+					attributesToRetrieve: RETRIEVED,
+					attributesToHighlight: ['title', 'heading', 'content'],
+					attributesToCrop: ['content'],
+					cropLength: 40,
+					cropMarker: '…',
+					highlightPreTag: MARK_START,
+					highlightPostTag: MARK_END,
+				},
+				{ signal },
+			),
 		)
 
 		const hits: SearchHit[] = result.hits.map((hit) => {
 			const formatted = hit._formatted
+			const crop = formatted?.content ?? ''
+			const summary = hit.summary ?? ''
+			const sectionMatched =
+				crop.includes(MARK_START) || Boolean(formatted?.heading?.includes(MARK_START))
 
 			return {
 				id: hit.id,
@@ -124,9 +141,10 @@ export async function GET(request: NextRequest) {
 				date: hit.date,
 				title: formatted?.title ?? hit.title,
 				heading: formatted?.heading ?? hit.heading ?? null,
-				// A hit that matched only on its title has no marked crop, so the
-				// summary stands in.
-				snippet: formatted?.content ?? hit.summary ?? '',
+				// A section that matched keeps its crop. A hit that matched only on
+				// its title still gets a crop, but an unmarked one from the start of
+				// the section, so the post's summary stands in for it.
+				snippet: sectionMatched ? crop || summary : summary || crop,
 			}
 		})
 
@@ -142,7 +160,8 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json(body)
 	} catch (error: unknown) {
 		// Log the detail, but keep the host and index names out of the response.
-		console.error('search failed:', error)
+		// A request the reader abandoned by typing on is routine, not a failure.
+		if (!request.signal.aborted) console.error('search failed:', error)
 		return NextResponse.json({ error: 'Search is unavailable.' }, { status: 502 })
 	}
 }

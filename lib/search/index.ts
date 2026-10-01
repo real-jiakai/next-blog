@@ -9,6 +9,9 @@
 export const MARK_START = String.fromCharCode(1)
 export const MARK_END = String.fromCharCode(2)
 
+/** The route searches at most this many characters of a query. */
+export const MAX_QUERY_LENGTH = 100
+
 export interface SearchHit {
   id: string
   /** Path on this site, e.g. `/2024/09/weekly-issue-21` (already locale-aware). */
@@ -18,7 +21,7 @@ export interface SearchHit {
   title: string
   /** Heading of the matched section, or null for a post's opening section. */
   heading: string | null
-  /** Cropped excerpt around the match, or the post summary for an empty query. */
+  /** Cropped excerpt of the section, or the post summary when only the title matched. */
   snippet: string
 }
 
@@ -26,6 +29,16 @@ export interface SearchResponse {
   query: string
   hits: SearchHit[]
   processingTimeMs: number
+}
+
+/**
+ * True when the query has something Meilisearch can match. A query of only
+ * separators (#, ？, …, 《) or only negated words (-ai) would otherwise run as a
+ * placeholder search and return arbitrary posts.
+ */
+export function hasSearchableText(query: string): boolean {
+	const positive = query.replace(/(?:^|\s)-(?:"[^"]*"?|\S*)/gu, ' ')
+	return /[\p{L}\p{N}]/u.test(positive)
 }
 
 export interface HighlightRun {
