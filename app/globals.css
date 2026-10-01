@@ -20,13 +20,19 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-    /* Height of one PostCard. The post list reserves a full page of these so
-       the pagination sits at the same height on every page, including the last
+    /* Height of one PostCard whose title and summary fit on one line each.
+       From md up the post list reserves a full page of these so the
+       pagination sits at the same height on every page, including the last
        one when it holds fewer posts. Keep in step with PostCard's own box. */
     --post-card-height: 7.9375rem;
     /* Ceiling for the growth above; beyond this a card stops filling and the
        remaining slack goes back to the page. */
     --post-card-max: 12rem;
+    /* 1 where the post list reserves that full page, 0 where it does not. Off
+       on phones: titles and summaries wrap there, so cards are uneven and the
+       floor could not line the pagination up; it only left a short last page
+       with a screen of blank space above its navigation. */
+    --post-list-floor: 0;
     /* Anthropic-style warm neutrals: ivory paper, white cards, and text in
        warm near-blacks (#141413 family). The previous copy/muted values were
        GitHub's cool slate greys, which sat blue against the cream page —
@@ -50,6 +56,7 @@
     :root {
         --post-card-height: 8.5625rem;
         --post-card-max: 14rem;
+        --post-list-floor: 1;
     }
 }
 
@@ -102,8 +109,8 @@
     }
 
     table th,
-    td {
-        @apply border border-site-line p-2;
+    table td {
+        @apply p-2;
     }
 
     p {
@@ -162,7 +169,7 @@
     }
 
     .article-content a {
-        @apply text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500;
+        @apply text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500;
     }
 
     .article-content strong {
@@ -181,12 +188,19 @@
         @apply my-2 leading-7;
     }
 
+    /* The theme token rather than a dark: variant, which after a
+       pseudo-element compiles to a selector that never matches. */
     .article-content li::marker {
-        @apply text-gray-400 dark:text-gray-500;
+        @apply text-site-muted;
     }
 
     .article-content blockquote {
         @apply my-6 pl-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted italic;
+    }
+
+    /* Han characters have no italic face, so the slant would be synthesized. */
+    .article-content blockquote:lang(zh) {
+        @apply not-italic;
     }
 
     .article-content blockquote p {
@@ -237,7 +251,7 @@
     }
 
     .comment-content a {
-        @apply text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500;
+        @apply text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500;
     }
 
     .comment-content strong {
@@ -261,7 +275,7 @@
     }
 
     .comment-content li::marker {
-        @apply text-gray-400 dark:text-gray-500;
+        @apply text-site-muted;
     }
 
     .comment-content blockquote {
@@ -301,15 +315,15 @@
     }
 }
 
-.bilibili,
-.youtube {
+/* Sized by the player's own 16:9 shape rather than a fixed height, which left
+   phones with more black bars than video. */
+.bilibili {
+    display: block;
     width: 100%;
-    height: 500px;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 1.5rem 0;
+    border: 0;
 }
 
 /* APlayer ships with a fixed white skin. Keep its controls readable while
@@ -317,6 +331,10 @@
 .aplayer.aplayer .aplayer-title,
 .aplayer.aplayer .aplayer-author {
     color: #141413 !important;
+}
+
+.aplayer.aplayer .aplayer-info .aplayer-controller .aplayer-time {
+    color: var(--site-muted);
 }
 
 .dark .aplayer.aplayer,
@@ -349,4 +367,16 @@ html.dark .aplayer.aplayer .aplayer-author,
 .dark .aplayer svg path,
 .dark .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
     fill: var(--site-copy);
+}
+
+/* The skin sets `outline: none` on its icon buttons, which leaves keyboard
+   users on the volume and loop controls with no visible focus. */
+.aplayer .aplayer-icon:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+}
+
+/* Outranks the skin's black hover fill, which would all but vanish here. */
+.dark .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon:hover path {
+    fill: var(--site-heading);
 }

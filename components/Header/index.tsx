@@ -1,5 +1,6 @@
 'use client'
 
+import { useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import Brightness5Icon from '@mui/icons-material/Brightness5'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
@@ -12,8 +13,17 @@ interface HeaderProps {
   dict: { common: CommonDictionary }
 }
 
+// Nothing to subscribe to: the snapshot only tells the server render (false)
+// apart from the hydrated client (true).
+const subscribeToNothing = () => () => {}
+
 export default function Header({ lang, dict }: HeaderProps) {
 	const { setTheme, resolvedTheme, systemTheme } = useTheme()
+
+	// The theme is only known in the browser, so the toggle reports no pressed
+	// state until hydration has finished and the two renders agree.
+	const hydrated = useSyncExternalStore(subscribeToNothing, () => true, () => false)
+	const isDark = hydrated ? resolvedTheme === 'dark' : undefined
 
 	// The toggle has two states but the theme has three, and picking either one
 	// explicitly used to pin the site for good — a reader who ever pressed this
@@ -25,20 +35,28 @@ export default function Header({ lang, dict }: HeaderProps) {
 		setTheme(next === systemTheme ? 'system' : next)
 	}
 
-	// CSS-based icon switching - no hydration mismatch since visibility is controlled by CSS
+	// CSS-based icon switching - no hydration mismatch since visibility is
+	// controlled by CSS. The display classes sit on wrappers because MUI's own
+	// display rule outranks them on the icons themselves. 44px in the phone bar
+	// like its neighbours, 36px in the desktop row.
 	const RenderThemeChanger = () => {
 		return (
 			<button
 				type="button"
-				aria-label={dict.common.ToggleTheme}
+				aria-label={dict.common.DarkMode}
+				aria-pressed={isDark}
 				title={dict.common.ToggleTheme}
 				onClick={toggleTheme}
-				className="relative p-2 rounded-lg hover:bg-site-surface-muted transition-colors"
+				className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted md:min-h-9 md:min-w-9"
 			>
 				{/* Sun icon - visible in light mode, hidden in dark mode */}
-				<Brightness5Icon aria-hidden className="w-5 h-5 text-site-muted scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 dark:absolute" />
+				<span aria-hidden className="flex dark:hidden">
+					<Brightness5Icon fontSize="small" />
+				</span>
 				{/* Moon icon - hidden in light mode, visible in dark mode */}
-				<Brightness4Icon aria-hidden className="absolute top-2 left-2 w-5 h-5 text-site-muted scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0 dark:relative dark:top-0 dark:left-0" />
+				<span aria-hidden className="hidden dark:flex">
+					<Brightness4Icon fontSize="small" />
+				</span>
 			</button>
 		)
 	}

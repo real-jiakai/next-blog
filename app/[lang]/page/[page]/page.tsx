@@ -1,7 +1,14 @@
 import type { Metadata } from 'next'
 import { notFound, permanentRedirect } from 'next/navigation'
-import { i18n, Locale, getLocalePath } from '@/lib/i18n-config'
+import {
+	i18n,
+	Locale,
+	getLanguageAlternates,
+	getLocalePath,
+} from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
+import { getSiteOpenGraph } from '@/lib/metadata'
+import { isPageInEveryLocale } from '@/lib/pagination'
 import { getSortedPostsData } from '@/lib/posts'
 import { getPostsPerPage, parsePageNumber } from '@/lib/site-config'
 import Layout from '@/components/Layout'
@@ -31,12 +38,17 @@ export async function generateStaticParams({
 	return paths
 }
 
+function getPageTitle(template: string, page: number): string {
+	return template.replace('{n}', String(page))
+}
+
 export async function generateMetadata({
 	params,
 }: {
   params: Promise<PageParams>
 }): Promise<Metadata> {
 	const { lang, page } = await params
+	const dict = await getDictionary(lang)
 	const currentPage = parsePageNumber(page)
 	const postsPerPage = getPostsPerPage()
 	const totalPages = Math.ceil(getSortedPostsData(lang).length / postsPerPage)
@@ -50,20 +62,17 @@ export async function generateMetadata({
 		title:
 			currentPage === 1
 				? process.env.NEXT_PUBLIC_SITE_TITLE
-				: lang === 'zh'
-					? `第 ${currentPage} 页`
-					: `Page ${currentPage}`,
+				: getPageTitle(dict.common.PageN, currentPage),
 		alternates: {
 			canonical: getLocalePath(lang, pagePath),
-			languages: {
-				'zh-CN': getLocalePath('zh', pagePath),
-				'en-US': getLocalePath('en', pagePath),
-				'x-default': getLocalePath('zh', pagePath),
-			},
+			languages: isPageInEveryLocale(currentPage)
+				? getLanguageAlternates(pagePath)
+				: undefined,
 			types: {
 				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
 			},
 		},
+		openGraph: getSiteOpenGraph(lang, pagePath),
 	}
 }
 
@@ -98,6 +107,7 @@ export default async function PaginationPage({
 			    keep their natural size and the leftover height trails after the
 			    pagination rather than being pushed into the cards. */}
 			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
+				<h1 className="sr-only">{getPageTitle(dict.common.PageN, currentPage)}</h1>
 				{/* See the homepage: the list always fills, its cards only when the
 				    page is full. */}
 				<div
@@ -118,6 +128,8 @@ export default async function PaginationPage({
 						totalPages={totalPages}
 						previousLabel={dict.common.PreviousPage}
 						nextLabel={dict.common.NextPage}
+						navLabel={dict.common.Pagination}
+						pageLabel={dict.common.PageN}
 					/>
 				</div>
 			</section>

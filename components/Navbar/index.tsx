@@ -1,9 +1,17 @@
 'use client'
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
-import type { FocusEvent, KeyboardEvent } from 'react'
+import type {
+	Dispatch,
+	FocusEvent,
+	KeyboardEvent,
+	PointerEvent as ReactPointerEvent,
+	RefObject,
+	SetStateAction,
+} from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import HomeIcon from '@mui/icons-material/Home'
 import InfoIcon from '@mui/icons-material/Info'
 import RssFeedIcon from '@mui/icons-material/RssFeed'
@@ -15,7 +23,14 @@ import SearchIcon from '@mui/icons-material/Search'
 import { getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import type { CommonDictionary } from '@/lib/dictionaries'
-import SearchDialog, { useSearchHotkey } from '@/components/Search'
+
+// Fetched the first time search is opened, so the dialog and the date
+// formatting it brings stay out of the bundle every page loads. Nothing may
+// import '@/components/Search' statically, or it lands back in that bundle.
+const SearchDialog = dynamic(() => import('@/components/Search'), { ssr: false })
+const preloadSearch = () => {
+	import('@/components/Search').catch(() => {})
+}
 
 interface NavbarProps {
   lang: Locale
@@ -37,11 +52,13 @@ const localeShortLabels: Record<Locale, string> = {
 
 const searchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH === 'true'
 
+/** Apple devices take the search shortcut on Cmd, everything else on Ctrl. */
+const isApplePlatform = () => /Mac|iPhone|iPad|iPod/.test(navigator.userAgent)
+
 // The hint never changes for a given device, so there is nothing to subscribe
 // to; the snapshot is a plain string and compares stably between renders.
 const subscribeToNothing = () => () => {}
-const getShortcutHint = () =>
-	/Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? '⌘K' : 'Ctrl K'
+const getShortcutHint = () => (isApplePlatform() ? '⌘K' : 'Ctrl K')
 
 export default function Navbar({
 	lang,
@@ -53,14 +70,44 @@ export default function Navbar({
 	const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 	const [translateMenuVisible, setTranslateMenuVisible] = useState(false)
 	const [searchOpen, setSearchOpen] = useState(false)
+	// Set by the first open and never cleared: the dialog then stays mounted,
+	// so a reopened search still holds its query.
+	const [searchLoaded, setSearchLoaded] = useState(false)
 	const translateMenuId = useId()
 	const moreMenuId = useId()
 	const mobileMenuId = useId()
 	const navRef = useRef<HTMLElement>(null)
 	const mobileMenuButtonRef = useRef<HTMLButtonElement>(null)
+	const translateOpenedByHover = useRef(false)
+	const moreOpenedByHover = useRef(false)
 	const pathname = usePathname()
 
-	useSearchHotkey(setSearchOpen, searchEnabled)
+	const openSearch = () => {
+		setSearchLoaded(true)
+		setSearchOpen(true)
+	}
+
+	// Cmd+K on Apple devices and Ctrl+K elsewhere: only the modifier the hint
+	// advertises, since on macOS Ctrl+K in a text field is the native "delete
+	// to end of line". Bound here, not in the dialog, which is not loaded yet.
+	useEffect(() => {
+		// Do not swallow the browser's own Cmd+K when there is no dialog to open.
+		if (!searchEnabled) return
+
+		const apple = isApplePlatform()
+
+		const onKeyDown = (event: globalThis.KeyboardEvent) => {
+			const modifier = apple ? event.metaKey : event.ctrlKey
+			if (modifier && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'k') {
+				event.preventDefault()
+				setSearchLoaded(true)
+				setSearchOpen(true)
+			}
+		}
+
+		window.addEventListener('keydown', onKeyDown)
+		return () => window.removeEventListener('keydown', onKeyDown)
+	}, [])
 
 	// The modifier key depends on the platform, which the server cannot know.
 	// The server snapshot is null and the badge appears after hydration, so the
@@ -97,6 +144,35 @@ export default function Navbar({
 	// With exactly two locales, the mobile bar can switch straight to the other
 	// one instead of opening a menu to choose.
 	const otherLocale = sortedLocales[1]
+	// Home is current only on the first page; on /page/N the pagination marks
+	// the current page instead.
+	const ariaCurrent = (path: string) => (path === pathWithoutLocale ? 'page' : undefined)
+
+	// Hover opens a menu for a mouse only: a touch tap fires the same enter
+	// events just before its click, which would toggle the menu shut again.
+	// The click that follows a hover keeps open the menu the hover opened.
+	const hoverMenu = (
+		event: ReactPointerEvent<HTMLElement>,
+		openedByHover: RefObject<boolean>,
+		setVisible: Dispatch<SetStateAction<boolean>>,
+		visible: boolean
+	) => {
+		if (event.pointerType !== 'mouse') return
+		openedByHover.current = visible
+		setVisible(visible)
+	}
+
+	const toggleMenu = (
+		openedByHover: RefObject<boolean>,
+		setVisible: Dispatch<SetStateAction<boolean>>
+	) => {
+		if (openedByHover.current) {
+			openedByHover.current = false
+			setVisible(true)
+			return
+		}
+		setVisible((visible) => !visible)
+	}
 
 	const closeWhenFocusLeaves = (
 		event: FocusEvent<HTMLElement>,
@@ -140,13 +216,14 @@ export default function Navbar({
 					<Link
 						href={getLocalePath(locale, pathWithoutLocale)}
 						className={className}
-						hrefLang={locale === 'zh' ? 'zh-CN' : 'en-US'}
+						hrefLang={locale}
+						lang={locale}
 						onClick={close}
 					>
 						{displayName}
 					</Link>
 				) : (
-					<span className={className} aria-current="true">
+					<span className={className} aria-current="true" lang={locale}>
 						{displayName}
 					</span>
 				)}
@@ -169,16 +246,18 @@ export default function Navbar({
 					<li>
 						<Link
 							href={getLocalePath(lang)}
-							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
+							aria-current={ariaCurrent('/')}
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 						>
-							<HomeIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
+							<HomeIcon aria-hidden fontSize="small" />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Home}</span>
 						</Link>
 					</li>
 					<li>
 						<Link
 							href={getLocalePath(lang, '/archive')}
-							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
+							aria-current={ariaCurrent('/archive')}
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 						>
 							<svg
 								aria-hidden
@@ -197,9 +276,10 @@ export default function Navbar({
 					<li>
 						<Link
 							href={getLocalePath(lang, '/about')}
-							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
+							aria-current={ariaCurrent('/about')}
+							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 						>
-							<InfoIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
+							<InfoIcon aria-hidden fontSize="small" />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.About}</span>
 						</Link>
 					</li>
@@ -209,7 +289,7 @@ export default function Navbar({
 							type="application/atom+xml"
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
-							<RssFeedIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
+							<RssFeedIcon aria-hidden fontSize="small" />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.RSS}</span>
 						</a>
 					</li>
@@ -221,10 +301,12 @@ export default function Navbar({
 							    as one. */}
 							<button
 								type="button"
-								onClick={() => setSearchOpen(true)}
-								className="inline-flex w-56 items-center gap-2 rounded-lg border border-site-line bg-site-surface py-1.5 pl-3 pr-2 text-site-muted transition-colors hover:border-blue-500/60 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+								onClick={openSearch}
+								onPointerEnter={preloadSearch}
+								onFocus={preloadSearch}
+								className="inline-flex w-40 items-center gap-2 rounded-lg border border-site-line bg-site-surface py-1.5 pl-3 pr-2 text-site-muted transition-colors hover:border-blue-500/60 hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 lg:w-56 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 							>
-								<SearchIcon aria-hidden className="w-5 h-5 flex-shrink-0" />
+								<SearchIcon aria-hidden fontSize="small" />
 								<span className="text-base whitespace-nowrap">{dict.common.Search}</span>
 								{/* Rendered only after mount: the modifier depends on the
 								    platform, which the server cannot know. */}
@@ -238,8 +320,8 @@ export default function Navbar({
 					)}
 					<li
 						className="hidden xl:block relative"
-						onMouseEnter={() => setTranslateMenuVisible(true)}
-						onMouseLeave={() => setTranslateMenuVisible(false)}
+						onPointerEnter={(event) => hoverMenu(event, translateOpenedByHover, setTranslateMenuVisible, true)}
+						onPointerLeave={(event) => hoverMenu(event, translateOpenedByHover, setTranslateMenuVisible, false)}
 						onBlur={(event) => closeWhenFocusLeaves(event, () => setTranslateMenuVisible(false))}
 						onKeyDown={(event) => closeOnEscape(event, () => setTranslateMenuVisible(false))}
 					>
@@ -249,9 +331,9 @@ export default function Navbar({
 							aria-label={dict.common.ChangeLanguage}
 							aria-controls={translateMenuId}
 							aria-expanded={translateMenuVisible}
-							onClick={() => setTranslateMenuVisible((visible) => !visible)}
+							onClick={() => toggleMenu(translateOpenedByHover, setTranslateMenuVisible)}
 						>
-							<TranslateIcon aria-hidden className="w-5 h-5" />
+							<TranslateIcon aria-hidden fontSize="small" />
 							<svg aria-hidden className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 							</svg>
@@ -271,8 +353,8 @@ export default function Navbar({
 					<li className="hidden xl:block">{RenderThemeChanger()}</li>
 					<li
 						className="hidden md:block xl:hidden relative"
-						onMouseEnter={() => setMoreMenuVisible(true)}
-						onMouseLeave={() => setMoreMenuVisible(false)}
+						onPointerEnter={(event) => hoverMenu(event, moreOpenedByHover, setMoreMenuVisible, true)}
+						onPointerLeave={(event) => hoverMenu(event, moreOpenedByHover, setMoreMenuVisible, false)}
 						onBlur={(event) => closeWhenFocusLeaves(event, () => setMoreMenuVisible(false))}
 						onKeyDown={(event) => closeOnEscape(event, () => setMoreMenuVisible(false))}
 					>
@@ -282,9 +364,9 @@ export default function Navbar({
 							aria-label={dict.common.MoreOptions}
 							aria-controls={moreMenuId}
 							aria-expanded={moreMenuVisible}
-							onClick={() => setMoreMenuVisible((visible) => !visible)}
+							onClick={() => toggleMenu(moreOpenedByHover, setMoreMenuVisible)}
 						>
-							<MoreHorizIcon aria-hidden className="w-5 h-5" />
+							<MoreHorizIcon aria-hidden fontSize="small" />
 						</button>
 						{moreMenuVisible && (
 							<div
@@ -320,36 +402,43 @@ export default function Navbar({
 							{searchEnabled && (
 								<button
 									type="button"
-									onClick={() => setSearchOpen(true)}
+									onClick={openSearch}
+									onPointerEnter={preloadSearch}
+									onFocus={preloadSearch}
 									aria-label={dict.common.Search}
-									className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+									className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 								>
-									<SearchIcon aria-hidden className="h-6 w-6" />
+									<SearchIcon aria-hidden />
 								</button>
 							)}
 							<Link
 								href={getLocalePath(otherLocale, pathWithoutLocale)}
-								hrefLang={otherLocale === 'zh' ? 'zh-CN' : 'en-US'}
+								hrefLang={otherLocale}
 								onClick={() => setMobileMenuVisible(false)}
-								aria-label={dict.common.ChangeLanguage}
-								className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+								title={dict.common.ChangeLanguage}
+								className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 							>
-								{localeShortLabels[otherLocale]}
+								{/* The name keeps the visible label, for voice control, and
+								    spells out the language it switches to. */}
+								<span lang={otherLocale}>
+									{localeShortLabels[otherLocale]}
+									<span className="sr-only"> {supportedLocales[otherLocale]}</span>
+								</span>
 							</Link>
 							{RenderThemeChanger()}
 							<button
 								ref={mobileMenuButtonRef}
 								type="button"
 								onClick={() => setMobileMenuVisible((visible) => !visible)}
-								className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+								className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 								aria-label={mobileMenuVisible ? dict.common.CloseMenu : dict.common.OpenMenu}
 								aria-controls={mobileMenuId}
 								aria-expanded={mobileMenuVisible}
 							>
 								{mobileMenuVisible ? (
-									<CloseIcon aria-hidden className="h-6 w-6" />
+									<CloseIcon aria-hidden />
 								) : (
-									<MenuIcon aria-hidden className="h-6 w-6" />
+									<MenuIcon aria-hidden />
 								)}
 							</button>
 						</div>
@@ -367,9 +456,10 @@ export default function Navbar({
 									<Link
 										href={getLocalePath(lang)}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										aria-current={ariaCurrent('/')}
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 									>
-										<HomeIcon aria-hidden className="h-5 w-5" />
+										<HomeIcon aria-hidden fontSize="small" />
 										{dict.common.Home}
 									</Link>
 								</li>
@@ -377,7 +467,8 @@ export default function Navbar({
 									<Link
 										href={getLocalePath(lang, '/archive')}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										aria-current={ariaCurrent('/archive')}
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 									>
 										<svg aria-hidden xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24">
 											<path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" />
@@ -389,9 +480,10 @@ export default function Navbar({
 									<Link
 										href={getLocalePath(lang, '/about')}
 										onClick={() => setMobileMenuVisible(false)}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
+										aria-current={ariaCurrent('/about')}
+										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 									>
-										<InfoIcon aria-hidden className="h-5 w-5" />
+										<InfoIcon aria-hidden fontSize="small" />
 										{dict.common.About}
 									</Link>
 								</li>
@@ -402,7 +494,7 @@ export default function Navbar({
 										onClick={() => setMobileMenuVisible(false)}
 										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
 									>
-										<RssFeedIcon aria-hidden className="h-5 w-5" />
+										<RssFeedIcon aria-hidden fontSize="small" />
 										{dict.common.RSS}
 									</a>
 								</li>
@@ -412,7 +504,7 @@ export default function Navbar({
 				</div>
 			</nav>
 
-			{searchEnabled && (
+			{searchEnabled && searchLoaded && (
 				<SearchDialog
 					lang={lang}
 					dict={dict}
