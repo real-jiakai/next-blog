@@ -2,5 +2,3 @@ allowBuilds:
   sharp: true
   simple-git-hooks: false
   unrs-resolver: false
-minimumReleaseAgeExclude:
-  - nodemailer@10.0.13
