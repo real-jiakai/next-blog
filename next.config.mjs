@@ -50,6 +50,7 @@ const securityHeaders = [
 export default withBundleAnalyzer({
 	pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	reactStrictMode: true,
+	poweredByHeader: false,
 	output: 'standalone',
 	turbopack: {},
 	experimental: {
@@ -84,12 +85,10 @@ export default withBundleAnalyzer({
 			},
 		]
 	},
+	// Nothing goes through /_next/image (the comment identicons are data:
+	// URIs), so the optimizer stays off rather than buffering and caching
+	// every width of a public file, such as a 23 MB GIF, on request.
 	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'image.gujiakai.top',
-			},
-		],
+		unoptimized: true,
 	},
 })

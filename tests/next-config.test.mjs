@@ -1,17 +1,34 @@
 import { describe, expect, it } from 'vitest'
 import nextConfig from '@/next.config.mjs'
 
-describe('locale route configuration', () => {
-	it('allows the Cloudflare Web Analytics beacon required in production', async () => {
+describe('security headers', () => {
+	it('allows the Cloudflare Web Analytics beacon script in script-src', async () => {
 		const [{ headers }] = await nextConfig.headers()
 		const csp = headers.find(
 			(header) => header.key === 'Content-Security-Policy'
 		)?.value
+		// The trailing space keeps this from matching script-src-attr.
+		const scriptSrc = csp
+			?.split('; ')
+			.find((directive) => directive.startsWith('script-src '))
 
-		expect(csp).toContain('script-src')
-		expect(csp).toContain('https://static.cloudflareinsights.com')
+		expect(scriptSrc?.split(' ')).toContain(
+			'https://static.cloudflareinsights.com'
+		)
 	})
 
+	it('does not advertise the framework', () => {
+		expect(nextConfig.poweredByHeader).toBe(false)
+	})
+})
+
+describe('image optimizer', () => {
+	it('is off, so /_next/image cannot buffer arbitrary public files', () => {
+		expect(nextConfig.images).toEqual({ unoptimized: true })
+	})
+})
+
+describe('locale route configuration', () => {
 	it('canonicalizes explicit Chinese prefixes', async () => {
 		expect(await nextConfig.redirects()).toEqual([
 			{ source: '/page/1', destination: '/', permanent: true },

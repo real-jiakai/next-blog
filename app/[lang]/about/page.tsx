@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getLocalePath } from '@/lib/i18n-config'
+import { getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import Layout from '@/components/Layout'
@@ -17,11 +17,7 @@ export async function generateMetadata({
 		description: dict.about.Intro,
 		alternates: {
 			canonical: getLocalePath(lang, '/about'),
-			languages: {
-				'zh-CN': '/about',
-				'en-US': '/en/about',
-				'x-default': '/about',
-			},
+			languages: getLanguageAlternates('/about'),
 			types: {
 				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
 			},
@@ -35,8 +31,15 @@ export async function generateMetadata({
 			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
 			alternateLocale: lang === 'zh' ? ['en_US'] : ['zh_CN'],
 		},
+		twitter: {
+			card: 'summary',
+			title: dict.about.About,
+			description: dict.about.Intro,
+		},
 	}
 }
+
+const linkClass = 'underline text-blue-600 hover:text-blue-800 visited:text-purple-600 dark:text-blue-400 dark:hover:text-blue-300 dark:visited:text-purple-400'
 
 export default async function About({
 	params,
@@ -47,7 +50,6 @@ export default async function About({
 	const dict = await getDictionary(lang)
 
 	const rssUrl = lang === 'zh' ? '/index.xml' : '/en/index.xml'
-	const wordSpace = lang === 'en' ? ' ' : ''
 	const personalSiteUrl = 'https://github.com/real-jiakai'
 
 	return (
@@ -57,25 +59,23 @@ export default async function About({
 				<p className="my-4">{dict.about.Intro}</p>
 				<p className="my-4">{dict.about.WeeklyName}</p>
 				<p className="my-4">
-					{dict.about.RSSSubscribe}
-					{wordSpace}
+					{dict.about.RSSSubscribe}{' '}
 					<a
 						href={rssUrl}
 						type="application/atom+xml"
-						className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+						className={linkClass}
 					>
 						{dict.about.RSSLink}
 					</a>
 					{dict.about.RSSSubscribeEnd}
 				</p>
 				<p className="my-4">
-					{dict.about.MoreAboutMe}
-					{wordSpace}
+					{dict.about.MoreAboutMe}{' '}
 					<a
 						href={personalSiteUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+						className={linkClass}
 					>
 						{dict.about.Blog}
 					</a>

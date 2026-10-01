@@ -16,7 +16,6 @@ pre[class*="language-"] {
 	word-break: normal;
 	word-wrap: normal;
 	line-height: 1.5;
-	font-size: 1em;
 
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -51,10 +50,10 @@ code[class*="language-"] ::selection {
 	}
 }
 
-/* Code blocks */
+/* Code blocks. No margin or font size here: this sheet is unlayered, so either
+   would override the article's own spacing and size for code blocks. */
 pre[class*="language-"] {
 	padding: 1em;
-	margin: 0.5em 0;
 	overflow: auto;
 }
 
@@ -70,11 +69,18 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
+/* Lighter than upstream Night Owl's rgb(99, 119, 119), which is 3.87:1 on the
+   background; this is 6.44:1, enough for WCAG AA. */
 .token.comment,
 .token.prolog,
 .token.cdata {
-	color: rgb(99, 119, 119);
+	color: rgb(137, 157, 157);
 	font-style: italic;
+}
+
+/* Han characters have no italic face, so the slant would be synthesized. */
+.token.comment:lang(zh) {
+	font-style: normal;
 }
 
 .token.punctuation {
