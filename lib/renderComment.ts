@@ -29,7 +29,7 @@ function hardenLinks() {
 				node.properties = {
 					...node.properties,
 					target: '_blank',
-					rel: 'nofollow noopener noreferrer',
+					rel: ['nofollow', 'noopener', 'noreferrer'],
 				}
 			}
 		})
