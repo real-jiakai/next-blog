@@ -64,7 +64,10 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 	const [page, setPage] = useState(1)
 	const [hasMore, setHasMore] = useState(false)
 	const [loadingEarlier, setLoadingEarlier] = useState(false)
+	const [earlierFailed, setEarlierFailed] = useState(false)
 	const hashHandled = useRef(false)
+	const listRef = useRef<HTMLDivElement>(null)
+	const focusFirstComment = useRef(false)
 
 	useEffect(() => {
 		// Fetch inside the effect and ignore the result if the component
@@ -79,6 +82,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 					setComments(result.comments)
 					setPage(1)
 					setHasMore(result.hasMore)
+					setEarlierFailed(false)
 					setStatus('ready')
 				}
 			} catch (error) {
@@ -105,9 +109,18 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 		}
 	}, [comments])
 
+	// The button unmounts with the last page, so hand its focus to the first
+	// comment rather than let it fall back to <body>.
+	useEffect(() => {
+		if (!focusFirstComment.current) return
+		focusFirstComment.current = false
+		listRef.current?.querySelector<HTMLElement>('.comment')?.focus()
+	}, [comments, hasMore])
+
 	const loadEarlier = async () => {
 		if (loadingEarlier) return
 		setLoadingEarlier(true)
+		setEarlierFailed(false)
 		try {
 			const result = await fetchCommentPage(page + 1)
 			setComments((previous) => [
@@ -118,8 +131,10 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 			])
 			setPage(page + 1)
 			setHasMore(result.hasMore)
+			if (!result.hasMore) focusFirstComment.current = true
 		} catch (error) {
 			console.error('Fetching earlier comments failed: ', error)
+			setEarlierFailed(true)
 		} finally {
 			setLoadingEarlier(false)
 		}
@@ -135,22 +150,32 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 	return (
 		<>
 			{comments.length > 0 ? (
-				<div className="comment-list space-y-4">
+				<div ref={listRef} className="comment-list space-y-4">
 					{hasMore && (
-						<button
-							type="button"
-							onClick={loadEarlier}
-							disabled={loadingEarlier}
-							aria-busy={loadingEarlier}
-							className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							{dict.LoadEarlier}
-						</button>
+						<div>
+							{/* aria-disabled, not disabled: a disabled button drops the
+							    keyboard focus it holds. loadEarlier ignores repeat presses. */}
+							<button
+								type="button"
+								onClick={loadEarlier}
+								aria-disabled={loadingEarlier}
+								aria-busy={loadingEarlier}
+								className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+							>
+								{dict.LoadEarlier}
+							</button>
+							{earlierFailed && (
+								<p role="alert" className="mt-1 text-sm text-red-700 dark:text-red-400">
+									{dict.CommentsUnavailable}
+								</p>
+							)}
+						</div>
 					)}
 					{comments.map((comment) => (
 						<div
 							key={comment.id}
 							id={`comment-${comment.id}`}
+							tabIndex={-1}
 							className="comment scroll-mt-24 p-4 bg-site-surface border border-site-line shadow-md rounded-lg flex flex-col"
 						>
 							<div className="flex justify-between items-center mb-2 border-b border-site-line">

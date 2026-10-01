@@ -59,19 +59,28 @@ function prefixFootnoteLinks() {
 	}
 }
 
-const processor = unified()
-	.use(remarkParse)
-	.use(remarkGfm)
-	.use(remarkGemoji)
-	.use(remarkRehype, { allowDangerousHtml: true, clobberPrefix: '' })
-	.use(rehypeRaw)
-	.use(hardenLinks)
-	.use(rehypeSanitize, schema)
-	.use(prefixFootnoteLinks)
-	.use(rehypeStringify)
+function createProcessor(clobberPrefix: string) {
+	return unified()
+		.use(remarkParse)
+		.use(remarkGfm)
+		.use(remarkGemoji)
+		.use(remarkRehype, { allowDangerousHtml: true, clobberPrefix })
+		.use(rehypeRaw)
+		.use(hardenLinks)
+		.use(rehypeSanitize, schema)
+		.use(prefixFootnoteLinks)
+		.use(rehypeStringify)
+}
 
-export async function renderCommentHtml(markdown: string): Promise<string> {
-	const file = await processor.process(markdown || '')
+const processor = createProcessor('')
+
+/**
+ * Comments render on the post page below the article, whose footnotes use the
+ * same generated ids. `idPrefix` (e.g. `comment-12-`) keeps each comment's
+ * footnotes apart from the article's and from other comments'.
+ */
+export async function renderCommentHtml(markdown: string, idPrefix = ''): Promise<string> {
+	const file = await (idPrefix ? createProcessor(idPrefix) : processor).process(markdown || '')
 	return String(file)
 }
 

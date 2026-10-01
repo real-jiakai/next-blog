@@ -9,6 +9,7 @@ import type {
 } from '@/components/CommentForm'
 import type { CommentListDict } from '@/components/CommentList'
 import type { Locale } from '@/lib/i18n-config'
+import { buildQuote } from '@/lib/commentQuote'
 
 // Split out of the post page's own chunks, so a build with comments disabled
 // never downloads the widget, Turnstile or the identicon generator.
@@ -47,9 +48,6 @@ interface CommentProps {
 	lang: Locale
 }
 
-const escapeText = (value: string) =>
-	value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-
 // Drop the quoted comment's own Quote header block (a leading blockquote that
 // opens with a text-only <pre>) and the <br> older quotes left after it, so
 // quotes do not nest. Its other citations are kept.
@@ -74,18 +72,8 @@ export default function Comment({ dict, lang }: CommentProps) {
 	const [replyTo, setReplyTo] = useState<ReplyTarget | null>(null)
 	const [updateList, setUpdateList] = useState(false)
 
-	const quotePrefix = lang === 'zh' ? '引用' : 'Quoting '
-	const quoteSuffix = lang === 'zh' ? '的留言：' : "'s comment:"
-
 	const quoteComment = (comment: CommentData, commentId: number) => {
-		// The quote is a raw HTML block in Markdown: a blank line would end it
-		// early, so none is left inside, and one after it lets the reply below
-		// render as Markdown.
-		const quotedHtml = stripLeadingQuote(comment.content).replace(
-			/\n(?=[ \t]*\n)/g,
-			'&#10;'
-		)
-		const text = `<blockquote><pre>${quotePrefix}${escapeText(comment.username)}${quoteSuffix}</pre>${quotedHtml}</blockquote>\n\n`
+		const text = buildQuote(comment.username, stripLeadingQuote(comment.content), lang)
 
 		setQuote((previous) => ({ text, n: previous.n + 1 }))
 		setReplyTo({ id: commentId, username: comment.username })

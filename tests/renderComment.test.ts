@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { renderCommentHtml, commentToPlainText, escapeHtml } from '@/lib/renderComment'
+import { buildQuote } from '@/lib/commentQuote'
 
 describe('renderCommentHtml — XSS neutralization', () => {
 	it('removes <script> elements', async () => {
@@ -103,13 +104,23 @@ describe('renderCommentHtml — link hardening', () => {
 		const html = await renderCommentHtml('<p id="evil">x</p>')
 		expect(html).toContain('id="user-content-evil"')
 	})
+
+	it('keeps a comment\'s footnotes apart from the article\'s', async () => {
+		const html = await renderCommentHtml('Note[^1]\n\n[^1]: mine', 'comment-12-')
+		const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1])
+		const targets = [...html.matchAll(/\bhref="#([^"]+)"/g)].map((match) => match[1])
+
+		expect(ids).toContain('user-content-comment-12-fn-1')
+		expect(ids).not.toContain('user-content-fn-1')
+		expect(targets.length).toBeGreaterThan(0)
+		for (const target of targets) expect(ids).toContain(target)
+	})
 })
 
 describe('renderCommentHtml — Quote feature compatibility', () => {
-	// The shape components/Comment builds: an escaped name in the <pre>
-	// header, the quoted HTML with blank lines encoded, then a blank line.
+	// The quote components/Comment puts in front of the reader's reply.
 	const quote = (name: string, quotedHtml: string, reply: string) =>
-		`<blockquote><pre>Quoting ${name}'s comment:</pre>${quotedHtml}</blockquote>\n\n${reply}`
+		buildQuote(name, quotedHtml, 'en') + reply
 
 	it('renders the reply after a quote as Markdown', async () => {
 		const html = await renderCommentHtml(
@@ -122,13 +133,13 @@ describe('renderCommentHtml — Quote feature compatibility', () => {
 	})
 
 	it('keeps an escaped name inside the quote header', async () => {
-		const html = await renderCommentHtml(quote('a&lt;b', '<p>original</p>', 'reply'))
+		const html = await renderCommentHtml(quote('a<b', '<p>original</p>', 'reply'))
 		expect(html).toContain('<pre>Quoting a&#x3C;b\'s comment:</pre><p>original</p>')
 	})
 
 	it('keeps a quoted code block with blank lines inside the quote', async () => {
 		const html = await renderCommentHtml(
-			quote('Bob', '<pre><code>a&#10;\nb\n</code></pre>', 'reply')
+			quote('Bob', '<pre><code>a\n\nb\n</code></pre>', 'reply')
 		)
 		expect(html).toContain('<pre><code>a\n\nb\n</code></pre></blockquote>')
 		expect(html).toContain('<p>reply</p>')

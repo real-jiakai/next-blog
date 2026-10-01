@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
 			RENDER_CONCURRENCY,
 			async (comment) => ({
 				...comment,
-				content: await renderCommentHtml(comment.content || ''),
+				content: await renderCommentHtml(comment.content || '', `comment-${comment.id}-`),
 			})
 		)
 		const headers = new Headers({
