@@ -29,6 +29,10 @@ pnpm install --frozen-lockfile
    NEXT_PUBLIC_SITE_URL=https://example.com
    NEXT_PUBLIC_SITE_TITLE=My Blog
    NEXT_PUBLIC_SITE_DESCRIPTION=My blog description
+   # Optional per-language descriptions; each falls back to the generic one.
+   # English pages, the English feed and llms.txt read the _EN value.
+   NEXT_PUBLIC_SITE_DESCRIPTION_ZH=
+   NEXT_PUBLIC_SITE_DESCRIPTION_EN=
    NEXT_PUBLIC_POSTS_PERPAGE=10
    NEXT_PUBLIC_GITHUB_REPO=https://github.com/YOUR_USERNAME/next-blog
    NEXT_PUBLIC_SHOW_COMMENT=false
@@ -84,7 +88,9 @@ for every post image so browsers can reserve the correct layout space.
 
 The Docker image uses standalone Next.js output and accepts secrets only at
 runtime. Docker Compose reads the deployment `.env` automatically and
-allowlists the runtime values passed into the container. To enable comments:
+allowlists the runtime values passed into the container. `NEXT_PUBLIC_*`
+values are build args baked into the image, so a change to one takes effect
+only after `docker compose up -d --build`. To enable comments:
 
 1. Apply `supabase/migrations/202607100001_secure_comments.sql` to Supabase.
 2. Build with `NEXT_PUBLIC_SHOW_COMMENT=true` and a
@@ -92,16 +98,20 @@ allowlists the runtime values passed into the container. To enable comments:
 3. At runtime, set `SUPABASE_URL`, `SUPABASE_SECRET_KEY`,
    `CLOUDFLARE_TURNSTILE_SECRET_KEY`, and a random
    `COMMENT_EMAIL_VERIFICATION_SECRET` of at least 32 characters. Add SMTP
-   settings when verification/reply email should be delivered. When
-   `COMMENT_API_ENABLED` is omitted, the API follows the build-time
-   `NEXT_PUBLIC_SHOW_COMMENT` value carried into the Docker runner. Set it
-   explicitly to `false` for an emergency runtime kill switch, or to `true`
-   for an explicit override.
+   settings when verification/reply email should be delivered. With Docker
+   Compose, an omitted `COMMENT_API_ENABLED` takes the `NEXT_PUBLIC_SHOW_COMMENT`
+   value (default `false`) from the deployment `.env` when `docker compose up`
+   runs, so build and start the container with the same `.env`. A plain
+   `docker run` without it follows the build-time `NEXT_PUBLIC_SHOW_COMMENT`
+   baked into the runner. Set it explicitly to `false` for an emergency
+   runtime kill switch, or to `true` for an explicit override.
 4. `COMMENT_CLIENT_IP_HEADER` defaults to `x-forwarded-for` for this Caddy
-   deployment. If the proxy setup changes, set it to exactly one header that
-   the trusted reverse proxy overwrites. Do not pass a client-supplied value
-   through unchanged, and never expose the application port directly when
-   trusting a forwarding header.
+   deployment. If the proxy setup changes, set it to exactly one of
+   `x-forwarded-for`, `cf-connecting-ip`, or `x-real-ip`, whichever the
+   trusted reverse proxy overwrites. Any other value is ignored, and every
+   visitor then shares one rate-limit bucket. Do not pass a client-supplied
+   value through unchanged, and never expose the application port directly
+   when trusting a forwarding header.
 
 Existing comments deliberately remain unverified after the migration and will
 not receive reply email until their owners complete a new verification flow.
