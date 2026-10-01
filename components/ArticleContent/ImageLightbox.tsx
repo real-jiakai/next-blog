@@ -6,8 +6,14 @@ import type { Labels } from 'yet-another-react-lightbox'
 import type { LightboxSlide } from './LightboxDialog'
 
 // The viewer and its stylesheet are fetched on first use, so posts without
-// images (and readers who never open one) do not pay for them.
-const LightboxDialog = dynamic(() => import('./LightboxDialog'), { ssr: false })
+// images (and readers who never open one) do not pay for them. If that fetch
+// fails (a tab older than a redeploy, a dropped connection), the image simply
+// does not enlarge rather than the error taking the whole post down.
+const LightboxUnavailable = () => null
+const LightboxDialog = dynamic(
+	() => import('./LightboxDialog').catch(() => ({ default: LightboxUnavailable })),
+	{ ssr: false }
+)
 
 interface ImageLightboxProps {
   containerId: string

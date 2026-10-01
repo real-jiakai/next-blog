@@ -13,6 +13,9 @@ const pathname = vi.hoisted(() => ({ current: '/' }))
 
 vi.mock('next/navigation', () => ({
 	usePathname: () => pathname.current,
+	// Lets an eagerly imported SearchDialog render, so a regression fails on
+	// the <dialog> assertion rather than on a missing mock export.
+	useRouter: () => ({ push() {} }),
 }))
 
 function renderNavbar(lang: 'zh' | 'en', path: string) {
@@ -82,8 +85,22 @@ describe('Navbar', () => {
 		expect(link).toContain('<span lang="en">EN<span class="sr-only"> English</span></span>')
 	})
 
-	it('does not render the search dialog before search is first opened', () => {
-		expect(renderNavbar('en', '/en')).not.toContain('<dialog')
+	it('does not server-render the search dialog', async () => {
+		vi.stubEnv('NEXT_PUBLIC_SHOW_SEARCH', 'true')
+		try {
+			// searchEnabled is read once at module load, so re-import with search on.
+			vi.resetModules()
+			const { default: SearchNavbar } = await import('@/components/Navbar')
+			pathname.current = '/en'
+			const html = renderToStaticMarkup(
+				<SearchNavbar lang="en" dict={en} siteTitle="Blog" RenderThemeChanger={() => null} />
+			)
+
+			expect(html).toContain('>Search<')
+			expect(html).not.toContain('<dialog')
+		} finally {
+			vi.unstubAllEnvs()
+		}
 	})
 })
 

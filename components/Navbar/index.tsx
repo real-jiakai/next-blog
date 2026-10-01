@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react'
 import type {
+	ComponentProps,
 	Dispatch,
 	FocusEvent,
 	KeyboardEvent,
@@ -23,14 +24,24 @@ import SearchIcon from '@mui/icons-material/Search'
 import { getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import type { CommonDictionary } from '@/lib/dictionaries'
+// Type-only: erased at build time, so it does not pull the dialog into this bundle.
+import type SearchDialogComponent from '@/components/Search'
 
-// Fetched the first time search is opened, so the dialog and the date
-// formatting it brings stay out of the bundle every page loads. Nothing may
-// import '@/components/Search' statically, or it lands back in that bundle.
-const SearchDialog = dynamic(() => import('@/components/Search'), { ssr: false })
-const preloadSearch = () => {
-	import('@/components/Search').catch(() => {})
+// A tab that outlived a redeploy (its hashed chunks are gone) or lost its
+// connection must not take the page down with it: search just closes again.
+function SearchUnavailable({ onOpenChange }: ComponentProps<typeof SearchDialogComponent>) {
+	useEffect(() => onOpenChange(false), [onOpenChange])
+	return null
 }
+
+// Fetched once the page is idle (or when search is first reached), so the
+// dialog and the date formatting it brings stay out of the bundle every page
+// loads. Nothing may import '@/components/Search' statically, or it lands back
+// in that bundle.
+const SearchDialog = dynamic(
+	() => import('@/components/Search').catch(() => ({ default: SearchUnavailable })),
+	{ ssr: false }
+)
 
 interface NavbarProps {
   lang: Locale
@@ -70,8 +81,8 @@ export default function Navbar({
 	const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 	const [translateMenuVisible, setTranslateMenuVisible] = useState(false)
 	const [searchOpen, setSearchOpen] = useState(false)
-	// Set by the first open and never cleared: the dialog then stays mounted,
-	// so a reopened search still holds its query.
+	// Set once and never cleared: the dialog then stays mounted (closed until
+	// opened), so opening is immediate and a reopened search keeps its query.
 	const [searchLoaded, setSearchLoaded] = useState(false)
 	const translateMenuId = useId()
 	const moreMenuId = useId()
@@ -82,6 +93,7 @@ export default function Navbar({
 	const moreOpenedByHover = useRef(false)
 	const pathname = usePathname()
 
+	const mountSearch = () => setSearchLoaded(true)
 	const openSearch = () => {
 		setSearchLoaded(true)
 		setSearchOpen(true)
@@ -106,7 +118,21 @@ export default function Navbar({
 		}
 
 		window.addEventListener('keydown', onKeyDown)
-		return () => window.removeEventListener('keydown', onKeyDown)
+
+		// Mount the dialog, closed, once the page is idle. A lazy component
+		// suspends on its first render, so mounting it only on the first
+		// Cmd/Ctrl+K would lose the keys typed while its chunk loads.
+		const mount = () => setSearchLoaded(true)
+		const idle = typeof window.requestIdleCallback === 'function'
+			? window.requestIdleCallback(mount, { timeout: 2000 })
+			: undefined
+		const timer = idle === undefined ? window.setTimeout(mount, 1000) : undefined
+
+		return () => {
+			window.removeEventListener('keydown', onKeyDown)
+			if (idle !== undefined) window.cancelIdleCallback(idle)
+			if (timer !== undefined) window.clearTimeout(timer)
+		}
 	}, [])
 
 	// The modifier key depends on the platform, which the server cannot know.
@@ -302,8 +328,8 @@ export default function Navbar({
 							<button
 								type="button"
 								onClick={openSearch}
-								onPointerEnter={preloadSearch}
-								onFocus={preloadSearch}
+								onPointerEnter={mountSearch}
+								onFocus={mountSearch}
 								className="inline-flex w-40 items-center gap-2 rounded-lg border border-site-line bg-site-surface py-1.5 pl-3 pr-2 text-site-muted transition-colors hover:border-blue-500/60 hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 lg:w-56 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 							>
 								<SearchIcon aria-hidden fontSize="small" />
@@ -403,8 +429,8 @@ export default function Navbar({
 								<button
 									type="button"
 									onClick={openSearch}
-									onPointerEnter={preloadSearch}
-									onFocus={preloadSearch}
+									onPointerEnter={mountSearch}
+									onFocus={mountSearch}
 									aria-label={dict.common.Search}
 									className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 								>
