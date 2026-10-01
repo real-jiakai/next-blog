@@ -337,6 +337,25 @@ describe('Atom output', () => {
 		expect(feed).toContain('<![CDATA[Title]]>')
 	})
 
+	it('does not let a removed control character close a CDATA section', () => {
+		const feed = createAtomFeed(
+			[
+				post({
+					title: 'A ]]\u0001> B',
+					contentMarkdown: 'Bytes: `]]\u0008>` end',
+				}),
+			],
+			'en',
+			config,
+		)
+		const outside = textOutsideCdata(feed)
+
+		expect(outside).not.toContain(']]>')
+		expect(outside).not.toContain('<![CDATA[')
+		expect(feed).toContain('<![CDATA[A ]]&gt; B]]>')
+		expect(feed).toContain('<code>]]&gt;</code>')
+	})
+
 	it('names the featured track with an escaped link', () => {
 		const feed = createAtomFeed(
 			[
@@ -353,7 +372,7 @@ describe('Atom output', () => {
 		)
 
 		expect(feed).toContain(
-			'周刊BGM: <a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> - Singer</a>',
+			'周刊BGM：<a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> — Singer</a>',
 		)
 		expect(feed).not.toContain('<b>')
 		expect(feed).not.toContain('<em>Song</em>')

@@ -95,12 +95,12 @@ const feedLabels = {
 	zh: {
 		footnotes: '脚注',
 		backToReference: '返回引用',
-		weeklyBgm: '周刊BGM',
+		weeklyBgm: '周刊BGM：',
 	},
 	en: {
 		footnotes: 'Footnotes',
 		backToReference: 'Back to reference',
-		weeklyBgm: 'Weekly BGM',
+		weeklyBgm: 'Weekly BGM: ',
 	},
 }
 
@@ -369,14 +369,16 @@ function escapeHtml(value) {
 // by talking about it, so the feed names it in the same place.
 function audioMarkdown(audio, locale) {
 	if (!audio) return ''
-	const track = audio.artist ? `${audio.name} - ${audio.artist}` : audio.name
-	return `<p>${feedLabels[locale].weeklyBgm}: <a href="${escapeHtml(audio.url)}">${escapeHtml(track)}</a></p>\n\n`
+	const track = audio.artist ? `${audio.name} — ${audio.artist}` : audio.name
+	return `<p>${feedLabels[locale].weeklyBgm}<a href="${escapeHtml(audio.url)}">${escapeHtml(track)}</a></p>\n\n`
 }
 
 // The feed library writes title and content as CDATA but only escapes the
 // first terminator in each, so every later one would end the section early.
+// Illegal characters go first: stripping them afterwards could join `]]` and
+// `>` into a terminator this escaping never saw.
 function cdataSafe(value) {
-	return value.replaceAll(']]>', ']]&gt;')
+	return value.replace(xmlIllegalCharacters, '').replaceAll(']]>', ']]&gt;')
 }
 
 export function createAtomFeed(posts, locale, config) {
