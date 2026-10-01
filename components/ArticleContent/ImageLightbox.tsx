@@ -1,21 +1,18 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import Lightbox from 'yet-another-react-lightbox'
-import Zoom from 'yet-another-react-lightbox/plugins/zoom'
-import Captions from 'yet-another-react-lightbox/plugins/captions'
-import 'yet-another-react-lightbox/styles.css'
-import 'yet-another-react-lightbox/plugins/captions.css'
+import dynamic from 'next/dynamic'
+import type { Labels } from 'yet-another-react-lightbox'
+import type { LightboxSlide } from './LightboxDialog'
+
+// The viewer and its stylesheet are fetched on first use, so posts without
+// images (and readers who never open one) do not pay for them.
+const LightboxDialog = dynamic(() => import('./LightboxDialog'), { ssr: false })
 
 interface ImageLightboxProps {
   containerId: string
   openLabel?: string
-}
-
-interface LightboxSlide {
-  src: string
-  alt?: string
-  description?: string
+  lightboxLabels?: Labels
 }
 
 /**
@@ -26,7 +23,9 @@ interface LightboxSlide {
 export default function ImageLightbox({
 	containerId,
 	openLabel = 'Enlarge image',
+	lightboxLabels,
 }: ImageLightboxProps) {
+	const [hasOpened, setHasOpened] = useState(false)
 	const [lightboxOpen, setLightboxOpen] = useState(false)
 	const [lightboxIndex, setLightboxIndex] = useState(0)
 	const [slides, setSlides] = useState<LightboxSlide[]>([])
@@ -41,6 +40,7 @@ export default function ImageLightbox({
 		if (index !== -1) {
 			setLightboxIndex(index)
 			setLightboxOpen(true)
+			setHasOpened(true)
 		}
 	}, [containerId])
 
@@ -72,6 +72,15 @@ export default function ImageLightbox({
 			})))
 		})
 
+		// Start fetching the viewer as soon as a pointer or focus reaches an
+		// image, ahead of the click that opens it.
+		const preload = (event: Event) => {
+			const target = event.target
+			if (target instanceof HTMLImageElement && target.dataset.lightboxImage) {
+				void import('./LightboxDialog')
+			}
+		}
+
 		const handleClick = (event: MouseEvent) => {
 			const target = event.target
 			if (target instanceof HTMLImageElement && target.dataset.lightboxImage) {
@@ -91,32 +100,32 @@ export default function ImageLightbox({
 			}
 		}
 
+		container.addEventListener('pointerover', preload)
+		container.addEventListener('focusin', preload)
 		container.addEventListener('click', handleClick)
 		container.addEventListener('keydown', handleKeyDown)
 
 		return () => {
 			cancelAnimationFrame(frameId)
+			container.removeEventListener('pointerover', preload)
+			container.removeEventListener('focusin', preload)
 			container.removeEventListener('click', handleClick)
 			container.removeEventListener('keydown', handleKeyDown)
 		}
 	}, [containerId, openImage, openLabel])
 
-	if (slides.length === 0) {
+	// Stays mounted after the first open so the close animation can run.
+	if (!hasOpened || slides.length === 0) {
 		return null
 	}
 
 	return (
-		<Lightbox
+		<LightboxDialog
 			open={lightboxOpen}
 			close={() => setLightboxOpen(false)}
 			index={lightboxIndex}
 			slides={slides}
-			plugins={[Zoom, Captions]}
-			zoom={{ maxZoomPixelRatio: 3, scrollToZoom: true }}
-			captions={{ showToggle: true, descriptionTextAlign: 'center' }}
-			carousel={{ finite: slides.length <= 1 }}
-			controller={{ closeOnBackdropClick: true }}
-			styles={{ container: { backgroundColor: 'rgba(0, 0, 0, 0.9)' } }}
+			labels={lightboxLabels}
 		/>
 	)
 }

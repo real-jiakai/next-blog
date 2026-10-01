@@ -65,7 +65,7 @@ export interface PostMetadata {
 export interface PostContent {
   filename: string
   showtoc: boolean
-	contentMarkdown: string
+  contentMarkdown: string
   audio: PostFrontmatter['audio'] | null
   title: string
   date: string
@@ -100,18 +100,22 @@ export function getSortedPostsData(locale: Locale = i18n.defaultLocale): PostDat
 
 	allPostsData = allPostsData.filter((post) => post.draft !== true)
 
+	// Newest first; same-day posts fall back to the higher issue slug so the
+	// order (and the prev/next links built from it) never depends on readdir.
 	return allPostsData.sort((a, b) => {
-		if (a.date < b.date) {
-			return 1
-		} else {
-			return -1
+		if (a.date !== b.date) {
+			return a.date < b.date ? 1 : -1
 		}
+		return b.slug.localeCompare(a.slug, 'en', { numeric: true })
 	})
 }
 
 // 获取所有文章的元数据
 export function getAllPostMetadata(locale: Locale = i18n.defaultLocale): PostMetadata[] {
-	const cached = postMetadataCache.get(locale)
+	// Posts are not part of the module graph, so the dev server would keep
+	// serving a stale list after a post is added, redated or undrafted.
+	const useCache = process.env.NODE_ENV !== 'development'
+	const cached = useCache ? postMetadataCache.get(locale) : undefined
 	if (cached) return cached
 
 	const postsDirectory = getPostsDirectory(locale)
@@ -140,7 +144,7 @@ export function getAllPostMetadata(locale: Locale = i18n.defaultLocale): PostMet
 		}]
 	})
 
-	postMetadataCache.set(locale, allPostMetadata)
+	if (useCache) postMetadataCache.set(locale, allPostMetadata)
 	return allPostMetadata
 }
 

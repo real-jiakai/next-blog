@@ -2,11 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
-import { i18n, Locale, getLocalePath } from '@/lib/i18n-config'
+import { i18n, Locale, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import {
 	getAllPostMetadata,
 	getPostDataByFileName,
+	getPostFilenameByParams,
 	getSortedPostsData,
 } from '@/lib/posts'
 import ArticleLayout from '@/components/ArticleLayout'
@@ -14,11 +15,18 @@ import ArticleContent from '@/components/ArticleContent'
 import Date from '@/components/Date'
 import ArticleToc from '@/components/ArticleToc'
 import Comment from '@/components/Comment'
-import ScrollToTop from '@/components/ScrollToTop'
 import DynamicAPlayer from '@/components/APlayer/DynamicAPlayer'
 import { renderPostMarkdown } from '@/lib/renderPost'
+import postImageDimensions from '@/lib/post-image-dimensions.json'
 
 const ARTICLE_CONTAINER_ID = 'article-content'
+
+// reading-time counts each CJK character as a word; Chinese is read at
+// roughly 300 characters a minute against ~200 English words.
+const WORDS_PER_MINUTE: Record<Locale, number> = { zh: 300, en: 200 }
+
+const knownImageDimensions: Record<string, { width: number; height: number }> =
+	postImageDimensions
 
 interface PostParams {
   lang: Locale
@@ -63,6 +71,8 @@ export async function generateMetadata({
 		process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
 	).replace(/\/$/, '')
 	const postPath = `/${year}/${month}/${encodeURIComponent(slug)}`
+	const translated =
+		getPostFilenameByParams(year, month, slug, lang === 'zh' ? 'en' : 'zh') !== null
 	const url = `${siteUrl}${getLocalePath(lang, postPath)}`
 	const localizedSiteDescription =
 		lang === 'zh'
@@ -72,17 +82,20 @@ export async function generateMetadata({
 		postData.summary ||
 		localizedSiteDescription ||
 		process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+	// Issues open with a cover image; earlier ones without any keep a
+	// text-only card. Relative sources resolve against metadataBase.
+	const cover = /!\[([^\]]*)\]\(\s*<?([^\s)>]+)/.exec(postData.contentMarkdown)
+	const images = cover
+		? [{ url: cover[2], alt: cover[1] || postData.title, ...knownImageDimensions[cover[2]] }]
+		: undefined
 
 	return {
 		title: postData.title,
 		description,
 		alternates: {
 			canonical: url,
-			languages: {
-				'zh-CN': `${siteUrl}${getLocalePath('zh', postPath)}`,
-				'en-US': `${siteUrl}${getLocalePath('en', postPath)}`,
-				'x-default': `${siteUrl}${getLocalePath('zh', postPath)}`,
-			},
+			// Only a post published in both languages has a counterpart to point at.
+			languages: translated ? getLanguageAlternates(postPath, siteUrl) : undefined,
 			types: {
 				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
 			},
@@ -94,13 +107,15 @@ export async function generateMetadata({
 			url,
 			siteName: process.env.NEXT_PUBLIC_SITE_TITLE,
 			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
-			alternateLocale: lang === 'zh' ? ['en_US'] : ['zh_CN'],
+			alternateLocale: translated ? (lang === 'zh' ? ['en_US'] : ['zh_CN']) : undefined,
 			publishedTime: postData.date,
+			images,
 		},
 		twitter: {
-			card: 'summary',
+			card: images ? 'summary_large_image' : 'summary',
 			title: postData.title,
 			description,
+			images,
 		},
 	}
 }
@@ -120,8 +135,10 @@ export default async function Post({
 		notFound()
 	}
 
-	const stats = readingTime(postData.contentMarkdown)
-	const { content, headings } = renderPostMarkdown(postData.contentMarkdown)
+	const stats = readingTime(postData.contentMarkdown, {
+		wordsPerMinute: WORDS_PER_MINUTE[lang],
+	})
+	const { content, headings } = renderPostMarkdown(postData.contentMarkdown, lang)
 	const githubRepository =
 		process.env.NEXT_PUBLIC_GITHUB_REPO ||
 		'https://github.com/real-jiakai/next-blog'
@@ -137,7 +154,7 @@ export default async function Post({
 		return post.slug === slug && postYear === year && postMonth === month
 	})
 
-	// Navigation: Previous = newer post (#20 after #19), Next = older post (#18 before #19)
+	// Navigation: Previous = older post (#18 before #19), Next = newer post (#20 after #19)
 	const prevPost =
     currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
 	const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
@@ -193,12 +210,13 @@ export default async function Post({
 						{postData.audio && (
 							<div className="mt-8 mb-4">
 								<p className="text-sm font-medium text-site-heading mb-2">
-									{dict.common.WeeklyBGM}: {postData.audio.name} - {postData.audio.artist}
+									{dict.common.WeeklyBGM}{postData.audio.name} — {postData.audio.artist}
 								</p>
 								<DynamicAPlayer
 									audio={postData.audio}
 									loadingLabel={dict.common.LoadingAudio}
 									fallbackLabel={dict.common.PlayAudioFallback}
+									playLabel={dict.common.PlayPauseAudio}
 								/>
 							</div>
 						)}
@@ -211,6 +229,7 @@ export default async function Post({
 							content={content}
 							containerId={ARTICLE_CONTAINER_ID}
 							openLabel={dict.common.OpenImage}
+							lightboxLabels={dict.lightbox}
 						/>
 
 						{/* Previous/Next navigation */}
@@ -219,16 +238,19 @@ export default async function Post({
 						    with a one-line title opposite. The auto margins do the
 						    pushing, so a post with only one neighbour still lands on its
 						    own side without an empty placeholder to prop it up. */}
-						<nav className="mt-16 flex items-center gap-8 border-t border-site-line pt-6">
+						<nav
+							aria-label={dict.common.PostNavigation}
+							className="mt-16 flex items-center gap-8 border-t border-site-line pt-6"
+						>
 							{prevPostData ? (
 								<Link
 									href={getLocalePath(lang, `/${prevPostData.year}/${prevPostData.month}/${prevPostData.slug}`)}
 									className="group mr-auto flex max-w-[45%] flex-col"
 								>
 									<span className="text-sm text-site-muted">
-                    ← {dict.common.PreviousPost}
+										← {dict.common.PreviousPost}
 									</span>
-									<span className="mt-1 text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
+									<span className="mt-1 font-medium text-blue-600 group-hover:text-blue-700 dark:text-blue-400 dark:group-hover:text-blue-300">
 										{prevPostData.title}
 									</span>
 								</Link>
@@ -241,7 +263,7 @@ export default async function Post({
 									<span className="text-sm text-site-muted">
 										{dict.common.NextPost} →
 									</span>
-									<span className="mt-1 text-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
+									<span className="mt-1 font-medium text-blue-600 group-hover:text-blue-700 dark:text-blue-400 dark:group-hover:text-blue-300">
 										{nextPostData.title}
 									</span>
 								</Link>
@@ -270,7 +292,6 @@ export default async function Post({
 					</aside>
 				</div>
 			</div>
-			<ScrollToTop />
 		</ArticleLayout>
 	)
 }

@@ -2,8 +2,12 @@
 
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
+import remarkGfm from 'remark-gfm'
+import remarkRehype from 'remark-rehype'
+import rehypeRaw from 'rehype-raw'
 import { visit } from 'unist-util-visit'
 
 const ROOT = process.cwd()
@@ -23,19 +27,20 @@ async function walk(directory) {
 	return nested.flat()
 }
 
-function collectSources(markdown) {
+// Keys must be the `src` the post renderer looks up, so read them from the
+// same HTML tree it builds: Markdown URLs come out percent-encoded, raw HTML
+// has its entities decoded, and image references are already resolved.
+export function collectSources(markdown) {
 	const sources = new Set()
-	const tree = unified().use(remarkParse).parse(markdown)
-	const definitions = new Map()
-	visit(tree, 'definition', (node) => definitions.set(node.identifier, node.url))
-	visit(tree, 'image', (node) => sources.add(node.url))
-	visit(tree, 'imageReference', (node) => {
-		const source = definitions.get(node.identifier)
-		if (source) sources.add(source)
-	})
-	visit(tree, 'html', (node) => {
-		for (const match of node.value.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)) {
-			sources.add(match[1])
+	const processor = unified()
+		.use(remarkParse)
+		.use(remarkGfm)
+		.use(remarkRehype, { allowDangerousHtml: true })
+		.use(rehypeRaw)
+	const tree = processor.runSync(processor.parse(markdown))
+	visit(tree, 'element', (node) => {
+		if (node.tagName === 'img' && typeof node.properties?.src === 'string') {
+			sources.add(node.properties.src)
 		}
 	})
 	return sources
@@ -178,10 +183,12 @@ async function readResponsePrefix(response) {
 	return Buffer.concat(chunks)
 }
 
-async function loadSource(source) {
-	if (source.startsWith('/')) {
+export async function loadSource(source) {
+	if (source.startsWith('/') && !source.startsWith('//')) {
 		return {
-			buffer: await fs.readFile(path.join(PUBLIC_ROOT, source.replace(/^\/+/, ''))),
+			buffer: await fs.readFile(
+				path.join(PUBLIC_ROOT, decodeURIComponent(source.replace(/^\/+/, '')))
+			),
 			contentType: '',
 		}
 	}
@@ -257,4 +264,10 @@ async function main() {
 	}
 }
 
-await main()
+const isMain =
+	process.argv[1] &&
+	import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
+
+if (isMain) {
+	await main()
+}

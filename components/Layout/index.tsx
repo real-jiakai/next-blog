@@ -20,15 +20,17 @@ export default function Layout({
 			{/* svh, not vh: on phones 100vh includes the collapsed URL bar, which
 			    forces a scrollbar even when the content fits the visible screen */}
 			<div className="flex flex-col min-h-svh">
-				<Header lang={lang} dict={dict} />
+				{/* Only the strings the header reads: it is a client component, so
+				    whatever it is handed is serialized into every page. */}
+				<Header lang={lang} dict={{ common: dict.common }} />
 
 				<main className="text-lg font-sans antialiased font-normal flex flex-col w-full py-4 flex-grow">
 					{children}
 				</main>
 
-				<Footer />
+				<Footer dict={dict} />
 			</div>
-			<ScrollToTop />
+			<ScrollToTop label={dict.common.BackToTop} />
 		</>
 	)
 }
