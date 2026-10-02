@@ -154,9 +154,11 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 		<>
 			{comments.length > 0 ? (
 				// One hairline between two comments, and none under the heading.
+				// It sits midway: 16px of margin above it, and below it 4px plus
+				// the name's own 12px of padding.
 				<div
 					ref={listRef}
-					className="comment-list space-y-4 [&>.comment+.comment]:border-t [&>.comment+.comment]:border-site-line [&>.comment+.comment]:pt-4"
+					className="comment-list space-y-4 [&>.comment+.comment]:border-t [&>.comment+.comment]:border-site-line [&>.comment+.comment]:pt-1"
 				>
 					{hasMore && (
 						<div>

@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import { describe, it, expect } from 'vitest'
 import { renderCommentHtml, commentToPlainText, escapeHtml } from '@/lib/renderComment'
 import { buildQuote } from '@/lib/commentQuote'
@@ -135,6 +137,20 @@ describe('renderCommentHtml — Quote feature compatibility', () => {
 	it('keeps an escaped name inside the quote header', async () => {
 		const html = await renderCommentHtml(quote('a<b', '<p>original</p>', 'reply'))
 		expect(html).toContain('<pre>Quoting a&#x3C;b\'s comment:</pre><p>original</p>')
+	})
+
+	// app/globals.css styles a quote's leading <pre> as a caption only when
+	// it holds no element: the attribution is bare text, and Markdown code,
+	// even when it opens a quote, always sits in a <code>.
+	it('tells the quote header from a quote that opens with code', async () => {
+		const header = await renderCommentHtml(quote('Bob', '<p>original</p>', 'reply'))
+		const code = await renderCommentHtml('> ```\n> npm i\n> ```\n\nreply')
+
+		expect(header).toMatch(/<blockquote><pre>[^<]+<\/pre>/)
+		expect(code).toMatch(/<blockquote>\s*<pre><code>npm i\n<\/code><\/pre>/)
+		expect(readFileSync(path.join(process.cwd(), 'app/globals.css'), 'utf8')).toContain(
+			'.comment-content blockquote > pre:first-child:not(:has(*))',
+		)
 	})
 
 	it('keeps a quoted code block with blank lines inside the quote', async () => {

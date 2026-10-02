@@ -403,17 +403,19 @@
         border-radius: 0;
     }
 
-    /* A quote opens with its attribution ("引用某人的留言：") in a <pre>,
-       which lib/commentQuote writes and stored comments keep. It reads as a
-       caption, not as code. */
-    .comment-content blockquote > pre:first-child {
+    /* A quote opens with its attribution ("引用某人的留言：") in a text-only
+       <pre>, which lib/commentQuote writes and stored comments keep. It reads
+       as a caption, not as code. Real code always has a <code> inside, so a
+       quote that opens with a code block keeps the code style; this is the
+       same test stripLeadingQuote applies when quoting. */
+    .comment-content blockquote > pre:first-child:not(:has(*)) {
         @apply m-0 p-0 text-sm text-site-muted bg-transparent font-sans whitespace-normal;
         overflow: visible;
     }
 
-    /* Older quotes left a <br> after the quote, which only added a blank
-       line before the reply. */
-    .comment-content blockquote + br {
+    /* Older quotes left a <br> after the leading quote, which only added a
+       blank line before the reply. */
+    .comment-content > blockquote:first-child + br {
         display: none;
     }
 
