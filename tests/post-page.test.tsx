@@ -97,9 +97,11 @@ describe.each(['zh', 'en'] as const)('post page (%s)', (lang) => {
 	it('names the song above its player', async () => {
 		const withSong = issues.find((entry) => entry.song)!
 		const html = await render(lang, withSong)
-		const section = html.match(/<section aria-label="[^"]*"[\s\S]*?<\/section>/)?.[0] ?? ''
+		const [section = '', label = ''] =
+			html.match(/<section aria-label="([^"]*)"[\s\S]*?<\/section>/) ?? []
 
-		expect(section).toContain(`aria-label="${dict.IssueBGM.replace(/[:：]\s*$/u, '')}"`)
+		// The attribute is HTML-escaped (the en label has an apostrophe).
+		expect(textOf(label)).toBe(dict.IssueBGM.replace(/[:：]\s*$/u, ''))
 		expect(textOf(section)).toContain(dict.IssueBGM)
 		expect(textOf(section)).toContain(`${withSong.song!.name} — ${withSong.song!.artist}`)
 		expect(section).toContain(`data-player="${withSong.song!.name}"`)

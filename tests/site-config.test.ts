@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { getSiteDescription } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 
 afterEach(() => {
 	vi.unstubAllEnvs()
@@ -29,6 +29,44 @@ describe('getSiteDescription', () => {
 		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_EN', '')
 
 		expect(getSiteDescription('zh')).toBe('专注于分享互联网上有趣的东西。')
-		expect(getSiteDescription('en')).toMatch(/^[\x20-\x7e]+$/)
+		const english = getSiteDescription('en')
+		expect(english).toMatch(/^周见 \(Zhōu Jiàn\) is /)
+		// It names an irregular periodical, not the old weekly newsletter.
+		expect(english).not.toMatch(/weekly|newsletter|Insights/i)
+		// The contents page prints it in Noto Sans SC, whose curly quotes
+		// are full-width.
+		expect(english).not.toMatch(/[\u2018-\u201f]/)
+	})
+})
+
+describe('getSiteTitle', () => {
+	it('gives English its own title and Chinese the brand', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE', '周见')
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE_EN', '周见 · Zhōu Jiàn')
+
+		expect(getSiteTitle('zh')).toBe('周见')
+		expect(getSiteTitle('en')).toBe('周见 · Zhōu Jiàn')
+	})
+
+	it('falls back to the brand in English', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE', '周见')
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE_EN', '')
+
+		expect(getSiteTitle('en')).toBe('周见')
+	})
+
+	it('never lets the English title stand in for the brand', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE', '')
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE_EN', '周见 · Zhōu Jiàn')
+
+		expect(getSiteTitle('zh')).toBe('Blog')
+	})
+
+	it('has a generic default when nothing is set', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE', '')
+		vi.stubEnv('NEXT_PUBLIC_SITE_TITLE_EN', '')
+
+		expect(getSiteTitle('zh')).toBe('Blog')
+		expect(getSiteTitle('en')).toBe('Blog')
 	})
 })

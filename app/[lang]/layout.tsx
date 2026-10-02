@@ -4,7 +4,7 @@ import { display, sans } from '@/lib/fonts'
 import { getLanguageAlternates, getLocalePath, i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import { getSiteOpenGraph } from '@/lib/metadata'
-import { getSiteDescription } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 import '@/app/globals.css'
 import '@/app/prism-night-owl.css'
 
@@ -29,7 +29,6 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale }>
 }): Promise<Metadata> {
 	const { lang } = await params
-	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
 	const description = getSiteDescription(lang)
 	const canonical = getLocalePath(lang)
 
@@ -37,9 +36,11 @@ export async function generateMetadata({
 		metadataBase: process.env.NEXT_PUBLIC_SITE_URL
 			? new URL(process.env.NEXT_PUBLIC_SITE_URL)
 			: undefined,
+		// A page's own title is followed by the bare brand in both languages;
+		// only a page without one shows English's romanised name.
 		title: {
-			default: siteTitle,
-			template: `%s | ${siteTitle}`,
+			default: getSiteTitle(lang),
+			template: `%s | ${getSiteTitle('zh')}`,
 		},
 		description,
 		keywords: process.env.NEXT_PUBLIC_KEYWORDS,

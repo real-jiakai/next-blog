@@ -98,7 +98,8 @@ const feedHtmlSchema = {
 const clobberPrefix = feedHtmlSchema.clobberPrefix || ''
 
 // issueBgm is the post page's own label (`IssueBGM` in lib/dictionaries),
-// byte for byte, so a feed reader sees what the page shows.
+// byte for byte, so a feed reader sees what the page shows. English uses a
+// straight apostrophe because Noto Sans SC sets U+2019 full-width.
 const feedLabels = {
 	zh: {
 		footnotes: '脚注',
@@ -108,7 +109,7 @@ const feedLabels = {
 	en: {
 		footnotes: 'Footnotes',
 		backToReference: 'Back to reference',
-		issueBgm: 'This issue’s BGM: ',
+		issueBgm: 'This issue\'s BGM: ',
 	},
 }
 
@@ -278,7 +279,16 @@ export function readFeedConfig(environment = process.env) {
 
 	return {
 		siteUrl: environment.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, ''),
+		// The brand: the zh feed's title and every feed's author.
 		title: environment.NEXT_PUBLIC_SITE_TITLE,
+		// The English feed may add a romanisation, as the site's English
+		// <title> does (lib/site-config getSiteTitle).
+		titles: {
+			zh: environment.NEXT_PUBLIC_SITE_TITLE,
+			en:
+				environment.NEXT_PUBLIC_SITE_TITLE_EN ||
+				environment.NEXT_PUBLIC_SITE_TITLE,
+		},
 		description: environment.NEXT_PUBLIC_SITE_DESCRIPTION,
 		descriptions: {
 			zh:
@@ -399,7 +409,7 @@ export function createAtomFeed(posts, locale, config) {
 	const homeUrl = `${config.siteUrl}${localePath}`
 	const feedUrl = `${homeUrl}/index.xml`
 	const feed = new Feed({
-		title: config.title,
+		title: config.titles?.[locale] || config.title,
 		description: config.descriptions?.[locale] || config.description,
 		link: homeUrl,
 		feed: feedUrl,

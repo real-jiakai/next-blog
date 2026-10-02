@@ -16,6 +16,7 @@ import Comment from '@/components/Comment'
 import PostHeader from '@/components/PostHeader'
 import PostNav from '@/components/PostNav'
 import { renderPostMarkdown } from '@/lib/renderPost'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 import postImageDimensions from '@/lib/post-image-dimensions.json'
 
 const ARTICLE_CONTAINER_ID = 'article-content'
@@ -73,14 +74,7 @@ export async function generateMetadata({
 	const translated =
 		getPostFilenameByParams(year, month, slug, lang === 'zh' ? 'en' : 'zh') !== null
 	const url = `${siteUrl}${getLocalePath(lang, postPath)}`
-	const localizedSiteDescription =
-		lang === 'zh'
-			? process.env.NEXT_PUBLIC_SITE_DESCRIPTION_ZH
-			: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN
-	const description =
-		postData.summary ||
-		localizedSiteDescription ||
-		process.env.NEXT_PUBLIC_SITE_DESCRIPTION
+	const description = postData.summary || getSiteDescription(lang)
 	// Issues open with a cover image; earlier ones without any keep a
 	// text-only card. Relative sources resolve against metadataBase.
 	const cover = /!\[([^\]]*)\]\(\s*<?([^\s)>]+)/.exec(postData.contentMarkdown)
@@ -104,7 +98,7 @@ export async function generateMetadata({
 			title: postData.title,
 			description,
 			url,
-			siteName: process.env.NEXT_PUBLIC_SITE_TITLE,
+			siteName: getSiteTitle('zh'),
 			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
 			alternateLocale: translated ? (lang === 'zh' ? ['en_US'] : ['zh_CN']) : undefined,
 			publishedTime: postData.date,

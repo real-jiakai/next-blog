@@ -4,7 +4,7 @@ import { Locale, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSiteOpenGraph } from '@/lib/metadata'
 import { getIssueIndex, getIssueStats } from '@/lib/posts'
-import { getSiteDescription } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 import Layout from '@/components/Layout'
 import Masthead from '@/components/Masthead'
 import LeadIssue from '@/components/LeadIssue'
@@ -17,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const { lang } = await params
 	return {
-		title: process.env.NEXT_PUBLIC_SITE_TITLE,
+		title: { absolute: getSiteTitle(lang) },
 		alternates: {
 			canonical: getLocalePath(lang),
 			languages: getLanguageAlternates(),

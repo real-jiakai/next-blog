@@ -1,12 +1,14 @@
 import { Locale, getLocalePath } from '@/lib/i18n-config'
 import { getSortedPostsData, PostData } from '@/lib/posts'
-import { getSiteDescription } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 
 const baseUrl = (
 	process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
 ).replace(/\/+$/, '')
-const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || '周见'
-// The summary sentence around it is English.
+// The file is written in English: the heading takes the English title
+// (`周见 · Zhōu Jiàn`), and the summary names the brand and its romanisation.
+const brand = getSiteTitle('zh')
+const englishTitle = getSiteTitle('en')
 const siteDescription = getSiteDescription('en')
 
 export const dynamic = 'force-static'
@@ -23,9 +25,9 @@ export function GET() {
 	const enPosts = getSortedPostsData('en')
 
 	const content = [
-		`# ${siteTitle}`,
+		`# ${englishTitle}`,
 		'',
-		`> \`${siteTitle}\` is a bilingual (Chinese/English) personal weekly blog by Gu Jiakai. ${siteDescription}`,
+		`> \`${brand}\` (Zhōu Jiàn) is a bilingual (Chinese/English) web periodical by Gu Jiakai. ${siteDescription}`,
 		'',
 		'## Main Sections',
 		'',

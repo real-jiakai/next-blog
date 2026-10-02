@@ -62,6 +62,18 @@ describe('RSS configuration', () => {
 			}).descriptions,
 		).toEqual({ zh: 'Generic', en: 'English description' })
 	})
+
+	it('gives the English feed its own title, falling back to the brand', () => {
+		const base = {
+			NEXT_PUBLIC_SITE_URL: 'https://example.com',
+			NEXT_PUBLIC_SITE_TITLE: '周见',
+			NEXT_PUBLIC_SITE_DESCRIPTION: 'Generic',
+		}
+		expect(
+			readFeedConfig({ ...base, NEXT_PUBLIC_SITE_TITLE_EN: '周见 · Zhōu Jiàn' }),
+		).toMatchObject({ title: '周见', titles: { zh: '周见', en: '周见 · Zhōu Jiàn' } })
+		expect(readFeedConfig(base).titles).toEqual({ zh: '周见', en: '周见' })
+	})
 })
 
 describe('RSS Markdown rendering', () => {
@@ -412,6 +424,20 @@ describe('Atom output', () => {
 		)
 
 		expect(feed).toContain(`<p>${dictionary.common.IssueBGM}<a href="https://music.example.com/song.mp3">`)
+	})
+
+	it('titles each feed in its language and keeps the brand as author', () => {
+		const titledConfig = {
+			...config,
+			title: '周见',
+			titles: { zh: '周见', en: '周见 · Zhōu Jiàn' },
+		}
+		const english = createAtomFeed([], 'en', titledConfig)
+		expect(english).toContain('<title>周见 · Zhōu Jiàn</title>')
+		expect(english).toContain('<name>周见</name>')
+		expect(createAtomFeed([], 'zh', titledConfig)).toContain('<title>周见</title>')
+		// A config without per-locale titles still has one.
+		expect(createAtomFeed([], 'en', config)).toContain('<title>Example Blog</title>')
 	})
 
 	it('uses the requested locale description', () => {

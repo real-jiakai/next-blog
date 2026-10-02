@@ -6,9 +6,10 @@ services:
       args:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gujiakai.top}
         NEXT_PUBLIC_SITE_TITLE: ${NEXT_PUBLIC_SITE_TITLE:-周见}
+        NEXT_PUBLIC_SITE_TITLE_EN: "${NEXT_PUBLIC_SITE_TITLE_EN:-周见 · Zhōu Jiàn}"
         NEXT_PUBLIC_SITE_DESCRIPTION: ${NEXT_PUBLIC_SITE_DESCRIPTION:-专注于分享互联网上有趣的东西。}
         NEXT_PUBLIC_SITE_DESCRIPTION_ZH: ${NEXT_PUBLIC_SITE_DESCRIPTION_ZH:-专注于分享互联网上有趣的东西。}
-        NEXT_PUBLIC_SITE_DESCRIPTION_EN: ${NEXT_PUBLIC_SITE_DESCRIPTION_EN:-A weekly collection of interesting things from the internet.}
+        NEXT_PUBLIC_SITE_DESCRIPTION_EN: "${NEXT_PUBLIC_SITE_DESCRIPTION_EN:-周见 (Zhōu Jiàn) is Jiakai Gu's bilingual periodical of things seen on the internet: one topic per issue, with interesting finds, links and quotes.}"
         NEXT_PUBLIC_KEYWORDS: ${NEXT_PUBLIC_KEYWORDS:-weekly,blog}
         NEXT_PUBLIC_FOOTER: ${NEXT_PUBLIC_FOOTER:-Jiakai Gu}
         NEXT_PUBLIC_SHOW_COMMENT: ${NEXT_PUBLIC_SHOW_COMMENT:-false}
