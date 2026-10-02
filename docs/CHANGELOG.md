@@ -1,3 +1,24 @@
+## [1.4.1](https://github.com/real-jiakai/next-blog/compare/v1.4.0...v1.4.1) (2026-10-02)
+
+
+### Bug Fixes
+
+* **build:** quote Docker build defaults and move pnpm settings ([758b300](https://github.com/real-jiakai/next-blog/commit/758b3005891905ea20d7d3c662a6c2067a9ee2f2))
+* **comments:** harden input handling and fix the reply and quote flow ([a7b4609](https://github.com/real-jiakai/next-blog/commit/a7b46098c215641505dc9be68df19a08e8daf2af))
+* **comments:** keep comment footnotes apart and focus on earlier comments ([4292b31](https://github.com/real-jiakai/next-blog/commit/4292b316d965074a0363652604cd9b732a657773))
+* **deps:** upgrade next to 16.3.7 for security advisories ([a1c4c10](https://github.com/real-jiakai/next-blog/commit/a1c4c1032122ea4cb707c34705e7db5070a9d179))
+* **i18n:** polish UI copy and add the missing dictionary strings ([a431183](https://github.com/real-jiakai/next-blog/commit/a43118355d8d21a920a807d83bddf7cb74634e8c))
+* **post:** keep a clicked TOC entry active at the bottom of the page ([817facc](https://github.com/real-jiakai/next-blog/commit/817facce9945ba0e806bacd4f1bba1a0be4adc97))
+* **post:** make the post page accessible and its data deterministic ([752b61e](https://github.com/real-jiakai/next-blog/commit/752b61ec958b85efac049946e6a37117eb28e6d0))
+* **posts:** capitalize YouTube in issue 14 ([4ba6a7f](https://github.com/real-jiakai/next-blog/commit/4ba6a7fcb992744084edd3250a5955cfd1ce6e48))
+* **posts:** correct typos, mistranslations and Markdown slips ([f576254](https://github.com/real-jiakai/next-blog/commit/f576254955be7e544eed12204272f125d001a66a)), closes [#9](https://github.com/real-jiakai/next-blog/issues/9)
+* **render:** repair footnotes and align the post and feed renderers ([74907d4](https://github.com/real-jiakai/next-blog/commit/74907d435c7cf88e801e8e1610d5a1d6c6aa3408))
+* **rss:** match the page's BGM label and keep CDATA closed ([8deeb5e](https://github.com/real-jiakai/next-blog/commit/8deeb5e143fcadef090862811dd4fd487a6a1e75))
+* **search:** stop IME input from firing searches and stale results ([41cd1d7](https://github.com/real-jiakai/next-blog/commit/41cd1d72f83518005b6deeec7e391b6cf7a1ad05))
+* **seo:** correct alternates, metadata and routing edge cases ([6b9030a](https://github.com/real-jiakai/next-blog/commit/6b9030a2a25d7cef01d5af38d74aff12916008ac))
+* **ui:** fix navigation menus, contrast and list layout ([70c8119](https://github.com/real-jiakai/next-blog/commit/70c8119a40cd14ee5c599b2d635ad5bba0561c41))
+* **ui:** mount search on idle and survive a missing lazy chunk ([31fb661](https://github.com/real-jiakai/next-blog/commit/31fb661084c9e726ba3554db24cf1bb9fcc1465a))
+
 # [1.4.0](https://github.com/real-jiakai/next-blog/compare/v1.3.1...v1.4.0) (2026-08-13)
 
 
