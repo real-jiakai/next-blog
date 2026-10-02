@@ -28,12 +28,14 @@ pnpm install --frozen-lockfile
    ```dotenv
    NEXT_PUBLIC_SITE_URL=https://example.com
    NEXT_PUBLIC_SITE_TITLE=My Blog
+   # Optional English page and feed title, such as a romanised name; it falls
+   # back to NEXT_PUBLIC_SITE_TITLE, which stays the brand in both languages.
+   NEXT_PUBLIC_SITE_TITLE_EN=
    NEXT_PUBLIC_SITE_DESCRIPTION=My blog description
    # Optional per-language descriptions; each falls back to the generic one.
    # English pages, the English feed and llms.txt read the _EN value.
    NEXT_PUBLIC_SITE_DESCRIPTION_ZH=
    NEXT_PUBLIC_SITE_DESCRIPTION_EN=
-   NEXT_PUBLIC_POSTS_PERPAGE=10
    NEXT_PUBLIC_GITHUB_REPO=https://github.com/YOUR_USERNAME/next-blog
    NEXT_PUBLIC_SHOW_COMMENT=false
    ```
@@ -75,6 +77,15 @@ draft: false
 
 Post content goes here.
 ```
+
+The home page builds its contents list from these fields. An issue's number
+is a trailing ` #N` in `title`; the visible headings drop it. A real
+`summary` becomes the post's excerpt there; an empty one, or the
+`本期话题：…` / `This week's topic: …` boilerplate, is replaced by the first
+paragraph under the post's `## 话题` / `## Topic` heading. The lead issue's cover is the first image under
+`## 封面图` / `## Cover Image`, shown only when that image is in
+`lib/post-image-dimensions.json` and hosted on `cdn.sa.net` or
+`vip2.loli.net`, the two hosts the image optimizer accepts.
 
 Use filenames that are valid on Windows, macOS, and Linux. In particular, avoid `?`, `*`, `:`, `"`, `<`, `>`, `|`, and path separators.
 
