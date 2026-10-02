@@ -1,32 +1,34 @@
-import { describe, expect, it } from 'vitest'
-import { getPostsPerPage, parsePageNumber } from '@/lib/site-config'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { getSiteDescription } from '@/lib/site-config'
 
-describe('getPostsPerPage', () => {
-	it('uses a stable default when the setting is omitted', () => {
-		expect(getPostsPerPage(undefined)).toBe(10)
-	})
-
-	it.each(['0', '-1', '1.5', 'ten', ' 10', '101'])(
-		'rejects unsafe pagination size %s',
-		(value) => {
-			expect(() => getPostsPerPage(value)).toThrow()
-		},
-	)
-
-	it('accepts a bounded positive integer', () => {
-		expect(getPostsPerPage('25')).toBe(25)
-	})
+afterEach(() => {
+	vi.unstubAllEnvs()
 })
 
-describe('parsePageNumber', () => {
-	it.each(['foo', '1abc', '0', '-1', '01', '9007199254740992'])(
-		'rejects invalid page path %s',
-		(value) => {
-			expect(parsePageNumber(value)).toBeNull()
-		},
-	)
+describe('getSiteDescription', () => {
+	it('prefers the locale\'s own description', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION', 'Shared')
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_ZH', '中文简介')
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_EN', 'English description')
 
-	it('accepts a canonical positive page number', () => {
-		expect(parsePageNumber('42')).toBe(42)
+		expect(getSiteDescription('zh')).toBe('中文简介')
+		expect(getSiteDescription('en')).toBe('English description')
+	})
+
+	it('falls back to the shared description, not the other locale\'s', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION', 'Shared')
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_ZH', '中文简介')
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_EN', '')
+
+		expect(getSiteDescription('en')).toBe('Shared')
+	})
+
+	it('has a default in each language when nothing is set', () => {
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION', '')
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_ZH', '')
+		vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_EN', '')
+
+		expect(getSiteDescription('zh')).toBe('专注于分享互联网上有趣的东西。')
+		expect(getSiteDescription('en')).toMatch(/^[\x20-\x7e]+$/)
 	})
 })

@@ -4,6 +4,7 @@ import { display, sans } from '@/lib/fonts'
 import { getLanguageAlternates, getLocalePath, i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import { getSiteOpenGraph } from '@/lib/metadata'
+import { getSiteDescription } from '@/lib/site-config'
 import '@/app/globals.css'
 import '@/app/prism-night-owl.css'
 
@@ -14,11 +15,6 @@ export const dynamicParams = false
 
 export async function generateStaticParams() {
 	return i18n.locales.map((lang) => ({ lang }))
-}
-
-const defaultDescriptions: Record<Locale, string> = {
-	zh: '专注于分享互联网上有趣的东西。',
-	en: 'A weekly collection of interesting things from the internet.',
 }
 
 // Umami records a view only on these hosts, so dev servers, local builds and
@@ -34,13 +30,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const { lang } = await params
 	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
-	const description = (
-		(lang === 'en'
-			? process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN
-			: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_ZH) ||
-		process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-		defaultDescriptions[lang]
-	)
+	const description = getSiteDescription(lang)
 	const canonical = getLocalePath(lang)
 
 	return {

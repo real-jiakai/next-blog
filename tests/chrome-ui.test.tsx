@@ -6,7 +6,6 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import { SearchIcon } from '@/components/Icons'
 import Navbar from '@/components/Navbar'
-import { listMinHeight } from '@/components/PostCard'
 import en from '@/lib/dictionaries/en.json'
 import zh from '@/lib/dictionaries/zh.json'
 import { i18n } from '@/lib/i18n-config'
@@ -101,24 +100,23 @@ describe('Icons', () => {
 
 describe('Navbar', () => {
 	it.each([
-		['zh', '/archive', '/archive'],
 		['zh', '/about', '/about'],
 		['zh', '/', '/'],
-		['en', '/en/archive', '/en/archive'],
+		['en', '/en/about', '/en/about'],
 		['en', '/en', '/en'],
 	] as const)('marks the current page on %s %s', (lang, path, href) => {
 		// The phone menu is not rendered until it is opened.
 		expect(currentHrefs(renderNavbar(lang, path))).toEqual([href])
 	})
 
-	it('leaves Home unmarked on later pages, which the pagination marks', () => {
-		expect(currentHrefs(renderNavbar('zh', '/page/2'))).toEqual([])
+	it('marks nothing current on a post', () => {
+		expect(currentHrefs(renderNavbar('zh', '/2024/01/weekly-issue-01'))).toEqual([])
 		expect(currentHrefs(renderNavbar('en', '/en/2024/01/weekly-issue-01'))).toEqual([])
 	})
 
 	it('names the phone language switch by its visible label and target language', () => {
-		const html = renderNavbar('zh', '/archive')
-		const link = html.match(/<a\b[^>]*href="\/en\/archive"[^>]*>.*?<\/a>/)?.[0] ?? ''
+		const html = renderNavbar('zh', '/about')
+		const link = html.match(/<a\b[^>]*href="\/en\/about"[^>]*>.*?<\/a>/)?.[0] ?? ''
 
 		expect(link).not.toContain('aria-label')
 		expect(link).toContain('<span lang="en">EN<span class="sr-only"> English</span></span>')
@@ -146,8 +144,8 @@ describe('Navbar', () => {
 		const html = renderNavbar('en', '/en')
 		const icons = html.match(/<svg\b[^>]*>/g) ?? []
 
-		// Home, Archive, About, RSS, Translate (with its chevron), More, Menu.
-		expect(icons).toHaveLength(8)
+		// Home, About, RSS, Translate (with its chevron), More, Menu.
+		expect(icons).toHaveLength(7)
 		for (const tag of icons) expect(tag).toContain('aria-hidden="true"')
 		expect(html).not.toContain('Mui')
 	})
@@ -183,13 +181,5 @@ describe('Header', () => {
 			])
 			for (const tag of icons) expect(tag).toContain('aria-hidden="true"')
 		}
-	})
-})
-
-describe('listMinHeight', () => {
-	it('reserves a full page of cards only where --post-list-floor allows it', () => {
-		expect(listMinHeight(10).minHeight).toBe(
-			'calc(var(--post-list-floor) * (10 * var(--post-card-height) + 9 * 0.75rem))'
-		)
 	})
 })

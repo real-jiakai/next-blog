@@ -1,15 +1,13 @@
 import { Locale, getLocalePath } from '@/lib/i18n-config'
 import { getSortedPostsData, PostData } from '@/lib/posts'
+import { getSiteDescription } from '@/lib/site-config'
 
 const baseUrl = (
 	process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
 ).replace(/\/+$/, '')
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || '周见'
 // The summary sentence around it is English.
-const siteDescription =
-	process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN ||
-	process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-	'A weekly collection of interesting things from the internet.'
+const siteDescription = getSiteDescription('en')
 
 export const dynamic = 'force-static'
 
@@ -31,12 +29,10 @@ export function GET() {
 		'',
 		'## Main Sections',
 		'',
-		`- [Home](${baseUrl}/): Home page`,
-		`- [Archive](${baseUrl}/archive): Archive of all posts`,
+		`- [Home](${baseUrl}/): Contents page listing every issue`,
 		`- [About](${baseUrl}/about): About page`,
 		`- [RSS](${baseUrl}/index.xml): RSS feed`,
-		`- [English Home](${baseUrl}/en): Home page (English)`,
-		`- [English Archive](${baseUrl}/en/archive): Archive of all posts (English)`,
+		`- [English Home](${baseUrl}/en): Contents page listing every issue (English)`,
 		`- [English About](${baseUrl}/en/about): About page (English)`,
 		`- [English RSS](${baseUrl}/en/index.xml): RSS feed (English)`,
 		'',

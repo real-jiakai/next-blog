@@ -60,17 +60,37 @@ describe('static asset caching', () => {
 })
 
 describe('image optimizer', () => {
-	it('is off, so /_next/image cannot buffer arbitrary public files', () => {
-		expect(nextConfig.images).toEqual({ unoptimized: true })
+	it('serves only the two cover hosts and refuses every local path', () => {
+		// `localPatterns: []` is what keeps /_next/image from buffering and
+		// caching arbitrary public files now that the optimizer is on: Next's
+		// hasLocalMatch([]) matches nothing, while leaving it undefined would
+		// allow every local URL.
+		expect(nextConfig.images).toMatchObject({
+			localPatterns: [],
+			formats: ['image/webp'],
+			qualities: [75],
+			minimumCacheTTL: 2678400,
+		})
+		expect(nextConfig.images.unoptimized).toBeUndefined()
+		expect(nextConfig.images.remotePatterns.map((pattern) => pattern.hostname)).toEqual([
+			'cdn.sa.net',
+			'vip2.loli.net',
+		])
+		for (const pattern of nextConfig.images.remotePatterns) {
+			expect(pattern.protocol).toBe('https')
+		}
 	})
 })
 
 describe('locale route configuration', () => {
-	it('canonicalizes explicit Chinese prefixes', async () => {
+	it('canonicalizes explicit Chinese prefixes and folds pagination and the archive into the contents', async () => {
 		expect(await nextConfig.redirects()).toEqual([
-			{ source: '/page/1', destination: '/', permanent: true },
-			{ source: '/en/page/1', destination: '/en', permanent: true },
-			{ source: '/zh/page/1', destination: '/', permanent: true },
+			{ source: '/page/:page(\\d+)', destination: '/', permanent: true },
+			{ source: '/en/page/:page(\\d+)', destination: '/en', permanent: true },
+			{ source: '/zh/page/:page(\\d+)', destination: '/', permanent: true },
+			{ source: '/archive', destination: '/', permanent: true },
+			{ source: '/en/archive', destination: '/en', permanent: true },
+			{ source: '/zh/archive', destination: '/', permanent: true },
 			{ source: '/zh', destination: '/', permanent: true },
 			{ source: '/zh/:path*', destination: '/:path*', permanent: true },
 		])
@@ -80,8 +100,6 @@ describe('locale route configuration', () => {
 		expect(await nextConfig.rewrites()).toEqual([
 			{ source: '/', destination: '/zh' },
 			{ source: '/about', destination: '/zh/about' },
-			{ source: '/archive', destination: '/zh/archive' },
-			{ source: '/page/:page', destination: '/zh/page/:page' },
 			{
 				source: '/:year(\\d{4})/:month(\\d{2})/:slug',
 				destination: '/zh/:year/:month/:slug',

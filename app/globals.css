@@ -27,19 +27,6 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-    /* Height of one PostCard whose title and summary fit on one line each.
-       From md up the post list reserves a full page of these so the
-       pagination sits at the same height on every page, including the last
-       one when it holds fewer posts. Keep in step with PostCard's own box. */
-    --post-card-height: 7.9375rem;
-    /* Ceiling for the growth above; beyond this a card stops filling and the
-       remaining slack goes back to the page. */
-    --post-card-max: 12rem;
-    /* 1 where the post list reserves that full page, 0 where it does not. Off
-       on phones: titles and summaries wrap there, so cards are uneven and the
-       floor could not line the pagination up; it only left a short last page
-       with a screen of blank space above its navigation. */
-    --post-list-floor: 0;
     /* Ivory paper and warm near-blacks (#141413 family): every grey carries
        the paper's warm cast, so none of them sits blue against the page.
        Every text colour below holds at least 5:1 on the page and on both
@@ -69,16 +56,6 @@
        white bar over the warm page read as a strip that did not belong. Kept
        translucent for the sticky header's backdrop blur. */
     --site-header: rgb(245 244 237 / 86%);
-}
-
-/* Must follow the :root above, not precede it — equal specificity, so the
-   later rule wins and an earlier media query would simply be overridden. */
-@media (min-width: 768px) {
-    :root {
-        --post-card-height: 8.5625rem;
-        --post-card-max: 14rem;
-        --post-list-floor: 1;
-    }
 }
 
 /* Warm ink: the same warm cast as the ivory, so the two themes read as one

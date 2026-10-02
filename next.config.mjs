@@ -79,12 +79,19 @@ export default withBundleAnalyzer({
 		]
 	},
 	// Canonicalize explicit default-locale URLs before applying the prefix-less
-	// Chinese route rewrites below.
+	// Chinese route rewrites below. The home page lists every issue, so the
+	// old pagination and archive URLs lead there; the more specific `/zh`
+	// rules come first so they take one hop, not two. A link to an archive
+	// year (`/archive#2024`) keeps its fragment across the redirect and lands
+	// on that year's section of the contents page.
 	async redirects() {
 		return [
-			{ source: '/page/1', destination: '/', permanent: true },
-			{ source: '/en/page/1', destination: '/en', permanent: true },
-			{ source: '/zh/page/1', destination: '/', permanent: true },
+			{ source: '/page/:page(\\d+)', destination: '/', permanent: true },
+			{ source: '/en/page/:page(\\d+)', destination: '/en', permanent: true },
+			{ source: '/zh/page/:page(\\d+)', destination: '/', permanent: true },
+			{ source: '/archive', destination: '/', permanent: true },
+			{ source: '/en/archive', destination: '/en', permanent: true },
+			{ source: '/zh/archive', destination: '/', permanent: true },
 			{ source: '/zh', destination: '/', permanent: true },
 			{ source: '/zh/:path*', destination: '/:path*', permanent: true },
 		]
@@ -96,17 +103,31 @@ export default withBundleAnalyzer({
 		return [
 			{ source: '/', destination: '/zh' },
 			{ source: '/about', destination: '/zh/about' },
-			{ source: '/archive', destination: '/zh/archive' },
-			{ source: '/page/:page', destination: '/zh/page/:page' },
 			{
 				source: '/:year(\\d{4})/:month(\\d{2})/:slug',
 				destination: '/zh/:year/:month/:slug',
 			},
 		]
 	},
-	// Nothing uses next/image, so the optimizer stays off rather than
-	// buffering and caching every requested width of any public file.
+	// The optimizer serves the contents page's lead cover. It accepts only the
+	// two image hosts the posts use; `localPatterns: []` refuses every local
+	// path, so /_next/image cannot be made to buffer and cache arbitrary public
+	// files (the reason it used to be switched off). WebP only, since encoding
+	// AVIF is slow on the one-CPU container, and widths limited to what the
+	// cover's `sizes` can pick. The CDN URLs are content-addressed, so a
+	// month's cache is safe.
 	images: {
-		unoptimized: true,
+		remotePatterns: [
+			{ protocol: 'https', hostname: 'cdn.sa.net', pathname: '/**' },
+			{ protocol: 'https', hostname: 'vip2.loli.net', pathname: '/**' },
+		],
+		localPatterns: [],
+		formats: ['image/webp'],
+		deviceSizes: [640, 750, 828, 1080],
+		// The 14rem and 18rem desktop cover columns at 1x and 2x; the 20rem
+		// tablet box draws on 448 and 640.
+		imageSizes: [224, 288, 448, 576],
+		qualities: [75],
+		minimumCacheTTL: 2678400,
 	},
 })

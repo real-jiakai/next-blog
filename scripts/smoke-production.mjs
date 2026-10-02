@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { stat } from 'node:fs/promises'
+import { readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { getSortedPostsData, selectFeedPosts } from './generate-rss.mjs'
 
@@ -34,7 +34,17 @@ async function request(pathname, headers = {}) {
 // What the client router sends when it navigates to a page: the RSC header
 // and, in `next-url`, the page it is navigating from.
 function requestRsc(pathname) {
-	return request(pathname, { rsc: '1', 'next-url': '/zh/archive' })
+	return request(pathname, { rsc: '1', 'next-url': '/zh/about' })
+}
+
+// The run of issue numbers the contents page's folio should print, from the
+// same posts the build read ("第 1–23 期" today, one more with each issue).
+function issueRange(locale) {
+	const numbers = getSortedPostsData(locale, path.join(process.cwd(), 'posts'))
+		.map((post) => /#(\d+)\s*$/.exec(post.title)?.[1])
+		.filter(Boolean)
+		.map(Number)
+	return [Math.min(...numbers), Math.max(...numbers)]
 }
 
 function hasExited(child) {
@@ -149,6 +159,67 @@ try {
 	}
 
 	const homeHtml = await (await request('/')).text()
+	// The contents page: one heading, the run of issues, every issue listed by
+	// year, and no pager or summary boilerplate left over from the post list.
+	const [first, last] = issueRange('zh')
+	for (const expected of ['id="issues"', '<h1', `第 ${first}–${last} 期`]) {
+		if (!homeHtml.includes(expected)) {
+			throw new Error(`/: the contents page is missing ${expected}`)
+		}
+	}
+	if ((homeHtml.match(/<h1\b/g) || []).length !== 1) {
+		throw new Error('/: expected exactly one <h1>')
+	}
+	for (const unexpected of ['本期话题：', 'href="/page/', 'href="/archive']) {
+		if (homeHtml.includes(unexpected)) {
+			throw new Error(`/: the contents page still contains ${unexpected}`)
+		}
+	}
+	const englishHomeHtml = await (await request('/en')).text()
+	const [firstEn, lastEn] = issueRange('en')
+	for (const expected of ['>Contents<', `Nos. ${firstEn}–${lastEn}`]) {
+		if (!englishHomeHtml.includes(expected)) {
+			throw new Error(`/en: the contents page is missing ${expected}`)
+		}
+	}
+
+	// The lead cover goes through the optimizer, with the small candidates
+	// the px-only `sizes` keeps for the desktop column. The newest issue has
+	// one when its first 封面图 image is in the dimensions manifest.
+	const newest = getSortedPostsData('zh', path.join(process.cwd(), 'posts'))[0]
+	const coverSource = /^##\s*封面图[^\n]*\n+!\[[^\]]*\]\(\s*<?([^\s)>]+)/m.exec(
+		newest.contentMarkdown,
+	)?.[1]
+	const dimensions = JSON.parse(
+		await readFile(path.join(process.cwd(), 'lib', 'post-image-dimensions.json'), 'utf8'),
+	)
+	if (coverSource && dimensions[coverSource]) {
+		const coverSrcset = homeHtml.match(
+			/<img\b[^>]*\bsrcset="([^"]*\/_next\/image\?url=https%3A%2F%2F[^"]*)"/i,
+		)?.[1]
+		if (!coverSrcset?.includes(`url=${encodeURIComponent(coverSource)}&amp;w=288&amp;q=75 288w`)) {
+			throw new Error('/: the lead cover is not served through the optimizer at 288w')
+		}
+	}
+
+	// The optimizer is on for the two cover hosts only. A local file and any
+	// other host are refused before anything is fetched or cached; the width
+	// and quality are valid, so the url is what is refused.
+	for (const source of [
+		'/video/2023-01-26-curry-throws-his-mouthpiece.mp4',
+		'/favicon.ico',
+		'https://example.com/a.png',
+		'http://cdn.sa.net/2026/01/23/b1GZHPmplhd3e4K.webp',
+	]) {
+		const pathname = `/_next/image?url=${encodeURIComponent(source)}&w=640&q=75`
+		const response = await request(pathname)
+		expectStatus(pathname, response, 400)
+		const body = await response.text()
+		if (!body.includes('"url" parameter is not allowed')) {
+			throw new Error(`${pathname}: refused for the wrong reason: ${body}`)
+		}
+	}
+
 	const staticAssetPath = homeHtml.match(
 		/(?:href|src)="([^"?]*\/_next\/static\/[^"?]+)(?:\?[^" ]*)?"/
 	)?.[1]
@@ -179,9 +250,17 @@ try {
 	}
 	await clipAsset.body?.cancel()
 
+	// Pagination and the archive are folded into the contents page.
 	for (const [pathname, location] of [
 		['/page/1', '/'],
+		['/page/2', '/'],
+		['/page/999', '/'],
 		['/en/page/1', '/en'],
+		['/en/page/999', '/en'],
+		['/zh/page/2', '/'],
+		['/archive', '/'],
+		['/en/archive', '/en'],
+		['/zh/archive', '/'],
 		['/zh/about?probe=1', '/about?probe=1'],
 	]) {
 		const response = await request(pathname)
@@ -190,7 +269,8 @@ try {
 	}
 
 	for (const pathname of [
-		'/page/999',
+		'/page/abc',
+		'/archive/2024',
 		'/tag/weekly',
 		'/2025/01/using-next.js',
 		'/foo',
@@ -217,12 +297,14 @@ try {
 
 	// The client router fetches pages as RSC payloads. For a page that does not
 	// exist the proxy answers a plain, uncacheable 404 (the router then loads
-	// the URL as a document); Next's own fallback would answer 500.
+	// the URL as a document); Next's own fallback would answer 500. Old
+	// pagination and archive URLs never get this far: the redirects above
+	// run before the proxy.
 	for (const pathname of [
 		'/2026/01/not-a-post',
-		'/page/999',
-		'/en/page/999',
 		'/en/2026/01/nope',
+		'/page/abc',
+		'/archive/2024',
 		'/fr',
 	]) {
 		const response = await requestRsc(pathname)
@@ -235,11 +317,23 @@ try {
 		}
 	}
 
+	// A router fetch of an old pagination or archive URL meets the redirect
+	// first, so it follows the redirect to the contents page.
+	for (const [pathname, location] of [
+		['/page/999', '/'],
+		['/en/page/999', '/en'],
+		['/en/archive', '/en'],
+	]) {
+		const response = await requestRsc(pathname)
+		expectStatus(`${pathname} (rsc)`, response, 308)
+		expectLocation(`${pathname} (rsc)`, response, location)
+	}
+
 	// A page that does exist still gets its payload, so navigation stays
 	// client-side. This also proves the standalone output carries posts/,
 	// which the proxy reads to tell the two apart. Without the cache-busting
 	// `_rsc` query the server first redirects to the URL that carries it.
-	for (const pathname of ['/en/archive', '/2024/07/weekly-issue-20']) {
+	for (const pathname of ['/en/about', '/2024/07/weekly-issue-20']) {
 		let response = await requestRsc(pathname)
 		if (response.status === 307) {
 			response = await requestRsc(response.headers.get('location'))

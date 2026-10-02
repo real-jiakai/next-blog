@@ -1,9 +1,8 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
-// Glyphs from Google's Material Icons (Apache-2.0), apart from the archive box,
-// drawn as plain SVG rather than through a component library: they cost no
-// client JavaScript and inject no runtime styles, and server components can
-// render them.
+// Glyphs from Google's Material Icons (Apache-2.0), drawn as plain SVG rather
+// than through a component library: they cost no client JavaScript and inject
+// no runtime styles, and server components can render them.
 
 export interface IconProps extends ComponentPropsWithoutRef<'svg'> {
 	/** Pixels at the default root font size; the icon scales with it, as rem does. */
@@ -30,14 +29,6 @@ export function HomeIcon(props: IconProps) {
 	return (
 		<Icon {...props}>
 			<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-		</Icon>
-	)
-}
-
-export function ArchiveIcon(props: IconProps) {
-	return (
-		<Icon {...props}>
-			<path d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" />
 		</Icon>
 	)
 }
@@ -146,6 +137,14 @@ export function NorthEastIcon(props: IconProps) {
 	return (
 		<Icon {...props}>
 			<path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z" />
+		</Icon>
+	)
+}
+
+export function MusicNoteIcon(props: IconProps) {
+	return (
+		<Icon {...props}>
+			<path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3z" />
 		</Icon>
 	)
 }

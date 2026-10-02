@@ -14,7 +14,6 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import {
-	ArchiveIcon,
 	CloseIcon,
 	HomeIcon,
 	InfoIcon,
@@ -173,8 +172,7 @@ export default function Navbar({
 	// With exactly two locales, the mobile bar can switch straight to the other
 	// one instead of opening a menu to choose.
 	const otherLocale = sortedLocales[1]
-	// Home is current only on the first page; on /page/N the pagination marks
-	// the current page instead.
+	// Only the home page and About are ever current; a post is neither.
 	const ariaCurrent = (path: string) => (path === pathWithoutLocale ? 'page' : undefined)
 
 	// Hover opens a menu for a mouse only: a touch tap fires the same enter
@@ -280,16 +278,6 @@ export default function Navbar({
 						>
 							<HomeIcon />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Home}</span>
-						</Link>
-					</li>
-					<li>
-						<Link
-							href={getLocalePath(lang, '/archive')}
-							aria-current={ariaCurrent('/archive')}
-							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
-						>
-							<ArchiveIcon />
-							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Archive}</span>
 						</Link>
 					</li>
 					<li>
@@ -480,17 +468,6 @@ export default function Navbar({
 									>
 										<HomeIcon />
 										{dict.common.Home}
-									</Link>
-								</li>
-								<li>
-									<Link
-										href={getLocalePath(lang, '/archive')}
-										onClick={() => setMobileMenuVisible(false)}
-										aria-current={ariaCurrent('/archive')}
-										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
-									>
-										<ArchiveIcon />
-										{dict.common.Archive}
 									</Link>
 								</li>
 								<li>

@@ -39,3 +39,17 @@ export function formatDate(
 		day: 'numeric',
 	}).format(date.toDate())
 }
+
+/** "2022年4月" / "April 2022": the month an issue run began. */
+export function formatMonthYear(dateString: string, locale: Locale): string {
+	const date = dayjs(dateString)
+
+	if (!date.isValid()) {
+		return dateString
+	}
+
+	return new Intl.DateTimeFormat(intlLocales[locale], {
+		year: 'numeric',
+		month: 'long',
+	}).format(date.toDate())
+}

@@ -1,5 +1,5 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import type { PostData, PostMetadata } from '@/lib/posts'
+import { describe, expect, it, vi } from 'vitest'
+import type { PostMetadata } from '@/lib/posts'
 import { getStaticPagePaths, isStaticPagePath } from '@/lib/static-paths'
 
 const posts: Record<'zh' | 'en', PostMetadata[]> = {
@@ -17,18 +17,7 @@ const posts: Record<'zh' | 'en', PostMetadata[]> = {
 
 vi.mock('@/lib/posts', () => ({
 	getAllPostMetadata: (locale: 'zh' | 'en') => posts[locale],
-	getSortedPostsData: (locale: 'zh' | 'en'): PostData[] =>
-		posts[locale].map(({ slug }) => ({ slug, title: slug, date: '', summary: '' })),
 }))
-
-beforeAll(() => {
-	// Two posts a page: Chinese reaches /page/2, English stays on one page.
-	vi.stubEnv('NEXT_PUBLIC_POSTS_PERPAGE', '2')
-})
-
-afterAll(() => {
-	vi.unstubAllEnvs()
-})
 
 describe('getStaticPagePaths', () => {
 	it('lists every prerendered page under its public URL', () => {
@@ -36,14 +25,11 @@ describe('getStaticPagePaths', () => {
 			[
 				'/',
 				'/about',
-				'/archive',
-				'/page/2',
 				'/2026/01/weekly-issue-23',
 				'/2025/01/weekly-issue-22',
 				'/2024/09/weekly-issue-21',
 				'/en',
 				'/en/about',
-				'/en/archive',
 				'/en/2025/01/weekly-issue-22',
 				'/en/2024/09/weekly-issue-21',
 			].sort(),
@@ -55,7 +41,8 @@ describe('isStaticPagePath', () => {
 	it.each([
 		'/',
 		'/en',
-		'/page/2',
+		'/about',
+		'/en/about',
 		'/2024/09/weekly-issue-21',
 		'/en/2024/09/weekly-issue-21',
 		// The router decodes escapes before matching, so this names the same page.
@@ -67,9 +54,13 @@ describe('isStaticPagePath', () => {
 	it.each([
 		'/zh',
 		'/zh/about',
+		// The contents page lists every issue: no pagination or archive pages
+		// are prerendered (the config redirects those URLs to it).
 		'/page/1',
-		'/page/3',
+		'/page/2',
 		'/en/page/2',
+		'/archive',
+		'/en/archive',
 		'/en/2026/01/weekly-issue-23',
 		'/2024/9/weekly-issue-21',
 		'/2024/09/weekly-issue-21/',

@@ -1,5 +1,4 @@
 import { i18n, getLocalePath } from '@/lib/i18n-config'
-import { getPageCount } from '@/lib/pagination'
 import { getAllPostMetadata } from '@/lib/posts'
 
 // Every page URL the build prerenders, in the form visitors request it
@@ -11,12 +10,6 @@ function collectStaticPagePaths(): Set<string> {
 	for (const locale of i18n.locales) {
 		paths.add(getLocalePath(locale))
 		paths.add(getLocalePath(locale, '/about'))
-		paths.add(getLocalePath(locale, '/archive'))
-
-		const pageCount = getPageCount(locale)
-		for (let page = 2; page <= pageCount; page += 1) {
-			paths.add(getLocalePath(locale, `/page/${page}`))
-		}
 
 		for (const post of getAllPostMetadata(locale)) {
 			const month = String(post.month).padStart(2, '0')

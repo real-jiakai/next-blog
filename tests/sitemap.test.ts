@@ -13,14 +13,12 @@ vi.mock('@/lib/posts', () => ({
 // The sitemap reads its base URL once, when the module loads.
 vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://example.com')
 const { default: sitemap } = await import('@/app/sitemap')
-const { isPageInEveryLocale } = await import('@/lib/pagination')
 
 function post(slug: string, date: string): PostData {
 	return { slug, date, title: slug, summary: '', draft: false }
 }
 
 beforeEach(() => {
-	vi.stubEnv('NEXT_PUBLIC_POSTS_PERPAGE', '1')
 	// The English translation of `c` is still a draft, so it is not listed.
 	posts.zh = [post('c', '2026-03-01'), post('b', '2026-02-01'), post('a', '2026-01-01')]
 	posts.en = [post('b', '2026-02-01'), post('a', '2026-01-01')]
@@ -44,24 +42,25 @@ describe('sitemap', () => {
 		}
 	})
 
-	it('gives an untranslated post and an unmatched page number no alternates', () => {
+	it('gives an untranslated post no alternates', () => {
 		const entries = sitemap()
 		const byUrl = new Map(entries.map((entry) => [entry.url, entry]))
 
 		// toHaveProperty also fails if the entry itself went missing.
 		expect(byUrl.get('https://example.com/2026/03/c')).toHaveProperty('alternates', undefined)
-		expect(byUrl.get('https://example.com/page/3')).toHaveProperty('alternates', undefined)
 		expect(byUrl.get('https://example.com/2026/02/b')?.alternates?.languages).toEqual({
 			zh: 'https://example.com/2026/02/b',
 			en: 'https://example.com/en/2026/02/b',
 			'x-default': 'https://example.com/2026/02/b',
 		})
 	})
-})
 
-describe('isPageInEveryLocale', () => {
-	it('holds only up to the shorter locale\'s last page', () => {
-		expect(isPageInEveryLocale(2)).toBe(true)
-		expect(isPageInEveryLocale(3)).toBe(false)
+	it('lists no pagination or archive pages, which now redirect to the contents', () => {
+		const entries = sitemap()
+
+		expect(entries.some((entry) => /\/(page\/|archive$)/.test(entry.url))).toBe(false)
+		expect(entries.map((entry) => entry.url)).toEqual(
+			expect.arrayContaining(['https://example.com/', 'https://example.com/en']),
+		)
 	})
 })

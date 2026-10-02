@@ -1,32 +1,21 @@
-const DEFAULT_POSTS_PER_PAGE = 10
-const MAX_POSTS_PER_PAGE = 100
+import type { Locale } from '@/lib/i18n-config'
 
-export function getPostsPerPage(
-	value: string | undefined = process.env.NEXT_PUBLIC_POSTS_PERPAGE,
-): number {
-	if (value === undefined || value.trim() === '') {
-		return DEFAULT_POSTS_PER_PAGE
-	}
-
-	if (!/^[1-9]\d*$/.test(value)) {
-		throw new Error('NEXT_PUBLIC_POSTS_PERPAGE must be a positive integer')
-	}
-
-	const postsPerPage = Number(value)
-	if (!Number.isSafeInteger(postsPerPage) || postsPerPage > MAX_POSTS_PER_PAGE) {
-		throw new Error(
-			`NEXT_PUBLIC_POSTS_PERPAGE must be between 1 and ${MAX_POSTS_PER_PAGE}`,
-		)
-	}
-
-	return postsPerPage
+const defaultDescriptions: Record<Locale, string> = {
+	zh: '专注于分享互联网上有趣的东西。',
+	en: 'A weekly collection of interesting things from the internet.',
 }
 
-export function parsePageNumber(value: string): number | null {
-	if (!/^[1-9]\d*$/.test(value)) {
-		return null
-	}
-
-	const page = Number(value)
-	return Number.isSafeInteger(page) ? page : null
+/**
+ * The site description in a locale: its own setting, then the shared one,
+ * then a built-in default. The meta description and the contents page's
+ * tagline both use it.
+ */
+export function getSiteDescription(lang: Locale): string {
+	return (
+		(lang === 'en'
+			? process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN
+			: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_ZH) ||
+		process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
+		defaultDescriptions[lang]
+	)
 }
