@@ -10,6 +10,8 @@ import {
 	renderMarkdown,
 	selectFeedPosts,
 } from '@/scripts/generate-rss.mjs'
+import zh from '@/lib/dictionaries/zh.json'
+import en from '@/lib/dictionaries/en.json'
 
 const config = {
 	siteUrl: 'https://example.com',
@@ -396,10 +398,20 @@ describe('Atom output', () => {
 		)
 
 		expect(feed).toContain(
-			'周刊BGM：<a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> — Singer</a>',
+			'本期 BGM：<a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> — Singer</a>',
 		)
 		expect(feed).not.toContain('<b>')
 		expect(feed).not.toContain('<em>Song</em>')
+	})
+
+	it.each([['zh', zh], ['en', en]])('labels the %s track with the post page\'s own words', (locale, dictionary) => {
+		const feed = createAtomFeed(
+			[post({ audio: { name: 'Song', artist: 'Singer', url: 'https://music.example.com/song.mp3' } })],
+			locale,
+			config,
+		)
+
+		expect(feed).toContain(`<p>${dictionary.common.IssueBGM}<a href="https://music.example.com/song.mp3">`)
 	})
 
 	it('uses the requested locale description', () => {

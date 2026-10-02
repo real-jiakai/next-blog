@@ -128,6 +128,8 @@ describe('renderPostMarkdown', () => {
 		expect(video).not.toContain('controls')
 		expect(video).toContain('aspect-ratio:478 / 854')
 		expect(video).toContain('width:min(478px, calc(70svh * 478 / 854))')
+		// Media are square-cornered, like the images it stands beside.
+		expect(video).toContain('class="my-8 max-w-full h-auto"')
 		expect(html).toContain('<source src="/video/clip.webm" type="video/webm"/>')
 		expect(html).toContain('<source src="/video/clip.mp4" type="video/mp4"/>')
 		expect(html).not.toContain('<p><video')
@@ -218,13 +220,17 @@ describe('renderPostMarkdown', () => {
 		expect(render('```bash\necho hi\n```')).toContain('class="token')
 	})
 
-	it('gives post links colours that stay readable in dark mode', () => {
+	it('leaves link colour to the stylesheet, so the links carry no classes', () => {
 		const html = renderToStaticMarkup(
-			renderPostMarkdown('[Link](https://example.com)').content
+			renderPostMarkdown('[Link](https://example.com) and a note[^1]\n\n[^1]: Note.').content
 		)
 
-		expect(html).toContain(
-			'class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"'
-		)
+		// .article-content colours every link in both themes; a class here
+		// would bring back the old blue.
+		expect(html).toContain('<a href="https://example.com">Link</a>')
+		expect(html).not.toContain('blue')
+		expect(html).not.toContain('class=""')
+		// The footnote back-reference keeps the class GFM gives it.
+		expect(html).toContain('class="data-footnote-backref"')
 	})
 })

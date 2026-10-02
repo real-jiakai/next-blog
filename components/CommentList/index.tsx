@@ -163,7 +163,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 								onClick={loadEarlier}
 								aria-disabled={loadingEarlier}
 								aria-busy={loadingEarlier}
-								className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+								className="text-site-muted underline underline-offset-4 transition-colors hover:text-site-accent"
 							>
 								{dict.LoadEarlier}
 							</button>
@@ -179,7 +179,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 							key={comment.id}
 							id={`comment-${comment.id}`}
 							tabIndex={-1}
-							className="comment scroll-mt-24 p-4 bg-site-surface border border-site-line shadow-md rounded-lg flex flex-col"
+							className="comment scroll-mt-24 flex flex-col border-t border-site-line pt-4"
 						>
 							<div className="flex justify-between items-center mb-2 border-b border-site-line">
 								<div className="flex items-center space-x-2">
@@ -195,13 +195,13 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 											className="rounded-full"
 										/>
 									)}
-									<h3 className="my-6 font-bold text-lg">
+									<h3 className="m-0 py-3 text-lg font-bold text-site-heading">
 										{isWebUrl(comment.website) ? (
 											<a
 												href={comment.website}
 												target="_blank"
 												rel="ugc nofollow noopener noreferrer"
-												className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+												className="underline decoration-site-accent/60 underline-offset-4 transition-colors hover:text-site-accent hover:decoration-site-accent"
 											>
 												{comment.username}
 											</a>
@@ -233,14 +233,14 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 											name: comment.username,
 											id: comment.id,
 										})}
-										className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+										className="text-site-muted transition-colors hover:text-site-accent"
 									>
 										#
 									</a>
 									<button
 										type="button"
 										aria-label={fillLabel(dict.QuoteLabel, { name: comment.username })}
-										className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+										className="text-site-muted transition-colors hover:text-site-accent"
 										onClick={() => quoteComment(comment, comment.id)}
 									>
 										{dict.Quote}
@@ -251,7 +251,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 					))}
 				</div>
 			) : (
-				<p className="text-gray-700 dark:text-gray-300">{emptyMessage}</p>
+				<p className="m-0 text-site-muted">{emptyMessage}</p>
 			)}
 		</>
 	)

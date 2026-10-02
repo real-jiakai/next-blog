@@ -194,6 +194,25 @@ try {
 		}
 	}
 
+	// The newest issue's page: its title opens with the number (visually
+	// hidden, and set as the kicker's numeral), and nothing on it is blue.
+	for (const locale of ['zh', 'en']) {
+		const [latest] = getSortedPostsData(locale, path.join(process.cwd(), 'posts'))
+		const number = /#(\d+)\s*$/.exec(latest.title)?.[1]
+		const yearMonth = latest.date.toISOString().slice(0, 7).replace('-', '/')
+		const postPath = `${locale === 'en' ? '/en' : ''}/${yearMonth}/${encodeURIComponent(latest.slug)}`
+		const response = await request(postPath)
+		expectStatus(postPath, response, 200)
+		const postHtml = await response.text()
+		const label = locale === 'en' ? `No. ${number}` : `第 ${number} 期`
+		if (number && !postHtml.includes(label)) {
+			throw new Error(`${postPath}: the issue page is missing ${label}`)
+		}
+		if (postHtml.includes('text-blue-')) {
+			throw new Error(`${postPath}: the issue page still carries text-blue- classes`)
+		}
+	}
+
 	// The lead cover goes through the optimizer, with the small candidates
 	// the px-only `sizes` keeps for the desktop column. The newest issue has
 	// one when its first 封面图 image is in the dimensions manifest.

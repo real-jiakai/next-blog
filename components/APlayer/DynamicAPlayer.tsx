@@ -6,7 +6,7 @@ const APlayer = dynamic(() => import('./index'), {
 	ssr: false,
 	loading: () => (
 		<div
-			className="my-4 h-16 animate-pulse rounded bg-site-surface-muted"
+			className="mt-4 h-[68px] animate-pulse bg-site-surface-muted"
 			aria-hidden="true"
 		/>
 	),

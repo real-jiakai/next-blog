@@ -97,16 +97,18 @@ const feedHtmlSchema = {
 
 const clobberPrefix = feedHtmlSchema.clobberPrefix || ''
 
+// issueBgm is the post page's own label (`IssueBGM` in lib/dictionaries),
+// byte for byte, so a feed reader sees what the page shows.
 const feedLabels = {
 	zh: {
 		footnotes: '脚注',
 		backToReference: '返回引用',
-		weeklyBgm: '周刊BGM：',
+		issueBgm: '本期 BGM：',
 	},
 	en: {
 		footnotes: 'Footnotes',
 		backToReference: 'Back to reference',
-		weeklyBgm: 'Weekly BGM: ',
+		issueBgm: 'This issue’s BGM: ',
 	},
 }
 
@@ -376,7 +378,7 @@ function escapeHtml(value) {
 function audioMarkdown(audio, locale) {
 	if (!audio) return ''
 	const track = audio.artist ? `${audio.name} — ${audio.artist}` : audio.name
-	return `<p>${feedLabels[locale].weeklyBgm}<a href="${escapeHtml(audio.url)}">${escapeHtml(track)}</a></p>\n\n`
+	return `<p>${feedLabels[locale].issueBgm}<a href="${escapeHtml(audio.url)}">${escapeHtml(track)}</a></p>\n\n`
 }
 
 // The feed library writes title and content as CDATA but only escapes the

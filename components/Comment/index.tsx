@@ -81,14 +81,14 @@ export default function Comment({ dict, lang }: CommentProps) {
 
 	return (
 		<>
-			<h2 className="text-3xl font-bold mt-8 mb-4">{dict.Comments}</h2>
+			<h2 className="mt-8 mb-4 text-3xl font-bold text-site-heading">{dict.Comments}</h2>
 			<CommentList
 				quoteComment={quoteComment}
 				updateList={updateList}
 				dict={dict}
 				lang={lang}
 			/>
-			<h2 className="text-3xl font-bold mt-8 mb-4">{dict.LeaveComment}</h2>
+			<h2 className="mt-8 mb-4 text-3xl font-bold text-site-heading">{dict.LeaveComment}</h2>
 			<CommentForm
 				quote={quote}
 				replyTo={replyTo}

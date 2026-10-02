@@ -33,7 +33,11 @@ interface SearchDialogProps {
   onOpenChange: (open: boolean) => void
 }
 
-/** Render Meilisearch's marked-up text as <mark> elements, never as HTML. */
+/**
+ * Render Meilisearch's marked-up text as <mark> elements, never as HTML. A
+ * match is set in ink rather than the surrounding colour: muted text on the
+ * accent tint falls below 4.5:1 in the dark theme.
+ */
 function Highlighted({ text }: { text: string }) {
 	return (
 		<>
@@ -41,7 +45,7 @@ function Highlighted({ text }: { text: string }) {
 				run.match ? (
 					<mark
 						key={index}
-						className="rounded-sm bg-blue-500/20 px-0.5 text-inherit group-aria-selected:bg-blue-500/30"
+						className="rounded-sm bg-site-accent-soft px-0.5 text-site-heading group-aria-selected:bg-site-accent/30"
 					>
 						{run.text}
 					</mark>
@@ -228,16 +232,18 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 			<div className="flex min-h-full justify-center px-3 pt-[8vh] pb-6 sm:px-4 sm:pt-[10vh]">
 				<div
 					ref={panelRef}
-					className="flex h-fit max-h-[72vh] w-full max-w-xl flex-col overflow-hidden rounded-xl border border-site-line bg-site-surface shadow-2xl"
+					className="flex h-fit max-h-[72vh] w-full max-w-xl flex-col overflow-hidden rounded-lg border border-site-line bg-site-surface shadow-2xl"
 				>
 					{/* The field is the top of the panel itself, separated from the
-					    results by a rule rather than boxed inside one. */}
+					    results by a rule rather than boxed inside one. Its focus
+					    ring is drawn around that whole strip, inside the panel's
+					    edge, rather than tight around the bare text. */}
 					<div className="shrink-0 border-b border-site-line">
-						<div className="flex items-center gap-3 px-4 py-2.5 sm:px-5 sm:py-3">
+						<div className="flex items-center gap-3 rounded-t-lg px-4 py-2.5 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:-outline-offset-2 has-[input:focus-visible]:outline-site-accent sm:px-5 sm:py-3">
 							{pending ? (
 								<span
 									aria-hidden
-									className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-site-line border-t-blue-600 dark:border-t-blue-400"
+									className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-site-line border-t-site-accent"
 								/>
 							) : (
 								<SearchIcon className="shrink-0 text-site-muted" />
@@ -265,7 +271,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 								aria-activedescendant={hits[active] ? `search-hit-${active}` : undefined}
 								autoComplete="off"
 								spellCheck={false}
-								className="w-full bg-transparent text-base text-site-heading outline-none placeholder:text-site-muted"
+								className="w-full bg-transparent text-base text-site-heading placeholder:text-site-muted focus-visible:outline-none"
 							/>
 							{/* Kept on every viewport: the keyboard legend below is
 							    desktop-only, so on a phone this is the visible way out
@@ -291,9 +297,9 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 						{failed || hits.length === 0 ? (
 							// One centred block for every empty state, so the panel never
 							// shows a lone line of text floating against its left edge.
-							<div className="flex flex-col items-center justify-center gap-2.5 px-6 py-9 text-center">
+							<div className="flex flex-col items-center justify-center gap-5 px-6 py-9 text-center">
 								<SearchIcon size={28} className="text-site-muted/40" />
-								<p className="mt-3 max-w-xs text-sm leading-relaxed text-site-muted">
+								<p className="m-0 max-w-xs text-sm leading-relaxed text-site-muted">
 									{!searchable
 										? dict.common.SearchPrompt
 										: !current
@@ -305,7 +311,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 							</div>
 						) : (
 							<>
-								<p className="my-3 px-1 pb-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
+								<p className="m-0 px-1 pb-2.5 pt-3.5 text-[0.75rem] font-semibold tracking-[0.3em] text-site-muted">
 									{dict.common.SearchResults}
 								</p>
 								<ul
@@ -332,16 +338,16 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 												href={hit.url}
 												onClick={close}
 												tabIndex={-1}
-												className={`flex items-start gap-3 rounded-lg border px-3 py-2.5 transition-colors sm:gap-3.5 sm:px-3.5 sm:py-3 ${
+												className={`flex items-start gap-3 rounded border px-3 py-2.5 transition-colors sm:gap-3.5 sm:px-3.5 sm:py-3 ${
 													index === active
-														? 'border-blue-500/60 bg-blue-500/10'
+														? 'border-site-accent/60 bg-site-accent-soft'
 														: 'border-transparent bg-site-surface-muted/60'
 												}`}
 											>
 												<ArticleOutlinedIcon
 													className={`mt-0.5 shrink-0 ${
 														index === active
-															? 'text-blue-600 dark:text-blue-400'
+															? 'text-site-accent'
 															: 'text-site-muted'
 													}`}
 												/>
@@ -350,16 +356,16 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 														<span className="truncate text-[0.9375rem] font-semibold text-site-heading">
 															<Highlighted text={hit.title} />
 														</span>
-														<span className="hidden shrink-0 font-mono text-xs text-site-muted sm:block">
+														<span className="hidden shrink-0 font-mono text-xs text-site-muted group-aria-selected:text-site-copy sm:block">
 															<Date dateString={hit.date} locale={lang} format="YYYY-MM-DD" />
 														</span>
 													</span>
 													{hit.heading && (
-														<span className="mt-0.5 block truncate text-sm text-blue-600 dark:text-blue-400">
+														<span className="mt-0.5 block truncate text-sm text-site-copy group-aria-selected:text-site-accent-strong">
 															<Highlighted text={hit.heading} />
 														</span>
 													)}
-													<span className="mt-1 line-clamp-2 text-sm leading-relaxed text-site-muted">
+													<span className="mt-1 line-clamp-2 text-sm leading-relaxed text-site-muted group-aria-selected:text-site-copy">
 														<Highlighted text={hit.snippet} />
 													</span>
 												</span>
@@ -403,7 +409,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 							<Key>{isApplePlatform(navigator.userAgent) ? '⌘K' : 'Ctrl K'}</Key>
 							{dict.common.SearchOpen}
 						</span>
-						<span className="ml-auto text-site-muted/70">Meilisearch</span>
+						<span className="ml-auto">Meilisearch</span>
 					</div>
 				</div>
 			</div>

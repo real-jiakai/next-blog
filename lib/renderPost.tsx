@@ -177,20 +177,16 @@ function hardenEmbeds() {
 	}
 }
 
-// Style content links, point footnote links at their sanitized ids, and mark
-// images for progressive loading. This runs after sanitization, so only
-// properties created here or explicitly allowed above can reach React.
+// Point footnote links at their sanitized ids, keep new-tab links from
+// reaching back to the page, and mark images for progressive loading. Links
+// are styled by .article-content in globals.css, not by classes added here.
+// This runs after sanitization, so only properties created here or explicitly
+// allowed above can reach React.
 function enhancePostHtml() {
 	return (tree: Root) => {
 		let isFirstImage = true
 		visit(tree, 'element', (node: Element) => {
 			if (node.tagName === 'a') {
-				const existing = node.properties?.className
-				const classes = Array.isArray(existing)
-					? existing.map(String)
-					: existing != null
-						? [String(existing)]
-						: []
 				const href = node.properties?.href
 				const isFootnoteLink =
 					node.properties?.dataFootnoteRef != null ||
@@ -201,13 +197,6 @@ function enhancePostHtml() {
 					...(isFootnoteLink && typeof href === 'string' && href.startsWith('#')
 						? { href: `#${clobberPrefix}${href.slice(1)}` }
 						: {}),
-					className: [
-						...classes,
-						'text-blue-600',
-						'hover:text-blue-800',
-						'dark:text-blue-400',
-						'dark:hover:text-blue-300',
-					],
 					...(node.properties?.target === '_blank'
 						? { rel: ['noopener', 'noreferrer'] }
 						: {}),
@@ -255,7 +244,6 @@ function enhancePostHtml() {
 						'my-8',
 						'max-w-full',
 						'h-auto',
-						'rounded-lg',
 					],
 					// Sized like the image it stands in for: no wider than its own
 					// pixels and no taller than 70svh, with the box reserved before

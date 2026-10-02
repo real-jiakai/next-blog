@@ -43,7 +43,7 @@ declare global {
 
 // APlayer's normal mode only starts playback from a click on the cover, a
 // plain <div>; make it a focusable, named button that answers Enter and Space.
-const FOCUS_RING = 'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-500'
+const FOCUS_RING = 'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-site-accent'
 
 function makeCoverOperable(
 	container: HTMLElement,
@@ -137,8 +137,10 @@ export default function APlayer({
 				onError={() => setScriptStatus('error')}
 			/>
 			{scriptStatus === 'loading' && (
+				// The player's own size and corners, so nothing moves when it
+				// replaces this.
 				<div
-					className="my-4 h-16 animate-pulse rounded bg-site-surface-muted"
+					className="mt-4 h-[68px] animate-pulse bg-site-surface-muted"
 					role="status"
 					aria-label={`${loadingLabel}: ${audio.name}`}
 				/>
@@ -146,7 +148,7 @@ export default function APlayer({
 			{scriptStatus === 'error' && (
 				<a
 					href={audio.url}
-					className="my-4 inline-flex rounded-lg border border-gray-200 px-4 py-2 text-blue-600 dark:border-gray-700 dark:text-blue-400"
+					className="mt-4 inline-flex rounded border border-site-line px-4 py-2 text-site-accent underline underline-offset-4 transition-colors hover:text-site-accent-strong"
 					aria-label={`${fallbackLabel}: ${audio.name} — ${audio.artist}`}
 				>
 					{audio.name} — {audio.artist}
@@ -154,7 +156,7 @@ export default function APlayer({
 			)}
 			<div
 				ref={containerRef}
-				className={scriptStatus === 'ready' ? 'aplayer-container my-4' : 'hidden'}
+				className={scriptStatus === 'ready' ? 'aplayer-container' : 'hidden'}
 			/>
 		</>
 	)
