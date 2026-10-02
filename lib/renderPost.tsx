@@ -70,12 +70,17 @@ const postSchema: SanitizeSchema = {
 			'src',
 			'title',
 			'controls',
+			'autoPlay',
+			'loop',
+			'muted',
+			'playsInline',
 			'width',
 			'height',
 			'preload',
 			'poster',
 			'className',
 			'ariaDescribedBy',
+			'ariaLabel',
 		],
 		figure: ['className'],
 		figcaption: ['className', 'id'],
@@ -160,7 +165,11 @@ function hardenEmbeds() {
 			} else if (node.tagName === 'video') {
 				node.properties = {
 					...node.properties,
-					controls: true,
+					// An autoplaying clip stands in for a GIF: it may only play
+					// silently and inline. Every other video is a player.
+					...(node.properties.autoPlay
+						? { muted: true, playsInline: true }
+						: { controls: true }),
 					preload: 'metadata',
 				}
 			}
@@ -235,6 +244,28 @@ function enhancePostHtml() {
 						: {}),
 				}
 				isFirstImage = false
+			} else if (node.tagName === 'video' && node.properties?.autoPlay) {
+				const existing = node.properties.className
+				const width = Number(node.properties.width)
+				const height = Number(node.properties.height)
+				node.properties = {
+					...node.properties,
+					className: [
+						...(Array.isArray(existing) ? existing.map(String) : []),
+						'my-8',
+						'max-w-full',
+						'h-auto',
+						'rounded-lg',
+					],
+					// Sized like the image it stands in for: no wider than its own
+					// pixels and no taller than 70svh, with the box reserved before
+					// the poster or first frame arrives.
+					...(width > 0 && height > 0
+						? {
+							style: `aspect-ratio: ${width} / ${height}; width: min(${width}px, calc(70svh * ${width} / ${height}))`,
+						}
+						: {}),
+				}
 			} else if (/^h[1-6]$/.test(node.tagName)) {
 				const existing = node.properties?.className
 				node.properties = {

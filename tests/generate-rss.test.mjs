@@ -156,6 +156,30 @@ describe('RSS Markdown rendering', () => {
 		expect(html).toContain('src="https://example.com/v.mp4"')
 	})
 
+	it('turns a GIF-like clip into a player with absolute media URLs', () => {
+		const html = renderMarkdown(
+			[
+				'<video autoplay loop muted playsinline poster="/video/clip.webp" width="600" height="338" aria-label="A clip">',
+				'  <source src="/video/clip.webm" type="video/webm">',
+				'  <source src="/video/clip.mp4" type="video/mp4">',
+				'</video>',
+			].join('\n'),
+			{ baseUrl: 'https://example.com/2023/01/post' },
+		)
+		const video = html.match(/<video\b[^>]*>/)?.[0] ?? ''
+
+		expect(video).not.toContain('autoplay')
+		expect(video).toContain('controls')
+		expect(video).toContain('loop')
+		expect(video).toContain('muted')
+		expect(video).toContain('playsinline')
+		expect(video).toContain('preload="metadata"')
+		expect(video).toContain('aria-label="A clip"')
+		expect(video).toContain('poster="https://example.com/video/clip.webp"')
+		expect(html).toContain('<source src="https://example.com/video/clip.webm" type="video/webm">')
+		expect(html).toContain('<source src="https://example.com/video/clip.mp4" type="video/mp4">')
+	})
+
 	it('lazy-loads images', () => {
 		const html = renderMarkdown('![Alt](https://example.com/a.png)')
 

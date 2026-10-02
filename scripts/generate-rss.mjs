@@ -66,16 +66,22 @@ const feedHtmlSchema = {
 			'className',
 			'sandbox',
 		],
+		// The site's list without autoPlay: the styled feed page holds every
+		// entry at once, so a GIF-like clip arrives as a player with a poster.
 		video: [
 			'src',
 			'title',
 			'controls',
+			'loop',
+			'muted',
+			'playsInline',
 			'width',
 			'height',
 			'preload',
 			'poster',
 			'className',
 			'ariaDescribedBy',
+			'ariaLabel',
 		],
 		figure: ['className'],
 		figcaption: ['className', 'id'],

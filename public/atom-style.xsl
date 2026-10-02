@@ -117,8 +117,9 @@
           }
           .entry-content video {
             display: block;
-            width: 100%;
+            width: auto;
             max-width: 100%;
+            max-height: 70vh;
             height: auto;
             border-radius: 4px;
           }

@@ -155,6 +155,23 @@ try {
 		throw new Error('Rendered post is missing preserved accessible video markup')
 	}
 
+	// Mobile browsers autoplay only a muted, inline clip, so both attributes
+	// must survive to the server HTML, and the clip must ship in the output.
+	const clipPost = '/2023/01/weekly-issue-14'
+	const clipResponse = await request(clipPost)
+	expectStatus(clipPost, clipResponse, 200)
+	const clipTag = (await clipResponse.text()).match(/<video\b[^>]*\bautoplay\b[^>]*>/i)?.[0]
+	if (!clipTag || !/\bmuted\b/i.test(clipTag) || !/\bplaysinline\b/i.test(clipTag)) {
+		throw new Error(`${clipPost}: the GIF-like clip is missing autoplay, muted, or playsinline`)
+	}
+	const clip = '/video/2023-01-26-curry-throws-his-mouthpiece.mp4'
+	const clipAsset = await request(clip)
+	expectStatus(clip, clipAsset, 200)
+	if (clipAsset.headers.get('content-type') !== 'video/mp4') {
+		throw new Error(`${clip}: expected Content-Type video/mp4`)
+	}
+	await clipAsset.body?.cancel()
+
 	for (const [pathname, location] of [
 		['/page/1', '/'],
 		['/en/page/1', '/en'],

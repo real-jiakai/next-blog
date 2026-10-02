@@ -78,7 +78,11 @@ You can say the internet has memory, but don't forget its fragility. Remember to
 
 3. On January 26, 2023, in the Warriors' home game against the Grizzlies, Curry was ejected for throwing his mouthguard.
 
-![Curry ejected for throwing his mouthguard](/gif/2023-01-26-curry-throws-his-mouthpiece.gif)
+<video autoplay loop muted playsinline preload="metadata" poster="/video/2023-01-26-curry-throws-his-mouthpiece.webp" width="600" height="338" aria-label="Curry ejected for throwing his mouthguard">
+  <source src="/video/2023-01-26-curry-throws-his-mouthpiece.webm" type="video/webm">
+  <source src="/video/2023-01-26-curry-throws-his-mouthpiece.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 The interesting part is that Curry was applauding Poole's 3-point attempt just a second before, but when he saw the shot missed, Curry angrily threw his mouthguard. The contrast is hilarious—truly deserving of his nickname "Baby Face."
 
