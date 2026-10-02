@@ -18,6 +18,7 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `lib/search/` — shapes shared by the search route and the search UI.
 - `components/` — UI components; client boundaries are intentionally narrow.
 - `lib/posts/index.ts` — reads and validates local post data.
+- `lib/static-paths.ts` — the prerendered page URLs, as `proxy.ts` needs them.
 - `lib/renderPost.tsx` — sanitized post Markdown rendering and heading data.
 - `lib/renderComment.ts` — sanitized comment Markdown rendering.
 - `lib/commentSecurity.ts` — comment origin, Turnstile, limits, and verification.
@@ -97,7 +98,12 @@ through the latest Node 24 release.
 - Apply `supabase/migrations/202607100001_secure_comments.sql` before enabling
   the current comment API.
 - Post files are build-time content. Rebuild and redeploy after changes; do not
-  add a runtime `posts` volume to the standalone container.
+  add a runtime `posts` volume to the standalone container. Output tracing
+  copies `posts/` into the standalone output, where `proxy.ts` reads it through
+  `lib/static-paths.ts` to answer the client router's fetches (recognized by
+  their `next-url` header) for pages that were never generated with a plain
+  404, where Next would answer 500; the smoke test checks that a real page
+  still gets its RSC payload.
 - ESLint requires tabs, single quotes, no semicolons, and LF line endings.
   The core `indent` and `semi` rules do not check TypeScript interface and
   type bodies, where older code still uses spaces; use tabs and no member

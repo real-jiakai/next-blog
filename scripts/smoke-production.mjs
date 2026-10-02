@@ -23,11 +23,18 @@ function wait(milliseconds) {
 	return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
 
-async function request(pathname) {
+async function request(pathname, headers = {}) {
 	return fetch(`${origin}${pathname}`, {
+		headers,
 		redirect: 'manual',
 		signal: AbortSignal.timeout(5_000),
 	})
+}
+
+// What the client router sends when it navigates to a page: the RSC header
+// and, in `next-url`, the page it is navigating from.
+function requestRsc(pathname) {
+	return request(pathname, { rsc: '1', 'next-url': '/zh/archive' })
 }
 
 function hasExited(child) {
@@ -208,6 +215,41 @@ try {
 		}
 	}
 
+	// The client router fetches pages as RSC payloads. For a page that does not
+	// exist the proxy answers a plain, uncacheable 404 (the router then loads
+	// the URL as a document); Next's own fallback would answer 500.
+	for (const pathname of [
+		'/2026/01/not-a-post',
+		'/page/999',
+		'/en/page/999',
+		'/en/2026/01/nope',
+		'/fr',
+	]) {
+		const response = await requestRsc(pathname)
+		expectStatus(`${pathname} (rsc)`, response, 404)
+		if (response.headers.get('content-type')?.startsWith('text/x-component')) {
+			throw new Error(`${pathname}: an RSC 404 would leave the router on a blank page`)
+		}
+		if (response.headers.get('cache-control') !== 'private, no-cache, no-store, max-age=0, must-revalidate') {
+			throw new Error(`${pathname}: the RSC 404 must not be cacheable`)
+		}
+	}
+
+	// A page that does exist still gets its payload, so navigation stays
+	// client-side. This also proves the standalone output carries posts/,
+	// which the proxy reads to tell the two apart. Without the cache-busting
+	// `_rsc` query the server first redirects to the URL that carries it.
+	for (const pathname of ['/en/archive', '/2024/07/weekly-issue-20']) {
+		let response = await requestRsc(pathname)
+		if (response.status === 307) {
+			response = await requestRsc(response.headers.get('location'))
+		}
+		expectStatus(`${pathname} (rsc)`, response, 200)
+		if (!response.headers.get('content-type')?.startsWith('text/x-component')) {
+			throw new Error(`${pathname}: expected an RSC payload`)
+		}
+	}
+
 	for (const [pathname, locale] of feeds) {
 		const response = await request(pathname)
 		expectStatus(pathname, response, 200)
@@ -225,6 +267,10 @@ try {
 	}
 
 	expectStatus('/api/comSelect', await request('/api/comSelect'), 404)
+	// The RSC requests above used to end in this invariant and a 500.
+	if (logs.join('').includes('InvariantError')) {
+		throw new Error('The server logged an invariant violation while serving the checks')
+	}
 	// A server that died after readiness means something else answered.
 	assertRunning(server)
 	console.log(
