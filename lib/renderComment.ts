@@ -31,7 +31,7 @@ function hardenLinks() {
 				node.properties = {
 					...node.properties,
 					target: isFragment ? undefined : '_blank',
-					rel: isFragment ? undefined : 'nofollow noopener noreferrer',
+					rel: isFragment ? undefined : ['nofollow', 'noopener', 'noreferrer'],
 				}
 			}
 		})
