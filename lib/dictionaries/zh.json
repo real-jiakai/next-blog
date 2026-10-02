@@ -61,6 +61,7 @@
     "SectionQuotes": "言论——一两句打动我的话。",
     "SectionBGM": "另外，每期配一首 BGM。",
     "Stats": "自{since}创刊以来，已出 {count} 期，不定期更新。",
+    "StatsOne": "自{since}创刊以来，已出 {count} 期，不定期更新。",
     "RSSSubscribe": "欢迎通过",
     "RSSLink": "RSS",
     "RSSSubscribeEnd": " 订阅本站点。",

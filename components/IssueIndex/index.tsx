@@ -60,7 +60,7 @@ export default function IssueIndex({ lang, dict, issues, leadYear }: IssueIndexP
 						{entries.map((issue) => (
 							<li
 								key={issue.slug}
-								className="group relative grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-3.5 py-3.5 has-focus-visible:outline-2 has-focus-visible:outline-site-accent md:grid-cols-[3.75rem_minmax(0,1fr)_8rem] md:gap-x-5 md:py-[1.1rem] [&+li]:border-t [&+li]:border-site-line"
+								className="group relative grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-3.5 py-3.5 has-focus-visible:outline-2 has-focus-visible:outline-offset-4 has-focus-visible:outline-site-accent md:grid-cols-[3.75rem_minmax(0,1fr)_8rem] md:gap-x-5 md:py-[1.1rem] [&+li]:border-t [&+li]:border-site-line"
 							>
 								<span
 									aria-hidden

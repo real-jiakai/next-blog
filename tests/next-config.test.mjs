@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import nextConfig from '@/next.config.mjs'
+import { getIssueIndex } from '@/lib/posts'
 
 describe('security headers', () => {
 	it('allows the Cloudflare Web Analytics beacon script in script-src', async () => {
@@ -78,6 +79,20 @@ describe('image optimizer', () => {
 		])
 		for (const pattern of nextConfig.images.remotePatterns) {
 			expect(pattern.protocol).toBe('https')
+		}
+	})
+
+	it('allows the host of every cover the contents page can show', () => {
+		// A cover on any other host would get a 400 from the optimizer and leave
+		// the lead issue with an empty box, so a CDN move must update the list.
+		const hosts = new Set(nextConfig.images.remotePatterns.map((pattern) => pattern.hostname))
+		const covers = ['zh', 'en'].flatMap((locale) =>
+			getIssueIndex(locale).flatMap((issue) => (issue.cover ? [issue.cover.src] : []))
+		)
+
+		expect(covers.length).toBeGreaterThan(0)
+		for (const src of covers) {
+			expect(hosts).toContain(new URL(src).hostname)
 		}
 	})
 })

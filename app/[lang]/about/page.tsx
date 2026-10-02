@@ -85,7 +85,7 @@ export default async function About({
 					<p className={`${prose} mt-4`}>{about.SectionBGM}</p>
 					{stats.count > 0 && stats.firstDate && (
 						<p className={`${prose} mt-5`}>
-							{fillTemplate(about.Stats, {
+							{fillTemplate(stats.count === 1 ? about.StatsOne : about.Stats, {
 								since: formatMonthYear(stats.firstDate, lang),
 								count: stats.count,
 							})}

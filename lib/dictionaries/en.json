@@ -61,6 +61,7 @@
     "SectionQuotes": "Quotes — a line or two that stayed with me.",
     "SectionBGM": "Each issue also comes with a BGM track.",
     "Stats": "{count} issues have appeared since {since}, on no fixed schedule.",
+    "StatsOne": "{count} issue has appeared since {since}, on no fixed schedule.",
     "RSSSubscribe": "Feel free to subscribe via",
     "RSSLink": "RSS",
     "RSSSubscribeEnd": ".",
