@@ -6,8 +6,8 @@ const baseUrl = (
 	process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
 ).replace(/\/+$/, '')
 // The file is written in English: the heading takes the English title
-// (`周见 · Zhōu Jiàn`), and the summary names the brand and its romanisation.
-const brand = getSiteTitle('zh')
+// (`周见 · Zhōu Jiàn`) and the summary is the English site description, which
+// already introduces the publication.
 const englishTitle = getSiteTitle('en')
 const siteDescription = getSiteDescription('en')
 
@@ -27,7 +27,9 @@ export function GET() {
 	const content = [
 		`# ${englishTitle}`,
 		'',
-		`> \`${brand}\` (Zhōu Jiàn) is a bilingual (Chinese/English) web periodical by Gu Jiakai. ${siteDescription}`,
+		`> ${siteDescription}`,
+		'',
+		'Chinese pages live at the site root; English pages live under /en.',
 		'',
 		'## Main Sections',
 		'',

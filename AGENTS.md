@@ -188,8 +188,8 @@ secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
 
 `NEXT_PUBLIC_SITE_TITLE` is the brand in both languages: the header, footer,
 `<title>` suffix and `og:site_name`. `NEXT_PUBLIC_SITE_TITLE_EN`
-(`周见 · Zhōu Jiàn`) is the English pages' default `<title>` and the English
-feed's title, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
+(`周见 · Zhōu Jiàn`) is the English pages' default `<title>`, the English
+feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
 the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
 `NEXT_PUBLIC_SITE_DESCRIPTION` and double as the contents page's tagline.
 

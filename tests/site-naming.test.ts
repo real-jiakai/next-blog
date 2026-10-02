@@ -51,10 +51,11 @@ describe('site naming', () => {
 	})
 
 	it('introduces the periodical in llms.txt', async () => {
-		const [heading, , intro] = (await llms().text()).split('\n')
+		const [heading, , intro, , locales] = (await llms().text()).split('\n')
 		expect(heading).toBe('# 周见 · Zhōu Jiàn')
-		expect(intro).toBe(
-			'> `周见` (Zhōu Jiàn) is a bilingual (Chinese/English) web periodical by Gu Jiakai. English description.',
-		)
+		// The English description already introduces the publication, so the
+		// summary is that description alone rather than a second introduction.
+		expect(intro).toBe('> English description.')
+		expect(locales).toBe('Chinese pages live at the site root; English pages live under /en.')
 	})
 })
