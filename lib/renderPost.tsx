@@ -260,7 +260,11 @@ function enhancePostHtml() {
 					...node.properties,
 					className: [
 						...(Array.isArray(existing) ? existing.map(String) : []),
-						'scroll-mt-24',
+						// Clear of the sticky header. An h2's box starts at its
+						// rule, with 2rem of the previous section above it; 5rem
+						// tucks that whole gap under the header, so a jump does
+						// not leave the last line before it peeking out.
+						node.tagName === 'h2' ? 'scroll-mt-20' : 'scroll-mt-24',
 					],
 				}
 			}

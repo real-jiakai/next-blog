@@ -154,8 +154,9 @@ describe('renderPostMarkdown', () => {
 			{ depth: 3, value: 'Details', id: 'details' },
 		])
 		expect(renderToStaticMarkup(content)).toContain(
-			'<h2 id="hello-world" class="scroll-mt-24">Hello, <em>world</em></h2>'
+			'<h2 id="hello-world" class="scroll-mt-20">Hello, <em>world</em></h2>'
 		)
+		expect(renderToStaticMarkup(content)).toContain('<h3 id="details" class="scroll-mt-24">Details</h3>')
 	})
 
 	it('links footnotes to their sanitized IDs in both directions', () => {
