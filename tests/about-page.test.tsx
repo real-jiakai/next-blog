@@ -76,7 +76,7 @@ describe('About page', () => {
 		const since = formatMonthYear(String(firstDate), lang)
 		expect(text).toContain(
 			lang === 'zh'
-				? `自${since}创刊以来，已出 ${count} 期，不定期更新。`
+				? `自${since}创刊以来不定期出刊，至今共 ${count} 期。`
 				: `${count} issues have appeared since ${since}, on no fixed schedule.`,
 		)
 	})

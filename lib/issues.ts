@@ -241,20 +241,6 @@ export function groupByYear<T extends { year: number }>(entries: T[]): { year: n
 	return [...groups].map(([year, grouped]) => ({ year, entries: grouped }))
 }
 
-/**
- * The run of issue numbers ("第 1–23 期"), or a single "第 1 期" while the run
- * has only one number; null when no issue carries a number.
- */
-export function formatIssueRange(
-	templates: { IssueN: string, IssueRange: string },
-	{ first, last }: Pick<IssueStats, 'first' | 'last'>,
-): string | null {
-	if (first === null || last === null) return null
-	return first === last
-		? fillTemplate(templates.IssueN, { n: first })
-		: fillTemplate(templates.IssueRange, { first, last })
-}
-
 /** Fills `{name}` slots in a dictionary string. */
 export function fillTemplate(template: string, values: Record<string, string | number>): string {
 	return template.replace(/\{(\w+)\}/g, (slot, name: string) =>

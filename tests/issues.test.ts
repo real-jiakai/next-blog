@@ -4,7 +4,6 @@ import {
 	extractCoverImage,
 	extractTopicExcerpt,
 	fillTemplate,
-	formatIssueRange,
 	groupByYear,
 	isBoilerplateSummary,
 	parseIssueTitle,
@@ -212,15 +211,3 @@ describe('fillTemplate', () => {
 	})
 })
 
-describe('formatIssueRange', () => {
-	const templates = { IssueN: '第 {n} 期', IssueRange: '第 {first}–{last} 期' }
-
-	it('prints the run of numbers, or one number while the run has only one', () => {
-		expect(formatIssueRange(templates, { first: 1, last: 23 })).toBe('第 1–23 期')
-		expect(formatIssueRange(templates, { first: 1, last: 1 })).toBe('第 1 期')
-	})
-
-	it('prints nothing while no issue carries a number', () => {
-		expect(formatIssueRange(templates, { first: null, last: null })).toBeNull()
-	})
-})

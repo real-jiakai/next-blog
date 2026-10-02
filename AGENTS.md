@@ -25,12 +25,15 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `components/` — UI components; client boundaries are intentionally narrow.
 - `components/SiteHeader/` — the header with the centred brand; its shortcut,
   idle-mount and theme helpers live in `interaction.ts`.
-- `components/SiteFooter/` — the colophon footer. It repeats nothing the
-  sticky header shows: About is always in the header, and the feed is in the
-  header from md up and in the footer only below md. It centres on phones.
+- `components/SiteFooter/` — the colophon: the copyright, from the first
+  post's year to the newest, and the source link. It repeats nothing the
+  page shows elsewhere: the brand and About are in the header, the run of
+  issues on the contents page, and the feed in the header from md up, so the
+  footer's feed link shows only below md. It centres on phones.
 - `components/Masthead/`, `LeadIssue/`, `IssueCover/`, `IssueIndex/` — the
-  contents page: heading and folio, the newest issue, its cover, and the
-  back issues grouped by year.
+  contents page: heading, standfirst and folio (founded, cadence; no links,
+  no issue range), the newest issue, its cover, and the back issues grouped
+  by year.
 - `components/PostHeader/`, `PostNav/` — a post's kicker, title and BGM
   block, and its previous/next issue links.
 - `components/ArticleToc/interaction.ts` — the table of contents' scroll-spy,
@@ -190,12 +193,13 @@ key. Comment secrets are runtime-only: `SUPABASE_URL`,
 trusted `COMMENT_CLIENT_IP_HEADER`, and optional SMTP settings. Never place
 secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
 
-`NEXT_PUBLIC_SITE_TITLE` is the brand in both languages: the header, footer,
+`NEXT_PUBLIC_SITE_TITLE` is the brand in both languages: the header,
 `<title>` suffix and `og:site_name`. `NEXT_PUBLIC_SITE_TITLE_EN`
 (`周见 · Zhōu Jiàn`) is the English pages' default `<title>`, the English
 feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
 the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
-`NEXT_PUBLIC_SITE_DESCRIPTION` and double as the contents page's tagline.
+`NEXT_PUBLIC_SITE_DESCRIPTION` and are the meta and Open Graph description;
+the contents page prints the `Standfirst` dictionary string instead.
 
 `next/image` optimizes the contents page's lead cover. It accepts exactly the
 cover URLs in `lib/cover-urls.json`, with no query string, rather than the

@@ -2,6 +2,9 @@ import type { ReactNode } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { IssueEntry, IssueStats } from '@/lib/issues'
+import en from '@/lib/dictionaries/en.json'
+import zh from '@/lib/dictionaries/zh.json'
+import { formatMonthYear } from '@/lib/formatDate'
 
 // Flipped by the empty-state tests: the page then sees a locale with no posts,
 // while every other export of lib/posts stays real.
@@ -54,9 +57,11 @@ function textOf(html: string) {
 		.replace(/&amp;/g, '&')
 }
 
+const dicts = { zh, en } as const
+
 const labels = {
-	zh: { contents: '目录', issue: (n: number) => `第 ${n} 期：`, range: (a: number, b: number) => `第 ${a}–${b} 期` },
-	en: { contents: 'Contents', issue: (n: number) => `No. ${n}: `, range: (a: number, b: number) => `Nos. ${a}–${b}` },
+	zh: { contents: '目录', issue: (n: number) => `第 ${n} 期：` },
+	en: { contents: 'Contents', issue: (n: number) => `No. ${n}: ` },
 } as const
 
 afterEach(() => {
@@ -155,11 +160,30 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		expect(rows).toHaveLength(back.length)
 	})
 
-	it('gives the run of issues in the folio', async () => {
-		const { first, last } = getIssueStats(lang)
+	it('says what the periodical is, when it was founded and how often it appears', async () => {
+		const { firstDate } = getIssueStats(lang)
+		const dict = dicts[lang].common
+		const html = await render(lang)
+		const masthead = html.match(/<header class="pt-10[\s\S]*?<\/header>/)?.[0] ?? ''
 
-		expect(first).not.toBeNull()
-		expect(textOf(await render(lang))).toContain(labels[lang].range(first!, last!))
+		expect(firstDate).not.toBeNull()
+		expect(textOf(masthead)).toContain(dict.Standfirst)
+		expect(textOf(masthead)).toContain(
+			`${dict.FoundedIn.replace('{date}', formatMonthYear(firstDate!, lang))} · ${dict.Cadence}`,
+		)
+	})
+
+	it('repeats nothing the header or the lead already shows', async () => {
+		const html = await render(lang)
+		const masthead = html.match(/<header class="pt-10[\s\S]*?<\/header>/)?.[0] ?? ''
+
+		expect(masthead).not.toBe('')
+		// No feed or About link: both are in the sticky header.
+		expect(masthead).not.toContain('<a')
+		// No run of issue numbers: the lead's numeral and the list show it.
+		expect(textOf(masthead)).not.toMatch(/第 \d+–\d+ 期|Nos\. \d/)
+		// The site description is the meta description, not printed here.
+		expect(textOf(masthead)).not.toContain('专注于分享互联网上有趣的东西')
 	})
 
 	it('says so when the locale has no posts, and points to the other one', async () => {
