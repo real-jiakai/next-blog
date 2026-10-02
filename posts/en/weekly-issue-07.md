@@ -1,6 +1,6 @@
 ---
 title: "This Is Very Un-Open-Source #7"
-date: "2022-05-16"
+date: "2022-05-20"
 slug: "weekly-issue-07"
 tags: ["weekly"]
 summary: "This week's topic: This is very un-open-source"
@@ -20,7 +20,7 @@ The above is Gitee's official response to the measure requiring review before op
 
 Gitee was forced into this. The Ministry of Industry and Information Technology requires platforms to be responsible for all content on their platforms, so Gitee's management came up with this terrible measure.
 
-The image hosting ban at the end of March, and the repository review-before-going-live policy at the end of May – this series of moves by Gitee has once again lowered my trust in domestic brands.
+The image hosting ban at the end of March, and the repository review-before-going-live policy in mid-May – this series of moves by Gitee has once again lowered my trust in domestic brands.
 
 Bilibili uploader "Monkey King" made a satirical video specifically for this – [What if programmers had to go to a business hall for open-source review](https://www.bilibili.com/video/BV16R4y1c7sf). 😄😄😄
 

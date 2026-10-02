@@ -1,6 +1,6 @@
 ---
 title: "My Past Years #10"
-date: "2022-06-06"
+date: "2022-06-09"
 slug: "weekly-issue-10"
 tags: ["weekly"]
 summary: "This week's topic: My past years"
