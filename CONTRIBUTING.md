@@ -28,12 +28,14 @@ pnpm install --frozen-lockfile
    ```dotenv
    NEXT_PUBLIC_SITE_URL=https://example.com
    NEXT_PUBLIC_SITE_TITLE=My Blog
+   # Optional English page and feed title, such as a romanised name; it falls
+   # back to NEXT_PUBLIC_SITE_TITLE, which stays the brand in both languages.
+   NEXT_PUBLIC_SITE_TITLE_EN=
    NEXT_PUBLIC_SITE_DESCRIPTION=My blog description
    # Optional per-language descriptions; each falls back to the generic one.
    # English pages, the English feed and llms.txt read the _EN value.
    NEXT_PUBLIC_SITE_DESCRIPTION_ZH=
    NEXT_PUBLIC_SITE_DESCRIPTION_EN=
-   NEXT_PUBLIC_POSTS_PERPAGE=10
    NEXT_PUBLIC_GITHUB_REPO=https://github.com/YOUR_USERNAME/next-blog
    NEXT_PUBLIC_SHOW_COMMENT=false
    ```
@@ -76,13 +78,25 @@ draft: false
 Post content goes here.
 ```
 
+The home page builds its contents list from these fields. An issue's number
+is a trailing ` #N` in `title`; the visible headings drop it. A real
+`summary` becomes the post's excerpt there; an empty one, or the
+`本期话题：…` / `This week's topic: …` boilerplate, is replaced by the first
+paragraph under the post's `## 话题` / `## Topic` heading. The lead issue's cover is the first image under
+`## 封面图` / `## Cover Image`, shown only when that image is in
+`lib/post-image-dimensions.json` and listed in `lib/cover-urls.json`. The
+image optimizer accepts exactly those cover URLs, not the whole of
+`cdn.sa.net` or `vip2.loli.net`, because anyone can upload to both hosts.
+
 Use filenames that are valid on Windows, macOS, and Linux. In particular, avoid `?`, `*`, `:`, `"`, `<`, `>`, `|`, and path separators.
 
 Post content is read while Next.js builds the site. After adding or changing a post, rebuild and redeploy the application; mounting a different `posts` directory into an already-built container does not refresh static pages, the sitemap, or feeds.
 
 When image URLs change, run `pnpm images:metadata` and commit the regenerated
-`lib/post-image-dimensions.json`. The build tests require measured dimensions
-for every post image so browsers can reserve the correct layout space.
+`lib/post-image-dimensions.json` and `lib/cover-urls.json`. The build tests
+require measured dimensions for every post image so browsers can reserve the
+correct layout space, and require the cover list to match the covers the
+contents page shows.
 
 ## Comments and deployment
 
@@ -134,4 +148,10 @@ public/          Static files and generated Atom feeds
 scripts/         Build-time scripts
 ```
 
-Use a focused branch, follow the existing TypeScript and Tailwind conventions, and use a Conventional Commit message so semantic-release can classify the change.
+Use a focused branch and follow the existing TypeScript and Tailwind conventions.
+
+## Commit messages
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/) so semantic-release can classify each change. After staging, run `pnpm commit`: Commitizen asks for the type, scope and description, then commits through the usual pre-commit hook. A plain `git commit` with a correctly formatted message works just as well.
+
+The changelog generator links any `#` followed by letters or digits as a GitHub issue, so write hex colours and similar values in backticks, such as `` `#212121` ``.

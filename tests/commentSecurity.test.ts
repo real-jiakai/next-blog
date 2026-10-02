@@ -14,6 +14,7 @@ import {
 	parseCommentPagination,
 	readLimitedJsonBody,
 	resolveCommentThread,
+	toPublicWebsite,
 	validateCommentInput,
 	verifyEmailVerificationToken,
 	verifyTurnstileToken,
@@ -428,6 +429,31 @@ describe('comment input validation', () => {
 		expect(() => validateCommentInput({ ...valid, token: '' })).toThrow(
 			expect.objectContaining({ status: 403 })
 		)
+	})
+})
+
+describe('public commenter website', () => {
+	it('returns a stored http(s) website in normalized form', () => {
+		expect(toPublicWebsite('https://example.com')).toBe('https://example.com/')
+		expect(toPublicWebsite(' http://example.com/blog ')).toBe(
+			'http://example.com/blog'
+		)
+	})
+
+	it.each([
+		null,
+		undefined,
+		'',
+		'   ',
+		42,
+		'example.com',
+		'javascript:alert(1)',
+		'data:text/html,<script>alert(1)</script>',
+		'ftp://example.com',
+		'https://user:pass@example.com',
+		`https://example.com/${'a'.repeat(200)}`,
+	])('hides an unusable stored value: %j', (value) => {
+		expect(toPublicWebsite(value)).toBeNull()
 	})
 })
 

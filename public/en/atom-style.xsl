@@ -14,92 +14,97 @@
             box-sizing: border-box;
           }
           body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.7;
+            color: #2f2f2d;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: #f9fafb;
+            background: #f5f4ed;
           }
           .header {
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 30px;
+            padding: 30px 0 20px;
           }
           .header h1 {
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
             font-size: 2em;
-            color: #111;
+            line-height: 1.25;
+            color: #141413;
           }
           .header p {
             margin: 0;
-            color: #666;
+            color: #63615a;
           }
           .rss-icon {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 15px;
+            width: 32px;
+            height: 32px;
+            margin-bottom: 12px;
+            fill: #2c6e55;
           }
           .subscribe-box {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 15px 20px;
-            margin: 20px 0;
+            background: none;
+            border: 0;
+            border-top: 1px solid rgba(20, 20, 19, 0.13);
+            border-radius: 0;
+            padding: 20px 0;
+            margin: 0;
           }
           .subscribe-box p {
             margin: 0 0 10px 0;
             font-size: 0.9em;
-            color: #666;
+            color: #63615a;
           }
           .subscribe-box code {
             display: block;
-            background: #f3f4f6;
+            background: #edeae1;
             padding: 10px;
             border-radius: 4px;
             font-size: 0.85em;
             word-break: break-all;
-            color: #c2410c;
+            color: #141413;
           }
           .entry {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: none;
+            border: 0;
+            border-top: 1px solid rgba(20, 20, 19, 0.13);
+            border-radius: 0;
+            padding: 20px 0;
+            margin: 0;
           }
           .entry-title {
-            margin: 0 0 10px 0;
+            margin: 0 0 6px 0;
             font-size: 1.3em;
+            line-height: 1.4;
           }
           .entry-title a {
-            color: #2563eb;
+            color: #141413;
             text-decoration: none;
           }
           .entry-title a:hover {
-            text-decoration: underline;
+            color: #2c6e55;
           }
           .entry-meta {
             font-size: 0.85em;
-            color: #666;
-            margin-bottom: 15px;
+            color: #63615a;
+            margin-bottom: 12px;
+            font-variant-numeric: tabular-nums;
           }
           .entry-content {
-            border-top: 1px solid #e5e7eb;
-            padding-top: 15px;
             overflow: hidden;
+          }
+          .entry-content a,
+          .entry-content summary {
+            color: #2c6e55;
+          }
+          .entry-content a:hover,
+          .entry-content summary:hover {
+            color: #1f5a44;
           }
           .entry-content summary {
             cursor: pointer;
-            color: #2563eb;
             font-weight: 500;
             padding: 5px 0;
             user-select: none;
-          }
-          .entry-content summary:hover {
-            color: #1d4ed8;
           }
           .entry-content details[open] summary {
             margin-bottom: 15px;
@@ -110,17 +115,16 @@
           .entry-content img {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
           }
           .entry-content figure {
             margin: 1em 0;
           }
           .entry-content video {
             display: block;
-            width: 100%;
+            width: auto;
             max-width: 100%;
+            max-height: 70vh;
             height: auto;
-            border-radius: 4px;
           }
           .entry-content iframe {
             display: block;
@@ -132,27 +136,30 @@
           }
           .entry-content h2 {
             font-size: 1.2em;
-            margin-top: 20px;
+            margin-top: 28px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(20, 20, 19, 0.13);
+            color: #141413;
           }
-          .entry-content a {
-            color: #2563eb;
+          .entry-content h3 {
+            color: #141413;
           }
           .entry-content blockquote {
-            border-left: 3px solid #e5e7eb;
+            border-left: 2px solid rgba(20, 20, 19, 0.13);
             margin: 10px 0;
             padding-left: 15px;
-            color: #666;
+            color: #63615a;
           }
           .entry-content pre {
-            background: #f3f4f6;
+            background: #edeae1;
             padding: 10px;
-            border-radius: 4px;
             overflow-x: auto;
           }
           .entry-content code {
-            background: #f3f4f6;
+            background: #edeae1;
+            color: #141413;
             padding: 2px 5px;
-            border-radius: 3px;
+            border-radius: 4px;
             font-size: 0.9em;
           }
           .entry-content pre code {
@@ -161,68 +168,53 @@
           }
           @media (prefers-color-scheme: dark) {
             body {
-              background: #111827;
-              color: #e5e7eb;
+              background: #1b1a18;
+              color: #e6e3db;
             }
-            .header {
-              border-bottom-color: #374151;
+            .header h1,
+            .entry-title a,
+            .entry-content h2,
+            .entry-content h3 {
+              color: #f4f2ec;
             }
-            .header h1 {
-              color: #f9fafb;
-            }
-            .header p {
-              color: #9ca3af;
-            }
-            .subscribe-box {
-              background: #1f2937;
-              border-color: #374151;
-            }
-            .subscribe-box p {
-              color: #9ca3af;
-            }
-            .subscribe-box code {
-              background: #374151;
-              color: #fb923c;
-            }
-            .entry {
-              background: #1f2937;
-              border-color: #374151;
-            }
-            .entry-title a {
-              color: #60a5fa;
-            }
-            .entry-meta {
-              color: #9ca3af;
-            }
-            .entry-content {
-              border-top-color: #374151;
-            }
-            .entry-content summary {
-              color: #60a5fa;
-            }
-            .entry-content summary:hover {
-              color: #93c5fd;
-            }
-            .entry-content a {
-              color: #60a5fa;
-            }
-            .entry-content a:hover {
-              color: #93c5fd;
-            }
+            .header p,
+            .subscribe-box p,
+            .entry-meta,
             .entry-content blockquote {
-              border-left-color: #374151;
-              color: #9ca3af;
+              color: #a9a59b;
             }
+            .rss-icon {
+              fill: #86cbaa;
+            }
+            .subscribe-box code,
             .entry-content pre,
             .entry-content code {
-              background: #374151;
+              background: #2e2c28;
+              color: #f4f2ec;
+            }
+            .subscribe-box,
+            .entry,
+            .entry-content h2 {
+              border-top-color: rgba(255, 255, 255, 0.12);
+            }
+            .entry-content blockquote {
+              border-left-color: rgba(255, 255, 255, 0.12);
+            }
+            .entry-title a:hover,
+            .entry-content a,
+            .entry-content summary {
+              color: #86cbaa;
+            }
+            .entry-content a:hover,
+            .entry-content summary:hover {
+              color: #a6dcc3;
             }
           }
         </style>
       </head>
       <body>
         <div class="header">
-          <svg class="rss-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f97316">
+          <svg class="rss-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/>
           </svg>
           <h1><xsl:value-of select="/atom:feed/atom:title"/></h1>

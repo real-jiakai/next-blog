@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Locale, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSiteOpenGraph } from '@/lib/metadata'
-import { getSortedPostsData } from '@/lib/posts'
+import { getIssueIndex, getIssueStats } from '@/lib/posts'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 import Layout from '@/components/Layout'
-import PostCard, { listMinHeight } from '@/components/PostCard'
-import Pagination from '@/components/Pagination'
-import { getPostsPerPage } from '@/lib/site-config'
+import Masthead from '@/components/Masthead'
+import LeadIssue from '@/components/LeadIssue'
+import IssueIndex from '@/components/IssueIndex'
 
 export async function generateMetadata({
 	params,
@@ -15,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const { lang } = await params
 	return {
-		title: process.env.NEXT_PUBLIC_SITE_TITLE,
+		title: { absolute: getSiteTitle(lang) },
 		alternates: {
 			canonical: getLocalePath(lang),
 			languages: getLanguageAlternates(),
@@ -27,74 +29,55 @@ export async function generateMetadata({
 	}
 }
 
+/**
+ * The periodical's contents page: a masthead, the newest issue as the lead,
+ * and every earlier issue by year. It is the complete list; there is no
+ * pagination and no separate archive.
+ */
 export default async function Home({
 	params,
 }: {
-  params: Promise<{ lang: Locale }>
+	params: Promise<{ lang: Locale }>
 }) {
 	const { lang } = await params
 	const dict = await getDictionary(lang)
-	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
-	const allPostsData = getSortedPostsData(lang)
-	const postsPerPage = getPostsPerPage()
-	const totalPages = Math.ceil(allPostsData.length / postsPerPage)
-	const postsToRender = allPostsData.slice(0, postsPerPage)
-	// Only a full list is asked to fill the viewport. A short one would have to
-	// stretch each card too far to manage it, which changes how the card looks.
-	const listFillsPage = postsToRender.length === postsPerPage
+	const issues = getIssueIndex(lang)
+	const stats = getIssueStats(lang)
+	const [lead, ...back] = issues
 
-	// Show message if no posts for this locale
-	if (allPostsData.length === 0) {
+	if (!lead) {
+		// Point at the other locale's contents, in that locale's own words.
+		const other: Locale = lang === 'en' ? 'zh' : 'en'
+		const otherDict = await getDictionary(other)
 		return (
 			<Layout lang={lang} dict={dict}>
-				<section className="max-w-4xl mx-auto px-4 md:px-6">
-					<h1 className="sr-only">{siteTitle}</h1>
-					<div className="min-h-[calc(100vh-12rem)] flex flex-col items-center justify-center">
-						<p className="text-gray-600 dark:text-gray-300 text-lg">
-							{dict.common.NoPostsAvailable || 'No posts available in this language yet.'}
-						</p>
-					</div>
-				</section>
+				<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
+					<Masthead lang={lang} dict={dict} stats={stats} tagline={getSiteDescription(lang)} />
+					<p className="m-0 mt-10 text-[1.0625rem] text-site-muted">
+						{dict.common.NoPostsAvailable}
+					</p>
+					<Link
+						href={getLocalePath(other)}
+						hrefLang={other}
+						lang={other}
+						className="mt-4 inline-block border-b-[1.5px] border-current pb-0.5 text-[0.9375rem] font-semibold text-site-accent transition-colors hover:border-transparent"
+					>
+						{otherDict.common.OtherLocaleContents}
+					</Link>
+				</div>
 			</Layout>
 		)
 	}
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			{/* The list takes the viewport's leftover height and shares it out
-			    among the cards, so the page reaches the footer at any screen size
-			    and the pagination always follows the last card. */}
-			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
-				<h1 className="sr-only">{siteTitle}</h1>
-				{/* The list always takes the leftover height, which keeps the
-				    pagination at the same place on every page. Only a full list
-				    passes that height on to its cards; a short one holds it as
-				    empty space rather than stretching three posts to cover it. */}
-				<div
-					className={`flex w-full flex-1 flex-col gap-3 ${
-						listFillsPage ? '[&>article]:flex-1' : ''
-					}`}
-					style={listMinHeight(postsPerPage)}
-				>
-					{postsToRender.map((post) => (
-						<PostCard key={post.slug} lang={lang} post={post} />
-					))}
-				</div>
-				{/* Deliberately not `flex-1`: the list above absorbs the viewport's
-				    leftover height, and if this grew too it would take half of it
-				    back and reopen the gap the cards are there to close. */}
-				<div className="flex justify-center">
-					<Pagination
-						lang={lang}
-						currentPage={1}
-						totalPages={totalPages}
-						previousLabel={dict.common.PreviousPage}
-						nextLabel={dict.common.NextPage}
-						navLabel={dict.common.Pagination}
-						pageLabel={dict.common.PageN}
-					/>
-				</div>
-			</section>
+			<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
+				<Masthead lang={lang} dict={dict} stats={stats} tagline={getSiteDescription(lang)} />
+				<LeadIssue lang={lang} dict={dict} issue={lead} />
+				{back.length > 0 && (
+					<IssueIndex lang={lang} dict={dict} issues={back} leadYear={lead.year} />
+				)}
+			</div>
 		</Layout>
 	)
 }

@@ -70,12 +70,17 @@ const postSchema: SanitizeSchema = {
 			'src',
 			'title',
 			'controls',
+			'autoPlay',
+			'loop',
+			'muted',
+			'playsInline',
 			'width',
 			'height',
 			'preload',
 			'poster',
 			'className',
 			'ariaDescribedBy',
+			'ariaLabel',
 		],
 		figure: ['className'],
 		figcaption: ['className', 'id'],
@@ -160,7 +165,11 @@ function hardenEmbeds() {
 			} else if (node.tagName === 'video') {
 				node.properties = {
 					...node.properties,
-					controls: true,
+					// An autoplaying clip stands in for a GIF: it may only play
+					// silently and inline. Every other video is a player.
+					...(node.properties.autoPlay
+						? { muted: true, playsInline: true }
+						: { controls: true }),
 					preload: 'metadata',
 				}
 			}
@@ -168,20 +177,16 @@ function hardenEmbeds() {
 	}
 }
 
-// Style content links, point footnote links at their sanitized ids, and mark
-// images for progressive loading. This runs after sanitization, so only
-// properties created here or explicitly allowed above can reach React.
+// Point footnote links at their sanitized ids, keep new-tab links from
+// reaching back to the page, and mark images for progressive loading. Links
+// are styled by .article-content in globals.css, not by classes added here.
+// This runs after sanitization, so only properties created here or explicitly
+// allowed above can reach React.
 function enhancePostHtml() {
 	return (tree: Root) => {
 		let isFirstImage = true
 		visit(tree, 'element', (node: Element) => {
 			if (node.tagName === 'a') {
-				const existing = node.properties?.className
-				const classes = Array.isArray(existing)
-					? existing.map(String)
-					: existing != null
-						? [String(existing)]
-						: []
 				const href = node.properties?.href
 				const isFootnoteLink =
 					node.properties?.dataFootnoteRef != null ||
@@ -192,13 +197,6 @@ function enhancePostHtml() {
 					...(isFootnoteLink && typeof href === 'string' && href.startsWith('#')
 						? { href: `#${clobberPrefix}${href.slice(1)}` }
 						: {}),
-					className: [
-						...classes,
-						'text-blue-600',
-						'hover:text-blue-800',
-						'dark:text-blue-400',
-						'dark:hover:text-blue-300',
-					],
 					...(node.properties?.target === '_blank'
 						? { rel: ['noopener', 'noreferrer'] }
 						: {}),
@@ -235,6 +233,27 @@ function enhancePostHtml() {
 						: {}),
 				}
 				isFirstImage = false
+			} else if (node.tagName === 'video' && node.properties?.autoPlay) {
+				const existing = node.properties.className
+				const width = Number(node.properties.width)
+				const height = Number(node.properties.height)
+				node.properties = {
+					...node.properties,
+					className: [
+						...(Array.isArray(existing) ? existing.map(String) : []),
+						'my-8',
+						'max-w-full',
+						'h-auto',
+					],
+					// Sized like the image it stands in for: no wider than its own
+					// pixels and no taller than 70svh, with the box reserved before
+					// the poster or first frame arrives.
+					...(width > 0 && height > 0
+						? {
+							style: `aspect-ratio: ${width} / ${height}; width: min(${width}px, calc(70svh * ${width} / ${height}))`,
+						}
+						: {}),
+				}
 			} else if (/^h[1-6]$/.test(node.tagName)) {
 				const existing = node.properties?.className
 				node.properties = {

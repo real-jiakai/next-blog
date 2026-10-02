@@ -1,15 +1,14 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
-import Identicon from 'identicon.js'
-import MD5 from 'crypto-js/md5'
 import Date from '@/components/Date'
 import type { Locale } from '@/lib/i18n-config'
 
 interface Comment {
 	id: number
 	username: string
+	website: string | null
+	avatar: string
 	content: string
 	created_at: string
 }
@@ -32,11 +31,15 @@ interface CommentListProps {
 	lang: Locale
 }
 
-// 生成头像
-const generateIdenticon = (username: string): string => {
-	const hash = MD5(username).toString()
-	const data = new Identicon(hash, { size: 64, format: 'svg' }).toString()
-	return `data:image/svg+xml;base64,${data}`
+// The API already validates websites; this only keeps a link to http(s).
+const isWebUrl = (value: unknown): value is string => {
+	if (typeof value !== 'string') return false
+	try {
+		const { protocol } = new URL(value)
+		return protocol === 'https:' || protocol === 'http:'
+	} catch {
+		return false
+	}
 }
 
 const fillLabel = (template: string, values: Record<string, string | number>) =>
@@ -160,7 +163,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 								onClick={loadEarlier}
 								aria-disabled={loadingEarlier}
 								aria-busy={loadingEarlier}
-								className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+								className="text-site-muted underline underline-offset-4 transition-colors hover:text-site-accent"
 							>
 								{dict.LoadEarlier}
 							</button>
@@ -176,18 +179,36 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 							key={comment.id}
 							id={`comment-${comment.id}`}
 							tabIndex={-1}
-							className="comment scroll-mt-24 p-4 bg-site-surface border border-site-line shadow-md rounded-lg flex flex-col"
+							className="comment scroll-mt-24 flex flex-col border-t border-site-line pt-4"
 						>
 							<div className="flex justify-between items-center mb-2 border-b border-site-line">
 								<div className="flex items-center space-x-2">
-									<Image
-										src={generateIdenticon(comment.username)}
-										alt=""
-										width={32}
-										height={32}
-										className="rounded-full"
-									/>
-									<h3 className="font-bold text-lg">{comment.username}</h3>
+									{comment.avatar && (
+										// A server-made data: URI; there is nothing to optimize.
+										// eslint-disable-next-line @next/next/no-img-element
+										<img
+											src={comment.avatar}
+											alt=""
+											width={32}
+											height={32}
+											decoding="async"
+											className="rounded-full"
+										/>
+									)}
+									<h3 className="m-0 py-3 text-lg font-bold text-site-heading">
+										{isWebUrl(comment.website) ? (
+											<a
+												href={comment.website}
+												target="_blank"
+												rel="ugc nofollow noopener noreferrer"
+												className="underline decoration-site-accent/60 underline-offset-4 transition-colors hover:text-site-accent hover:decoration-site-accent"
+											>
+												{comment.username}
+											</a>
+										) : (
+											comment.username
+										)}
+									</h3>
 									<span>{dict.Says}</span>
 								</div>
 							</div>
@@ -212,14 +233,14 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 											name: comment.username,
 											id: comment.id,
 										})}
-										className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+										className="text-site-muted transition-colors hover:text-site-accent"
 									>
 										#
 									</a>
 									<button
 										type="button"
 										aria-label={fillLabel(dict.QuoteLabel, { name: comment.username })}
-										className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+										className="text-site-muted transition-colors hover:text-site-accent"
 										onClick={() => quoteComment(comment, comment.id)}
 									>
 										{dict.Quote}
@@ -230,7 +251,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 					))}
 				</div>
 			) : (
-				<p className="text-gray-700 dark:text-gray-300">{emptyMessage}</p>
+				<p className="m-0 text-site-muted">{emptyMessage}</p>
 			)}
 		</>
 	)

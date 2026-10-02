@@ -10,6 +10,8 @@ import {
 	renderMarkdown,
 	selectFeedPosts,
 } from '@/scripts/generate-rss.mjs'
+import zh from '@/lib/dictionaries/zh.json'
+import en from '@/lib/dictionaries/en.json'
 
 const config = {
 	siteUrl: 'https://example.com',
@@ -59,6 +61,18 @@ describe('RSS configuration', () => {
 				NEXT_PUBLIC_SITE_DESCRIPTION_EN: 'English description',
 			}).descriptions,
 		).toEqual({ zh: 'Generic', en: 'English description' })
+	})
+
+	it('gives the English feed its own title, falling back to the brand', () => {
+		const base = {
+			NEXT_PUBLIC_SITE_URL: 'https://example.com',
+			NEXT_PUBLIC_SITE_TITLE: '周见',
+			NEXT_PUBLIC_SITE_DESCRIPTION: 'Generic',
+		}
+		expect(
+			readFeedConfig({ ...base, NEXT_PUBLIC_SITE_TITLE_EN: '周见 · Zhōu Jiàn' }),
+		).toMatchObject({ title: '周见', titles: { zh: '周见', en: '周见 · Zhōu Jiàn' } })
+		expect(readFeedConfig(base).titles).toEqual({ zh: '周见', en: '周见' })
 	})
 })
 
@@ -154,6 +168,30 @@ describe('RSS Markdown rendering', () => {
 
 		expect(html).not.toContain('javascript:')
 		expect(html).toContain('src="https://example.com/v.mp4"')
+	})
+
+	it('turns a GIF-like clip into a player with absolute media URLs', () => {
+		const html = renderMarkdown(
+			[
+				'<video autoplay loop muted playsinline poster="/video/clip.webp" width="600" height="338" aria-label="A clip">',
+				'  <source src="/video/clip.webm" type="video/webm">',
+				'  <source src="/video/clip.mp4" type="video/mp4">',
+				'</video>',
+			].join('\n'),
+			{ baseUrl: 'https://example.com/2023/01/post' },
+		)
+		const video = html.match(/<video\b[^>]*>/)?.[0] ?? ''
+
+		expect(video).not.toContain('autoplay')
+		expect(video).toContain('controls')
+		expect(video).toContain('loop')
+		expect(video).toContain('muted')
+		expect(video).toContain('playsinline')
+		expect(video).toContain('preload="metadata"')
+		expect(video).toContain('aria-label="A clip"')
+		expect(video).toContain('poster="https://example.com/video/clip.webp"')
+		expect(html).toContain('<source src="https://example.com/video/clip.webm" type="video/webm">')
+		expect(html).toContain('<source src="https://example.com/video/clip.mp4" type="video/mp4">')
 	})
 
 	it('lazy-loads images', () => {
@@ -372,10 +410,34 @@ describe('Atom output', () => {
 		)
 
 		expect(feed).toContain(
-			'周刊BGM：<a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> — Singer</a>',
+			'本期 BGM：<a href="https://music.example.com/song.mp3">&#x3C;b>*Song*&#x3C;/b> — Singer</a>',
 		)
 		expect(feed).not.toContain('<b>')
 		expect(feed).not.toContain('<em>Song</em>')
+	})
+
+	it.each([['zh', zh], ['en', en]])('labels the %s track with the post page\'s own words', (locale, dictionary) => {
+		const feed = createAtomFeed(
+			[post({ audio: { name: 'Song', artist: 'Singer', url: 'https://music.example.com/song.mp3' } })],
+			locale,
+			config,
+		)
+
+		expect(feed).toContain(`<p>${dictionary.common.IssueBGM}<a href="https://music.example.com/song.mp3">`)
+	})
+
+	it('titles each feed in its language and keeps the brand as author', () => {
+		const titledConfig = {
+			...config,
+			title: '周见',
+			titles: { zh: '周见', en: '周见 · Zhōu Jiàn' },
+		}
+		const english = createAtomFeed([], 'en', titledConfig)
+		expect(english).toContain('<title>周见 · Zhōu Jiàn</title>')
+		expect(english).toContain('<name>周见</name>')
+		expect(createAtomFeed([], 'zh', titledConfig)).toContain('<title>周见</title>')
+		// A config without per-locale titles still has one.
+		expect(createAtomFeed([], 'en', config)).toContain('<title>Example Blog</title>')
 	})
 
 	it('uses the requested locale description', () => {

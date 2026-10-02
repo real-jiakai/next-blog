@@ -33,29 +33,42 @@ export default function NotFound() {
 
 	const dict = lang === 'en' ? enDict : zhDict
 	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
+	const homePath = getLocalePath(lang)
 
 	return (
-		<div className="flex min-h-screen flex-col bg-site-page text-site-copy">
-			<header className="mx-auto w-full max-w-5xl px-4 py-4 md:px-6 lg:px-8">
-				<Link
-					href={getLocalePath(lang)}
-					className="text-xl font-medium tracking-wide transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-				>
-					{siteTitle}
-				</Link>
+		<div className="flex min-h-svh flex-col bg-site-page text-site-copy">
+			{/* The site's bar reduced to its centred name: a way home, and no
+			    controls that would need the [lang] layout's providers. */}
+			<header className="border-b border-site-line">
+				<div className="mx-auto flex h-14 w-full max-w-4xl items-center justify-center px-4">
+					<Link
+						href={homePath}
+						className="inline-flex items-center gap-2 whitespace-nowrap text-xl font-bold tracking-[0.06em] text-site-heading"
+					>
+						<span aria-hidden className="size-2 bg-site-accent" />
+						{siteTitle}
+					</Link>
+				</div>
 			</header>
 
-			<main className="flex flex-1 flex-col items-center justify-center px-4 pb-24 text-center">
-				<p className="select-none font-mono text-7xl font-bold leading-none tracking-tighter text-gray-200 sm:text-9xl dark:text-gray-800">
+			<main className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-4 pb-24 md:px-6">
+				<p
+					aria-hidden
+					className="m-0 select-none font-display text-[6rem] font-semibold leading-none text-site-muted lining-nums tabular-nums sm:text-[8rem]"
+				>
 					404
 				</p>
-				<h1 className="mt-6 text-2xl font-bold sm:text-3xl">{dict.common.NotFoundTitle}</h1>
-				<p className="mt-3 text-site-muted">{dict.common.NotFoundMessage}</p>
+				<h1 className="m-0 mt-4 text-[1.75rem] font-bold text-site-heading sm:text-[2rem]">
+					{dict.common.NotFoundTitle}
+				</h1>
+				<p className="m-0 mt-3 max-w-[42rem] text-[1.0625rem] text-site-muted">
+					{dict.common.NotFoundMessage}
+				</p>
 				<Link
-					href={getLocalePath(lang)}
-					className="mt-8 inline-flex items-center rounded-lg border border-site-line bg-site-surface px-4 py-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-site-heading"
+					href={homePath}
+					className="mt-8 inline-block self-start border-b-[1.5px] border-current pb-0.5 text-[0.9375rem] font-semibold text-site-accent transition-colors hover:border-transparent"
 				>
-					{dict.common.BackHome}
+					{dict.common.BackHome}<span aria-hidden> →</span>
 				</Link>
 			</main>
 		</div>

@@ -4,29 +4,54 @@ Guidance for coding agents working in this repository.
 
 ## Project
 
-This is the source for [gujiakai.top](https://gujiakai.top), a bilingual
-weekly blog. Chinese is the default locale and English uses the `/en` prefix.
-The application uses Next.js 16 App Router, React 19, Tailwind CSS 4, MUI 9,
+This is the source for [gujiakai.top](https://gujiakai.top), home of 周见, a
+bilingual web periodical published in numbered issues on no fixed schedule.
+Chinese is the default locale and English uses the `/en` prefix.
+The application uses Next.js 16 App Router, React 19, Tailwind CSS 4, inline SVG icons,
 local Markdown posts, Supabase comments, and standalone Docker output.
 
 ## Important paths
 
-- `app/[lang]/` — home, pagination, archive, about, and post pages.
+- `app/[lang]/` — the home (contents) page, about, and post pages.
+- `app/globals.css` — colour tokens (light and dark), the global focus ring,
+  reduced-motion rules, and the only prose styles, `.article-content` and
+  `.comment-content` in `@layer components`.
 - `app/api/comInsert|comSelect/route.ts` — server-only comment API.
 - `app/api/search/route.ts` — server-only Meilisearch query proxy.
 - `components/Search/` — the Cmd/Ctrl+K search dialog.
-- `lib/search/` — shapes shared by the search route and the search UI.
+- `lib/search/` — shapes shared by the search route and the search UI, plus
+  `isApplePlatform` and `isSearchShortcut`, which the header and the dialog
+  share.
 - `components/` — UI components; client boundaries are intentionally narrow.
-- `lib/posts/index.ts` — reads and validates local post data.
+- `components/SiteHeader/` — the header with the centred brand; its shortcut,
+  idle-mount and theme helpers live in `interaction.ts`.
+- `components/SiteFooter/` — the colophon footer.
+- `components/Masthead/`, `LeadIssue/`, `IssueCover/`, `IssueIndex/` — the
+  contents page: heading and folio, the newest issue, its cover, and the
+  back issues grouped by year.
+- `components/PostHeader/`, `PostNav/` — a post's kicker, title and BGM
+  block, and its previous/next issue links.
+- `components/ArticleToc/interaction.ts` — the table of contents' scroll-spy,
+  tested in `tests/article-toc.test.ts`.
+- `components/ScrollToTop/interaction.ts` — the back-to-top button's
+  behaviour.
+- `lib/posts/index.ts` — reads and validates local post data, and builds the
+  contents page's `getIssueIndex` and `getIssueStats` from it.
+- `lib/issues.ts` — pure helpers behind the contents page: issue numbers from
+  titles, topic excerpts, covers, and year groups.
+- `lib/static-paths.ts` — the prerendered page URLs, as `proxy.ts` needs them.
 - `lib/renderPost.tsx` — sanitized post Markdown rendering and heading data.
+  It adds no classes to links; `.article-content` styles them.
 - `lib/renderComment.ts` — sanitized comment Markdown rendering.
 - `lib/commentSecurity.ts` — comment origin, Turnstile, limits, and verification.
+- `lib/commentAvatar.ts` — server-side identicons that `comSelect` returns.
 - `posts/zh/`, `posts/en/` — Markdown content.
 - `tests/` — every Vitest suite, covering `lib/`, `scripts/`, `proxy.ts`,
  `next.config.mjs`, route handlers, and server-rendered pages and components.
 - `scripts/generate-rss.mjs` — deterministic Atom feed generation.
 - `supabase/migrations/` — database changes required before deployment.
-- `next.config.mjs` — locale redirects/rewrites, standalone output, and headers.
+- `next.config.mjs` — locale redirects/rewrites, standalone output, headers,
+  and the image optimizer's host allowlist.
 - `.github/workflows/ci.yml` — pull-request and branch quality gate.
 - `.github/workflows/release.yml` — gated semantic release from `main`.
 
@@ -52,6 +77,8 @@ through the latest Node 24 release.
 - `pnpm test` — all Vitest suites.
 - `pnpm test:smoke` — HTTP checks against the standalone output; needs a
  completed `pnpm build` first.
+- `pnpm commit` — Commitizen prompt for a Conventional Commit; the
+ pre-commit hook still runs.
 - `ANALYZE=true pnpm build --webpack` — webpack bundle report in
  `.next/analyze/`. Turbopack builds ignore `ANALYZE`; use
  `pnpm exec next experimental-analyze` for the Turbopack analyzer.
@@ -59,16 +86,62 @@ through the latest Node 24 release.
 ## Conventions
 
 - Public Chinese URLs never include `/zh`; use `getLocalePath` for links.
+- The home page is the complete contents list; there is no pagination and no
+  archive route (`/page/N` and `/archive` are 308s to the contents page, and
+  old `/archive#2024` links land on that year's section). Every count, issue
+  range and year on it is computed from the posts; never hard-code one, in
+  code or in tests.
+- An issue's number is the trailing ` #N` of its frontmatter `title`; the
+  visible headings drop it, while `<title>`, feeds and search keep the full
+  title. The contents page's excerpt is the frontmatter `summary` unless that
+  is empty or the `本期话题：…` / `This week's topic: …` boilerplate, in which
+  case it is the first paragraph of the 话题/Topic section.
+- No cards: separate with rules. There are three weights: a hairline
+  (`border-site-line`), a 1px ink rule (`border-site-rule`), and the double
+  rule under a page's `<h1>`. `bg-site-surface` is for overlays, form fields
+  and code, never for content boxes, and the search panel has the only
+  shadow. Corners are square for structure and media, `rounded` for
+  controls, and `rounded-lg` for the search panel.
+- The accent token (竹青, `site-accent`) is the only colour. It marks the
+  brand square, the lead issue's numeral, kickers, calls to action, link
+  underlines, the active TOC bar, the current nav item, selection, search
+  matches, focus rings, the Submit button and APlayer's progress bar. Back
+  issue numerals are muted until hovered or focused. Titles, headings and
+  dates stay ink or muted. No blue or indigo anywhere.
+- Noto Sans SC sets all text. The display serif (Source Serif 4, weight 600,
+  `font-display`) is for digits only: issue numerals, years and the 404.
+- Focus rings come from one global `:focus-visible` rule in `app/globals.css`.
+  Never add `outline-none` or `outline-hidden` without drawing a replacement,
+  as the index rows (`has-focus-visible:` on the `<li>`) and the search field
+  (`has-[input:focus-visible]:` on its strip) do.
+- The header is `h-14`. The sticky year headings and the post TOC sit at
+  `top-[4.5rem]`, and the TOC's `max-h-[calc(100vh-7rem)]` assumes the same
+  height; change them together.
+- English copy keeps the brand 周见 untranslated and uses straight quotes,
+  because Noto Sans SC sets curly ones full-width. `IssueBGM` in
+  `lib/dictionaries/en.json` and `zh.json` must match `feedLabels` in
+  `scripts/generate-rss.mjs` byte for byte; a test checks it.
+- A cover appears on the home only when its image is in
+  `lib/post-image-dimensions.json` and its exact URL is in
+  `lib/cover-urls.json`, from which `next.config.mjs` builds
+  `images.remotePatterns`. Both image hosts accept public uploads, so the
+  optimizer is pinned to those covers rather than to whole hosts; any other
+  URL is refused, and the lead then shows an empty tinted box.
 - Tags may remain in historical frontmatter but have no public route or UI.
 - Drafts must be excluded from lists, static params, direct post lookup,
   sitemap, and feeds.
 - Run `pnpm images:metadata` after changing post image URLs and commit the
-  regenerated intrinsic-dimension manifest.
+  regenerated intrinsic-dimension manifest and `lib/cover-urls.json`.
+- Animated clips go in `public/video/` as WebM + MP4 with a WebP poster and
+  use a `<video autoplay loop muted playsinline …>` block; do not add GIFs.
 - Post Markdown is rendered on the server with `react-markdown`, raw HTML
   parsing, an explicit sanitize schema, and allowlisted embedded players.
   Keep the RSS renderer's security rules equivalent.
 - Comment database access must remain server-only. Never restore browser anon
   access, expose emails, trust arbitrary origins/referers, or skip Turnstile.
+- `comSelect` builds each public comment field by field. Commenter websites
+  are public and pass `toPublicWebsite` on the way out; avatars are computed
+  there too, so the browser needs no hashing or identicon code.
 - Search indexes are built and owned by a sync job on the search VPS, not by
   this repository. This app only reads them, through `/api/search`, with a
   search-only key. Never add an indexing script or a write key here.
@@ -89,23 +162,46 @@ through the latest Node 24 release.
 - Apply `supabase/migrations/202607100001_secure_comments.sql` before enabling
   the current comment API.
 - Post files are build-time content. Rebuild and redeploy after changes; do not
-  add a runtime `posts` volume to the standalone container.
+  add a runtime `posts` volume to the standalone container. Output tracing
+  copies `posts/` into the standalone output, where `proxy.ts` reads it through
+  `lib/static-paths.ts` to answer the client router's fetches (recognized by
+  their `next-url` header) for pages that were never generated with a plain
+  404, where Next would answer 500; the smoke test checks that a real page
+  still gets its RSC payload. A new page route must be added to
+  `lib/static-paths.ts` too, or client-side navigation to it gets that 404.
 - ESLint requires tabs, single quotes, no semicolons, and LF line endings.
   The core `indent` and `semi` rules do not check TypeScript interface and
   type bodies, where older code still uses spaces; use tabs and no member
   semicolons in new code. `.gitattributes` enforces LF for text files.
 - Use Conventional Commits. Semantic-release owns release versions and the
   generated changelog; the package is private and is not published to npm.
+  The changelog parser links any `#` plus letters or digits as an issue, so
+  put hex colours in backticks in commit messages.
 
 ## Environment and secrets
 
 Public build settings include `NEXT_PUBLIC_SITE_URL`, title/descriptions,
-keywords, footer, posts-per-page, GitHub repository, comment toggle, and the
-Turnstile site key. Comment secrets are runtime-only: `SUPABASE_URL`,
+keywords, footer, GitHub repository, comment toggle, and the Turnstile site
+key. Comment secrets are runtime-only: `SUPABASE_URL`,
 `SUPABASE_SECRET_KEY`, `CLOUDFLARE_TURNSTILE_SECRET_KEY`, a 32+ character
 `COMMENT_EMAIL_VERIFICATION_SECRET`, `COMMENT_API_ENABLED`, an explicitly
 trusted `COMMENT_CLIENT_IP_HEADER`, and optional SMTP settings. Never place
 secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
+
+`NEXT_PUBLIC_SITE_TITLE` is the brand in both languages: the header, footer,
+`<title>` suffix and `og:site_name`. `NEXT_PUBLIC_SITE_TITLE_EN`
+(`周见 · Zhōu Jiàn`) is the English pages' default `<title>`, the English
+feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
+the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
+`NEXT_PUBLIC_SITE_DESCRIPTION` and double as the contents page's tagline.
+
+`next/image` optimizes the contents page's lead cover. It accepts exactly the
+cover URLs in `lib/cover-urls.json`, with no query string, rather than the
+whole of `cdn.sa.net` or `vip2.loli.net`, where anyone can upload. Also,
+`localPatterns: []` makes `/_next/image` refuse every local path, so it cannot
+be used to buffer arbitrary public files. It encodes WebP only and caches in the
+`/app/.next/cache` tmpfs. In the Alpine image it runs on sharp's musl
+binaries, which `pnpm install` fetches in the `deps` stage.
 
 Search needs `NEXT_PUBLIC_SHOW_SEARCH`, plus the runtime-only
 `MEILISEARCH_HOST`, `MEILISEARCH_SEARCH_KEY`, and optional

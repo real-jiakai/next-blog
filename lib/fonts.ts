@@ -1,4 +1,4 @@
-import { Noto_Sans_SC } from 'next/font/google'
+import { Noto_Sans_SC, Source_Serif_4 } from 'next/font/google'
 
 // One family for both scripts. Noto Sans SC draws its Latin from Source Sans
 // and its Chinese from Source Han Sans, which were designed as a pair, so
@@ -21,4 +21,17 @@ export const sans = Noto_Sans_SC({
 	weight: 'variable',
 	display: 'swap',
 	variable: '--font-sans-cjk',
+})
+
+// For digits only (issue numerals, years, the 404), through the `font-display`
+// utility. Source Serif was drawn by Adobe as the companion to Source Sans,
+// where Noto Sans SC's own figures come from, so serif numerals beside the
+// text look designed together rather than pasted on. One static weight of the
+// Latin subset is all that use needs; next/font's size-adjusted fallback keeps
+// the swap from shifting the layout.
+export const display = Source_Serif_4({
+	subsets: ['latin'],
+	weight: '600',
+	display: 'swap',
+	variable: '--font-display-serif',
 })

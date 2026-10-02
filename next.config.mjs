@@ -1,4 +1,5 @@
 import NextBundleAnalyzer from '@next/bundle-analyzer'
+import coverUrls from './lib/cover-urls.json' with { type: 'json' }
 
 const withBundleAnalyzer = NextBundleAnalyzer({
 	enabled: process.env.ANALYZE === 'true',
@@ -7,9 +8,10 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 // Content-Security-Policy scoped to the resources the site actually loads:
 // self, the umami analytics host, Cloudflare Turnstile (script + widget frame),
 // and bilibili post-embed iframes. 'unsafe-inline' is required for the styles
-// Emotion/MUI and the lightbox inject at runtime, and for Next's inline
-// bootstrap scripts (static export rules out per-request nonces). img/media are
-// left broad (https:) because post content embeds images from arbitrary hosts.
+// the lightbox injects at runtime and the sizing styles on post media, and
+// for Next's inline bootstrap scripts (static export rules out per-request
+// nonces). img/media are left broad (https:) because post content embeds
+// images from arbitrary hosts.
 // React dev mode evaluates modules with eval, so `next dev` needs
 // 'unsafe-eval' in script-src or hydration crashes; it is never emitted in
 // production builds.
@@ -47,6 +49,18 @@ const securityHeaders = [
 	},
 ]
 
+// Next serves public/ files with max-age=0, so every view of a post would
+// revalidate its clips. These names are not content-hashed, so the cache is
+// a week rather than immutable; a replaced file needs a new name to reach
+// visitors sooner.
+const staticAssetCache = [
+	{
+		key: 'Cache-Control',
+		value: 'public, max-age=604800, stale-while-revalidate=86400',
+	},
+]
+const cachedStaticAssets = ['/video/:path*', '/favicon.ico']
+
 export default withBundleAnalyzer({
 	pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	reactStrictMode: true,
@@ -57,15 +71,28 @@ export default withBundleAnalyzer({
 		globalNotFound: true,
 	},
 	async headers() {
-		return [{ source: '/:path*', headers: securityHeaders }]
+		return [
+			{ source: '/:path*', headers: securityHeaders },
+			...cachedStaticAssets.map((source) => ({
+				source,
+				headers: staticAssetCache,
+			})),
+		]
 	},
 	// Canonicalize explicit default-locale URLs before applying the prefix-less
-	// Chinese route rewrites below.
+	// Chinese route rewrites below. The home page lists every issue, so the
+	// old pagination and archive URLs lead there; the more specific `/zh`
+	// rules come first so they take one hop, not two. A link to an archive
+	// year (`/archive#2024`) keeps its fragment across the redirect and lands
+	// on that year's section of the contents page.
 	async redirects() {
 		return [
-			{ source: '/page/1', destination: '/', permanent: true },
-			{ source: '/en/page/1', destination: '/en', permanent: true },
-			{ source: '/zh/page/1', destination: '/', permanent: true },
+			{ source: '/page/:page(\\d+)', destination: '/', permanent: true },
+			{ source: '/en/page/:page(\\d+)', destination: '/en', permanent: true },
+			{ source: '/zh/page/:page(\\d+)', destination: '/', permanent: true },
+			{ source: '/archive', destination: '/', permanent: true },
+			{ source: '/en/archive', destination: '/en', permanent: true },
+			{ source: '/zh/archive', destination: '/', permanent: true },
 			{ source: '/zh', destination: '/', permanent: true },
 			{ source: '/zh/:path*', destination: '/:path*', permanent: true },
 		]
@@ -77,18 +104,34 @@ export default withBundleAnalyzer({
 		return [
 			{ source: '/', destination: '/zh' },
 			{ source: '/about', destination: '/zh/about' },
-			{ source: '/archive', destination: '/zh/archive' },
-			{ source: '/page/:page', destination: '/zh/page/:page' },
 			{
 				source: '/:year(\\d{4})/:month(\\d{2})/:slug',
 				destination: '/zh/:year/:month/:slug',
 			},
 		]
 	},
-	// Nothing goes through /_next/image (the comment identicons are data:
-	// URIs), so the optimizer stays off rather than buffering and caching
-	// every width of a public file, such as a 23 MB GIF, on request.
+	// The optimizer serves the contents page's lead cover. It accepts exactly
+	// the cover URLs in lib/cover-urls.json (written by `pnpm images:metadata`)
+	// and no query string: the two hosts are public image services anyone can
+	// upload to, so allowing a whole host would let anyone make this server
+	// fetch and transcode images of their choosing. `localPatterns: []` refuses
+	// every local path, so /_next/image cannot buffer and cache public files
+	// either (the reason it used to be switched off). WebP only, since encoding
+	// AVIF is slow on the one-CPU container, and widths limited to what the
+	// cover's `sizes` can pick. The CDN URLs are content-addressed, so a
+	// month's cache is safe.
 	images: {
-		unoptimized: true,
+		remotePatterns: coverUrls.map((url) => {
+			const { hostname, pathname } = new URL(url)
+			return { protocol: 'https', hostname, pathname, search: '' }
+		}),
+		localPatterns: [],
+		formats: ['image/webp'],
+		deviceSizes: [640, 750, 828, 1080],
+		// The 14rem and 18rem desktop cover columns at 1x and 2x; the 20rem
+		// tablet box draws on 448 and 640.
+		imageSizes: [224, 288, 448, 576],
+		qualities: [75],
+		minimumCacheTTL: 2678400,
 	},
 })

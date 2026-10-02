@@ -17,18 +17,13 @@
     "semantic-release": "semantic-release",
     "test": "vitest run",
     "test:smoke": "node scripts/smoke-production.mjs",
-    "images:metadata": "node scripts/collect-image-dimensions.mjs --write"
+    "images:metadata": "node scripts/collect-image-dimensions.mjs --write && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/collect-cover-urls.mjs",
+    "commit": "cz"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
     "@marsidev/react-turnstile": "^1.5.3",
-    "@mui/icons-material": "^9.1.0",
-    "@mui/material": "^9.1.0",
-    "@next/bundle-analyzer": "^16.3.7",
     "@next/env": "16.3.7",
     "@supabase/supabase-js": "^2.108.0",
-    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.21",
     "email-validator": "^2.0.4",
     "feed": "^5.2.1",
@@ -58,6 +53,7 @@
     "yet-another-react-lightbox": "^3.32.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.3.7",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -65,8 +61,11 @@
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/hast": "^3.0.4",
-    "@types/node": "^25.9.2",
+    "@types/node": "^24.19.0",
     "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.7",
+    "commitizen": "^4.3.2",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.3.7",
     "lint-staged": "^17.0.7",
@@ -80,6 +79,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/real-jiakai/next-blog.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

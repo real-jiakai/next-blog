@@ -69,8 +69,8 @@ describe('loadSource', () => {
 	})
 
 	it('reads root-relative images from public/', async () => {
-		const loaded = await loadSource('/gif/2023-01-26-curry-throws-his-mouthpiece.gif')
+		const loaded = await loadSource('/video/2023-01-26-curry-throws-his-mouthpiece.webp')
 
-		expect(loaded.buffer.subarray(0, 6).toString('ascii')).toMatch(/^GIF8[79]a$/)
+		expect(loaded.buffer.subarray(8, 12).toString('ascii')).toBe('WEBP')
 	})
 })

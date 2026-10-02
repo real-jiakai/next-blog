@@ -102,6 +102,48 @@ describe('renderPostMarkdown', () => {
 		expect(html).toContain('title="Demo"')
 		expect(html).toContain('aria-describedby="user-content-demo-caption"')
 		expect(html).toContain('id="user-content-demo-caption"')
+		expect(html).toContain('controls=""')
+	})
+
+	it('keeps a GIF-like clip autoplaying, looping, silent, and inline without controls', () => {
+		const { content } = renderPostMarkdown(
+			[
+				'<video autoplay loop muted playsinline preload="metadata" poster="/video/clip.webp" width="478" height="854" aria-label="A clip">',
+				'  <source src="/video/clip.webm" type="video/webm">',
+				'  <source src="/video/clip.mp4" type="video/mp4">',
+				'  Fallback',
+				'</video>',
+			].join('\n')
+		)
+		const html = renderToStaticMarkup(content)
+		const video = html.match(/<video\b[^>]*>/)?.[0] ?? ''
+
+		expect(video).toMatch(/\bautoPlay=""/i)
+		expect(video).toContain('loop=""')
+		expect(video).toContain('muted=""')
+		expect(video).toMatch(/\bplaysInline=""/i)
+		expect(video).toContain('preload="metadata"')
+		expect(video).toContain('poster="/video/clip.webp"')
+		expect(video).toContain('aria-label="A clip"')
+		expect(video).not.toContain('controls')
+		expect(video).toContain('aspect-ratio:478 / 854')
+		expect(video).toContain('width:min(478px, calc(70svh * 478 / 854))')
+		// Media are square-cornered, like the images it stands beside.
+		expect(video).toContain('class="my-8 max-w-full h-auto"')
+		expect(html).toContain('<source src="/video/clip.webm" type="video/webm"/>')
+		expect(html).toContain('<source src="/video/clip.mp4" type="video/mp4"/>')
+		expect(html).not.toContain('<p><video')
+	})
+
+	it('never lets post HTML autoplay with sound', () => {
+		const { content } = renderPostMarkdown(
+			'<video autoplay src="https://example.com/loud.mp4"></video>'
+		)
+		const video = renderToStaticMarkup(content).match(/<video\b[^>]*>/)?.[0] ?? ''
+
+		expect(video).toContain('muted=""')
+		expect(video).toMatch(/\bplaysInline=""/i)
+		expect(video).not.toContain('style=')
 	})
 
 	it('derives the table of contents from the rendered heading IDs', () => {
@@ -178,13 +220,17 @@ describe('renderPostMarkdown', () => {
 		expect(render('```bash\necho hi\n```')).toContain('class="token')
 	})
 
-	it('gives post links colours that stay readable in dark mode', () => {
+	it('leaves link colour to the stylesheet, so the links carry no classes', () => {
 		const html = renderToStaticMarkup(
-			renderPostMarkdown('[Link](https://example.com)').content
+			renderPostMarkdown('[Link](https://example.com) and a note[^1]\n\n[^1]: Note.').content
 		)
 
-		expect(html).toContain(
-			'class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"'
-		)
+		// .article-content colours every link in both themes; a class here
+		// would bring back the old blue.
+		expect(html).toContain('<a href="https://example.com">Link</a>')
+		expect(html).not.toContain('blue')
+		expect(html).not.toContain('class=""')
+		// The footnote back-reference keeps the class GFM gives it.
+		expect(html).toContain('class="data-footnote-backref"')
 	})
 })

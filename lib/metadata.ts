@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
+import { getSiteTitle } from '@/lib/site-config'
 
 /**
  * The Open Graph fields every page shares. A page that sets `openGraph`
@@ -14,7 +15,8 @@ export function getSiteOpenGraph(
 ): NonNullable<Metadata['openGraph']> {
 	return {
 		type: 'website',
-		siteName: process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog',
+		// The brand, untranslated, in both languages.
+		siteName: getSiteTitle('zh'),
 		locale: lang === 'zh' ? 'zh_CN' : 'en_US',
 		alternateLocale: lang === 'zh' ? ['en_US'] : ['zh_CN'],
 		...(path === undefined ? {} : { url: getLocalePath(lang, path) }),

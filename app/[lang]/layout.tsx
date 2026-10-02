@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
-import { sans } from '@/lib/fonts'
+import { display, sans } from '@/lib/fonts'
 import { getLanguageAlternates, getLocalePath, i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import { getSiteOpenGraph } from '@/lib/metadata'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 import '@/app/globals.css'
 import '@/app/prism-night-owl.css'
 
@@ -14,11 +15,6 @@ export const dynamicParams = false
 
 export async function generateStaticParams() {
 	return i18n.locales.map((lang) => ({ lang }))
-}
-
-const defaultDescriptions: Record<Locale, string> = {
-	zh: '专注于分享互联网上有趣的东西。',
-	en: 'A weekly collection of interesting things from the internet.',
 }
 
 // Umami records a view only on these hosts, so dev servers, local builds and
@@ -33,23 +29,18 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale }>
 }): Promise<Metadata> {
 	const { lang } = await params
-	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
-	const description = (
-		(lang === 'en'
-			? process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN
-			: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_ZH) ||
-		process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-		defaultDescriptions[lang]
-	)
+	const description = getSiteDescription(lang)
 	const canonical = getLocalePath(lang)
 
 	return {
 		metadataBase: process.env.NEXT_PUBLIC_SITE_URL
 			? new URL(process.env.NEXT_PUBLIC_SITE_URL)
 			: undefined,
+		// A page's own title is followed by the bare brand in both languages;
+		// only a page without one shows English's romanised name.
 		title: {
-			default: siteTitle,
-			template: `%s | ${siteTitle}`,
+			default: getSiteTitle(lang),
+			template: `%s | ${getSiteTitle('zh')}`,
 		},
 		description,
 		keywords: process.env.NEXT_PUBLIC_KEYWORDS,
@@ -80,10 +71,13 @@ export default async function RootLayout({
 	const { lang } = await params
 
 	return (
+		// data-scroll-behavior lets Next turn off the stylesheet's smooth
+		// scrolling while it moves a new route to the top (see globals.css).
 		<html
 			lang={lang}
 			suppressHydrationWarning
-			className={sans.variable}
+			className={`${sans.variable} ${display.variable}`}
+			data-scroll-behavior="smooth"
 		>
 			<head>
 				<script

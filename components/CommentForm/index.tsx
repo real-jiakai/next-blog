@@ -289,7 +289,7 @@ export default function CommentForm({
 			<p
 				id={`${field}-error`}
 				role="alert"
-				className="mt-1 text-sm text-red-700 dark:text-red-400"
+				className="mt-1 mb-3 text-sm text-red-700 dark:text-red-400"
 			>
 				{fieldMessages[field]}
 			</p>
@@ -300,7 +300,7 @@ export default function CommentForm({
 			<form
 				ref={formRef}
 				onSubmit={handleSubmit}
-				className="bg-site-surface text-site-copy shadow-md rounded border border-site-line px-4 sm:px-8 pt-6 pb-8 mb-4"
+				className="mb-4 text-site-copy"
 			>
 				<div className="mb-4">
 					<label
@@ -318,7 +318,7 @@ export default function CommentForm({
 						maxLength={LIMITS.username}
 						autoComplete="name"
 						{...errorProps('username')}
-						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
+						className="appearance-none border border-site-line bg-site-surface rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight"
 					/>
 					{errorMessage('username')}
 				</div>
@@ -338,7 +338,7 @@ export default function CommentForm({
 						maxLength={LIMITS.email}
 						autoComplete="email"
 						{...errorProps('email')}
-						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
+						className="appearance-none border border-site-line bg-site-surface rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight"
 					/>
 					{errorMessage('email')}
 				</div>
@@ -357,7 +357,7 @@ export default function CommentForm({
 						maxLength={LIMITS.website}
 						autoComplete="url"
 						{...errorProps('website')}
-						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
+						className="appearance-none border border-site-line bg-site-surface rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight"
 					/>
 					{errorMessage('website')}
 				</div>
@@ -369,14 +369,14 @@ export default function CommentForm({
 						{dict.YourComment}
 					</label>
 					{replyTo && (
-						<p className="mb-2 flex flex-wrap items-center gap-x-2 text-sm text-site-muted">
+						<p className="mt-3 mb-2 flex flex-wrap items-center gap-x-2 text-sm text-site-muted">
 							<span>
 								{dict.ReplyingTo.replace('{name}', () => replyTo.username)}
 							</span>
 							<button
 								type="button"
 								onClick={cancelReply}
-								className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline"
+								className="text-site-muted underline underline-offset-4 transition-colors hover:text-site-accent"
 							>
 								{dict.CancelReply}
 							</button>
@@ -389,7 +389,7 @@ export default function CommentForm({
 						required
 						maxLength={LIMITS.content}
 						{...errorProps('content')}
-						className="shadow appearance-none border border-site-line bg-site-surface-muted rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface h-32"
+						className="appearance-none border border-site-line bg-site-surface rounded w-full py-2 px-3 text-site-copy placeholder:text-site-muted leading-tight h-32"
 					/>
 					{errorMessage('content')}
 					<p className="text-site-muted text-xs mt-1">
@@ -418,7 +418,7 @@ export default function CommentForm({
 					type="submit"
 					disabled={isSubmitting}
 					aria-busy={isSubmitting}
-					className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-[#f4f4f5] font-bold py-2 px-4 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-site-surface"
+					className="inline-flex min-h-11 items-center rounded bg-site-accent px-5 font-semibold text-white transition-colors hover:bg-site-accent-strong disabled:opacity-60 dark:text-site-page"
 				>
 					{isSubmitting ? dict.Submitting : dict.Submit}
 				</button>

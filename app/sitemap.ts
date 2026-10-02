@@ -1,10 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { i18n, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
-import { isPageInEveryLocale } from '@/lib/pagination'
 import { getSortedPostsData } from '@/lib/posts'
 import type { PostData } from '@/lib/posts'
-import { getPostsPerPage } from '@/lib/site-config'
 
 const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top').replace(
 	/\/$/,
@@ -21,7 +19,7 @@ function getPostPath(post: PostData): string {
 }
 
 // hreflang may only name URLs that exist. A post still in draft or not yet
-// translated, or a page number only one locale reaches, gets none.
+// translated gets none.
 function languageAlternates(path: string, inEveryLocale = true) {
 	return inEveryLocale
 		? { languages: getLanguageAlternates(path, baseUrl) }
@@ -30,7 +28,6 @@ function languageAlternates(path: string, inEveryLocale = true) {
 
 export default function sitemap(): MetadataRoute.Sitemap {
 	const entries: MetadataRoute.Sitemap = []
-	const postsPerPage = getPostsPerPage()
 	const postsByLocale = Object.fromEntries(
 		i18n.locales.map((locale) => [locale, getSortedPostsData(locale)]),
 	) as Record<Locale, PostData[]>
@@ -42,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		const posts = postsByLocale[locale]
 		const latestPostDate = posts[0] ? new Date(posts[0].date) : undefined
 
-		// Home page
+		// Home page: the contents of every issue
 		entries.push({
 			url: absoluteUrl(locale),
 			lastModified: latestPostDate,
@@ -59,15 +56,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			alternates: languageAlternates('/about'),
 		})
 
-		// Archive page
-		entries.push({
-			url: absoluteUrl(locale, '/archive'),
-			lastModified: latestPostDate,
-			changeFrequency: 'weekly',
-			priority: 0.7,
-			alternates: languageAlternates('/archive'),
-		})
-
 		// All posts
 		for (const post of posts) {
 			const postPath = getPostPath(post)
@@ -80,22 +68,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 					postPath,
 					postPathsByLocale.every((paths) => paths.has(postPath)),
 				),
-			})
-		}
-
-		// Pagination pages
-		const totalPages = Math.ceil(posts.length / postsPerPage)
-		for (let i = 2; i <= totalPages; i++) {
-			const pagePath = `/page/${i}`
-			const newestPostOnPage = posts[(i - 1) * postsPerPage]
-			entries.push({
-				url: absoluteUrl(locale, pagePath),
-				lastModified: newestPostOnPage
-					? new Date(newestPostOnPage.date)
-					: undefined,
-				changeFrequency: 'daily',
-				priority: 0.5,
-				alternates: languageAlternates(pagePath, isPageInEveryLocale(i)),
 			})
 		}
 	}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate } from '@/lib/formatDate'
+import { formatDate, formatMonthYear } from '@/lib/formatDate'
 
 describe('formatDate', () => {
 	it('formats English dates with an English month name', () => {
@@ -16,5 +16,20 @@ describe('formatDate', () => {
 
 	it('leaves invalid input visible instead of throwing', () => {
 		expect(formatDate('not-a-date', 'en')).toBe('not-a-date')
+	})
+})
+
+describe('formatMonthYear', () => {
+	it('names the month and year in each locale', () => {
+		expect(formatMonthYear('2022-04-09', 'zh')).toBe('2022年4月')
+		expect(formatMonthYear('2022-04-09', 'en')).toBe('April 2022')
+	})
+
+	it('reads a first-of-month date in local time, not as the previous month', () => {
+		expect(formatMonthYear('2022-04-01', 'en')).toBe('April 2022')
+	})
+
+	it('leaves invalid input visible instead of throwing', () => {
+		expect(formatMonthYear('not-a-date', 'zh')).toBe('not-a-date')
 	})
 })

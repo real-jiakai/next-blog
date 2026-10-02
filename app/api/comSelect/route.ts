@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+import { getCommentAvatar } from '@/lib/commentAvatar'
 import {
 	CommentRequestError,
 	CommentServiceUnavailableError,
@@ -9,6 +10,7 @@ import {
 	mapWithConcurrency,
 	parseCommentPagination,
 	resolveCommentThread,
+	toPublicWebsite,
 } from '@/lib/commentSecurity'
 import { renderCommentHtml } from '@/lib/renderComment'
 import { getPostFilenameByParams } from '@/lib/posts'
@@ -16,13 +18,15 @@ import { getSupabaseServerClient } from '@/lib/supabase'
 
 export const runtime = 'nodejs'
 
-const PUBLIC_COLUMNS = 'id, username, content, created_at, url, parent_comment_id'
+const PUBLIC_COLUMNS =
+	'id, username, website, content, created_at, url, parent_comment_id'
 const RENDER_CONCURRENCY = 8
 const readRateLimiter = new FixedWindowRateLimiter(120, 60 * 1000)
 
 interface PublicComment {
 	id: number
 	username: string
+	website?: unknown
 	content: string
 	created_at: string
 	url: string
@@ -147,13 +151,32 @@ export async function GET(request: NextRequest) {
 			}
 		}
 		page.reverse()
+		const avatars = new Map<string, string>()
 		const rendered = await mapWithConcurrency(
 			page,
 			RENDER_CONCURRENCY,
-			async (comment) => ({
-				...comment,
-				content: await renderCommentHtml(comment.content || '', `comment-${comment.id}-`),
-			})
+			async (comment) => {
+				let avatar = avatars.get(comment.username)
+				if (avatar === undefined) {
+					avatar = getCommentAvatar(comment.username)
+					avatars.set(comment.username, avatar)
+				}
+				// Listed field by field so a newly selected column is never
+				// published without a decision.
+				return {
+					id: comment.id,
+					username: comment.username,
+					website: toPublicWebsite(comment.website),
+					avatar,
+					content: await renderCommentHtml(
+						comment.content || '',
+						`comment-${comment.id}-`
+					),
+					created_at: comment.created_at,
+					url: comment.url,
+					parent_comment_id: comment.parent_comment_id,
+				}
+			}
 		)
 		const headers = new Headers({
 			'Cache-Control': 'no-store',

@@ -1,32 +1,37 @@
-const DEFAULT_POSTS_PER_PAGE = 10
-const MAX_POSTS_PER_PAGE = 100
+import type { Locale } from '@/lib/i18n-config'
 
-export function getPostsPerPage(
-	value: string | undefined = process.env.NEXT_PUBLIC_POSTS_PERPAGE,
-): number {
-	if (value === undefined || value.trim() === '') {
-		return DEFAULT_POSTS_PER_PAGE
-	}
-
-	if (!/^[1-9]\d*$/.test(value)) {
-		throw new Error('NEXT_PUBLIC_POSTS_PERPAGE must be a positive integer')
-	}
-
-	const postsPerPage = Number(value)
-	if (!Number.isSafeInteger(postsPerPage) || postsPerPage > MAX_POSTS_PER_PAGE) {
-		throw new Error(
-			`NEXT_PUBLIC_POSTS_PERPAGE must be between 1 and ${MAX_POSTS_PER_PAGE}`,
-		)
-	}
-
-	return postsPerPage
+// Straight apostrophe on purpose: Noto Sans SC sets U+2019 full-width, and
+// this default is also the English contents page's tagline.
+const defaultDescriptions: Record<Locale, string> = {
+	zh: '专注于分享互联网上有趣的东西。',
+	en: '周见 (Zhōu Jiàn) is Jiakai Gu\'s bilingual periodical of things seen on the internet: one topic per issue, with interesting finds, links and quotes.',
 }
 
-export function parsePageNumber(value: string): number | null {
-	if (!/^[1-9]\d*$/.test(value)) {
-		return null
-	}
+/**
+ * The site description in a locale: its own setting, then the shared one,
+ * then a built-in default. The meta description and the contents page's
+ * tagline both use it.
+ */
+export function getSiteDescription(lang: Locale): string {
+	return (
+		(lang === 'en'
+			? process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN
+			: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_ZH) ||
+		process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
+		defaultDescriptions[lang]
+	)
+}
 
-	const page = Number(value)
-	return Number.isSafeInteger(page) ? page : null
+/**
+ * The site's name as a page title. English may add a romanisation
+ * (`周见 · Zhōu Jiàn`) and falls back to the brand. The brand itself, which
+ * the header, footer, title template and og:site_name show in both
+ * languages, is `getSiteTitle('zh')`.
+ */
+export function getSiteTitle(lang: Locale): string {
+	return (
+		(lang === 'en' ? process.env.NEXT_PUBLIC_SITE_TITLE_EN : undefined) ||
+		process.env.NEXT_PUBLIC_SITE_TITLE ||
+		'Blog'
+	)
 }

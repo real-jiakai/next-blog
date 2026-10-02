@@ -33,7 +33,11 @@ Trump and his wife each issued their own cryptocurrency during his inaugurationâ
 
 At the inauguration ceremony, there were many interesting memes too, like Zuckerberg side-eyeing Bezos's wife's curves.
 
-![Zuckerberg's awkward stare at Bezos's wife](/gif/zuckerberg_awkward_stare_2025.gif)
+<video autoplay loop muted playsinline preload="metadata" poster="/video/zuckerberg_awkward_stare_2025.webp" width="478" height="854" aria-label="Zuckerberg's awkward stare at Bezos's wife">
+  <source src="/video/zuckerberg_awkward_stare_2025.webm" type="video/webm">
+  <source src="/video/zuckerberg_awkward_stare_2025.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 Trump's statements seem quite normal compared to some Democratic figuresâ€”he believes there are only two genders: male and female, opposes illegal immigration, etc. His victory was expected. Biden dropped out, Kamala flopped, even with mainstream media siding with Democrats, it didn't help. This victory can be called a victory of common sense.
 
