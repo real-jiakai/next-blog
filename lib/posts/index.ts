@@ -7,6 +7,7 @@ import {
 	extractCoverImage,
 	extractTopicExcerpt,
 	isBoilerplateSummary,
+	normalizeWhitespace,
 	parseIssueTitle,
 } from '@/lib/issues'
 import type { ImageDimensions, IssueEntry, IssueStats } from '@/lib/issues'
@@ -164,7 +165,7 @@ export function getIssueIndex(locale: Locale = i18n.defaultLocale): IssueEntry[]
 		const { displayTitle, issue } = parseIssueTitle(data.title)
 		const excerpt = isBoilerplateSummary(data.summary)
 			? extractTopicExcerpt(content, locale) || displayTitle
-			: data.summary.replace(/\s+/g, ' ').trim()
+			: normalizeWhitespace(data.summary)
 
 		return {
 			slug: data.slug,

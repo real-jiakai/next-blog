@@ -110,7 +110,8 @@ const CJK = '[\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\u3000-\\u
 // lookarounds let three lines in a row all join.
 const cjkLineBreak = new RegExp(`(?<=${CJK})[^\\S\\n]*\\n[^\\S\\n]*(?=${CJK})`, 'gu')
 
-function normalizeWhitespace(text: string): string {
+/** Collapses whitespace, dropping a line break between two CJK characters. */
+export function normalizeWhitespace(text: string): string {
 	return text.replace(cjkLineBreak, '').replace(/\s+/g, ' ').trim()
 }
 
@@ -118,7 +119,10 @@ const ZH_EXCERPT_LENGTH = 90
 const EN_EXCERPT_LENGTH = 200
 const EN_EXCERPT_MIN_LENGTH = 150
 
-/** Shortens an excerpt to the length the contents page shows, by code point. */
+/**
+ * Shortens a fallback excerpt (an issue without a summary of its own) to the
+ * length the contents page shows, by code point.
+ */
 export function truncateExcerpt(text: string, locale: Locale): string {
 	const normalized = normalizeWhitespace(text)
 	const characters = Array.from(normalized)
