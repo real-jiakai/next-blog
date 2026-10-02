@@ -151,13 +151,16 @@ const MIN_EXCERPT_LENGTH = 20
  * The opening of the issue's essay: the first paragraph of real text under
  * its 话题 / Topic heading. That is not always the first h2 (some issues open
  * with a cover or a news item), and its first paragraph may be an embed, an
- * image or a caption, which are skipped. '' when there is none.
+ * image, a caption or a wholly italic or bold line standing in for a
+ * subheading (*什么是同质化？*), which are skipped. '' when there is none.
  */
 export function extractTopicExcerpt(markdown: string, locale: Locale): string {
 	const section = sectionAfter(parseMarkdown(markdown), /^(话题|Topic\b)/)
 	if (!section) return ''
 	for (const node of section) {
 		if (node.type !== 'paragraph') continue
+		const [only, ...rest] = node.children ?? []
+		if (rest.length === 0 && (only?.type === 'emphasis' || only?.type === 'strong')) continue
 		const text = normalizeWhitespace(plainText(node))
 		if (Array.from(text).length >= MIN_EXCERPT_LENGTH) {
 			return truncateExcerpt(text, locale)

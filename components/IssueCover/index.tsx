@@ -20,7 +20,8 @@ export default function IssueCover({ cover, coverLabel, className = '' }: IssueC
 			<div className="relative aspect-(--r-sm) overflow-hidden bg-site-surface-muted lg:aspect-(--r-lg) dark:ring-1 dark:ring-site-line">
 				{/* `sizes` is in px only: a vw entry makes Next drop every
 				    srcset candidate below 640w, and a 288px column would then be
-				    sent a 640px file. 430px is the widest phone box. The ::before
+				    sent a 640px file. The desktop column is 288px for a wide cover
+				    and 224px otherwise; 430px is the widest phone box. The ::before
 				    only renders if the image fails to load (a loaded image has no
 				    pseudo-elements), and covers the browser's broken-image icon
 				    so the box stays a plain tinted panel. */}
@@ -29,7 +30,7 @@ export default function IssueCover({ cover, coverLabel, className = '' }: IssueC
 					alt={cover.alt}
 					fill
 					preload
-					sizes="(min-width: 1024px) 288px, (min-width: 640px) 320px, 430px"
+					sizes={`(min-width: 1024px) ${cover.wide ? 288 : 224}px, (min-width: 640px) 320px, 430px`}
 					className="object-cover before:absolute before:inset-0 before:bg-site-surface-muted dark:brightness-[.92]"
 				/>
 			</div>

@@ -160,7 +160,9 @@ export default function SiteHeader({ lang, dict }: SiteHeaderProps) {
 							onPointerEnter={mountSearch}
 							onFocus={mountSearch}
 							aria-label={dict.common.Search}
-							aria-keyshortcuts="Meta+K Control+K"
+							// Only the platform's own chord is bound, so only it is
+							// announced; the server cannot tell which that is.
+							aria-keyshortcuts={hydrated ? (isApplePlatform(navigator.userAgent) ? 'Meta+K' : 'Control+K') : undefined}
 							className={`${controlClass} gap-2 px-2 text-[0.9375rem] md:min-w-0`}
 						>
 							<SearchIcon />

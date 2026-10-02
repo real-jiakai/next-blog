@@ -102,6 +102,21 @@ describe('extractTopicExcerpt', () => {
 		expect(paragraph[kept.length]).toBe(' ')
 	})
 
+	it('skips an italic or bold line that stands in for a subheading', () => {
+		const post = [
+			'## Topic: Homogenization',
+			'',
+			'*What is homogenization, and why does it matter here?*',
+			'',
+			'**A bold line long enough to pass for a paragraph of text.**',
+			'',
+			'Homogenization means *everything* starts to look the same.',
+			'',
+		].join('\n')
+
+		expect(extractTopicExcerpt(post, 'en')).toBe('Homogenization means everything starts to look the same.')
+	})
+
 	it('is empty when the post has no topic section, or nothing to quote in it', () => {
 		expect(extractTopicExcerpt('## 封面图\n\n很长很长很长很长很长很长很长很长很长很长的一段。\n', 'zh')).toBe('')
 		expect(extractTopicExcerpt('## 话题：空\n\n![只有图](https://example.com/a.webp)\n', 'zh')).toBe('')

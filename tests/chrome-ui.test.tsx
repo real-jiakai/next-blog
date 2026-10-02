@@ -116,6 +116,7 @@ function capturingDynamic(loaders: (() => Promise<{ default: unknown }>)[]) {
 afterEach(() => {
 	vi.useRealTimers()
 	vi.unstubAllEnvs()
+	vi.unstubAllGlobals()
 	vi.resetModules()
 })
 
@@ -256,10 +257,26 @@ describe('SiteHeader', () => {
 		const button = html.match(/<button\b[^>]*aria-label="Search"[^>]*>.*?<\/button>/)?.[0] ?? ''
 
 		expect(button).toContain('>Search</span>')
-		expect(button).toContain('aria-keyshortcuts="Meta+K Control+K"')
+		// Which chord is bound depends on the platform, which only the
+		// client knows.
+		expect(button).not.toContain('aria-keyshortcuts')
 		// No shortcut badge in the bar; the dialog's legend teaches it.
 		expect(button).not.toContain('<kbd')
 		expect(html).not.toContain('<dialog')
+	})
+
+	it.each([
+		['a Mac', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15', 'Meta+K'],
+		['Windows', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', 'Control+K'],
+	])('announces only the shortcut bound on %s once hydrated', async (_platform, userAgent, chord) => {
+		vi.stubEnv('NEXT_PUBLIC_SHOW_SEARCH', 'true')
+		vi.stubGlobal('navigator', { userAgent })
+		const { default: HydratedHeader } = await importHeaderWith({ react: hydratedReact })
+		const button = renderHeader('en', '/en', HydratedHeader).match(
+			/<button\b[^>]*aria-label="Search"[^>]*>/
+		)?.[0]
+
+		expect(button).toContain(`aria-keyshortcuts="${chord}"`)
 	})
 
 	it('renders every icon as a hidden inline SVG', async () => {
