@@ -195,10 +195,11 @@ feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TIT
 the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
 `NEXT_PUBLIC_SITE_DESCRIPTION` and double as the contents page's tagline.
 
-`next/image` optimizes the contents page's lead cover. It accepts exactly two
-remote hosts, `cdn.sa.net` and `vip2.loli.net`, and `localPatterns: []` makes
-`/_next/image` refuse every local path, so it cannot be used to buffer
-arbitrary public files. It encodes WebP only and caches in the
+`next/image` optimizes the contents page's lead cover. It accepts exactly the
+cover URLs in `lib/cover-urls.json`, with no query string, rather than the
+whole of `cdn.sa.net` or `vip2.loli.net`, where anyone can upload. Also,
+`localPatterns: []` makes `/_next/image` refuse every local path, so it cannot
+be used to buffer arbitrary public files. It encodes WebP only and caches in the
 `/app/.next/cache` tmpfs. In the Alpine image it runs on sharp's musl
 binaries, which `pnpm install` fetches in the `deps` stage.
 
