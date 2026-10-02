@@ -236,6 +236,20 @@ function normalizeWebsite(value: unknown): string {
 	return parsed.href
 }
 
+/**
+ * A stored website as a public link, or null. Rows written before input
+ * validation existed may hold anything, so every value is checked again on
+ * the way out instead of trusting the database.
+ */
+export function toPublicWebsite(value: unknown): string | null {
+	if (typeof value !== 'string' || !value.trim()) return null
+	try {
+		return normalizeWebsite(value)
+	} catch {
+		return null
+	}
+}
+
 export function validateCommentInput(body: unknown): ValidatedCommentInput {
 	if (!body || typeof body !== 'object' || Array.isArray(body)) {
 		throw new CommentRequestError('Invalid request body')

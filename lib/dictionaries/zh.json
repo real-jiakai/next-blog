@@ -63,7 +63,7 @@
     "LeaveComment": "我要发表看法",
     "YourName": "您的大名（必填）：",
     "Email": "电子邮件（必填）：",
-    "Website": "个人网址（选填）：",
+    "Website": "个人网址（选填，将公开显示）：",
     "YourComment": "您的留言（必填）：",
     "CommentPlaceholder": "在此输入留言（确认验证邮件后，留言被回复时会收到邮件通知）",
     "Submit": "提交",

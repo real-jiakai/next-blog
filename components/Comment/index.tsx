@@ -12,7 +12,7 @@ import type { Locale } from '@/lib/i18n-config'
 import { buildQuote } from '@/lib/commentQuote'
 
 // Split out of the post page's own chunks, so a build with comments disabled
-// never downloads the widget, Turnstile or the identicon generator.
+// never downloads the comment list, the form or Turnstile.
 const CommentList = dynamic(() => import('@/components/CommentList'), {
 	ssr: false,
 	loading: () => (

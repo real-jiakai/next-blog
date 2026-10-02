@@ -1,15 +1,14 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
-import Identicon from 'identicon.js'
-import MD5 from 'crypto-js/md5'
 import Date from '@/components/Date'
 import type { Locale } from '@/lib/i18n-config'
 
 interface Comment {
 	id: number
 	username: string
+	website: string | null
+	avatar: string
 	content: string
 	created_at: string
 }
@@ -32,11 +31,15 @@ interface CommentListProps {
 	lang: Locale
 }
 
-// 生成头像
-const generateIdenticon = (username: string): string => {
-	const hash = MD5(username).toString()
-	const data = new Identicon(hash, { size: 64, format: 'svg' }).toString()
-	return `data:image/svg+xml;base64,${data}`
+// The API already validates websites; this only keeps a link to http(s).
+const isWebUrl = (value: unknown): value is string => {
+	if (typeof value !== 'string') return false
+	try {
+		const { protocol } = new URL(value)
+		return protocol === 'https:' || protocol === 'http:'
+	} catch {
+		return false
+	}
 }
 
 const fillLabel = (template: string, values: Record<string, string | number>) =>
@@ -180,14 +183,32 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 						>
 							<div className="flex justify-between items-center mb-2 border-b border-site-line">
 								<div className="flex items-center space-x-2">
-									<Image
-										src={generateIdenticon(comment.username)}
-										alt=""
-										width={32}
-										height={32}
-										className="rounded-full"
-									/>
-									<h3 className="font-bold text-lg">{comment.username}</h3>
+									{comment.avatar && (
+										// A server-made data: URI; there is nothing to optimize.
+										// eslint-disable-next-line @next/next/no-img-element
+										<img
+											src={comment.avatar}
+											alt=""
+											width={32}
+											height={32}
+											decoding="async"
+											className="rounded-full"
+										/>
+									)}
+									<h3 className="font-bold text-lg">
+										{isWebUrl(comment.website) ? (
+											<a
+												href={comment.website}
+												target="_blank"
+												rel="ugc nofollow noopener noreferrer"
+												className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+											>
+												{comment.username}
+											</a>
+										) : (
+											comment.username
+										)}
+									</h3>
 									<span>{dict.Says}</span>
 								</div>
 							</div>

@@ -63,7 +63,7 @@
     "LeaveComment": "Leave a Comment",
     "YourName": "Your Name (required):",
     "Email": "Email (required):",
-    "Website": "Website (optional):",
+    "Website": "Website (optional, shown publicly):",
     "YourComment": "Your Comment (required):",
     "CommentPlaceholder": "Write your comment here (confirm the verification email to be notified of replies)",
     "Submit": "Submit",
