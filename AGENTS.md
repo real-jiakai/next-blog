@@ -6,7 +6,7 @@ Guidance for coding agents working in this repository.
 
 This is the source for [gujiakai.top](https://gujiakai.top), a bilingual
 weekly blog. Chinese is the default locale and English uses the `/en` prefix.
-The application uses Next.js 16 App Router, React 19, Tailwind CSS 4, MUI 9,
+The application uses Next.js 16 App Router, React 19, Tailwind CSS 4, inline SVG icons,
 local Markdown posts, Supabase comments, and standalone Docker output.
 
 ## Important paths
@@ -21,6 +21,7 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `lib/renderPost.tsx` — sanitized post Markdown rendering and heading data.
 - `lib/renderComment.ts` — sanitized comment Markdown rendering.
 - `lib/commentSecurity.ts` — comment origin, Turnstile, limits, and verification.
+- `lib/commentAvatar.ts` — server-side identicons that `comSelect` returns.
 - `posts/zh/`, `posts/en/` — Markdown content.
 - `tests/` — every Vitest suite, covering `lib/`, `scripts/`, `proxy.ts`,
  `next.config.mjs`, route handlers, and server-rendered pages and components.
@@ -52,6 +53,8 @@ through the latest Node 24 release.
 - `pnpm test` — all Vitest suites.
 - `pnpm test:smoke` — HTTP checks against the standalone output; needs a
  completed `pnpm build` first.
+- `pnpm commit` — Commitizen prompt for a Conventional Commit; the
+ pre-commit hook still runs.
 - `ANALYZE=true pnpm build --webpack` — webpack bundle report in
  `.next/analyze/`. Turbopack builds ignore `ANALYZE`; use
  `pnpm exec next experimental-analyze` for the Turbopack analyzer.
@@ -64,11 +67,16 @@ through the latest Node 24 release.
   sitemap, and feeds.
 - Run `pnpm images:metadata` after changing post image URLs and commit the
   regenerated intrinsic-dimension manifest.
+- Animated clips go in `public/video/` as WebM + MP4 with a WebP poster and
+  use a `<video autoplay loop muted playsinline …>` block; do not add GIFs.
 - Post Markdown is rendered on the server with `react-markdown`, raw HTML
   parsing, an explicit sanitize schema, and allowlisted embedded players.
   Keep the RSS renderer's security rules equivalent.
 - Comment database access must remain server-only. Never restore browser anon
   access, expose emails, trust arbitrary origins/referers, or skip Turnstile.
+- `comSelect` builds each public comment field by field. Commenter websites
+  are public and pass `toPublicWebsite` on the way out; avatars are computed
+  there too, so the browser needs no hashing or identicon code.
 - Search indexes are built and owned by a sync job on the search VPS, not by
   this repository. This app only reads them, through `/api/search`, with a
   search-only key. Never add an indexing script or a write key here.
@@ -96,6 +104,8 @@ through the latest Node 24 release.
   semicolons in new code. `.gitattributes` enforces LF for text files.
 - Use Conventional Commits. Semantic-release owns release versions and the
   generated changelog; the package is private and is not published to npm.
+  The changelog parser links any `#` plus letters or digits as an issue, so
+  put hex colours in backticks in commit messages.
 
 ## Environment and secrets
 

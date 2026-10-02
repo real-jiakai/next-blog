@@ -134,4 +134,10 @@ public/          Static files and generated Atom feeds
 scripts/         Build-time scripts
 ```
 
-Use a focused branch, follow the existing TypeScript and Tailwind conventions, and use a Conventional Commit message so semantic-release can classify the change.
+Use a focused branch and follow the existing TypeScript and Tailwind conventions.
+
+## Commit messages
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/) so semantic-release can classify each change. After staging, run `pnpm commit`: Commitizen asks for the type, scope and description, then commits through the usual pre-commit hook. A plain `git commit` with a correctly formatted message works just as well.
+
+The changelog generator links any `#` followed by letters or digits as a GitHub issue, so write hex colours and similar values in backticks, such as `` `#212121` ``.

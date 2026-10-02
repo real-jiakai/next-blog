@@ -7,9 +7,10 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 // Content-Security-Policy scoped to the resources the site actually loads:
 // self, the umami analytics host, Cloudflare Turnstile (script + widget frame),
 // and bilibili post-embed iframes. 'unsafe-inline' is required for the styles
-// Emotion/MUI and the lightbox inject at runtime, and for Next's inline
-// bootstrap scripts (static export rules out per-request nonces). img/media are
-// left broad (https:) because post content embeds images from arbitrary hosts.
+// the lightbox injects at runtime and the sizing styles on post media, and
+// for Next's inline bootstrap scripts (static export rules out per-request
+// nonces). img/media are left broad (https:) because post content embeds
+// images from arbitrary hosts.
 // React dev mode evaluates modules with eval, so `next dev` needs
 // 'unsafe-eval' in script-src or hydration crashes; it is never emitted in
 // production builds.
@@ -47,6 +48,18 @@ const securityHeaders = [
 	},
 ]
 
+// Next serves public/ files with max-age=0, so every view of a post would
+// revalidate its clips. These names are not content-hashed, so the cache is
+// a week rather than immutable; a replaced file needs a new name to reach
+// visitors sooner.
+const staticAssetCache = [
+	{
+		key: 'Cache-Control',
+		value: 'public, max-age=604800, stale-while-revalidate=86400',
+	},
+]
+const cachedStaticAssets = ['/video/:path*', '/favicon.ico']
+
 export default withBundleAnalyzer({
 	pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	reactStrictMode: true,
@@ -57,7 +70,13 @@ export default withBundleAnalyzer({
 		globalNotFound: true,
 	},
 	async headers() {
-		return [{ source: '/:path*', headers: securityHeaders }]
+		return [
+			{ source: '/:path*', headers: securityHeaders },
+			...cachedStaticAssets.map((source) => ({
+				source,
+				headers: staticAssetCache,
+			})),
+		]
 	},
 	// Canonicalize explicit default-locale URLs before applying the prefix-less
 	// Chinese route rewrites below.
@@ -85,9 +104,8 @@ export default withBundleAnalyzer({
 			},
 		]
 	},
-	// Nothing goes through /_next/image (the comment identicons are data:
-	// URIs), so the optimizer stays off rather than buffering and caching
-	// every width of a public file, such as a 23 MB GIF, on request.
+	// Nothing uses next/image, so the optimizer stays off rather than
+	// buffering and caching every requested width of any public file.
 	images: {
 		unoptimized: true,
 	},

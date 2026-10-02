@@ -22,6 +22,43 @@ describe('security headers', () => {
 	})
 })
 
+describe('static asset caching', () => {
+	const CACHED = 'public, max-age=604800, stale-while-revalidate=86400'
+
+	it('caches post clips and the favicon for a week', async () => {
+		const rules = await nextConfig.headers()
+		const cached = rules.filter((rule) =>
+			rule.headers.some(
+				(header) => header.key === 'Cache-Control' && header.value === CACHED
+			)
+		)
+
+		expect(cached.map((rule) => rule.source)).toEqual([
+			'/video/:path*',
+			'/favicon.ico',
+		])
+	})
+
+	it('keeps the security headers on every route, cached assets included', async () => {
+		const [first, ...rest] = await nextConfig.headers()
+
+		expect(first.source).toBe('/:path*')
+		expect(first.headers.map((header) => header.key)).toEqual(
+			expect.arrayContaining([
+				'Content-Security-Policy',
+				'X-Content-Type-Options',
+				'Strict-Transport-Security',
+			])
+		)
+		expect(first.headers.some((header) => header.key === 'Cache-Control')).toBe(
+			false
+		)
+		for (const rule of rest) {
+			expect(rule.headers.map((header) => header.key)).toEqual(['Cache-Control'])
+		}
+	})
+})
+
 describe('image optimizer', () => {
 	it('is off, so /_next/image cannot buffer arbitrary public files', () => {
 		expect(nextConfig.images).toEqual({ unoptimized: true })

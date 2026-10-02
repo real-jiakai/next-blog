@@ -30,7 +30,7 @@
 ### Features
 
 * **ui:** redraw the post TOC as a tree with a position dot ([20c7964](https://github.com/real-jiakai/next-blog/commit/20c7964a70fe49834d48d6bb1d77b05df82b8b16))
-* **ui:** warm the light palette and neutralize the dark one ([5f88a2a](https://github.com/real-jiakai/next-blog/commit/5f88a2ac7754d3868a728412a896316bb0702bd2)), closes [#141413](https://github.com/real-jiakai/next-blog/issues/141413) [#212121](https://github.com/real-jiakai/next-blog/issues/212121)
+* **ui:** warm the light palette and neutralize the dark one ([5f88a2a](https://github.com/real-jiakai/next-blog/commit/5f88a2ac7754d3868a728412a896316bb0702bd2))
 
 ## [1.3.1](https://github.com/real-jiakai/next-blog/compare/v1.3.0...v1.3.1) (2026-08-12)
 
