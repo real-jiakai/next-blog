@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { getLocalePath, i18n } from '@/lib/i18n-config'
+import { i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import type { CommonDictionary } from '@/lib/dictionaries'
 import { formatIssueRange } from '@/lib/issues'
@@ -24,9 +23,11 @@ function getLatestPostYear() {
 
 /**
  * A colophon rather than a centred credit line: the periodical's name and run
- * of issues, the copyright, and three plain links. A full-width hairline ends
- * the page; there is no tinted band, which only drew the eye to the least
- * interesting part of it.
+ * of issues, the copyright, and the source link. About and the feed are not
+ * repeated here; the sticky header carries both on every page. Phones centre
+ * the two lines; from md up the link moves to the right. A full-width
+ * hairline ends the page; there is no tinted band, which only drew the eye to
+ * the least interesting part of it.
  */
 export default function SiteFooter({ lang, dict }: SiteFooterProps) {
 	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
@@ -39,8 +40,8 @@ export default function SiteFooter({ lang, dict }: SiteFooterProps) {
 	return (
 		<footer className="border-t border-site-line">
 			{/* Between md and lg the page margin is too narrow for the
-			    back-to-top button, which would sit on the last link here. */}
-			<div className="mx-auto grid w-full max-w-4xl gap-4 px-4 py-8 text-[0.8125rem] text-site-muted md:grid-cols-[1fr_auto] md:items-end md:px-6 md:max-lg:pr-[4.75rem]">
+			    back-to-top button, which would sit on the link here. */}
+			<div className="mx-auto grid w-full max-w-4xl justify-items-center gap-3 px-4 py-8 text-center text-[0.8125rem] text-site-muted md:grid-cols-[1fr_auto] md:items-end md:justify-items-stretch md:px-6 md:text-left md:max-lg:pr-[4.75rem]">
 				<div>
 					<p className="m-0 text-[0.9375rem] font-semibold text-site-heading">
 						{siteTitle}
@@ -49,33 +50,15 @@ export default function SiteFooter({ lang, dict }: SiteFooterProps) {
 					{/* An en dash: the years are a range. */}
 					<p className="m-0 mt-1">{`© 2022–${getLatestPostYear()} ${footerName}`}</p>
 				</div>
-				<ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
-					<li>
-						<a
-							href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
-							type="application/atom+xml"
-							className={linkClass}
-						>
-							{dict.common.RSS}
-						</a>
-					</li>
-					<li>
-						<a
-							href={githubRepository}
-							target="_blank"
-							rel="noopener noreferrer"
-							title={dict.common.GitHubRepository}
-							className={linkClass}
-						>
-							GitHub<span aria-hidden> ↗</span>
-						</a>
-					</li>
-					<li>
-						<Link href={getLocalePath(lang, '/about')} className={linkClass}>
-							{dict.common.About}
-						</Link>
-					</li>
-				</ul>
+				<a
+					href={githubRepository}
+					target="_blank"
+					rel="noopener noreferrer"
+					title={dict.common.GitHubRepository}
+					className={linkClass}
+				>
+					GitHub<span aria-hidden> ↗</span>
+				</a>
 			</div>
 		</footer>
 	)

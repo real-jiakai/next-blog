@@ -25,7 +25,8 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `components/` — UI components; client boundaries are intentionally narrow.
 - `components/SiteHeader/` — the header with the centred brand; its shortcut,
   idle-mount and theme helpers live in `interaction.ts`.
-- `components/SiteFooter/` — the colophon footer.
+- `components/SiteFooter/` — the colophon footer. It repeats nothing the
+  sticky header has (About, RSS), and centres on phones.
 - `components/Masthead/`, `LeadIssue/`, `IssueCover/`, `IssueIndex/` — the
   contents page: heading and folio, the newest issue, its cover, and the
   back issues grouped by year.

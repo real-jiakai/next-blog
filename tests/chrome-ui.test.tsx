@@ -143,13 +143,24 @@ describe('SiteFooter', () => {
 		expect(textOf(html)).toContain(` · ${range}`)
 	})
 
-	it('links the feed, the repository and About for the page language', () => {
-		const html = renderToStaticMarkup(<SiteFooter lang="en" dict={en} />)
+	it.each(['zh', 'en'] as const)('leaves About and the feed to the sticky header in %s', (lang) => {
+		const html = renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />)
+		const header = renderHeader(lang, lang === 'en' ? '/en' : '/')
 
-		expect(html).toMatch(/<a href="\/en\/index.xml" type="application\/atom\+xml"[^>]*>RSS<\/a>/)
-		expect(html).toMatch(/<a\b[^>]*href="\/en\/about"[^>]*>About<\/a>/)
-		expect(renderToStaticMarkup(<SiteFooter lang="zh" dict={zh} />)).toMatch(
-			/<a\b[^>]*href="\/about"[^>]*>关于<\/a>/
+		expect(html.match(/<a\b/g)).toHaveLength(1)
+		expect(html).not.toContain('index.xml')
+		expect(html).not.toMatch(/href="[^"]*\/about"/)
+		// The header still has both, on every page.
+		expect(header).toContain(lang === 'en' ? 'href="/en/index.xml"' : 'href="/index.xml"')
+		expect(header).toContain(lang === 'en' ? 'href="/en/about"' : 'href="/about"')
+	})
+
+	it('centres the colophon on phones and splits it from md up', () => {
+		const html = renderToStaticMarkup(<SiteFooter lang="zh" dict={zh} />)
+		const grid = html.match(/<footer\b[^>]*>\s*<div class="([^"]*)"/)?.[1] ?? ''
+
+		expect(grid.split(' ')).toEqual(
+			expect.arrayContaining(['text-center', 'justify-items-center', 'md:text-left', 'md:grid-cols-[1fr_auto]'])
 		)
 	})
 
