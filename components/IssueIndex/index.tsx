@@ -20,8 +20,8 @@ const shortDate: Record<Locale, string> = { zh: 'M月D日', en: 'MMM D' }
 
 /**
  * The back issues, grouped by year under an ink rule, one ruled row per issue:
- * the number, the title (the whole row is its link), the excerpt from sm up,
- * and the date and song. Each year section keeps the year as its id, which
+ * the number, the title (the whole row is its link), the issue's summary in
+ * full, and the date and song. Each year section keeps the year as its id, which
  * the old archive's links (`/archive#2024`) still land on.
  */
 export default function IssueIndex({ lang, dict, issues, leadYear }: IssueIndexProps) {
@@ -82,7 +82,7 @@ export default function IssueIndex({ lang, dict, issues, leadYear }: IssueIndexP
 										)}
 										{issue.displayTitle}
 									</Link>
-									<p className="m-0 mt-1 hidden truncate text-[0.9375rem] text-site-muted sm:block">
+									<p className="m-0 mt-1 text-[0.9375rem] leading-[1.65] text-site-muted text-pretty">
 										{issue.excerpt}
 									</p>
 									<p className="m-0 mt-1 flex items-center gap-1 text-[0.8125rem] text-site-muted tabular-nums md:hidden">

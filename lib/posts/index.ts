@@ -8,7 +8,6 @@ import {
 	extractTopicExcerpt,
 	isBoilerplateSummary,
 	parseIssueTitle,
-	truncateExcerpt,
 } from '@/lib/issues'
 import type { ImageDimensions, IssueEntry, IssueStats } from '@/lib/issues'
 import postImageDimensions from '@/lib/post-image-dimensions.json'
@@ -151,8 +150,10 @@ export function getSortedPostsData(locale: Locale = i18n.defaultLocale): PostDat
 
 /**
  * The contents page's entries, newest first: the issue number split from the
- * title, an excerpt (a real frontmatter summary, else the opening of the
- * essay), the cover if its size is known, and the issue's song.
+ * title, the frontmatter summary shown in full (a test keeps every published
+ * summary short enough; a missing or boilerplate one, as in a draft, falls
+ * back to the shortened opening of the essay), the cover if its size is
+ * known, and the issue's song.
  */
 export function getIssueIndex(locale: Locale = i18n.defaultLocale): IssueEntry[] {
 	const cached = cachingEnabled() ? issueIndexCache.get(locale) : undefined
@@ -163,7 +164,7 @@ export function getIssueIndex(locale: Locale = i18n.defaultLocale): IssueEntry[]
 		const { displayTitle, issue } = parseIssueTitle(data.title)
 		const excerpt = isBoilerplateSummary(data.summary)
 			? extractTopicExcerpt(content, locale) || displayTitle
-			: truncateExcerpt(data.summary, locale)
+			: data.summary.replace(/\s+/g, ' ').trim()
 
 		return {
 			slug: data.slug,

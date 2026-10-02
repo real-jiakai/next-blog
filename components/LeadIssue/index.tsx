@@ -84,7 +84,7 @@ export default function LeadIssue({ lang, dict, issue }: LeadIssueProps) {
 						{issue.displayTitle}
 					</Link>
 				</h2>
-				<p className="col-span-2 m-0 mt-4 line-clamp-3 text-base leading-7 text-site-copy text-pretty lg:text-[1.0625rem] lg:leading-[1.85]">
+				<p className="col-span-2 m-0 mt-4 text-base leading-7 text-site-copy text-pretty lg:text-[1.0625rem] lg:leading-[1.85]">
 					{issue.excerpt}
 				</p>
 				{song && (

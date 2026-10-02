@@ -42,6 +42,8 @@ function escapeHtml(text: string) {
 		.replace(/'/g, '&#x27;')
 }
 
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
 function textOf(html: string) {
 	return html
 		.replace(/<[^>]+>/g, '')
@@ -81,9 +83,24 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		expect(lead.issue).not.toBeNull()
 		expect(numeral).toBe(String(lead.issue))
 		expect(article).toContain(`href="${lead.href}"`)
-		// The excerpt comes from the essay, not the title repeated.
+		// The issue's own summary, whole: not the title repeated, not cut.
 		expect(lead.excerpt).not.toBe(lead.displayTitle)
 		expect(textOf(article)).toContain(lead.excerpt)
+		expect(article).not.toContain('line-clamp')
+	})
+
+	it('shows every back issue\'s summary whole', async () => {
+		const html = await render(lang)
+		const index = html.match(/<section id="issues"[\s\S]*<\/section>/)?.[0] ?? ''
+
+		for (const issue of back) {
+			const line = new RegExp(`<p class="([^"]*)">${escapeRegExp(escapeHtml(issue.excerpt))}</p>`)
+			const classes = index.match(line)?.[1]
+			expect(classes).toBeDefined()
+			// CSS truncation would print an ellipsis the summary does not have,
+			// and hiding it would leave phones without it.
+			expect(classes).not.toMatch(/\b(truncate|line-clamp-\d|hidden)\b/)
+		}
 	})
 
 	it('serves the lead cover through the image optimizer', async () => {

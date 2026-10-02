@@ -114,15 +114,18 @@ describe('getIssueIndex', () => {
 		})
 	})
 
-	it('replaces a boilerplate summary with the essay\'s opening, and keeps a real one', async () => {
+	it('replaces a boilerplate summary with the essay\'s opening, and keeps a real one whole', async () => {
+		// Longer than the 90 characters an excerpt is cut to: a summary
+		// someone wrote is shown in full, never with an ellipsis.
+		const written = `作者自己写的摘要，${'很长'.repeat(50)}。`
 		writePost('a.md', { title: '一 #1', date: '2024-01-01', slug: 'one', summary: '本期话题：一' }, topic)
-		writePost('b.md', { title: '二 #2', date: '2024-02-01', slug: 'two', summary: '作者自己写的摘要。' }, topic)
+		writePost('b.md', { title: '二 #2', date: '2024-02-01', slug: 'two', summary: written }, topic)
 		writePost('c.md', { title: '三 #3', date: '2024-03-01', slug: 'three', summary: '本期话题：三' }, '没有话题段落。')
 		const { getIssueIndex } = await loadPosts()
 
 		expect(getIssueIndex('zh').map((issue) => issue.excerpt)).toEqual([
 			'三',
-			'作者自己写的摘要。',
+			written,
 			'这是话题下面的第一段正文，足够长，可以用作摘要。',
 		])
 	})

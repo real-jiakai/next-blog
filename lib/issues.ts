@@ -74,8 +74,9 @@ export function parseIssueTitle(title: string): { displayTitle: string; issue: n
 }
 
 /**
- * Every issue's frontmatter summary so far is just "本期话题：<title>", which
- * would print the title twice. Such a summary is replaced by an excerpt.
+ * The issues' frontmatter summaries used to be just "本期话题：<title>", which
+ * would print the title twice. Such a summary, or none, is replaced by an
+ * excerpt.
  */
 export function isBoilerplateSummary(summary: string | undefined | null): boolean {
 	const value = (summary ?? '').trim()
