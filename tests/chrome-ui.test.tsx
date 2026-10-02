@@ -143,16 +143,22 @@ describe('SiteFooter', () => {
 		expect(textOf(html)).toContain(` · ${range}`)
 	})
 
-	it.each(['zh', 'en'] as const)('leaves About and the feed to the sticky header in %s', (lang) => {
-		const html = renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />)
+	it.each(['zh', 'en'] as const)('shows each of About and the feed once at every width in %s', (lang) => {
+		const footer = renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />)
 		const header = renderHeader(lang, lang === 'en' ? '/en' : '/')
+		const feed = lang === 'en' ? 'href="/en/index.xml"' : 'href="/index.xml"'
+		const classesOf = (html: string, href: string) =>
+			(html.match(new RegExp(`<a ${href}[^>]*class="([^"]*)"`))?.[1] ?? '').split(' ')
 
-		expect(html.match(/<a\b/g)).toHaveLength(1)
-		expect(html).not.toContain('index.xml')
-		expect(html).not.toMatch(/href="[^"]*\/about"/)
-		// The header still has both, on every page.
-		expect(header).toContain(lang === 'en' ? 'href="/en/index.xml"' : 'href="/index.xml"')
+		// About lives in the header at every width, never in the footer.
 		expect(header).toContain(lang === 'en' ? 'href="/en/about"' : 'href="/about"')
+		expect(classesOf(header, lang === 'en' ? 'href="/en/about"' : 'href="/about"')).not.toContain('hidden')
+		expect(footer).not.toMatch(/href="[^"]*\/about"/)
+		// The feed: the header's from md up, the footer's below md, never both.
+		expect(classesOf(header, feed)).toEqual(expect.arrayContaining(['hidden', 'md:inline-flex']))
+		expect(classesOf(footer, feed)).toContain('md:hidden')
+		expect(classesOf(footer, feed)).not.toContain('hidden')
+		expect(footer.match(/<a\b/g)).toHaveLength(2)
 	})
 
 	it('centres the colophon on phones and splits it from md up', () => {

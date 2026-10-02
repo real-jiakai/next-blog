@@ -23,11 +23,12 @@ function getLatestPostYear() {
 
 /**
  * A colophon rather than a centred credit line: the periodical's name and run
- * of issues, the copyright, and the source link. About and the feed are not
- * repeated here; the sticky header carries both on every page. Phones centre
- * the two lines; from md up the link moves to the right. A full-width
- * hairline ends the page; there is no tinted band, which only drew the eye to
- * the least interesting part of it.
+ * of issues, the copyright, and the source link. It repeats nothing the
+ * sticky header shows: About is always up there, and so is the feed from md
+ * up, so the feed link here is for phones only. Phones centre everything;
+ * from md up the links move to the right. A full-width hairline ends the
+ * page; there is no tinted band, which only drew the eye to the least
+ * interesting part of it.
  */
 export default function SiteFooter({ lang, dict }: SiteFooterProps) {
 	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
@@ -40,7 +41,7 @@ export default function SiteFooter({ lang, dict }: SiteFooterProps) {
 	return (
 		<footer className="border-t border-site-line">
 			{/* Between md and lg the page margin is too narrow for the
-			    back-to-top button, which would sit on the link here. */}
+			    back-to-top button, which would sit on the links here. */}
 			<div className="mx-auto grid w-full max-w-4xl justify-items-center gap-3 px-4 py-8 text-center text-[0.8125rem] text-site-muted md:grid-cols-[1fr_auto] md:items-end md:justify-items-stretch md:px-6 md:text-left md:max-lg:pr-[4.75rem]">
 				<div>
 					<p className="m-0 text-[0.9375rem] font-semibold text-site-heading">
@@ -50,15 +51,25 @@ export default function SiteFooter({ lang, dict }: SiteFooterProps) {
 					{/* An en dash: the years are a range. */}
 					<p className="m-0 mt-1">{`© 2022–${getLatestPostYear()} ${footerName}`}</p>
 				</div>
-				<a
-					href={githubRepository}
-					target="_blank"
-					rel="noopener noreferrer"
-					title={dict.common.GitHubRepository}
-					className={linkClass}
-				>
-					GitHub<span aria-hidden> ↗</span>
-				</a>
+				<p className="m-0 flex gap-x-5">
+					{/* The header's feed link starts at md. */}
+					<a
+						href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
+						type="application/atom+xml"
+						className={`md:hidden ${linkClass}`}
+					>
+						{dict.common.RSS}
+					</a>
+					<a
+						href={githubRepository}
+						target="_blank"
+						rel="noopener noreferrer"
+						title={dict.common.GitHubRepository}
+						className={linkClass}
+					>
+						GitHub<span aria-hidden> ↗</span>
+					</a>
+				</p>
 			</div>
 		</footer>
 	)
