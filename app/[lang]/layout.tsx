@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
-import { sans } from '@/lib/fonts'
+import { display, sans } from '@/lib/fonts'
 import { getLanguageAlternates, getLocalePath, i18n } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import { getSiteOpenGraph } from '@/lib/metadata'
@@ -80,10 +80,13 @@ export default async function RootLayout({
 	const { lang } = await params
 
 	return (
+		// data-scroll-behavior lets Next turn off the stylesheet's smooth
+		// scrolling while it moves a new route to the top (see globals.css).
 		<html
 			lang={lang}
 			suppressHydrationWarning
-			className={sans.variable}
+			className={`${sans.variable} ${display.variable}`}
+			data-scroll-behavior="smooth"
 		>
 			<head>
 				<script

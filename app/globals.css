@@ -5,6 +5,9 @@
        a fallback for the moment before it loads, or if it fails to. */
     --font-sans: var(--font-sans-cjk), "PingFang SC", "Hiragino Sans GB",
         "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+    /* Digits only: issue numerals, years and the 404, never words or Han
+       characters. See lib/fonts.ts for why this face beside Noto Sans SC. */
+    --font-display: var(--font-display-serif), Georgia, "Times New Roman", serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, "PingFang SC", monospace;
 
     --color-site-page: var(--site-page);
@@ -14,6 +17,10 @@
     --color-site-heading: var(--site-heading);
     --color-site-muted: var(--site-muted);
     --color-site-line: var(--site-line);
+    --color-site-rule: var(--site-rule);
+    --color-site-accent: var(--site-accent);
+    --color-site-accent-strong: var(--site-accent-strong);
+    --color-site-accent-soft: var(--site-accent-soft);
     --color-site-header: var(--site-header);
 }
 
@@ -33,17 +40,31 @@
        floor could not line the pagination up; it only left a short last page
        with a screen of blank space above its navigation. */
     --post-list-floor: 0;
-    /* Anthropic-style warm neutrals: ivory paper, white cards, and text in
-       warm near-blacks (#141413 family). The previous copy/muted values were
-       GitHub's cool slate greys, which sat blue against the cream page —
-       every grey here carries the same warm cast as the paper. */
+    /* Ivory paper and warm near-blacks (#141413 family): every grey carries
+       the paper's warm cast, so none of them sits blue against the page.
+       Every text colour below holds at least 5:1 on the page and on both
+       surfaces, in this theme and the dark one, so AA holds down to 12px
+       without leaning on the large-text exemption. */
     --site-page: #f5f4ed;
+    /* For what sits above the page: overlays, form fields and code. */
     --site-surface: #ffffff;
     --site-surface-muted: #edeae1;
-    --site-copy: rgb(20 20 19 / 88%);
     --site-heading: #141413;
+    /* About #2f2f2d once laid over the page. */
+    --site-copy: rgb(20 20 19 / 88%);
     --site-muted: #63615a;
+    /* Two weights of line: a faint hairline between rows, and an ink rule
+       that opens a section. Both are decoration, not control boundaries. */
     --site-line: rgb(20 20 19 / 13%);
+    --site-rule: #141413;
+    /* 竹青, bamboo green, and the site's only colour. Ivory with a red or
+       terracotta accent is the stock editorial look, and in Chinese UI red
+       means an alert; an underlined dark green reads as a link and never as
+       an error. -strong is for hover and pressed states, -soft for tints
+       (text selection, search matches) and never for text. */
+    --site-accent: #2c6e55;
+    --site-accent-strong: #1f5a44;
+    --site-accent-soft: rgb(44 110 85 / 14%);
     /* The page colour, not white: the header is separated by its rule, and a
        white bar over the warm page read as a strip that did not belong. Kept
        translucent for the sticky header's backdrop blur. */
@@ -60,68 +81,68 @@
     }
 }
 
-/* ChatGPT-style neutral charcoal: #212121 canvas, slightly lifted surfaces,
-   and grey text with no colour cast. The previous palette was navy-tinted,
-   which pushed every grey towards blue and made the theme read as "blue
-   dark" rather than a neutral night surface. */
+/* Warm ink: the same warm cast as the ivory, so the two themes read as one
+   paper in two lights rather than the light theme plus a borrowed product
+   palette. The ink rule drops to 60% so it does not glare; the accent turns
+   pale enough that dark page text sits on it for buttons. */
 .dark {
-    --site-page: #212121;
-    --site-surface: #2b2b2b;
-    --site-surface-muted: #343434;
-    --site-copy: #ececec;
-    --site-heading: #f7f7f7;
-    --site-muted: #b4b4b4;
-    --site-line: rgb(255 255 255 / 10%);
-    --site-header: rgb(33 33 33 / 88%);
+    --site-page: #1b1a18;
+    --site-surface: #242320;
+    --site-surface-muted: #2e2c28;
+    --site-heading: #f4f2ec;
+    --site-copy: #e6e3db;
+    --site-muted: #a9a59b;
+    --site-line: rgb(255 255 255 / 12%);
+    --site-rule: rgb(244 242 236 / 60%);
+    --site-accent: #86cbaa;
+    --site-accent-strong: #a6dcc3;
+    --site-accent-soft: rgb(134 203 170 / 18%);
+    --site-header: rgb(27 26 24 / 88%);
 }
 
+/* Only page-wide behaviour lives here. Element defaults such as heading sizes,
+   paragraph margins or list bullets used to as well, and every component had
+   to undo them; prose styling now belongs to .article-content and
+   .comment-content, and everything else sets its own classes. */
 @layer base {
+    /* For in-page jumps: contents links, footnotes, comment permalinks. The
+       layouts also put data-scroll-behavior="smooth" on <html>, which is what
+       tells Next to suspend this while it scrolls a new route to the top;
+       without it every client navigation would animate that scroll. */
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
         @apply bg-site-page text-site-copy;
     }
 
-    h1 {
-        @apply text-4xl font-bold my-6;
+    /* One focus indicator for the whole site, so a control without its own
+       focus style still shows where the keyboard is. */
+    :focus-visible {
+        outline: 2px solid var(--site-accent);
+        outline-offset: 2px;
     }
 
-    h2 {
-        @apply text-3xl font-semibold my-6;
+    ::selection {
+        background: var(--site-accent-soft);
     }
 
-    h3 {
-        @apply text-2xl font-semibold my-6;
-    }
+    /* Transitions and animations finish at once and in-page jumps stop
+       gliding. An !important declaration in a layer outranks those of every
+       later layer, so this also beats the transition and animation utilities. */
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
 
-    h4 {
-        @apply text-xl font-semibold my-4;
+        *,
+        *::before,
+        *::after {
+            transition-duration: 0ms !important;
+            animation-duration: 0ms !important;
+        }
     }
-
-    h5 {
-        @apply text-lg font-semibold my-4;
-    }
-
-    h6 {
-        @apply text-base font-semibold my-4;
-    }
-
-    blockquote {
-        @apply bg-site-surface-muted border-l-4 border-site-line text-site-copy p-4;
-    }
-
-    table th,
-    table td {
-        @apply p-2;
-    }
-
-    p {
-        margin-top: 0.75rem;
-        margin-bottom: 0.75rem;
-    }
-
-    ul {
-        list-style-type: square;
-    }
-
 }
 
 @layer components {
@@ -195,7 +216,7 @@
     }
 
     .article-content blockquote {
-        @apply my-6 pl-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted italic;
+        @apply my-6 p-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted italic;
     }
 
     /* Han characters have no italic face, so the slant would be synthesized. */
@@ -240,9 +261,14 @@
         @apply mt-3;
     }
 
+    /* Every level a commenter can write, since nothing site-wide sizes
+       headings any more; in a comment they all sit at one modest size. */
     .comment-content h1,
     .comment-content h2,
-    .comment-content h3 {
+    .comment-content h3,
+    .comment-content h4,
+    .comment-content h5,
+    .comment-content h6 {
         @apply text-lg font-semibold text-site-heading mt-4 mb-2;
     }
 
@@ -279,7 +305,7 @@
     }
 
     .comment-content blockquote {
-        @apply my-3 pl-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted;
+        @apply my-3 p-4 border-l-2 border-site-line bg-site-surface-muted text-site-muted;
     }
 
     .comment-content blockquote p {

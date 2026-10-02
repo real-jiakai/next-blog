@@ -186,7 +186,7 @@ export default async function Post({
 					{/* Main content area */}
 					<article className="min-w-0 pt-4 pb-16">
 						{/* Title */}
-						<h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-site-heading">
+						<h1 className="my-6 text-4xl sm:text-5xl font-bold tracking-tight text-site-heading">
 							{postData.title}
 						</h1>
 

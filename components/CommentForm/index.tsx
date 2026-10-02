@@ -289,7 +289,7 @@ export default function CommentForm({
 			<p
 				id={`${field}-error`}
 				role="alert"
-				className="mt-1 text-sm text-red-700 dark:text-red-400"
+				className="mt-1 mb-3 text-sm text-red-700 dark:text-red-400"
 			>
 				{fieldMessages[field]}
 			</p>
@@ -369,7 +369,7 @@ export default function CommentForm({
 						{dict.YourComment}
 					</label>
 					{replyTo && (
-						<p className="mb-2 flex flex-wrap items-center gap-x-2 text-sm text-site-muted">
+						<p className="mt-3 mb-2 flex flex-wrap items-center gap-x-2 text-sm text-site-muted">
 							<span>
 								{dict.ReplyingTo.replace('{name}', () => replyTo.username)}
 							</span>

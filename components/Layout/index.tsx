@@ -24,7 +24,9 @@ export default function Layout({
 				    whatever it is handed is serialized into every page. */}
 				<Header lang={lang} dict={{ common: dict.common }} />
 
-				<main className="text-lg font-sans antialiased font-normal flex flex-col w-full py-4 flex-grow">
+				{/* No `antialiased`: grayscale smoothing thins Han strokes on macOS.
+				    No inherited text size either; each element sets its own. */}
+				<main className="font-sans font-normal flex flex-col w-full py-4 flex-grow">
 					{children}
 				</main>
 

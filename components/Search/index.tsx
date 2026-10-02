@@ -292,7 +292,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 							// shows a lone line of text floating against its left edge.
 							<div className="flex flex-col items-center justify-center gap-2.5 px-6 py-9 text-center">
 								<SearchIcon size={28} className="text-site-muted/40" />
-								<p className="mb-0 max-w-xs text-sm leading-relaxed text-site-muted">
+								<p className="mt-3 max-w-xs text-sm leading-relaxed text-site-muted">
 									{!searchable
 										? dict.common.SearchPrompt
 										: !current
@@ -304,7 +304,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 							</div>
 						) : (
 							<>
-								<p className="px-1 pb-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
+								<p className="my-3 px-1 pb-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
 									{dict.common.SearchResults}
 								</p>
 								<ul

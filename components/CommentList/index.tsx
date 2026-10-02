@@ -195,7 +195,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 											className="rounded-full"
 										/>
 									)}
-									<h3 className="font-bold text-lg">
+									<h3 className="my-6 font-bold text-lg">
 										{isWebUrl(comment.website) ? (
 											<a
 												href={comment.website}

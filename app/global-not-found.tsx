@@ -3,7 +3,7 @@ import { headers } from 'next/headers'
 
 import enDict from '@/lib/dictionaries/en.json'
 import zhDict from '@/lib/dictionaries/zh.json'
-import { sans } from '@/lib/fonts'
+import { display, sans } from '@/lib/fonts'
 import { getLocalePath, type Locale } from '@/lib/i18n-config'
 import '@/app/globals.css'
 
@@ -32,7 +32,12 @@ export default async function GlobalNotFound() {
 	const homePath = getLocalePath(lang)
 
 	return (
-		<html lang={lang} suppressHydrationWarning className={sans.variable}>
+		<html
+			lang={lang}
+			suppressHydrationWarning
+			className={`${sans.variable} ${display.variable}`}
+			data-scroll-behavior="smooth"
+		>
 			<head>
 				<script dangerouslySetInnerHTML={{ __html: restoreTheme }} />
 			</head>
@@ -48,13 +53,13 @@ export default async function GlobalNotFound() {
 					</header>
 
 					<main className="flex flex-1 flex-col items-center justify-center px-4 pb-24 text-center">
-						<p className="select-none font-mono text-7xl font-bold leading-none tracking-tighter text-gray-200 sm:text-9xl dark:text-gray-800">
+						<p className="my-3 select-none font-mono text-7xl font-bold leading-none tracking-tighter text-gray-200 sm:text-9xl dark:text-gray-800">
 							404
 						</p>
-						<h1 className="mt-6 text-2xl font-bold sm:text-3xl">
+						<h1 className="my-6 text-2xl font-bold sm:text-3xl">
 							{dict.common.NotFoundTitle}
 						</h1>
-						<p className="mt-3 text-site-muted">
+						<p className="my-3 text-site-muted">
 							{dict.common.NotFoundMessage}
 						</p>
 						<a

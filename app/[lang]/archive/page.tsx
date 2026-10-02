@@ -61,7 +61,7 @@ export default async function Archive({
 						// scroll-mt clears the sticky header when a year chip jumps
 						// here, as the article headings do.
 						<section key={year} id={year} className="mb-12 scroll-mt-24">
-							<h2 className="text-2xl font-bold text-site-heading mb-4 pb-2 border-b-2 border-site-line">
+							<h2 className="text-2xl font-bold text-site-heading mt-6 mb-4 pb-2 border-b-2 border-site-line">
 								{year}
 							</h2>
 							<ul className="space-y-4 list-none">

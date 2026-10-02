@@ -55,7 +55,7 @@ export default async function About({
 	return (
 		<Layout lang={lang} dict={dict}>
 			<div className="max-w-4xl mx-auto w-full px-4 md:px-6">
-				<h1 className="text-center my-3">{dict.about.About}</h1>
+				<h1 className="text-center text-4xl font-bold my-3">{dict.about.About}</h1>
 				<p className="my-4">{dict.about.Intro}</p>
 				<p className="my-4">{dict.about.WeeklyName}</p>
 				<p className="my-4">

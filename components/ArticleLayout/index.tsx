@@ -17,7 +17,7 @@ export default function ArticleLayout({ children, lang, dict }: ArticleLayoutPro
 				{/* See Layout: the client header gets only the strings it reads. */}
 				<Header lang={lang} dict={{ common: dict.common }} />
 
-				<main className="text-lg font-sans antialiased font-normal py-4 md:py-6 flex-grow">
+				<main className="font-sans font-normal py-4 md:py-6 flex-grow">
 					{children}
 				</main>
 
