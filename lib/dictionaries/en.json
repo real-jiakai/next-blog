@@ -62,6 +62,7 @@
     "SectionBGM": "Most issues also come with a BGM track.",
     "Stats": "{count} issues have appeared since {since}, on no fixed schedule.",
     "StatsOne": "{count} issue has appeared since {since}, on no fixed schedule.",
+    "LostImages": "The internet is fragile. The images for issues 1–8 were hosted on 竹白 (Zhubai), which shut down in February 2025; I didn't realize until July that they had gone with it. That is why the pictures those issues mention can no longer be shown.",
     "RSSSubscribe": "Feel free to subscribe via",
     "RSSLink": "RSS",
     "RSSSubscribeEnd": ".",
