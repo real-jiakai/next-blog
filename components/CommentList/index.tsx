@@ -1,43 +1,73 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import Identicon from 'identicon.js'
-import CryptoJS from 'crypto-js'
+import MD5 from 'crypto-js/md5'
 import Date from '@/components/Date'
 import type { Locale } from '@/lib/i18n-config'
 
 interface Comment {
-  id: number
-  username: string
-  content: string
-  created_at: string
-  url: string
+	id: number
+	username: string
+	content: string
+	created_at: string
 }
 
-interface CommentListDict {
-  Says: string
-  Quote: string
-  NoComments: string
+export interface CommentListDict {
+	Says: string
+	Quote: string
+	QuoteLabel: string
+	PermalinkLabel: string
+	NoComments: string
+	LoadingComments: string
+	CommentsUnavailable: string
+	LoadEarlier: string
 }
 
 interface CommentListProps {
-  quoteComment: (comment: Comment, id: number) => void
-  updateList: boolean
-  dict: CommentListDict
-  lang: Locale
+	quoteComment: (comment: Comment, id: number) => void
+	updateList: boolean
+	dict: CommentListDict
+	lang: Locale
 }
 
 // 生成头像
 const generateIdenticon = (username: string): string => {
-	const hash = CryptoJS.MD5(username).toString()
+	const hash = MD5(username).toString()
 	const data = new Identicon(hash, { size: 64, format: 'svg' }).toString()
 	return `data:image/svg+xml;base64,${data}`
 }
 
+const fillLabel = (template: string, values: Record<string, string | number>) =>
+	template.replace(/\{(\w+)\}/g, (match, key: string) =>
+		Object.hasOwn(values, key) ? String(values[key]) : match
+	)
+
+async function fetchCommentPage(page: number) {
+	const res = await fetch(
+		page > 1 ? `/api/comSelect?page=${page}` : '/api/comSelect'
+	)
+	if (!res.ok) {
+		throw new Error(`HTTP error! status: ${res.status}`)
+	}
+	const data: unknown = await res.json()
+	return {
+		comments: Array.isArray(data) ? (data as Comment[]) : [],
+		hasMore: res.headers.get('X-Comment-Has-More') === 'true',
+	}
+}
+
 export default function CommentList({ quoteComment, updateList, dict, lang }: CommentListProps) {
 	const [comments, setComments] = useState<Comment[]>([])
+	const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+	const [page, setPage] = useState(1)
+	const [hasMore, setHasMore] = useState(false)
+	const [loadingEarlier, setLoadingEarlier] = useState(false)
+	const [earlierFailed, setEarlierFailed] = useState(false)
+	const hashHandled = useRef(false)
+	const listRef = useRef<HTMLDivElement>(null)
+	const focusFirstComment = useRef(false)
 
 	useEffect(() => {
 		// Fetch inside the effect and ignore the result if the component
@@ -47,16 +77,17 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 
 		async function fetchComments() {
 			try {
-				const res = await fetch('/api/comSelect')
-				if (!res.ok) {
-					throw new Error(`HTTP error! status: ${res.status}`)
-				}
-				const data = await res.json()
+				const result = await fetchCommentPage(1)
 				if (active) {
-					setComments(data)
+					setComments(result.comments)
+					setPage(1)
+					setHasMore(result.hasMore)
+					setEarlierFailed(false)
+					setStatus('ready')
 				}
 			} catch (error) {
 				console.error('Fetching comments failed: ', error)
+				if (active) setStatus('error')
 			}
 		}
 
@@ -67,21 +98,91 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 		}
 	}, [updateList])
 
+	// Comments arrive after hydration, too late for the browser's own jump to a
+	// #comment-N fragment, so scroll to it once after the first load.
+	useEffect(() => {
+		if (hashHandled.current || comments.length === 0) return
+		hashHandled.current = true
+		const id = window.location.hash.slice(1)
+		if (/^comment-\d+$/.test(id)) {
+			document.getElementById(id)?.scrollIntoView()
+		}
+	}, [comments])
+
+	// The button unmounts with the last page, so hand its focus to the first
+	// comment rather than let it fall back to <body>.
+	useEffect(() => {
+		if (!focusFirstComment.current) return
+		focusFirstComment.current = false
+		listRef.current?.querySelector<HTMLElement>('.comment')?.focus()
+	}, [comments, hasMore])
+
+	const loadEarlier = async () => {
+		if (loadingEarlier) return
+		setLoadingEarlier(true)
+		setEarlierFailed(false)
+		try {
+			const result = await fetchCommentPage(page + 1)
+			setComments((previous) => [
+				...result.comments.filter(
+					(comment) => !previous.some((shown) => shown.id === comment.id)
+				),
+				...previous,
+			])
+			setPage(page + 1)
+			setHasMore(result.hasMore)
+			if (!result.hasMore) focusFirstComment.current = true
+		} catch (error) {
+			console.error('Fetching earlier comments failed: ', error)
+			setEarlierFailed(true)
+		} finally {
+			setLoadingEarlier(false)
+		}
+	}
+
+	const emptyMessage =
+		status === 'loading'
+			? dict.LoadingComments
+			: status === 'error'
+				? dict.CommentsUnavailable
+				: dict.NoComments
+
 	return (
 		<>
 			{comments.length > 0 ? (
-				<div className="comment-list space-y-4">
+				<div ref={listRef} className="comment-list space-y-4">
+					{hasMore && (
+						<div>
+							{/* aria-disabled, not disabled: a disabled button drops the
+							    keyboard focus it holds. loadEarlier ignores repeat presses. */}
+							<button
+								type="button"
+								onClick={loadEarlier}
+								aria-disabled={loadingEarlier}
+								aria-busy={loadingEarlier}
+								className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+							>
+								{dict.LoadEarlier}
+							</button>
+							{earlierFailed && (
+								<p role="alert" className="mt-1 text-sm text-red-700 dark:text-red-400">
+									{dict.CommentsUnavailable}
+								</p>
+							)}
+						</div>
+					)}
 					{comments.map((comment) => (
 						<div
 							key={comment.id}
 							id={`comment-${comment.id}`}
-							className="comment p-4 bg-site-surface border border-site-line shadow-md rounded-lg flex flex-col"
+							tabIndex={-1}
+							className="comment scroll-mt-24 p-4 bg-site-surface border border-site-line shadow-md rounded-lg flex flex-col"
 						>
 							<div className="flex justify-between items-center mb-2 border-b border-site-line">
 								<div className="flex items-center space-x-2">
 									<Image
 										src={generateIdenticon(comment.username)}
-										alt={`${comment.username}'s Identicon`}
+										alt=""
 										width={32}
 										height={32}
 										className="rounded-full"
@@ -101,18 +202,24 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 									<small>
 										<Date
 											dateString={comment.created_at}
-											format="h:mm A M/D/YYYY"
+											format={lang === 'zh' ? 'YYYY-M-D HH:mm' : 'h:mm A M/D/YYYY'}
 											locale={lang}
 										/>
 									</small>
-									<Link
-										href={`${comment.url}#comment-${comment.id}`}
-										className="text-blue-500 hover:text-blue-700"
+									<a
+										href={`#comment-${comment.id}`}
+										aria-label={fillLabel(dict.PermalinkLabel, {
+											name: comment.username,
+											id: comment.id,
+										})}
+										className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
 									>
-                    #
-									</Link>
+										#
+									</a>
 									<button
-										className="text-blue-500 hover:text-blue-700"
+										type="button"
+										aria-label={fillLabel(dict.QuoteLabel, { name: comment.username })}
+										className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
 										onClick={() => quoteComment(comment, comment.id)}
 									>
 										{dict.Quote}
@@ -123,7 +230,7 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 					))}
 				</div>
 			) : (
-				<p className="text-gray-700 dark:text-gray-300">{dict.NoComments}</p>
+				<p className="text-gray-700 dark:text-gray-300">{emptyMessage}</p>
 			)}
 		</>
 	)

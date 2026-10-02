@@ -27,7 +27,7 @@ I've never seen anyone enjoy the fruits of success without putting in effort. Wa
 
 Technologies like autonomous driving and batteries are all manifestations of Musk's innovative spirit. Although he didn't implement these himself, he initiated their development. It's his pursuit of innovation that gives him innovative awareness.
 
-In his 200th weekly newsletter [*Low Expectations, More Attempts*](https://www.ruanyifeng.com/blog/2022/03/weekly-issue-200.html), Ruanyifeng wrote: "We should be as cautious as Munger and as action-oriented as Musk." Munger is the vice chairman of an American investment holding company, known for being cautious and never playing cards he's unsure about. Musk, on the other hand, dares to challenge the unknown. He believed electric vehicles would be the future. As it turns out, electric vehicles align perfectly with today's environmental and green themes, and Tesla's success brought Musk to the peak of his career.
+In his 200th weekly newsletter [*Low Expectations, More Attempts*](https://www.ruanyifeng.com/blog/2022/03/weekly-issue-200.html), Ruan Yifeng wrote: "We should be as cautious as Munger and as action-oriented as Musk." Munger is the vice chairman of an American investment holding company, known for being cautious and never playing cards he's unsure about. Musk, on the other hand, dares to challenge the unknown. He believed electric vehicles would be the future. As it turns out, electric vehicles align perfectly with today's environmental and green themes, and Tesla's success brought Musk to the peak of his career.
 
 ## Link Sharing
 

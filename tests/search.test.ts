@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { MARK_END, MARK_START, splitHighlights } from '@/lib/search'
+import { MARK_END, MARK_START, hasSearchableText, splitHighlights } from '@/lib/search'
 
 const mark = (text: string) => `${MARK_START}${text}${MARK_END}`
 
@@ -55,5 +55,20 @@ describe('splitHighlights', () => {
 	it('produces no empty runs', () => {
 		const runs = splitHighlights(`${mark('a')}${mark('b')}c`)
 		expect(runs.every((run) => run.text.length > 0)).toBe(true)
+	})
+})
+
+describe('hasSearchableText', () => {
+	it('accepts words, numbers and mixed tokens in either language', () => {
+		for (const query of ['#21', '互联网', 'e-mail', 'C#', 'react -hooks', '- ai']) {
+			expect(hasSearchableText(query), query).toBe(true)
+		}
+	})
+
+	it('rejects a query Meilisearch would run as a placeholder search', () => {
+		// Only separators, or only negated words, leave no term to match.
+		for (const query of ['', '   ', '#', '？', '…', '《》', '-ai', '-"open source"', '-ai -ml']) {
+			expect(hasSearchableText(query), query).toBe(false)
+		}
 	})
 })

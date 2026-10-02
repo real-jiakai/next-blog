@@ -1,6 +1,9 @@
 import type { MetadataRoute } from 'next'
-import { i18n, getLocalePath } from '@/lib/i18n-config'
+import { i18n, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
+import type { Locale } from '@/lib/i18n-config'
+import { isPageInEveryLocale } from '@/lib/pagination'
 import { getSortedPostsData } from '@/lib/posts'
+import type { PostData } from '@/lib/posts'
 import { getPostsPerPage } from '@/lib/site-config'
 
 const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top').replace(
@@ -8,24 +11,35 @@ const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top').rep
 	'',
 )
 
-function absoluteUrl(locale: 'zh' | 'en', path = ''): string {
+function absoluteUrl(locale: Locale, path = ''): string {
 	return `${baseUrl}${getLocalePath(locale, path)}`
 }
 
-function languageAlternates(path = ''): Record<string, string> {
-	return {
-		'zh-CN': absoluteUrl('zh', path),
-		'en-US': absoluteUrl('en', path),
-		'x-default': absoluteUrl('zh', path),
-	}
+function getPostPath(post: PostData): string {
+	const [year, month] = post.date.split('-')
+	return `/${year}/${month}/${encodeURIComponent(post.slug)}`
+}
+
+// hreflang may only name URLs that exist. A post still in draft or not yet
+// translated, or a page number only one locale reaches, gets none.
+function languageAlternates(path: string, inEveryLocale = true) {
+	return inEveryLocale
+		? { languages: getLanguageAlternates(path, baseUrl) }
+		: undefined
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
 	const entries: MetadataRoute.Sitemap = []
 	const postsPerPage = getPostsPerPage()
+	const postsByLocale = Object.fromEntries(
+		i18n.locales.map((locale) => [locale, getSortedPostsData(locale)]),
+	) as Record<Locale, PostData[]>
+	const postPathsByLocale = i18n.locales.map(
+		(locale) => new Set(postsByLocale[locale].map(getPostPath)),
+	)
 
 	for (const locale of i18n.locales) {
-		const posts = getSortedPostsData(locale)
+		const posts = postsByLocale[locale]
 		const latestPostDate = posts[0] ? new Date(posts[0].date) : undefined
 
 		// Home page
@@ -34,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			lastModified: latestPostDate,
 			changeFrequency: 'daily',
 			priority: 1,
-			alternates: { languages: languageAlternates() },
+			alternates: languageAlternates(''),
 		})
 
 		// About page
@@ -42,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			url: absoluteUrl(locale, '/about'),
 			changeFrequency: 'monthly',
 			priority: 0.8,
-			alternates: { languages: languageAlternates('/about') },
+			alternates: languageAlternates('/about'),
 		})
 
 		// Archive page
@@ -51,19 +65,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			lastModified: latestPostDate,
 			changeFrequency: 'weekly',
 			priority: 0.7,
-			alternates: { languages: languageAlternates('/archive') },
+			alternates: languageAlternates('/archive'),
 		})
 
 		// All posts
 		for (const post of posts) {
-			const [year, month] = post.date.split('-')
-			const postPath = `/${year}/${month}/${encodeURIComponent(post.slug)}`
+			const postPath = getPostPath(post)
 			entries.push({
 				url: absoluteUrl(locale, postPath),
 				lastModified: new Date(post.date),
 				changeFrequency: 'monthly',
 				priority: 0.6,
-				alternates: { languages: languageAlternates(postPath) },
+				alternates: languageAlternates(
+					postPath,
+					postPathsByLocale.every((paths) => paths.has(postPath)),
+				),
 			})
 		}
 
@@ -79,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 					: undefined,
 				changeFrequency: 'daily',
 				priority: 0.5,
-				alternates: { languages: languageAlternates(pagePath) },
+				alternates: languageAlternates(pagePath, isPageInEveryLocale(i)),
 			})
 		}
 	}

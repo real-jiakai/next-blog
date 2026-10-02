@@ -16,9 +16,10 @@ export interface ArticleHeading {
   id: string
 }
 
-// Headings carry scroll-mt-24 (96px) for the sticky header; a heading counts
-// as "reached" once its top passes that line, with a small buffer.
-const SCROLL_OFFSET = 96 + 16
+// Headings carry scroll-mt-24 for the sticky header. It is rem-based, so it
+// grows with the reader's font size; a heading counts as "reached" once its
+// top passes its own resolved scroll margin, plus a small buffer.
+const REACHED_BUFFER = 16
 
 export default function ArticleToc({ headings, showtoc, tocLabel, title }: ArticleTocProps) {
 	const [activeId, setActiveId] = useState('')
@@ -40,11 +41,30 @@ export default function ArticleToc({ headings, showtoc, tocLabel, title }: Artic
 			for (const heading of headings) {
 				const el = document.getElementById(heading.id)
 				if (!el) continue
-				if (el.getBoundingClientRect().top <= SCROLL_OFFSET) {
+				const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0
+				if (el.getBoundingClientRect().top <= margin + REACHED_BUFFER) {
 					current = heading.id
 				} else {
 					break
 				}
+			}
+			// A closing heading with little below it never reaches the line, so
+			// the bottom of a page that scrolls counts as reaching the last one,
+			// unless the reader jumped to the heading that did reach it: clicking
+			// a short second-to-last section lands on the same bottom scroll.
+			const doc = document.documentElement
+			let target = ''
+			try {
+				target = decodeURIComponent(window.location.hash.slice(1))
+			} catch {
+				// A malformed escape in the hash names no heading.
+			}
+			if (
+				current !== target &&
+				window.scrollY > 0 &&
+				window.innerHeight + window.scrollY >= doc.scrollHeight - 2
+			) {
+				current = headings[headings.length - 1].id
 			}
 			setActiveId((previous) => previous === current ? previous : current)
 		}

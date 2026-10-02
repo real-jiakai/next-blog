@@ -1,11 +1,18 @@
 import { spawn } from 'node:child_process'
+import { stat } from 'node:fs/promises'
 import path from 'node:path'
 import { getSortedPostsData, selectFeedPosts } from './generate-rss.mjs'
 
 const hostname = '127.0.0.1'
 const port = 3017
 const origin = `http://${hostname}:${port}`
+const standaloneDirectory = path.join(process.cwd(), '.next', 'standalone')
+const feeds = [
+	['/index.xml', 'zh'],
+	['/en/index.xml', 'en'],
+]
 const logs = []
+const checkedPaths = new Set()
 
 function capture(chunk) {
 	logs.push(String(chunk))
@@ -23,11 +30,32 @@ async function request(pathname) {
 	})
 }
 
+function hasExited(child) {
+	return child.exitCode !== null || child.signalCode !== null
+}
+
+function assertRunning(server) {
+	if (hasExited(server)) {
+		throw new Error(
+			`Production server exited (code ${server.exitCode}, signal ${server.signalCode})`,
+		)
+	}
+}
+
+// Anything already answering on the port would pass every check below in
+// place of the server under test.
+async function assertPortFree() {
+	try {
+		await request('/robots.txt')
+	} catch {
+		return
+	}
+	throw new Error(`Port ${port} is already in use; stop the other server first`)
+}
+
 async function waitUntilReady(server) {
 	for (let attempt = 0; attempt < 80; attempt += 1) {
-		if (server.exitCode !== null) {
-			throw new Error(`Production server exited with code ${server.exitCode}`)
-		}
+		assertRunning(server)
 		try {
 			const response = await request('/robots.txt')
 			if (response.status === 200) return
@@ -40,6 +68,7 @@ async function waitUntilReady(server) {
 }
 
 function expectStatus(pathname, response, expected) {
+	checkedPaths.add(pathname)
 	if (response.status !== expected) {
 		throw new Error(`${pathname}: expected ${expected}, received ${response.status}`)
 	}
@@ -52,8 +81,20 @@ function expectLocation(pathname, response, expected) {
 	}
 }
 
+// A second CDATA terminator, or a control character XML forbids, makes the
+// whole feed unreadable while every <entry> can still be counted.
+function expectWellFormedFeed(pathname, feed) {
+	const outsideCdata = feed.replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, '')
+	if (outsideCdata.includes('<![CDATA[') || outsideCdata.includes(']]>')) {
+		throw new Error(`${pathname}: a CDATA section is not closed exactly once`)
+	}
+	if (/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/.test(feed)) {
+		throw new Error(`${pathname}: contains a character XML does not allow`)
+	}
+}
+
 async function stop(server) {
-	if (server.exitCode !== null) return
+	if (hasExited(server)) return
 	server.kill('SIGTERM')
 	await Promise.race([
 		new Promise((resolve) => server.once('exit', resolve)),
@@ -61,11 +102,18 @@ async function stop(server) {
 	])
 }
 
+try {
+	await stat(path.join(standaloneDirectory, 'server.js'))
+} catch {
+	throw new Error('Standalone build not found; run pnpm build before pnpm test:smoke')
+}
+await assertPortFree()
+
 const server = spawn(
 	process.execPath,
 	['server.js'],
 	{
-		cwd: path.join(process.cwd(), '.next', 'standalone'),
+		cwd: standaloneDirectory,
 		env: {
 			...process.env,
 			COMMENT_API_ENABLED: 'false',
@@ -77,6 +125,7 @@ const server = spawn(
 )
 server.stdout.on('data', capture)
 server.stderr.on('data', capture)
+server.once('error', (error) => capture(`spawn error: ${error.message}\n`))
 
 try {
 	await waitUntilReady(server)
@@ -86,6 +135,9 @@ try {
 		expectStatus(pathname, response, 200)
 		if (!response.headers.has('content-security-policy')) {
 			throw new Error(`${pathname}: security headers are missing`)
+		}
+		if (response.headers.has('x-powered-by')) {
+			throw new Error(`${pathname}: X-Powered-By should not be sent`)
 		}
 	}
 
@@ -139,13 +191,11 @@ try {
 		}
 	}
 
-	for (const [pathname, locale] of [
-		['/index.xml', 'zh'],
-		['/en/index.xml', 'en'],
-	]) {
+	for (const [pathname, locale] of feeds) {
 		const response = await request(pathname)
 		expectStatus(pathname, response, 200)
 		const feed = await response.text()
+		expectWellFormedFeed(pathname, feed)
 		// The feed carries the newest posts, not the whole archive, so this has
 		// to apply the same cap the generator does rather than counting every
 		// post on disk.
@@ -158,7 +208,11 @@ try {
 	}
 
 	expectStatus('/api/comSelect', await request('/api/comSelect'), 404)
-	console.log('Production standalone smoke checks passed (15 HTTP routes/assets, 2 feeds)')
+	// A server that died after readiness means something else answered.
+	assertRunning(server)
+	console.log(
+		`Production standalone smoke checks passed (${checkedPaths.size - feeds.length} HTTP routes/assets, ${feeds.length} feeds)`,
+	)
 } catch (error) {
 	console.error(logs.join(''))
 	throw error

@@ -50,6 +50,6 @@ Enter keywords in the search box and it will generate the most suitable domain n
 
 2. [Free Piano](https://www.autopiano.cn/)
 
-Online piano, keyboard piano, simulated piano, with multiple instrument options – fun to listen to and fun to play. For a piano novice like me, I just choose to listen to the performance examples, like this JJ Lin's [*Jiangnan*](https://www.autopiano.cn/midi/46812212798731).
+Online piano, keyboard piano, simulated piano, with multiple instrument options – fun to listen to and fun to play. For a piano novice like me, I just choose to listen to the performance examples, such as JJ Lin's [*Jiangnan*](https://www.autopiano.cn/midi/46812212798731).
 
 ## Have a great weekend! 😆

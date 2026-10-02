@@ -5,7 +5,11 @@ const baseUrl = (
 	process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
 ).replace(/\/+$/, '')
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || '周见'
-const siteDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION || '专注于分享互联网上有趣的东西。'
+// The summary sentence around it is English.
+const siteDescription =
+	process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN ||
+	process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
+	'A weekly collection of interesting things from the internet.'
 
 export const dynamic = 'force-static'
 

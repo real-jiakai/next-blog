@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 
 import enDict from '@/lib/dictionaries/en.json'
 import zhDict from '@/lib/dictionaries/zh.json'
+import { sans } from '@/lib/fonts'
 import { getLocalePath, type Locale } from '@/lib/i18n-config'
 import '@/app/globals.css'
 
@@ -31,7 +32,7 @@ export default async function GlobalNotFound() {
 	const homePath = getLocalePath(lang)
 
 	return (
-		<html lang={lang} suppressHydrationWarning>
+		<html lang={lang} suppressHydrationWarning className={sans.variable}>
 			<head>
 				<script dangerouslySetInnerHTML={{ __html: restoreTheme }} />
 			</head>
@@ -53,7 +54,7 @@ export default async function GlobalNotFound() {
 						<h1 className="mt-6 text-2xl font-bold sm:text-3xl">
 							{dict.common.NotFoundTitle}
 						</h1>
-						<p className="mt-3 text-gray-500 dark:text-gray-400">
+						<p className="mt-3 text-site-muted">
 							{dict.common.NotFoundMessage}
 						</p>
 						<a

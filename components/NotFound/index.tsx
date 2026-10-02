@@ -50,7 +50,7 @@ export default function NotFound() {
 					404
 				</p>
 				<h1 className="mt-6 text-2xl font-bold sm:text-3xl">{dict.common.NotFoundTitle}</h1>
-				<p className="mt-3 text-gray-500 dark:text-gray-400">{dict.common.NotFoundMessage}</p>
+				<p className="mt-3 text-site-muted">{dict.common.NotFoundMessage}</p>
 				<Link
 					href={getLocalePath(lang)}
 					className="mt-8 inline-flex items-center rounded-lg border border-site-line bg-site-surface px-4 py-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-site-heading"

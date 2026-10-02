@@ -23,9 +23,9 @@ A scene of early morning at Minzu University campus, captured while jogging towa
 
 ## Topic: Can You Really Find Love on Xiaohongshu?
 
-A while ago, my roommate was watching the dating show "Semi-Mature Romance" every night after returning from the library. He also watched the recent TV drama "Spring's Lover." One night, I stood behind him and watched "Spring's Lover" with him for a bit. I was immediately struck—Li Xian suddenly pushed the female lead against the wall and gave her a passionate kiss. The scene was too romantic.
+A while ago, my roommate was watching the dating show "Semi-Mature Romance" every night after returning from the library. He also watched the recent TV drama "Will Love in Spring." One night, I stood behind him and watched "Will Love in Spring" with him for a bit. I was immediately struck—Li Xian suddenly pushed the female lead against the wall and gave her a passionate kiss. The scene was too romantic.
 
-Then we chatted about topics related to finding love. Pursuing a computer science master's degree, with daily life being just three points [dorm + cafeteria + library/lab], the social circle is extremely narrow. Plus, the entire class is male, so the possibility of finding a girlfriend is nearly zero. Unless you find girls from other departments with more women, but few guys have the courage to be so bold and shameless.
+Then we chatted about topics related to finding love. Pursuing a computer science master's degree, with daily life being just three points [dorm + cafeteria + library/lab], the social circle is extremely narrow. Plus, the entire class is male, so the possibility of finding a girlfriend is nearly zero. The only way around this is to make friends in other departments with more women, but few guys have the courage to be so bold and shameless.
 
 Later, my roommate and I targeted the Xiaohongshu platform. This platform has many female users—maybe documenting daily life there could lead to finding love. So on the night my roommate finished his Software Qualification Exam, I immediately urged him to post notes about finishing the exam and tag the school's location. As of June 2, 2024, his note has received 6 likes. I estimate most are from schoolmates, since Xiaohongshu's recommendation algorithm pushes content to user groups based on tagged locations.
 
@@ -91,7 +91,7 @@ An open-source AI-powered search engine supporting both local and cloud models.
 
 ![Ask HN: What is your ChatGPT customization prompt?](https://cdn.sa.net/2024/06/02/duJp21IsFXcNawb.webp)
 
-A HackerNews thread where users share their ChatGPT custom prompts. Worth learning from.
+A Hacker News thread where users share their ChatGPT custom prompts. Worth learning from.
 
 4. [Pin Subtitle](https://web.archive.org/web/20260310192509/http://www.pinzimu.com/) *(archived copy)*
 
@@ -107,19 +107,19 @@ A satirical cartoon site dedicated to VPS and proxy service providers who have "
 
 ## Quotes
 
-1.
+1\.
 
 ![Quote one](https://cdn.sa.net/2024/06/02/E1P7pC6o8cRJd5w.webp)
 
-2.
+2\.
 
 ![Quote two](https://cdn.sa.net/2024/06/02/lUK4ZQEfGb7e2Oo.webp)
 
-3.
+3\.
 
 ![Quote three](https://cdn.sa.net/2024/06/02/3CcIZQDPOf42H8z.webp)
 
-4.
+4\.
 
 ![Quote four](https://cdn.sa.net/2024/06/02/5UcpRMxEeOaLkWh.webp)
 

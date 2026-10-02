@@ -21,33 +21,66 @@ const schema = {
 
 // Force safe link attributes on every anchor. Runs BEFORE rehype-sanitize so the
 // sanitizer validates the final attribute values. (rehype-sanitize only strips —
-// it cannot add attributes — hence this dedicated plugin.)
+// it cannot add attributes — hence this dedicated plugin.) Same-page fragment
+// links (footnotes, headings, other comments) stay in the current tab.
 function hardenLinks() {
 	return (tree: Root) => {
 		visit(tree, 'element', (node: Element) => {
 			if (node.tagName === 'a') {
+				const isFragment = String(node.properties?.href ?? '').startsWith('#')
 				node.properties = {
 					...node.properties,
-					target: '_blank',
-					rel: 'nofollow noopener noreferrer',
+					target: isFragment ? undefined : '_blank',
+					rel: isFragment ? undefined : ['nofollow', 'noopener', 'noreferrer'],
 				}
 			}
 		})
 	}
 }
 
-const processor = unified()
-	.use(remarkParse)
-	.use(remarkGfm)
-	.use(remarkGemoji)
-	.use(remarkRehype, { allowDangerousHtml: true })
-	.use(rehypeRaw)
-	.use(hardenLinks)
-	.use(rehypeSanitize, schema)
-	.use(rehypeStringify)
+// remark-rehype emits footnote ids and hrefs unprefixed (clobberPrefix: ''), and
+// the sanitizer then prefixes the ids only. Point the generated footnote links
+// at those prefixed ids again.
+function prefixFootnoteLinks() {
+	const prefix = defaultSchema.clobberPrefix ?? 'user-content-'
+	return (tree: Root) => {
+		visit(tree, 'element', (node: Element) => {
+			const properties = node.properties ?? {}
+			if (
+				node.tagName === 'a' &&
+				(properties.dataFootnoteRef !== undefined ||
+					properties.dataFootnoteBackref !== undefined) &&
+				typeof properties.href === 'string' &&
+				properties.href.startsWith('#')
+			) {
+				properties.href = `#${prefix}${properties.href.slice(1)}`
+			}
+		})
+	}
+}
 
-export async function renderCommentHtml(markdown: string): Promise<string> {
-	const file = await processor.process(markdown || '')
+function createProcessor(clobberPrefix: string) {
+	return unified()
+		.use(remarkParse)
+		.use(remarkGfm)
+		.use(remarkGemoji)
+		.use(remarkRehype, { allowDangerousHtml: true, clobberPrefix })
+		.use(rehypeRaw)
+		.use(hardenLinks)
+		.use(rehypeSanitize, schema)
+		.use(prefixFootnoteLinks)
+		.use(rehypeStringify)
+}
+
+const processor = createProcessor('')
+
+/**
+ * Comments render on the post page below the article, whose footnotes use the
+ * same generated ids. `idPrefix` (e.g. `comment-12-`) keeps each comment's
+ * footnotes apart from the article's and from other comments'.
+ */
+export async function renderCommentHtml(markdown: string, idPrefix = ''): Promise<string> {
+	const file = await (idPrefix ? createProcessor(idPrefix) : processor).process(markdown || '')
 	return String(file)
 }
 
@@ -63,18 +96,14 @@ export function escapeHtml(input: string): string {
 	return input.replace(/[&<>"']/g, (ch) => HTML_ESCAPES[ch])
 }
 
-// Plain-text rendering for notification emails. Strips tags from the sanitized
-// HTML, then decodes the handful of entities Markdown introduces. Decode &amp;
-// LAST so already-decoded sequences are not re-decoded.
+// Plain-text rendering for notification emails. Collects the text nodes of the
+// sanitized tree, so attribute values never leak and every character
+// reference is already decoded.
 export async function commentToPlainText(markdown: string): Promise<string> {
-	const html = await renderCommentHtml(markdown)
-	return html
-		.replace(/<[^>]*>/g, ' ')
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>')
-		.replace(/&quot;/g, '"')
-		.replace(/&#39;/g, "'")
-		.replace(/&amp;/g, '&')
-		.replace(/\s+/g, ' ')
-		.trim()
+	const tree = (await processor.run(processor.parse(markdown || ''))) as Root
+	const parts: string[] = []
+	visit(tree, 'text', (node) => {
+		parts.push(node.value)
+	})
+	return parts.join(' ').replace(/\s+/g, ' ').trim()
 }

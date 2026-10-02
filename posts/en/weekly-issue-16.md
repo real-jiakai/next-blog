@@ -33,7 +33,7 @@ From netizens' comments, combined with the employment situations of classmates a
 
 In my dormitory building (3 dorms total), only two people landed Java development positions, and one of them chose to pursue a part-time master's at a non-985/211 university instead.
 
-Among my roommates, only 2 found jobs. Dorm situation: 2 passed exams (graduate school or civil service), 2 employed, 2 still job hunting. The 2 employed roommates relied on connections to find internship positions, not their own skills and abilities. This seems sad to me—four years of college essentially learned nothing, starting from scratch.
+Among my roommates, only 2 found jobs. Dorm situation: 2 passed exams (graduate school or civil service), 2 employed, 2 still job hunting. The 2 employed roommates relied on connections to find internship positions, not their own skills and abilities. This seems sad to me—it's as if they learned nothing in four years of college and are starting from scratch.
 
 The above is the employment situation of classmates around me. Combined with some interesting comments I've seen from netizens recently, it's not hard to conclude that the reasons why college graduates struggle to find jobs include:
 

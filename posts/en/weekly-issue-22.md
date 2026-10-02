@@ -13,7 +13,7 @@ audio:
   cover: "https://cdn.sa.net/2025/01/27/wiRLnCyz4khHMbs.webp"
 ---
 
-An insert song from the TV drama "A Thousand Peach Blossoms Bloom in One Lifetime." Huang Ling's enchanting vocal inflections, paired with the drama's story, make for an enjoyable experience.
+An insert song from the TV drama "The Blossoming Love" (千朵桃花一世开). Huang Ling's enchanting vocal inflections, paired with the drama's story, make for an enjoyable experience.
 
 ## Cover Image
 
@@ -29,7 +29,7 @@ An influencer president, quite interesting. The next 4 years will have lots of e
 
 ![Grok-generated Trump Flash](https://cdn.sa.net/2025/01/27/7ANltvcKYfhuPJz.webp)
 
-Trump and his wife each issued their own cryptocurrency during his inauguration—the scalping operation is amusing.
+Trump and his wife each issued their own cryptocurrency during his inauguration—the way they fleeced retail investors is hilarious.
 
 At the inauguration ceremony, there were many interesting memes too, like Zuckerberg side-eyeing Bezos's wife's curves.
 
@@ -47,7 +47,7 @@ Although he'll definitely suppress China's development, putting politics aside, 
 
 The White House website has a big Trump logo—truly amazing!
 
-Looking forward to more entertaining content from Trump over the next 4 years. After the basic move of leaving groups, bring on more fun.
+Looking forward to more entertaining content from Trump over the next 4 years. After his signature move of pulling out of international organizations and agreements, bring on more fun.
 
 ## Interesting
 

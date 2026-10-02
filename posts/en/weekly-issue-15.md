@@ -38,7 +38,7 @@ I first encountered this view in a domestic blogger's post—I can't remember ex
 
 Thinking about your learning notes being published online, you'll definitely take them more seriously because you want to leave a good impression on others. The act of publishing notes indirectly promotes deep learning of a certain field of knowledge.
 
-I once starred a GitHub repository called [til](https://github.com/jbranchaud/til), but didn't look into it at the time. The repository author Josh Branchaud [posted](https://news.ycombinator.com/item?id=22908044) this repository on HackerNews. This post inspired Simon Willison, co-creator of the Django framework, so he also created a personal repository to record his learning notes and converted the repository into a [website](https://til.simonwillison.net/). Tonight (February 21, 2023), while organizing my old personal links, I visited Washington Post journalist Kevin Schaul's personal blog. I found that his blog theme is the same as mine—both using the hugo-ivy theme. The "Today I Learned" column caught my attention. This column records the blogger's past learning notes, and he created this column influenced by Simon Willison.
+I once starred a GitHub repository called [til](https://github.com/jbranchaud/til), but didn't look into it at the time. The repository author Josh Branchaud [posted](https://news.ycombinator.com/item?id=22908044) this repository on Hacker News. This post inspired Simon Willison, co-creator of the Django framework, so he also created a personal repository to record his learning notes and converted the repository into a [website](https://til.simonwillison.net/). Tonight (February 21, 2023), while organizing my old personal links, I visited Washington Post journalist Kevin Schaul's personal blog. I found that his blog theme is the same as mine—both using the hugo-ivy theme. The "Today I Learned" column caught my attention. This column records the blogger's past learning notes, and he created this column influenced by Simon Willison.
 
 So I also created this column on my personal blog to record my learning notes, make the learning process public, and hopefully achieve the best learning results.
 
@@ -162,7 +162,7 @@ Because we're lonely, we need more friends or sympathetic audiences—those who 
 
 -- Actor Zhang Songwen
 
-After listening to interviews with Zhang Songwen, who plays Gao Qiqiang in "The Wild Bunch," I felt deeply moved. Jackson Yee, who's my age, is already worth hundreds of millions, but his acting skills are limited; while truly talented actors are being squeezed dry.
+After listening to interviews with Zhang Songwen, who plays Gao Qiqiang in "The Knockout," I felt deeply moved. Jackson Yee, who's my age, is already worth hundreds of millions, but his acting skills are limited; while truly talented actors are being squeezed dry.
 
 Opportunity is important. If Zhang Songwen hadn't been discovered by director Xu Jizhou to play Gao Qiqiang, he would still be one of countless anonymous actors. But at the same time, it reveals the distorted state of the film industry. To attract more audiences, directors hire traffic celebrities to make their fans pay for tickets. Is this really beneficial for Chinese cinema? If the hired traffic celebrities have acting skills, definitely yes; but if their acting is subpar, definitely not. What Chinese cinema needs is good works and talented actors.
 

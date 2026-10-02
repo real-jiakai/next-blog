@@ -71,18 +71,28 @@ describe('Supabase server client', () => {
 
 	it.each([
 		'http://project.supabase.co',
-		'ftp://localhost/project',
-		'javascript://localhost/project',
-		'https://project.supabase.co@evil.example',
-		'https://project.supabase.co/rest',
-		'https://project.supabase.co?redirect=evil.example',
-		'https://project.supabase.co#fragment',
-	])('rejects an unsafe Supabase URL: %s', async (url) => {
+		'ftp://localhost',
+		'javascript://localhost',
+	])('rejects a non-HTTPS Supabase scheme: %s', async (url) => {
 		process.env.SUPABASE_URL = url
 		process.env.SUPABASE_SECRET_KEY = 'server-secret'
 		const { getSupabaseServerClient } = await import('@/lib/supabase')
 
-		expect(() => getSupabaseServerClient()).toThrow(/HTTP\(S\) origin|HTTPS/)
+		expect(() => getSupabaseServerClient()).toThrow(/must use HTTPS/)
+		expect(createClient).not.toHaveBeenCalled()
+	})
+
+	it.each([
+		'https://project.supabase.co@evil.example',
+		'https://project.supabase.co/rest',
+		'https://project.supabase.co?redirect=evil.example',
+		'https://project.supabase.co#fragment',
+	])('rejects a Supabase URL that is not a bare origin: %s', async (url) => {
+		process.env.SUPABASE_URL = url
+		process.env.SUPABASE_SECRET_KEY = 'server-secret'
+		const { getSupabaseServerClient } = await import('@/lib/supabase')
+
+		expect(() => getSupabaseServerClient()).toThrow(/HTTP\(S\) origin/)
 		expect(createClient).not.toHaveBeenCalled()
 	})
 })

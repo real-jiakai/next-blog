@@ -16,11 +16,11 @@ The performance by Huang Qishan and Curley G on the Spring Festival Gala stage p
 
 ## Cover Image
 
-![Alashankou Border Defense Company's National Gate Observatory on New Year's Eve in Xinjiang](https://vip2.loli.net/2023/01/25/RUlQhg1AFNP9yLv.webp)
+![Alashankou Border Defense Company's National Gate Observatory on Lunar New Year's Eve in Xinjiang](https://vip2.loli.net/2023/01/25/RUlQhg1AFNP9yLv.webp)
 
 Image source: People's Daily Bilibili live broadcast
 
-On New Year's Eve, during this moment of family reunion, border soldiers guard China's western gateway in the cold wind. Salute!
+On Lunar New Year's Eve, during this moment of family reunion, border soldiers guard China's western gateway in the cold wind. Salute!
 
 Attached: [Location of Alashankou in Xinjiang, China](https://maps.baidu.com/search/%E9%98%BF%E6%8B%89%E5%B1%B1%E5%8F%A3%E5%B8%82/@12296363.029602338,3946343.1349892803,5.16z?querytype=s&da_src=shareurl&wd=%E9%98%BF%E6%8B%89%E5%B1%B1%E5%8F%A3%E5%B8%82&c=1&src=0&pn=0&sug=0&l=5&b=(734123.3037004266,3831962.189197766;12265633.236013407,9603723.15011067)&from=webmap&biz_forward=%7B%22scaler%22:1,%22styles%22:%22pl%22%7D&device_ratio=1).
 
@@ -76,7 +76,7 @@ You can say the internet has memory, but don't forget its fragility. Remember to
 
 ![English prepositions GIF demonstration](https://vip2.loli.net/2023/01/25/sbAFjlmHqXU4ZRY.gif)
 
-3. On January 26, 2023, NBA Warriors home game against the Grizzlies, Curry was ejected for throwing his mouthguard.
+3. On January 26, 2023, in the Warriors' home game against the Grizzlies, Curry was ejected for throwing his mouthguard.
 
 ![Curry ejected for throwing his mouthguard](/gif/2023-01-26-curry-throws-his-mouthpiece.gif)
 
@@ -140,11 +140,11 @@ This website demonstrates the current state of contemporary internet experience.
 
 In China, the internet experience generally happens on mobile. But mobile is the same—splash ads, app pop-ups... Although there are ways to block them, these profit-driven nuisances seriously impact user experience.
 
-Recently, I saw a post on HackerNews "thanking HackerNews for being ad-free, etc." A comment there made me laugh.
+Recently, I saw a post on Hacker News "thanking Hacker News for being ad-free, etc." A comment there made me laugh.
 
-![HackerNews user comment](https://vip2.loli.net/2023/01/25/M1rIkOblGxysCqv.webp)
+![Hacker News user comment](https://vip2.loli.net/2023/01/25/M1rIkOblGxysCqv.webp)
 
-> Ironically, so many professionals come to HackerNews to breathe fresh air, after which they go back to building the user experience they originally fled from. -- [HackerNews user comment](https://news.ycombinator.com/item?id=34505635)
+> Ironically, so many professionals come to Hacker News to breathe fresh air, after which they go back to building the user experience they originally fled from. -- [Hacker News user comment](https://news.ycombinator.com/item?id=34505635)
 
 Commenters replying to this note that developers don't have a say in user experience. Indeed, those who truly define user experience are bosses and capital. Programmers work for bosses to feed their families. Facing things they dislike that are added for users, they can only add them according to the boss's wishes.
 
@@ -177,11 +177,11 @@ These two foreign websites allow you to watch NBA live streams for free. Achieve
 
 3. Basically, if we want to return the internet to users' hands, we need to decouple "services" from "storage." Companies should not be allowed to hold user data hostage.
 
--- [HackerNews reader](https://news.ycombinator.com/item?id=32687972)
+-- [Hacker News reader](https://news.ycombinator.com/item?id=32687972)
 
 ![Quote three](https://vip2.loli.net/2023/01/21/CLP4Iq1r9bREMVa.webp)
 
-4. But I appreciate Jason Werner's (former GitHub CTO) view more. He believes AI will replace developers' jobs the same way C and JavaScript "replaced" early developers writing assembly code. They didn't really replace those developers—they just introduced another layer of abstraction and automation, fundamentally changing how they program and interact with computers.
+4. But I appreciate Jason Warner's (former GitHub CTO) view more. He believes AI will replace developers' jobs the same way C and JavaScript "replaced" early developers writing assembly code. They didn't really replace those developers—they just introduced another layer of abstraction and automation, fundamentally changing how they program and interact with computers.
 
 -- [Bytes](https://bytes.dev/archives/143)
 

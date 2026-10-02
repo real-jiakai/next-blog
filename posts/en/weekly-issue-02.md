@@ -19,7 +19,7 @@ A few days ago, I came across a Zhihu topic recommended by other bloggers: [Is t
 
 After reading others' responses, I deeply resonated with them. Especially as a computer science student like me, when I encounter problems and ask search engines, the results are often filled with unbearable garbage. Sites like "Programmer Baby" and "Programmer Base" that scrape content are truly disgusting.
 
-Take an article I published on Blog Garden about [Gitee image hosting being banned](http://www.manongjc.com/detail/29-zexdztdpcwouzfc.html) [the original has been completely deleted; you can see the scraper site's backup] – I was one of the first bloggers to publish related articles. The day after I posted it, when I searched for my article on various search engines, I found that scraper sites had already collected my article 😅.
+Take an article I published on Cnblogs about [Gitee image hosting being banned](http://www.manongjc.com/detail/29-zexdztdpcwouzfc.html) [the original has been completely deleted; you can see the scraper site's backup] – I was one of the first bloggers to publish related articles. The day after I posted it, when I searched for my article on various search engines, I found that scraper sites had already collected my article 😅.
 
 These scraper sites aggregate all kinds of blog posts, but this type of aggregation is meaningless. To put it bluntly, it's just a garbage site collecting garbage.
 

@@ -31,7 +31,7 @@ Below are my initial review notes [Note: GPT AVM (Advanced Voice Mode) can read 
 
 ![GPT AVM Review Notes](https://cdn.sa.net/2024/09/30/rAixHSJmGoVD5fP.webp)
 
-Overall, this didn't meet my expectations, after all, OpenAI's spring launch earlier this year showed such an incredible demo. Four months later, what we got was a castrated version with the video call feature removed.
+Overall, this didn't meet my expectations. After all, OpenAI's spring launch earlier this year showed such an incredible demo. Four months later, what we got was a castrated version with the video call feature removed.
 
 I got access to the domestic ChatGLM video call feature in early September. After trying it, I felt it was just okay—ChatGLM's voice has too strong a machine translation feel. Although GPT AVM can respond with emotion, it still feels lacking somehow.
 
@@ -69,7 +69,7 @@ This is a website called "Time Flies" that displays the current time in a unique
 
 ![Your Name In Landsat](https://cdn.sa.net/2024/10/01/XPrYw4acM9QUKHI.webp)
 
-This is NASA's "Your Name In Landsat" application. It combines user's names with Landsat satellite images to generate personalized Earth image displays. Users can enter their name, and the website automatically creates a personalized logo with a Landsat satellite Earth image background displaying the user's name.
+This is NASA's "Your Name In Landsat" application. It combines users' names with Landsat satellite images to generate personalized Earth image displays. Users can enter their name, and the website automatically creates a personalized logo with a Landsat satellite Earth image background displaying the user's name.
 
 ## Link Sharing
 
@@ -97,9 +97,9 @@ This plugin aims to enhance Bilibili users' viewing experience by skipping unnec
 
 SponsorBlock is an open-source browser extension primarily used to skip sponsored content in YouTube videos.
 
-5. [Github Profile Generator](https://www.github-profile-generator.in/)
+5. [GitHub Profile Generator](https://www.github-profile-generator.in/)
 
-![Github Profile Generator](https://cdn.sa.net/2024/10/01/OafYl1ACWDseU78.webp)
+![GitHub Profile Generator](https://cdn.sa.net/2024/10/01/OafYl1ACWDseU78.webp)
 
 This is a website called "GitHub Profile Generator," specifically for helping users create and customize personalized GitHub profile pages.
 
@@ -111,7 +111,7 @@ Previously, a college roommate asked me how to generate a cool GitHub Profile li
 
 ![Quote one](https://cdn.sa.net/2024/09/30/pSi4vCa6EeODcWA.webp)
 
-2. When autumn comes on the ninth day of the ninth month, after my flowers bloom, all others die. —Huang Chao
+2. When autumn comes on the eighth day of the ninth month, after my flowers bloom, all others die. —Huang Chao
 
 3. Data determines the upper limit of models; algorithms determine the lower limit.
 

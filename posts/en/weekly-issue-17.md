@@ -29,7 +29,7 @@ My first contact with VPS was at the end of 2021. It was near Double Eleven (Sin
 
 ![BandwagonHost VPS plans, with the entry-level 20 GB annual plan highlighted](https://cdn.sa.net/2024/03/30/bkXTeWVPUtOarpR.webp)
 
-This situation continued until late January/early February 2023, when I was still using an airport (proxy service). I only had 3 VPS: 1 was Bandwagon's homepage sucker deal [thinking it was premium routing], and the other two were Alibaba Cloud and Tencent Cloud student machines in China.
+This situation continued until late January/early February 2023, when I was still using an airport (proxy service). I only had 3 VPS: 1 was Bandwagon's homepage sucker deal, and the other two were Alibaba Cloud and Tencent Cloud student machines in China.
 
 The reason I didn't self-host nodes was because I bought Bandwagon's sucker deal [thinking it was premium routing], and following YouTube tutorials to set up nodes, the results were poor.
 

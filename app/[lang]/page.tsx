@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import { Locale, getLocalePath } from '@/lib/i18n-config'
+import { Locale, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
+import { getSiteOpenGraph } from '@/lib/metadata'
 import { getSortedPostsData } from '@/lib/posts'
 import Layout from '@/components/Layout'
 import PostCard, { listMinHeight } from '@/components/PostCard'
@@ -17,15 +18,12 @@ export async function generateMetadata({
 		title: process.env.NEXT_PUBLIC_SITE_TITLE,
 		alternates: {
 			canonical: getLocalePath(lang),
-			languages: {
-				'zh-CN': getLocalePath('zh'),
-				'en-US': getLocalePath('en'),
-				'x-default': getLocalePath('zh'),
-			},
+			languages: getLanguageAlternates(),
 			types: {
 				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
 			},
 		},
+		openGraph: getSiteOpenGraph(lang, ''),
 	}
 }
 
@@ -36,6 +34,7 @@ export default async function Home({
 }) {
 	const { lang } = await params
 	const dict = await getDictionary(lang)
+	const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE || 'Blog'
 	const allPostsData = getSortedPostsData(lang)
 	const postsPerPage = getPostsPerPage()
 	const totalPages = Math.ceil(allPostsData.length / postsPerPage)
@@ -49,6 +48,7 @@ export default async function Home({
 		return (
 			<Layout lang={lang} dict={dict}>
 				<section className="max-w-4xl mx-auto px-4 md:px-6">
+					<h1 className="sr-only">{siteTitle}</h1>
 					<div className="min-h-[calc(100vh-12rem)] flex flex-col items-center justify-center">
 						<p className="text-gray-600 dark:text-gray-300 text-lg">
 							{dict.common.NoPostsAvailable || 'No posts available in this language yet.'}
@@ -65,6 +65,7 @@ export default async function Home({
 			    among the cards, so the page reaches the footer at any screen size
 			    and the pagination always follows the last card. */}
 			<section className="max-w-4xl mx-auto flex w-full flex-1 flex-col px-4 md:px-6">
+				<h1 className="sr-only">{siteTitle}</h1>
 				{/* The list always takes the leftover height, which keeps the
 				    pagination at the same place on every page. Only a full list
 				    passes that height on to its cards; a short one holds it as
@@ -89,6 +90,8 @@ export default async function Home({
 						totalPages={totalPages}
 						previousLabel={dict.common.PreviousPage}
 						nextLabel={dict.common.NextPage}
+						navLabel={dict.common.Pagination}
+						pageLabel={dict.common.PageN}
 					/>
 				</div>
 			</section>

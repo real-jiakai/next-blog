@@ -7,13 +7,13 @@ summary: "This week's topic: Standing at the crossroads of campus and society"
 draft: false
 showtoc: true
 audio:
-  name: "暴风少年"
-  artist: "张杰"
+  name: "Storm Boy"
+  artist: "Jason Zhang"
   url: "https://music.gujiakai.top/2026/stormboy.mp3"
   cover: "https://cdn.sa.net/2026/01/23/hTAioExKGjUvPbN.webp"
 ---
 
-The theme song for the game "Erta Saga: Future" by Zhang Jie. His signature high-pitched voice has incredible penetrating power, and the progressively building chorus melody paired with passionate rock arrangement instantly ignites the listener's fighting spirit. Fourteen years ago, "Contra Online" accompanied countless players through their formative years, and now this "Storm Boy" reawakens those memories of fighting side by side, allowing people to rediscover the passion and courage of their youth through the familiar melody.
+The theme song for the game "Nizhan: Future" (逆战：未来) by Jason Zhang. His signature high-pitched voice has incredible penetrating power, and the progressively building chorus melody paired with passionate rock arrangement instantly ignites the listener's fighting spirit. Fourteen years ago, "Nizhan" (逆战) accompanied countless players through their formative years, and now this "Storm Boy" reawakens those memories of fighting side by side, allowing people to rediscover the passion and courage of their youth through the familiar melody.
 
 ## Cover Image
 
@@ -31,7 +31,7 @@ Graduate life has been relatively comfortable for me because my advisor doesn't 
 
 ![Google Scholar Homepage](https://cdn.sa.net/2026/01/23/YQzR69UZfjqOECM.webp)
 
-Pursuing a master's degree at a non-prestigious university (双非) gave me feelings exactly as described online: "A master's at a non-prestigious school = a suspended death sentence." Advisors want you to keep writing papers with them as the first author, but the reality is that my advisor does nothing—no funding, no effort, doesn't even read the papers. It was always Teacher Pei who guided my papers. In his eyes, you're just a tool for his promotion, requiring you to continuously produce papers. Even after meeting graduation requirements, he still wants you to write papers; even after your thesis passes the pre-defense, he wants you to write software copyrights. Thankfully, with the help of AI like Claude and Gemini—I remember near the end of my second year, seeing my fast progress, my advisor asked me to write a review article. It was later accepted by a Chinese core journal supplement, but he asked me to withdraw it and resubmit elsewhere (the school doesn't recognize supplements for promotion evaluation 🤪). I've become indifferent to this review article currently under review—I'll procrastinate as much as possible. Besides, review articles become outdated quickly, and this one already has.
+Pursuing a master's degree at a non-prestigious university (双非) gave me feelings exactly as described online: "A master's at a non-prestigious school = a suspended death sentence." Advisors want you to keep writing papers with them as the first author, but the reality is that my advisor does nothing—no funding, no effort, doesn't even read the papers. It was always Teacher Pei who guided my papers. In my advisor's eyes, you're just a tool for his promotion, requiring you to continuously produce papers. Even after meeting graduation requirements, he still wants you to write papers; even after your thesis passes the pre-defense, he wants you to write software copyrights. Thankfully, I had AI like Claude and Gemini to help. I remember that near the end of my second year, seeing my fast progress, my advisor asked me to write a review article. It was later accepted by a Chinese core journal supplement, but he asked me to withdraw it and resubmit elsewhere (the school doesn't recognize supplements for promotion evaluation 🤪). I've become indifferent to this review article currently under review—I'll procrastinate as much as possible. Besides, review articles become outdated quickly, and this one already has.
 
 Meanwhile, university faculty are like hungry wolves wanting to add their names to your papers for their own promotions. I remember near the end of my second year's spring semester, Teacher Pei told me that a lecturer from the Graduate School wanted to add their name to an accepted paper. What could I do? Just add it—it was a low-tier paper anyway. The absurdity of it all.
 
@@ -51,11 +51,11 @@ I was fortunate to reach the interview stage for the national civil service exam
 
 Standing at the crossroads of campus and society, I have confusion and worry, but time always pushes people forward. Keep running, be a storm boy—even knowing the sandstorm is coming, still choose to walk forward holding flowers.
 
-## Interesting Finds
+## Interesting
 
 I haven't organized my bookmarks for a long time. I used Karakeep before, but its user experience falls short of Raindrop. After browsing for most of the day, I couldn't find any interesting content, so I won't list anything this issue.
 
-## Link Shares
+## Link Sharing
 
 1. [ChatGPT Translate](https://chatgpt.com/translate/)
 

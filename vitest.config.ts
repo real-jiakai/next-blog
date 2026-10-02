@@ -8,7 +8,7 @@ export default defineConfig({
 		alias: { '@': import.meta.dirname },
 	},
 	test: {
-		include: ['**/*.test.{ts,tsx,mjs}'],
+		include: ['tests/**/*.test.{ts,tsx,mjs}'],
 		environment: 'node',
 	},
 })

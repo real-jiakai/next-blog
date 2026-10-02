@@ -23,11 +23,11 @@ In 2024, at the "Forging a Strong Sense of Community for the Chinese Nation" the
 
 ## Topic: The Dilemma of Pursuing a Master's at a Non-Elite University
 
-As a graduate student who sees graduate school as a way to delay employment pressure, these past few months have completely shown me the predicament I might face in future employment. The destinations of third-year graduate students are good references for first-year students.
+As a graduate student who sees graduate school as a way to delay employment pressure, I have come to see clearly over these past few months the predicament I might face in future employment. The destinations of third-year graduate students are good references for first-year students.
 
 A third-year senior sister published a quality paper in the Chinese Journal of Computers during her studies, becoming the only candidate with a chance to pursue a PhD. The other seniors, after completing their theses, all returned home to find jobs. Generally, they consider public sector positions. Their employment direction has no intersection with the natural language processing they studied.
 
-This inevitably makes one question the meaning and value of NLP graduate studies, because my institution's NLP research focuses on niche ASEAN minority languages. The lack of corpora + lack of GPU equipment + no market demand for employment inevitably leads to the awkward position of being neither here nor there—quite a waste of time.
+This inevitably makes one question the meaning and value of NLP graduate studies, because my institution's NLP research focuses on niche, less commonly studied ASEAN languages. The lack of corpora + lack of GPU equipment + no market demand for employment inevitably leads to the awkward position of being neither here nor there—quite a waste of time.
 
 Generally, computer-related majors consider development positions after graduation. But if you completely abandon development learning during graduate school and don't intern much, development positions are mostly out of reach. This situation is very common among graduate students at my institution.
 
@@ -75,7 +75,7 @@ Microsoft Graveyard, a project similar to Killed by Google, documenting products
 
 2. [SuperTechFans](https://www.supertechfans.com/cn/)
 
-Daily digest of HackerNews. Helps you stay updated on daily tech news.
+Daily digest of Hacker News. Helps you stay updated on daily tech news.
 
 ![SuperTechFans](https://cdn.sa.net/2024/05/05/HJ4suL6EtWezdaR.webp)
 
@@ -99,15 +99,13 @@ After seeing the product launch in March, I got permanent free summarization. He
 
 1. [Advice for Recent College Graduates](https://www.v2ex.com/t/1032690)
 
-```bash
-1. Play more, experience more, date more—don't have stupid ideas like "wait until I meet xxx conditions before dating or doing something"
-2. When you meet someone you like and are compatible with, cherish them
-3. Having regrets is normal—don't dwell on them or care too much
-4. Society will rank people, but always know that you yourself are the coolest person in the world—no one can define you
-5. If your financial situation isn't great, save appropriately and keep some emergency funds
-6. Eat on time and take care of your health
-7. Don't take seniors' advice too seriously—listen to yourself more
-```
+> 1. Play more, experience more, date more—don't have stupid ideas like "wait until I meet xxx conditions before dating or doing something"
+> 2. When you meet someone you like and are compatible with, cherish them
+> 3. Having regrets is normal—don't dwell on them or care too much
+> 4. Society will rank people, but always know that you yourself are the coolest person in the world—no one can define you
+> 5. If your financial situation isn't great, save appropriately and keep some emergency funds
+> 6. Eat on time and take care of your health
+> 7. Don't take seniors' advice too seriously—listen to yourself more
 
 2. I study hard to reduce the luck needed on the road to success. [via](https://twitter.com/real_jiakai/status/1775357712026759261)
 

@@ -39,13 +39,11 @@ let cachedClient: CommentDatabaseClient | undefined
 let cachedConfiguration: string | undefined
 
 /**
- * Required one-time Supabase migration (run in the SQL editor before deploying
- * these routes):
- *
- *   alter table public.comments
- *     add column if not exists email_verified_at timestamptz;
- *   revoke all privileges on table public.comments from anon, authenticated;
- *   revoke all privileges on table public.comment_emails from anon, authenticated;
+ * Apply supabase/migrations/202607100001_secure_comments.sql (see AGENTS.md and
+ * CONTRIBUTING.md) before deploying these routes. It revokes every browser-role
+ * (public/anon/authenticated) privilege on public.comments, its id sequence and
+ * the legacy public.comment_emails view, enables RLS, and grants only
+ * service_role.
  *
  * The server secret uses Supabase's `service_role`, which retains access and
  * bypasses RLS. After verifying no other code consumes it, the obsolete

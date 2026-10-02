@@ -24,18 +24,21 @@ interface DynamicAPlayerProps {
 	audio: AudioData
 	loadingLabel: string
 	fallbackLabel: string
+	playLabel: string
 }
 
 export default function DynamicAPlayer({
 	audio,
 	loadingLabel,
 	fallbackLabel,
+	playLabel,
 }: DynamicAPlayerProps) {
 	return (
 		<APlayer
 			audio={audio}
 			loadingLabel={loadingLabel}
 			fallbackLabel={fallbackLabel}
+			playLabel={playLabel}
 		/>
 	)
 }

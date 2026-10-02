@@ -25,7 +25,7 @@ How can we avoid being trapped in a filter bubble?
 
 - Actively train the recommendation algorithm
 
-We can use the characteristics of recommendation algorithms to our advantage by browsing videos from different fields that interest us. This way, when the algorithm makes recommendations, it has more options to choose from. Actively training the recommendation algorithm requires you to change your self-positioning. Although the algorithm recommends information to you passively, this recommendation is based on your active training, making your acceptance pseudo-passive.
+We can use the characteristics of recommendation algorithms to our advantage by browsing videos from different fields that interest us. This way, when the algorithm makes recommendations, it has more options to choose from. Actively training the recommendation algorithm requires you to change your self-positioning. Although the algorithm pushes information to you and you receive it passively, those recommendations are the result of your active training, making your acceptance pseudo-passive.
 
 - Actively seek information
 

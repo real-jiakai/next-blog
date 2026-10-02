@@ -24,6 +24,7 @@ The maintainer will acknowledge the report, investigate it, and coordinate discl
   secrets are configured. `COMMENT_API_ENABLED=false` remains an explicit
   runtime kill switch even when the UI was built in.
 - Trust only the client-IP header that the loopback reverse proxy overwrites;
-  set `COMMENT_CLIENT_IP_HEADER` to that exact header name.
+  set `COMMENT_CLIENT_IP_HEADER` to that header, which must be one of
+  `x-forwarded-for`, `cf-connecting-ip`, or `x-real-ip`.
 - Keep production dependencies and base images updated.
 - Run `pnpm audit` and the repository's CI checks regularly.

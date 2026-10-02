@@ -23,14 +23,16 @@ function splitIssueNumber(title: string): { text: string; issue: string | null }
 }
 
 /**
- * A floor for the post list: the height a full page of cards occupies at their
- * natural size. On a screen too short for the list to have any leftover height,
+ * A floor for the post list: the height a full page of single-line cards
+ * occupies. On a screen too short for the list to have any leftover height,
  * `flex-1` alone would let a short page's list shrink and the pagination ride
  * up; this keeps it level with every other page. `0.75rem` is the list's gap.
+ * `--post-list-floor` switches it off on phones, where cards wrap to uneven
+ * heights (see globals.css).
  */
 export function listMinHeight(count: number) {
 	return {
-		minHeight: `calc(${count} * var(--post-card-height) + ${count - 1} * 0.75rem)`,
+		minHeight: `calc(var(--post-list-floor) * (${count} * var(--post-card-height) + ${count - 1} * 0.75rem))`,
 	}
 }
 
@@ -44,8 +46,10 @@ export default function PostCard({ lang, post }: PostCardProps) {
 		// The card sizes to its content. A full list opts its cards into sharing
 		// out the viewport's leftover height (see the list's `[&>article]` rule),
 		// capped by --post-card-max; a short list leaves them alone rather than
-		// stretching three posts into empty slabs.
-		<article className="group relative flex min-h-(--post-card-height) max-h-(--post-card-max) flex-col justify-center overflow-hidden rounded-xl border border-site-line bg-site-surface px-4 py-4 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition-colors duration-200 active:bg-site-surface-muted focus-within:ring-2 focus-within:ring-blue-500/50 md:justify-between md:rounded-lg md:px-0 md:py-0 md:shadow-none md:hover:bg-site-surface-muted">
+		// stretching three posts into empty slabs. The cap limits only that
+		// growth: `min-h-min` outranks it, so a card whose title wraps is never
+		// clipped.
+		<article className="group relative flex h-(--post-card-height) min-h-min max-h-(--post-card-max) flex-col justify-center overflow-hidden rounded-xl border border-site-line bg-site-surface px-4 py-4 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition-colors duration-200 active:bg-site-surface-muted has-focus-visible:ring-2 has-focus-visible:ring-blue-600 dark:has-focus-visible:ring-blue-400 md:justify-between md:rounded-lg md:px-0 md:py-0 md:shadow-none md:hover:bg-site-surface-muted">
 			<span
 				aria-hidden
 				className="absolute inset-y-4 left-0 w-0.5 rounded-full bg-blue-500/70 transition-colors group-hover:bg-blue-600 md:hidden"
@@ -60,7 +64,7 @@ export default function PostCard({ lang, post }: PostCardProps) {
 					{issue && (
 						<span
 							aria-hidden
-							className="rounded-md bg-site-surface-muted px-2 py-0.5 font-mono text-[0.75rem] font-medium tracking-wider text-blue-600 dark:text-blue-400 md:hidden"
+							className="rounded-md bg-site-surface-muted px-2 py-0.5 font-mono text-[0.75rem] font-medium tracking-wider text-blue-700 dark:text-blue-400 md:hidden"
 						>
 							No. {issue}
 						</span>
@@ -70,7 +74,7 @@ export default function PostCard({ lang, post }: PostCardProps) {
 					<Link
 						href={href}
 						aria-label={title}
-						className="after:absolute after:inset-0 focus-visible:outline-none"
+						className="after:absolute after:inset-0 focus-visible:outline-hidden"
 					>
 						{displayTitle}
 					</Link>

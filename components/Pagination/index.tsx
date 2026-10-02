@@ -7,6 +7,9 @@ interface PaginationProps {
 	totalPages: number
 	previousLabel: string
 	nextLabel: string
+	navLabel: string
+	// Accessible name of a page link, with `{n}` standing for its number.
+	pageLabel: string
 }
 
 type PaginationItem = number | `ellipsis-${number}`
@@ -48,6 +51,8 @@ export default function Pagination({
 	totalPages,
 	previousLabel,
 	nextLabel,
+	navLabel,
+	pageLabel,
 }: PaginationProps) {
 	const hasPreviousPage = currentPage > 1
 	const hasNextPage = currentPage < totalPages
@@ -59,7 +64,7 @@ export default function Pagination({
 		// the layout's own bottom padding supplies the matching space below;
 		// padding both sides would make the lower gap twice the upper one.
 		<nav
-			aria-label={lang === 'zh' ? '分页' : 'Pagination'}
+			aria-label={navLabel}
 			className="mx-auto w-full pt-4"
 		>
 			<div className="mx-auto grid w-full max-w-sm grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-sm md:hidden">
@@ -67,7 +72,7 @@ export default function Pagination({
 					<Link
 						rel="prev"
 						href={getPageHref(lang, currentPage - 1)}
-						className="col-start-1 row-start-1 inline-flex min-h-11 w-full max-w-32 items-center justify-center justify-self-end gap-1.5 whitespace-nowrap rounded-full border border-site-line bg-site-surface px-2 text-xs font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 sm:max-w-36 sm:px-4 sm:text-sm"
+						className="col-start-1 row-start-1 inline-flex min-h-11 w-full max-w-32 items-center justify-center justify-self-end gap-1.5 whitespace-nowrap rounded-full border border-site-line bg-site-surface px-2 text-xs font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-400 sm:max-w-36 sm:px-4 sm:text-sm"
 					>
 						<span aria-hidden>←</span>
 						{previousLabel}
@@ -83,7 +88,7 @@ export default function Pagination({
 					<Link
 						rel="next"
 						href={getPageHref(lang, currentPage + 1)}
-						className="col-start-3 row-start-1 inline-flex min-h-11 w-full max-w-32 items-center justify-center justify-self-start gap-1.5 whitespace-nowrap rounded-full border border-site-line bg-site-surface px-2 text-xs font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 sm:max-w-36 sm:px-4 sm:text-sm"
+						className="col-start-3 row-start-1 inline-flex min-h-11 w-full max-w-32 items-center justify-center justify-self-start gap-1.5 whitespace-nowrap rounded-full border border-site-line bg-site-surface px-2 text-xs font-medium text-site-heading shadow-sm transition-colors hover:bg-site-surface-muted focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-400 sm:max-w-36 sm:px-4 sm:text-sm"
 					>
 						{nextLabel}
 						<span aria-hidden>→</span>
@@ -97,7 +102,7 @@ export default function Pagination({
 						rel="prev"
 						href={getPageHref(lang, currentPage - 1)}
 						aria-label={previousLabel}
-						className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+						className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-400 dark:hover:text-blue-400"
 					>
 						<span aria-hidden>←</span>
 					</Link>
@@ -109,7 +114,7 @@ export default function Pagination({
 							<span
 								key={item}
 								aria-current="page"
-								className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg bg-site-surface-muted px-2 font-mono text-sm font-semibold text-blue-600 md:dark:text-blue-400"
+								className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg bg-site-surface-muted px-2 font-mono text-sm font-semibold text-blue-700 md:dark:text-blue-400"
 							>
 								{item}
 							</span>
@@ -117,8 +122,8 @@ export default function Pagination({
 							<Link
 								key={item}
 								href={getPageHref(lang, item)}
-								aria-label={lang === 'zh' ? `第 ${item} 页` : `Page ${item}`}
-								className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 font-mono text-sm text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+								aria-label={pageLabel.replace('{n}', String(item))}
+								className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 font-mono text-sm text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-400 dark:hover:text-blue-400"
 							>
 								{item}
 							</Link>
@@ -135,7 +140,7 @@ export default function Pagination({
 						rel="next"
 						href={getPageHref(lang, currentPage + 1)}
 						aria-label={nextLabel}
-						className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:hover:text-blue-400"
+						className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-400 dark:hover:text-blue-400"
 					>
 						<span aria-hidden>→</span>
 					</Link>

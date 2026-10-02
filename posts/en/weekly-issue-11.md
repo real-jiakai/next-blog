@@ -22,7 +22,7 @@ audio:
 
 <iframe title="A farewell to 2022" src="https://player.bilibili.com/player.html?aid=519647638&bvid=BV1Wg411x7sx&cid=948309604&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="bilibili"> </iframe>
 
-It's been a long time since I wrote a newsletter. I still remember the last time I wrote was in June of last year. In the blink of an eye, 2022 has already left us. Just as shown in the video above, 2022 is no longer in the stream of time.
+It's been a long time since I wrote a newsletter. I still remember the last time I wrote was in June of last year. In the blink of an eye, 2022 has already left us. Just as shown in the video above, 2022 has vanished into the stream of time.
 
 Whether for the world or for me personally, 2022 was a challenging year.
 
@@ -74,7 +74,7 @@ A foreign netizen used Midjourney, an AI painting software, to create an image c
 
 ![Steve's Old Computer Museum homepage](https://vip2.loli.net/2023/01/02/hvIUFY1OsCun3WG.webp)
 
-This website is dedicated to preserving and displaying vintage computer systems. The site maintainer is Steve Stengel from Orange County, Los Angeles, California, USA. Based on various materials on the site, he's a vintage computer enthusiast.
+This website is dedicated to preserving and displaying vintage computer systems. The site maintainer is Steve Stengel from Orange County, California, USA. Based on various materials on the site, he's a vintage computer enthusiast.
 
 Browsing through the timeline on the left side of the website, it's not hard to see that older vintage computer systems were more expensive, while more modern vintage systems were cheaper.
 

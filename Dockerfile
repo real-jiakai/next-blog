@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1.7
 
-FROM node:24.16.0-alpine AS base
+FROM node:24.19.0-alpine AS base
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -9,9 +9,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy only the repository-owned npm configuration. User/global npmrc files,
+# Copy only the repository-owned pnpm configuration. User/global npmrc files,
 # credentials and all .env files are excluded from the build context.
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN corepack enable pnpm && pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed.
@@ -26,9 +26,9 @@ ARG NEXT_PUBLIC_SITE_URL=https://gujiakai.top
 ARG NEXT_PUBLIC_SITE_TITLE=周见
 ARG NEXT_PUBLIC_SITE_DESCRIPTION=专注于分享互联网上有趣的东西。
 ARG NEXT_PUBLIC_SITE_DESCRIPTION_ZH=专注于分享互联网上有趣的东西。
-ARG NEXT_PUBLIC_SITE_DESCRIPTION_EN=A weekly collection of interesting things from the internet.
+ARG NEXT_PUBLIC_SITE_DESCRIPTION_EN="A weekly collection of interesting things from the internet."
 ARG NEXT_PUBLIC_KEYWORDS=weekly,blog
-ARG NEXT_PUBLIC_FOOTER=Jiakai Gu
+ARG NEXT_PUBLIC_FOOTER="Jiakai Gu"
 ARG NEXT_PUBLIC_POSTS_PERPAGE=10
 ARG NEXT_PUBLIC_SHOW_COMMENT=false
 ARG NEXT_PUBLIC_SHOW_SEARCH=false
@@ -66,7 +66,7 @@ RUN addgroup --system --gid 1001 nodejs \
 	&& adduser --system --uid 1001 --ingroup nodejs nextjs
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-RUN mkdir -p /app/.next/cache && chown -R nextjs:nodejs /app/.next
+RUN mkdir -p /app/.next/cache && chown nextjs:nodejs /app/.next/cache
 
 USER nextjs
 
