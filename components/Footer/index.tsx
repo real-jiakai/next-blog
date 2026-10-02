@@ -1,4 +1,4 @@
-import GitHubIcon from '@mui/icons-material/GitHub'
+import { GitHubIcon } from '@/components/Icons'
 import { i18n } from '@/lib/i18n-config'
 import { getAllPostMetadata } from '@/lib/posts'
 import { CommonDictionary } from '@/lib/dictionaries'
@@ -41,7 +41,7 @@ export default function Footer({ dict }: FooterProps) {
 					title={dict.common.GitHubRepository}
 					className="inline-flex items-center rounded p-1 transition-colors hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 				>
-					<GitHubIcon aria-hidden fontSize="small" />
+					<GitHubIcon />
 				</a>
 			</div>
 		</footer>

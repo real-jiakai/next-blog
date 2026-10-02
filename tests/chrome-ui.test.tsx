@@ -1,7 +1,10 @@
+import { readFileSync, readdirSync } from 'node:fs'
+import path from 'node:path'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import { SearchIcon } from '@/components/Icons'
 import Navbar from '@/components/Navbar'
 import { listMinHeight } from '@/components/PostCard'
 import en from '@/lib/dictionaries/en.json'
@@ -58,6 +61,42 @@ describe('Footer', () => {
 		expect(renderToStaticMarkup(<Footer dict={zh} />)).toContain('aria-label="GitHub 仓库"')
 		expect(renderToStaticMarkup(<Footer dict={en} />)).toContain('aria-label="GitHub repository"')
 	})
+
+	it('draws the GitHub mark as a hidden inline SVG', () => {
+		expect(renderToStaticMarkup(<Footer dict={en} />)).toMatch(
+			/<a\b[^>]*aria-label="GitHub repository"[^>]*><svg\b[^>]*aria-hidden="true"/
+		)
+	})
+})
+
+describe('Icons', () => {
+	it('render hidden from assistive technology at 20px, in rem so they follow the root font size', () => {
+		const html = renderToStaticMarkup(<SearchIcon />)
+
+		expect(html).toMatch(/^<svg\b[^>]*viewBox="0 0 24 24"/)
+		expect(html).toContain('fill="currentColor"')
+		expect(html).toContain('aria-hidden="true"')
+		expect(html).toContain('style="font-size:1.25rem;flex-shrink:0"')
+	})
+
+	it('take their size and classes from the call site', () => {
+		const html = renderToStaticMarkup(<SearchIcon size={28} className="text-site-muted" />)
+
+		expect(html).toContain('class="text-site-muted"')
+		expect(html).toContain('font-size:1.75rem')
+	})
+
+	it('leave no icon library or runtime CSS-in-JS in the application source', () => {
+		const root = path.resolve(import.meta.dirname, '..')
+		const offenders = ['app', 'components', 'lib'].flatMap((directory) =>
+			readdirSync(path.join(root, directory), { recursive: true, encoding: 'utf8' })
+				.filter((file) => /\.(?:[cm]?[jt]sx?|css)$/.test(file))
+				.map((file) => path.join(directory, file))
+				.filter((file) => /['"]@(?:mui|emotion)\//.test(readFileSync(path.join(root, file), 'utf8')))
+		)
+
+		expect(offenders).toEqual([])
+	})
 })
 
 describe('Navbar', () => {
@@ -102,6 +141,16 @@ describe('Navbar', () => {
 			vi.unstubAllEnvs()
 		}
 	})
+
+	it('renders every icon as a hidden inline SVG', () => {
+		const html = renderNavbar('en', '/en')
+		const icons = html.match(/<svg\b[^>]*>/g) ?? []
+
+		// Home, Archive, About, RSS, Translate (with its chevron), More, Menu.
+		expect(icons).toHaveLength(8)
+		for (const tag of icons) expect(tag).toContain('aria-hidden="true"')
+		expect(html).not.toContain('Mui')
+	})
 })
 
 describe('Header', () => {
@@ -117,6 +166,22 @@ describe('Header', () => {
 			// The theme is unknown on the server; a pressed state here would
 			// mismatch the client's first render.
 			expect(tag).not.toContain('aria-pressed')
+		}
+	})
+
+	it('shows the sun in light mode and the moon in dark mode, through CSS alone', () => {
+		pathname.current = '/en'
+		const html = renderToStaticMarkup(<Header lang="en" dict={en} />)
+		const toggles = html.match(/<button\b[^>]*title="Toggle color theme"[^>]*>.*?<\/button>/g) ?? []
+
+		expect(toggles).toHaveLength(2)
+		for (const toggle of toggles) {
+			const icons = toggle.match(/<svg\b[^>]*>/g) ?? []
+			expect(icons.map((tag) => tag.match(/class="([^"]*)"/)?.[1])).toEqual([
+				'dark:hidden',
+				'hidden dark:block',
+			])
+			for (const tag of icons) expect(tag).toContain('aria-hidden="true"')
 		}
 	})
 })

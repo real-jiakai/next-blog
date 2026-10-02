@@ -13,14 +13,17 @@ import type {
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import HomeIcon from '@mui/icons-material/Home'
-import InfoIcon from '@mui/icons-material/Info'
-import RssFeedIcon from '@mui/icons-material/RssFeed'
-import MenuIcon from '@mui/icons-material/Menu'
-import CloseIcon from '@mui/icons-material/Close'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import TranslateIcon from '@mui/icons-material/Translate'
-import SearchIcon from '@mui/icons-material/Search'
+import {
+	ArchiveIcon,
+	CloseIcon,
+	HomeIcon,
+	InfoIcon,
+	MenuIcon,
+	MoreHorizIcon,
+	RssFeedIcon,
+	SearchIcon,
+	TranslateIcon,
+} from '@/components/Icons'
 import { getLocalePath } from '@/lib/i18n-config'
 import type { Locale } from '@/lib/i18n-config'
 import type { CommonDictionary } from '@/lib/dictionaries'
@@ -275,7 +278,7 @@ export default function Navbar({
 							aria-current={ariaCurrent('/')}
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 						>
-							<HomeIcon aria-hidden fontSize="small" />
+							<HomeIcon />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Home}</span>
 						</Link>
 					</li>
@@ -285,17 +288,7 @@ export default function Navbar({
 							aria-current={ariaCurrent('/archive')}
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 						>
-							<svg
-								aria-hidden
-								xmlns="http://www.w3.org/2000/svg"
-								className="w-5 h-5 flex-shrink-0"
-								viewBox="0 0 24 24"
-							>
-								<path
-									fill="currentColor"
-									d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z"
-								/>
-							</svg>
+							<ArchiveIcon />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.Archive}</span>
 						</Link>
 					</li>
@@ -305,7 +298,7 @@ export default function Navbar({
 							aria-current={ariaCurrent('/about')}
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 						>
-							<InfoIcon aria-hidden fontSize="small" />
+							<InfoIcon />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.About}</span>
 						</Link>
 					</li>
@@ -315,7 +308,7 @@ export default function Navbar({
 							type="application/atom+xml"
 							className="inline-flex items-center px-3 py-2 text-site-muted hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-site-surface-muted transition-colors"
 						>
-							<RssFeedIcon aria-hidden fontSize="small" />
+							<RssFeedIcon />
 							<span className="ml-2 text-base whitespace-nowrap">{dict.common.RSS}</span>
 						</a>
 					</li>
@@ -332,7 +325,7 @@ export default function Navbar({
 								onFocus={mountSearch}
 								className="inline-flex w-40 items-center gap-2 rounded-lg border border-site-line bg-site-surface py-1.5 pl-3 pr-2 text-site-muted transition-colors hover:border-blue-500/60 hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 lg:w-56 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 							>
-								<SearchIcon aria-hidden fontSize="small" />
+								<SearchIcon />
 								<span className="text-base whitespace-nowrap">{dict.common.Search}</span>
 								{/* Rendered only after mount: the modifier depends on the
 								    platform, which the server cannot know. */}
@@ -359,7 +352,7 @@ export default function Navbar({
 							aria-expanded={translateMenuVisible}
 							onClick={() => toggleMenu(translateOpenedByHover, setTranslateMenuVisible)}
 						>
-							<TranslateIcon aria-hidden fontSize="small" />
+							<TranslateIcon />
 							<svg aria-hidden className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
 							</svg>
@@ -392,7 +385,7 @@ export default function Navbar({
 							aria-expanded={moreMenuVisible}
 							onClick={() => toggleMenu(moreOpenedByHover, setMoreMenuVisible)}
 						>
-							<MoreHorizIcon aria-hidden fontSize="small" />
+							<MoreHorizIcon className="inline-block" />
 						</button>
 						{moreMenuVisible && (
 							<div
@@ -434,7 +427,7 @@ export default function Navbar({
 									aria-label={dict.common.Search}
 									className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 dark:hover:text-blue-400 dark:focus-visible:ring-blue-400"
 								>
-									<SearchIcon aria-hidden />
+									<SearchIcon size={24} />
 								</button>
 							)}
 							<Link
@@ -462,9 +455,9 @@ export default function Navbar({
 								aria-expanded={mobileMenuVisible}
 							>
 								{mobileMenuVisible ? (
-									<CloseIcon aria-hidden />
+									<CloseIcon size={24} />
 								) : (
-									<MenuIcon aria-hidden />
+									<MenuIcon size={24} />
 								)}
 							</button>
 						</div>
@@ -485,7 +478,7 @@ export default function Navbar({
 										aria-current={ariaCurrent('/')}
 										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 									>
-										<HomeIcon aria-hidden fontSize="small" />
+										<HomeIcon />
 										{dict.common.Home}
 									</Link>
 								</li>
@@ -496,9 +489,7 @@ export default function Navbar({
 										aria-current={ariaCurrent('/archive')}
 										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 									>
-										<svg aria-hidden xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24">
-											<path fill="currentColor" d="M3 3h18v4H3zm1 5h16v13H4zm5.5 3a.5.5 0 0 0-.5.5V13h6v-1.5a.5.5 0 0 0-.5-.5z" />
-										</svg>
+										<ArchiveIcon />
 										{dict.common.Archive}
 									</Link>
 								</li>
@@ -509,7 +500,7 @@ export default function Navbar({
 										aria-current={ariaCurrent('/about')}
 										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400 aria-[current=page]:bg-site-surface-muted aria-[current=page]:text-site-heading"
 									>
-										<InfoIcon aria-hidden fontSize="small" />
+										<InfoIcon />
 										{dict.common.About}
 									</Link>
 								</li>
@@ -520,7 +511,7 @@ export default function Navbar({
 										onClick={() => setMobileMenuVisible(false)}
 										className="flex min-h-11 items-center gap-3 rounded-xl border border-site-line bg-site-surface px-3 py-2.5 text-base font-medium text-site-muted transition-colors hover:bg-site-surface-muted hover:text-blue-600 dark:hover:text-blue-400"
 									>
-										<RssFeedIcon aria-hidden fontSize="small" />
+										<RssFeedIcon />
 										{dict.common.RSS}
 									</a>
 								</li>

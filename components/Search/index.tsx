@@ -4,9 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import SearchIcon from '@mui/icons-material/Search'
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
-import NorthEastIcon from '@mui/icons-material/NorthEast'
+import { ArticleOutlinedIcon, NorthEastIcon, SearchIcon } from '@/components/Icons'
 
 import type { Locale } from '@/lib/i18n-config'
 import { MAX_QUERY_LENGTH, hasSearchableText, splitHighlights } from '@/lib/search'
@@ -241,7 +239,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 									className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-site-line border-t-blue-600 dark:border-t-blue-400"
 								/>
 							) : (
-								<SearchIcon aria-hidden fontSize="small" className="shrink-0 text-site-muted" />
+								<SearchIcon className="shrink-0 text-site-muted" />
 							)}
 							<input
 								ref={inputRef}
@@ -293,7 +291,7 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 							// One centred block for every empty state, so the panel never
 							// shows a lone line of text floating against its left edge.
 							<div className="flex flex-col items-center justify-center gap-2.5 px-6 py-9 text-center">
-								<SearchIcon aria-hidden sx={{ fontSize: 28 }} className="text-site-muted/40" />
+								<SearchIcon size={28} className="text-site-muted/40" />
 								<p className="mb-0 max-w-xs text-sm leading-relaxed text-site-muted">
 									{!searchable
 										? dict.common.SearchPrompt
@@ -340,8 +338,6 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 												}`}
 											>
 												<ArticleOutlinedIcon
-													aria-hidden
-													fontSize="small"
 													className={`mt-0.5 shrink-0 ${
 														index === active
 															? 'text-blue-600 dark:text-blue-400'
@@ -366,17 +362,13 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 														<Highlighted text={hit.snippet} />
 													</span>
 												</span>
-												{/* The display utility sits on the wrapper, not the icon:
-												    MUI's runtime SvgIcon rules are unlayered, so they beat
-												    Tailwind's `display` and size utilities. Icons here are
-												    sized through MUI instead. */}
 												<span
 													aria-hidden
 													className={`mt-0.5 hidden shrink-0 sm:block ${
 														index === active ? 'opacity-100' : 'opacity-0'
 													}`}
 												>
-													<NorthEastIcon sx={{ fontSize: 16 }} className="text-site-muted" />
+													<NorthEastIcon size={16} className="inline-block text-site-muted" />
 												</span>
 											</Link>
 										</li>

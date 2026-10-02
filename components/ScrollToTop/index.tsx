@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import { KeyboardArrowUpIcon } from '@/components/Icons'
 
 export default function ScrollToTop({ label }: { label: string }) {
 	const [isVisible, setIsVisible] = useState(false)
@@ -40,7 +40,7 @@ export default function ScrollToTop({ label }: { label: string }) {
 					onClick={scrollToTop}
 					className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-[#f4f4f5] bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-500 ease-in-out transform-gpu motion-reduce:transition-none"
 				>
-					<KeyboardArrowUpIcon aria-hidden />
+					<KeyboardArrowUpIcon size={24} />
 				</button>
 			</div>
 		)
