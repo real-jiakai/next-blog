@@ -253,6 +253,22 @@ try {
 		}
 	}
 
+	// Every listed cover passes the url check. Next validates the url before
+	// the width, so an unlisted width proves the match without fetching the
+	// image from its host.
+	const coverUrls = JSON.parse(
+		await readFile(path.join(process.cwd(), 'lib', 'cover-urls.json'), 'utf8'),
+	)
+	for (const source of coverUrls) {
+		const pathname = `/_next/image?url=${encodeURIComponent(source)}&w=289&q=75`
+		const response = await request(pathname)
+		expectStatus(pathname, response, 400)
+		const body = await response.text()
+		if (!body.includes('"w" parameter (width) of 289 is not allowed')) {
+			throw new Error(`${pathname}: a listed cover was refused: ${body}`)
+		}
+	}
+
 	const staticAssetPath = homeHtml.match(
 		/(?:href|src)="([^"?]*\/_next\/static\/[^"?]+)(?:\?[^" ]*)?"/
 	)?.[1]
