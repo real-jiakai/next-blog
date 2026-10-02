@@ -232,14 +232,17 @@ try {
 		}
 	}
 
-	// The optimizer is on for the two cover hosts only. A local file and any
-	// other host are refused before anything is fetched or cached; the width
-	// and quality are valid, so the url is what is refused.
+	// The optimizer is on for the listed cover URLs only. A local file, any
+	// other host, another path on a cover host and a cover with a query string
+	// are refused before anything is fetched or cached; the width and quality
+	// are valid, so the url is what is refused.
 	for (const source of [
 		'/video/2023-01-26-curry-throws-his-mouthpiece.mp4',
 		'/favicon.ico',
 		'https://example.com/a.png',
 		'http://cdn.sa.net/2026/01/23/b1GZHPmplhd3e4K.webp',
+		'https://cdn.sa.net/2099/01/01/not-a-cover.webp',
+		'https://cdn.sa.net/2026/01/23/b1GZHPmplhd3e4K.webp?v=1',
 	]) {
 		const pathname = `/_next/image?url=${encodeURIComponent(source)}&w=640&q=75`
 		const response = await request(pathname)

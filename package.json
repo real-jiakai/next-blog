@@ -17,7 +17,7 @@
     "semantic-release": "semantic-release",
     "test": "vitest run",
     "test:smoke": "node scripts/smoke-production.mjs",
-    "images:metadata": "node scripts/collect-image-dimensions.mjs --write",
+    "images:metadata": "node scripts/collect-image-dimensions.mjs --write && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/collect-cover-urls.mjs",
     "commit": "cz"
   },
   "dependencies": {

@@ -84,16 +84,19 @@ is a trailing ` #N` in `title`; the visible headings drop it. A real
 `本期话题：…` / `This week's topic: …` boilerplate, is replaced by the first
 paragraph under the post's `## 话题` / `## Topic` heading. The lead issue's cover is the first image under
 `## 封面图` / `## Cover Image`, shown only when that image is in
-`lib/post-image-dimensions.json` and hosted on `cdn.sa.net` or
-`vip2.loli.net`, the two hosts the image optimizer accepts.
+`lib/post-image-dimensions.json` and listed in `lib/cover-urls.json`. The
+image optimizer accepts exactly those cover URLs, not the whole of
+`cdn.sa.net` or `vip2.loli.net`, because anyone can upload to both hosts.
 
 Use filenames that are valid on Windows, macOS, and Linux. In particular, avoid `?`, `*`, `:`, `"`, `<`, `>`, `|`, and path separators.
 
 Post content is read while Next.js builds the site. After adding or changing a post, rebuild and redeploy the application; mounting a different `posts` directory into an already-built container does not refresh static pages, the sitemap, or feeds.
 
 When image URLs change, run `pnpm images:metadata` and commit the regenerated
-`lib/post-image-dimensions.json`. The build tests require measured dimensions
-for every post image so browsers can reserve the correct layout space.
+`lib/post-image-dimensions.json` and `lib/cover-urls.json`. The build tests
+require measured dimensions for every post image so browsers can reserve the
+correct layout space, and require the cover list to match the covers the
+contents page shows.
 
 ## Comments and deployment
 

@@ -122,14 +122,16 @@ through the latest Node 24 release.
   `lib/dictionaries/en.json` and `zh.json` must match `feedLabels` in
   `scripts/generate-rss.mjs` byte for byte; a test checks it.
 - A cover appears on the home only when its image is in
-  `lib/post-image-dimensions.json` and its host is in
-  `images.remotePatterns` in `next.config.mjs`. The optimizer refuses any
-  other host, and the lead then shows an empty tinted box.
+  `lib/post-image-dimensions.json` and its exact URL is in
+  `lib/cover-urls.json`, from which `next.config.mjs` builds
+  `images.remotePatterns`. Both image hosts accept public uploads, so the
+  optimizer is pinned to those covers rather than to whole hosts; any other
+  URL is refused, and the lead then shows an empty tinted box.
 - Tags may remain in historical frontmatter but have no public route or UI.
 - Drafts must be excluded from lists, static params, direct post lookup,
   sitemap, and feeds.
 - Run `pnpm images:metadata` after changing post image URLs and commit the
-  regenerated intrinsic-dimension manifest.
+  regenerated intrinsic-dimension manifest and `lib/cover-urls.json`.
 - Animated clips go in `public/video/` as WebM + MP4 with a WebP poster and
   use a `<video autoplay loop muted playsinline …>` block; do not add GIFs.
 - Post Markdown is rendered on the server with `react-markdown`, raw HTML

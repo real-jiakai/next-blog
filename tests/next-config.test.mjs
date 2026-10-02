@@ -73,27 +73,32 @@ describe('image optimizer', () => {
 			minimumCacheTTL: 2678400,
 		})
 		expect(nextConfig.images.unoptimized).toBeUndefined()
-		expect(nextConfig.images.remotePatterns.map((pattern) => pattern.hostname)).toEqual([
-			'cdn.sa.net',
-			'vip2.loli.net',
-		])
+		// Next refuses a config with more than 50 remote patterns.
+		expect(nextConfig.images.remotePatterns.length).toBeGreaterThan(0)
+		expect(nextConfig.images.remotePatterns.length).toBeLessThanOrEqual(50)
 		for (const pattern of nextConfig.images.remotePatterns) {
 			expect(pattern.protocol).toBe('https')
+			expect(['cdn.sa.net', 'vip2.loli.net']).toContain(pattern.hostname)
+			// An exact path and no query string: never a wildcard on a public host.
+			expect(pattern.pathname).not.toContain('*')
+			expect(pattern.search).toBe('')
 		}
 	})
 
-	it('allows the host of every cover the contents page can show', () => {
-		// A cover on any other host would get a 400 from the optimizer and leave
-		// the lead issue with an empty box, so a CDN move must update the list.
-		const hosts = new Set(nextConfig.images.remotePatterns.map((pattern) => pattern.hostname))
-		const covers = ['zh', 'en'].flatMap((locale) =>
-			getIssueIndex(locale).flatMap((issue) => (issue.cover ? [issue.cover.src] : []))
+	it('allows exactly the covers the contents page can show', () => {
+		// A cover missing from the list would get a 400 from the optimizer and
+		// leave the lead issue with an empty box; a stale entry would keep a URL
+		// open for nothing. Run `pnpm images:metadata` after changing a cover.
+		const allowed = nextConfig.images.remotePatterns.map(
+			(pattern) => `${pattern.protocol}://${pattern.hostname}${pattern.pathname}`
+		)
+		const covers = new Set(
+			['zh', 'en'].flatMap((locale) =>
+				getIssueIndex(locale).flatMap((issue) => (issue.cover ? [issue.cover.src] : []))
+			)
 		)
 
-		expect(covers.length).toBeGreaterThan(0)
-		for (const src of covers) {
-			expect(hosts).toContain(new URL(src).hostname)
-		}
+		expect([...covers].sort()).toEqual([...allowed].sort())
 	})
 })
 

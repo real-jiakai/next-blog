@@ -1,4 +1,5 @@
 import NextBundleAnalyzer from '@next/bundle-analyzer'
+import coverUrls from './lib/cover-urls.json' with { type: 'json' }
 
 const withBundleAnalyzer = NextBundleAnalyzer({
 	enabled: process.env.ANALYZE === 'true',
@@ -109,18 +110,21 @@ export default withBundleAnalyzer({
 			},
 		]
 	},
-	// The optimizer serves the contents page's lead cover. It accepts only the
-	// two image hosts the posts use; `localPatterns: []` refuses every local
-	// path, so /_next/image cannot be made to buffer and cache arbitrary public
-	// files (the reason it used to be switched off). WebP only, since encoding
+	// The optimizer serves the contents page's lead cover. It accepts exactly
+	// the cover URLs in lib/cover-urls.json (written by `pnpm images:metadata`)
+	// and no query string: the two hosts are public image services anyone can
+	// upload to, so allowing a whole host would let anyone make this server
+	// fetch and transcode images of their choosing. `localPatterns: []` refuses
+	// every local path, so /_next/image cannot buffer and cache public files
+	// either (the reason it used to be switched off). WebP only, since encoding
 	// AVIF is slow on the one-CPU container, and widths limited to what the
 	// cover's `sizes` can pick. The CDN URLs are content-addressed, so a
 	// month's cache is safe.
 	images: {
-		remotePatterns: [
-			{ protocol: 'https', hostname: 'cdn.sa.net', pathname: '/**' },
-			{ protocol: 'https', hostname: 'vip2.loli.net', pathname: '/**' },
-		],
+		remotePatterns: coverUrls.map((url) => {
+			const { hostname, pathname } = new URL(url)
+			return { protocol: 'https', hostname, pathname, search: '' }
+		}),
 		localPatterns: [],
 		formats: ['image/webp'],
 		deviceSizes: [640, 750, 828, 1080],
