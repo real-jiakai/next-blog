@@ -403,6 +403,20 @@
         border-radius: 0;
     }
 
+    /* A quote opens with its attribution ("引用某人的留言：") in a <pre>,
+       which lib/commentQuote writes and stored comments keep. It reads as a
+       caption, not as code. */
+    .comment-content blockquote > pre:first-child {
+        @apply m-0 p-0 text-sm text-site-muted bg-transparent font-sans whitespace-normal;
+        overflow: visible;
+    }
+
+    /* Older quotes left a <br> after the quote, which only added a blank
+       line before the reply. */
+    .comment-content blockquote + br {
+        display: none;
+    }
+
     .comment-content code:not(pre code) {
         @apply text-sm bg-site-surface-muted text-site-copy px-1.5 py-0.5 rounded font-mono;
     }
