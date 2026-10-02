@@ -1,6 +1,5 @@
 {
   "common": {
-    "Home": "Home",
     "About": "About",
     "RSS": "RSS",
     "Search": "Search",
@@ -14,11 +13,8 @@
     "SearchSelect": "to select",
     "SearchNavigate": "to navigate",
     "SearchClose": "to close",
+    "SearchOpen": "to open search",
     "Navigation": "Primary navigation",
-    "OpenMenu": "Open navigation menu",
-    "CloseMenu": "Close navigation menu",
-    "ChangeLanguage": "Change language",
-    "MoreOptions": "More options",
     "ToggleTheme": "Toggle color theme",
     "DarkMode": "Dark mode",
     "BackToTop": "Back to top",

@@ -158,6 +158,17 @@ try {
 		}
 	}
 
+	// Every page wears the same chrome: the centred site name (which the
+	// back-to-top button hands focus to) and the colophon's year range.
+	for (const pathname of ['/', '/en', '/about', '/en/about', '/2024/07/weekly-issue-20']) {
+		const html = await (await request(pathname)).text()
+		for (const expected of ['id="site-brand"', '© 2022–']) {
+			if (!html.includes(expected)) {
+				throw new Error(`${pathname}: the page chrome is missing ${expected}`)
+			}
+		}
+	}
+
 	const homeHtml = await (await request('/')).text()
 	// The contents page: one heading, the run of issues, every issue listed by
 	// year, and no pager or summary boilerplate left over from the post list.

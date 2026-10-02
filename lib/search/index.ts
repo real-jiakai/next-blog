@@ -12,6 +12,24 @@ export const MARK_END = String.fromCharCode(2)
 /** The route searches at most this many characters of a query. */
 export const MAX_QUERY_LENGTH = 100
 
+/** Apple devices take the search shortcut on Cmd, everything else on Ctrl. */
+export function isApplePlatform(userAgent: string): boolean {
+	return /Mac|iPhone|iPad|iPod/.test(userAgent)
+}
+
+/**
+ * Whether a keydown is the search shortcut: Cmd+K on Apple devices and Ctrl+K
+ * elsewhere, only the modifier the dialog's legend advertises, since on macOS
+ * Ctrl+K in a text field is the native "delete to end of line".
+ */
+export function isSearchShortcut(
+	event: Pick<KeyboardEvent, 'key' | 'metaKey' | 'ctrlKey' | 'altKey' | 'shiftKey'>,
+	apple: boolean,
+): boolean {
+	const modifier = apple ? event.metaKey : event.ctrlKey
+	return modifier && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'k'
+}
+
 export interface SearchHit {
   id: string
   /** Path on this site, e.g. `/2024/09/weekly-issue-21` (already locale-aware). */

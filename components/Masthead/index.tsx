@@ -1,7 +1,7 @@
 import type { Locale } from '@/lib/i18n-config'
 import type { CommonDictionary } from '@/lib/dictionaries'
 import { formatMonthYear } from '@/lib/formatDate'
-import { fillTemplate } from '@/lib/issues'
+import { fillTemplate, formatIssueRange } from '@/lib/issues'
 import type { IssueStats } from '@/lib/issues'
 
 interface MastheadProps {
@@ -14,21 +14,13 @@ interface MastheadProps {
 const linkClass =
 	'underline decoration-site-line underline-offset-4 transition-colors hover:text-site-heading hover:decoration-site-accent'
 
-// "第 1–23 期", or a single "第 1 期" while the run has only one number.
-function issueRange(dict: CommonDictionary, { first, last }: IssueStats): string | null {
-	if (first === null || last === null) return null
-	return first === last
-		? fillTemplate(dict.IssueN, { n: first })
-		: fillTemplate(dict.IssueRange, { first, last })
-}
-
 /**
  * The contents page's head: its heading, the site's tagline, a double rule,
  * and a folio line with the run of issues, when it began and how often it
  * appears. Every figure comes from the posts at build time.
  */
 export default function Masthead({ lang, dict, stats, tagline }: MastheadProps) {
-	const range = issueRange(dict.common, stats)
+	const range = formatIssueRange(dict.common, stats)
 	const founded = stats.firstDate
 		? fillTemplate(dict.common.FoundedIn, { date: formatMonthYear(stats.firstDate, lang) })
 		: null

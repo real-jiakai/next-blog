@@ -10,7 +10,7 @@ import {
 	getPostFilenameByParams,
 	getSortedPostsData,
 } from '@/lib/posts'
-import ArticleLayout from '@/components/ArticleLayout'
+import Layout from '@/components/Layout'
 import ArticleContent from '@/components/ArticleContent'
 import Date from '@/components/Date'
 import ArticleToc from '@/components/ArticleToc'
@@ -178,10 +178,12 @@ export default async function Post({
 		: null
 
 	return (
-		<ArticleLayout lang={lang} dict={dict}>
+		<Layout lang={lang} dict={dict}>
 			{/* Same container as the site header (max-w-4xl + px) so the article
-			    column lines up with the nav; the TOC hangs in the right margin. */}
-			<div className="max-w-4xl mx-auto px-4 md:px-6">
+			    column lines up with the nav; the TOC hangs in the right margin.
+			    w-full because <main> is a flex column, where an auto-margined
+			    box would otherwise shrink to its content. */}
+			<div className="mx-auto w-full max-w-4xl px-4 py-4 md:px-6 md:py-6">
 				<div className="relative">
 					{/* Main content area */}
 					<article className="min-w-0 pt-4 pb-16">
@@ -292,6 +294,6 @@ export default async function Post({
 					</aside>
 				</div>
 			</div>
-		</ArticleLayout>
+		</Layout>
 	)
 }

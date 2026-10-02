@@ -1,6 +1,5 @@
 {
   "common": {
-    "Home": "首页",
     "About": "关于",
     "RSS": "RSS",
     "Search": "搜索",
@@ -14,11 +13,8 @@
     "SearchSelect": "打开",
     "SearchNavigate": "切换",
     "SearchClose": "关闭",
+    "SearchOpen": "打开搜索",
     "Navigation": "主导航",
-    "OpenMenu": "打开导航菜单",
-    "CloseMenu": "关闭导航菜单",
-    "ChangeLanguage": "切换语言",
-    "MoreOptions": "更多选项",
     "ToggleTheme": "切换配色主题",
     "DarkMode": "深色模式",
     "BackToTop": "回到顶部",

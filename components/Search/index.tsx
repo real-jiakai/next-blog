@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { ArticleOutlinedIcon, NorthEastIcon, SearchIcon } from '@/components/Icons'
 
 import type { Locale } from '@/lib/i18n-config'
-import { MAX_QUERY_LENGTH, hasSearchableText, splitHighlights } from '@/lib/search'
+import { MAX_QUERY_LENGTH, hasSearchableText, isApplePlatform, splitHighlights } from '@/lib/search'
 import type { SearchHit, SearchResponse } from '@/lib/search'
 import Date from '@/components/Date'
 
@@ -26,6 +26,7 @@ interface SearchDialogProps {
       SearchSelect: string
       SearchNavigate: string
       SearchClose: string
+      SearchOpen: string
     }
   }
   open: boolean
@@ -379,8 +380,9 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 					</div>
 
 					{/* Keyboard legend, as on Astro's docs search. Pointer-only screens
-					    have no use for it, so it is desktop-width only. */}
-					<div className="hidden shrink-0 items-center gap-4 border-t border-site-line px-4 py-2 text-xs text-site-muted sm:flex">
+					    have no use for it, so it is desktop-width only. Each item
+					    stays whole; when English runs long, the credit wraps. */}
+					<div className="hidden shrink-0 flex-wrap items-center gap-x-4 gap-y-1.5 whitespace-nowrap border-t border-site-line px-4 py-2 text-xs text-site-muted sm:flex">
 						<span className="flex items-center gap-1.5">
 							<Key>↵</Key>
 							{dict.common.SearchSelect}
@@ -393,6 +395,13 @@ export default function SearchDialog({ lang, dict, open, onOpenChange }: SearchD
 						<span className="flex items-center gap-1.5">
 							<Key>esc</Key>
 							{dict.common.SearchClose}
+						</span>
+						{/* The header shows no shortcut badge, so this is where the
+						    shortcut is taught. The dialog only ever renders in the
+						    browser, so the platform is known here. */}
+						<span className="flex items-center gap-1.5">
+							<Key>{isApplePlatform(navigator.userAgent) ? '⌘K' : 'Ctrl K'}</Key>
+							{dict.common.SearchOpen}
 						</span>
 						<span className="ml-auto text-site-muted/70">Meilisearch</span>
 					</div>
