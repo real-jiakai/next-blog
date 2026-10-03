@@ -164,12 +164,22 @@ describe.each(['zh', 'en'] as const)('post page (%s)', (lang) => {
 	// Most issues open with a note on their song, which reads with the player
 	// above it; the first department's rule closes the two together.
 	it('closes the header with no rule of its own', async () => {
-		const html = await render(lang, newest)
+		const html = await render(lang, issues.find((entry) => entry.song)!)
 		const header = html.match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? ''
 
-		expect(newest.song).not.toBeNull()
 		expect(header).toContain('<section')
 		expect(header).not.toMatch(/\bborder-/)
+	})
+
+	// The note follows the player at paragraph spacing; without a song the
+	// body keeps the 2rem below the title that the player would have had.
+	it('pads the header to what follows it', async () => {
+		const withSong = await render(lang, issues.find((entry) => entry.song)!)
+		const withoutSong = await render(lang, issues.find((entry) => !entry.song)!)
+		const padding = (html: string) => html.match(/<header class="([^"]*)"/)?.[1]
+
+		expect(padding(withSong)).toBe('pb-5')
+		expect(padding(withoutSong)).toBe('pb-8')
 	})
 
 	it('ends on its neighbours\' hairlines, with no ink rule above them and no edit link', async () => {
