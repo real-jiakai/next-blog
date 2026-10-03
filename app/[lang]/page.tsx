@@ -18,8 +18,11 @@ export async function generateMetadata({
 	params: Promise<{ lang: Locale }>
 }): Promise<Metadata> {
 	const { lang } = await params
+	const dict = await getDictionary(lang)
 	return {
-		title: { absolute: getSiteTitle(lang) },
+		// The name alone says nothing to someone who does not know it yet, so
+		// the contents page adds what the site is, in the template's form.
+		title: { absolute: `${getSiteTitle(lang)} | ${dict.common.Tagline}` },
 		alternates: {
 			canonical: getLocalePath(lang),
 			languages: getLanguageAlternates(),

@@ -42,9 +42,11 @@ describe('site naming', () => {
 		})
 	})
 
-	it('titles each contents page with its language\'s name and nothing after it', async () => {
-		expect((await homeMetadata(params('zh'))).title).toEqual({ absolute: '周见' })
-		expect((await homeMetadata(params('en'))).title).toEqual({ absolute: '周见 · Zhōu Jiàn' })
+	it('titles each contents page with its language\'s name and what the site is', async () => {
+		expect((await homeMetadata(params('zh'))).title).toEqual({ absolute: '周见 | 记录网上见闻的个人刊物' })
+		expect((await homeMetadata(params('en'))).title).toEqual({
+			absolute: '周见 · Zhōu Jiàn | A personal periodical of things seen online',
+		})
 	})
 
 	it('names the site in Open Graph by its brand in both languages', () => {

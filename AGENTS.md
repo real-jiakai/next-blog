@@ -218,7 +218,9 @@ secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
 feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
 the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
 `NEXT_PUBLIC_SITE_DESCRIPTION` and are the meta and Open Graph description;
-the contents page prints the `Standfirst` dictionary string instead.
+the contents page prints the `Standfirst` dictionary string instead. The
+contents page's `<title>` is the language's site title, then ` | ` and the
+`Tagline` dictionary string (`周见 | 记录网上见闻的个人刊物`).
 
 `next/image` optimizes the contents page's lead cover. It accepts exactly the
 cover URLs in `lib/cover-urls.json`, with no query string, rather than the
