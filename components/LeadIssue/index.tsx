@@ -16,10 +16,10 @@ interface LeadIssueProps {
 
 /**
  * The newest issue at the head of the contents: its number set large in the
- * accent, the title, the opening of its essay, its song and, from sm up, its
- * cover in a column of its own at lg. On a phone the number shares a row with
- * the kicker and everything else runs the full width beneath them; from sm up
- * the text is one column beside the number. The text wrapper is
+ * accent, the title, the issue's one-line summary in full, its song and, from
+ * sm up, its cover in a column of its own at lg. On a phone the number shares
+ * a row with the kicker and everything else runs the full width beneath them;
+ * from sm up the text is one column beside the number. The text wrapper is
  * `display: contents` on phones so its children can be placed on the grid.
  */
 export default function LeadIssue({ lang, dict, issue }: LeadIssueProps) {

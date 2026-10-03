@@ -127,7 +127,7 @@
        rule, as the sections of a printed periodical do, and links are ink
        with an accent underline, so the colour marks where a link is without
        recolouring what it says. Kept in this layer so that the utilities
-       renderPost puts on nodes (sr-only on the footnote heading, scroll-mt-24,
+       renderPost puts on nodes (sr-only on the footnote heading, scroll-mt-20/24,
        an autoplay clip's margins) still win. */
     .article-content {
         @apply text-site-copy;

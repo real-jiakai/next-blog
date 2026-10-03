@@ -1,7 +1,8 @@
 import type { Locale } from '@/lib/i18n-config'
 
-// Straight apostrophe on purpose: Noto Sans SC sets U+2019 full-width, and
-// search results and link previews show this default.
+// Straight apostrophe on purpose: English copy on this site uses straight
+// quotes (AGENTS.md). This default is the meta and Open Graph description and
+// the llms.txt summary.
 const defaultDescriptions: Record<Locale, string> = {
 	zh: '专注于分享互联网上有趣的东西。',
 	en: '周见 (Zhōu Jiàn) is Jiakai Gu\'s bilingual periodical of things seen on the internet: one topic per issue, with interesting finds, links and quotes.',

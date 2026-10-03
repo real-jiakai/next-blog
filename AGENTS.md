@@ -93,18 +93,21 @@ through the latest Node 24 release.
 - Public Chinese URLs never include `/zh`; use `getLocalePath` for links.
 - The home page is the complete contents list; there is no pagination and no
   archive route (`/page/N` and `/archive` are 308s to the contents page, and
-  old `/archive#2024` links land on that year's section). Every count, issue
-  range and year on it is computed from the posts; never hard-code one, in
-  code or in tests.
+  old `/archive#2024` links land on that year's section). Every count, number
+  and year on it (the back-issue count, the lead's numeral, the founding
+  month, the year headings) is computed from the posts; never hard-code one,
+  in code or in tests.
 - An issue's number is the trailing ` #N` of its frontmatter `title`; the
   visible headings drop it, while `<title>`, feeds and search keep the full
   title. Every published issue has a one-line frontmatter `summary` of its
   own (Chinese 20–48 characters ending in `。`, English 50–110 ending in `.`,
   no ellipsis), which `tests/post-summaries.test.ts` enforces. The contents
   page shows it whole under the title, never truncated or clamped, and it is
-  the post's meta description. Only an empty or boilerplate summary
-  (`本期话题：…` / `This week's topic: …`), as a draft may have, falls back to
-  the shortened first paragraph of the 话题/Topic section.
+  the post's meta description. Drafts never reach the contents page, so the
+  fallback for an empty or boilerplate summary (`本期话题：…` /
+  `This week's topic: …`), the shortened first paragraph of the 话题/Topic
+  section or else the title, is only a safety net for a published issue that
+  slipped past the test.
 - No cards: separate with rules. There are three weights: a hairline
   (`border-site-line`), a 1px ink rule (`border-site-rule`), and the double
   rule under a page's `<h1>`. `bg-site-surface` is for overlays, form fields

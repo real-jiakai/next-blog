@@ -152,9 +152,9 @@ export function getSortedPostsData(locale: Locale = i18n.defaultLocale): PostDat
 /**
  * The contents page's entries, newest first: the issue number split from the
  * title, the frontmatter summary shown in full (a test keeps every published
- * summary short enough; a missing or boilerplate one, as in a draft, falls
- * back to the shortened opening of the essay), the cover if its size is
- * known, and the issue's song.
+ * summary short enough; should one ship missing or boilerplate, it falls back
+ * to the shortened opening of the essay, or the title), the cover if its size
+ * is known, and the issue's song.
  */
 export function getIssueIndex(locale: Locale = i18n.defaultLocale): IssueEntry[] {
 	const cached = cachingEnabled() ? issueIndexCache.get(locale) : undefined
