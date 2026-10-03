@@ -3,7 +3,7 @@ title: "How to Break Through During Graduation Season? #12"
 date: "2023-01-12"
 slug: "weekly-issue-12"
 tags: ["weekly"]
-summary: "This week's topic: How to break through during graduation season?"
+summary: "CS job-seekers should master one language and the basics, self-study, and nurture interests and personality."
 showtoc: true
 audio:
    name: 'Who Do You Think of When You Are Lonely'

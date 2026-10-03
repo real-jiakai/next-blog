@@ -71,20 +71,23 @@ Posts live in `posts/<locale>/` as Markdown files:
 title: "Post title"
 date: "2026-01-10"
 slug: "post-slug"
-summary: "Brief description"
+summary: "One line on what the issue is about."
 draft: false
 ---
 
 Post content goes here.
 ```
 
-The home page builds its contents list from these fields. An issue's number
-is a trailing ` #N` in `title`; the visible headings drop it. A real
-`summary` becomes the post's excerpt there; an empty one, or the
-`本期话题：…` / `This week's topic: …` boilerplate, is replaced by the first
-paragraph under the post's `## 话题` / `## Topic` heading. The lead issue's cover is the first image under
-`## 封面图` / `## Cover Image`, shown only when that image is in
-`lib/post-image-dimensions.json` and listed in `lib/cover-urls.json`. The
+The home page builds its contents list from these fields. An issue's number is
+a trailing ` #N` in `title`; the visible headings drop it. The `summary` is
+printed whole under the title and is the page's meta description, so write one
+line of your own for every issue: 20–48 characters ending in `。` in Chinese,
+50–110 ending in `.` in English, with straight quotes and no ellipsis.
+`tests/post-summaries.test.ts` fails a published post without one. A draft may
+leave it empty; the contents page then shows the shortened first paragraph
+under the post's `## 话题` / `## Topic` heading. The lead issue's cover is the
+first image under `## 封面图` / `## Cover Image`, shown only when that image is
+in `lib/post-image-dimensions.json` and listed in `lib/cover-urls.json`. The
 image optimizer accepts exactly those cover URLs, not the whole of
 `cdn.sa.net` or `vip2.loli.net`, because anyone can upload to both hosts.
 

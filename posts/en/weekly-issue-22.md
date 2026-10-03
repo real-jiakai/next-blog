@@ -3,7 +3,7 @@ title: "He Has Returned Like Lightning #22"
 date: "2025-01-27"
 slug: "weekly-issue-22"
 tags: ["weekly"]
-summary: "This week's topic: He has returned like lightning"
+summary: "Trump wins the 2024 US election as I predicted; I call it a win for common sense and await four years of fun."
 draft: false
 showtoc: true
 audio:

@@ -3,7 +3,7 @@ title: "This Is Very Un-Open-Source #7"
 date: "2022-05-20"
 slug: "weekly-issue-07"
 tags: ["weekly"]
-summary: "This week's topic: This is very un-open-source"
+summary: "Gitee bans image hosting in March, then pre-screens open-source repos; my trust in Chinese brands falls again."
 showtoc: true
 audio:
   name: "I Believe"

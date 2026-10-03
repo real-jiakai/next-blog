@@ -3,7 +3,7 @@ title: "Say No to Homogenization #3"
 date: "2022-04-22"
 slug: "weekly-issue-03"
 tags: ["weekly"]
-summary: "This week's topic: Say no to homogenization"
+summary: "Homogenized schooling blurs our goals; I point to self-taught Weng Tianxin and urge deciding what you want."
 showtoc: true
 audio:
   name: "Me"

@@ -3,7 +3,7 @@ title: "Can You Really Find Love on Xiaohongshu? #19"
 date: "2024-06-02"
 slug: "weekly-issue-19"
 tags: ["weekly"]
-summary: "This week's topic: Can you really find love on Xiaohongshu?"
+summary: "A tiny grad-school circle sends me to Xiaohongshu, but online odds are slim; I suggest looking offline first."
 draft: false
 showtoc: true
 audio:

@@ -3,7 +3,7 @@ title: "My Past Years #10"
 date: "2022-06-09"
 slug: "weekly-issue-10"
 tags: ["weekly"]
-summary: "This week's topic: My past years"
+summary: "In Gaokao season I revisit my schools' offline sites in archives and put health and interest before grades."
 showtoc: true
 audio:
   name: "Memory"

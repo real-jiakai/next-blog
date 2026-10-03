@@ -3,7 +3,7 @@ title: "The Chosen One—Trump #20"
 date: "2024-07-24"
 slug: "weekly-issue-20"
 tags: ["weekly"]
-summary: "This week's topic: The Chosen One—Trump"
+summary: "Bilibili remixes, fan hat, memes: Trump will be tougher on China, yet I hope he wins for 4 more years of fun."
 draft: false
 showtoc: true
 audio:

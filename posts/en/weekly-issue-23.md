@@ -3,7 +3,7 @@ title: "Standing at the Crossroads of Campus and Society #23"
 date: "2026-01-23"
 slug: "weekly-issue-23"
 tags: ["weekly"]
-summary: "This week's topic: Standing at the crossroads of campus and society"
+summary: "Seen as my advisor's promotion tool, with no offers but a civil service interview, I keep running, unsure."
 draft: false
 showtoc: true
 audio:

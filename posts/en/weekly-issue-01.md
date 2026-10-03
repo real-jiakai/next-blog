@@ -3,7 +3,7 @@ title: "How Are Billionaires Made? #1"
 date: "2022-04-09"
 slug: "weekly-issue-01"
 tags: ["weekly"]
-summary: "This week's topic: How are billionaires made?"
+summary: "Elon Musk's success is examined from three angles: hard work, an innovative spirit and foresight."
 showtoc: true
 ---
 

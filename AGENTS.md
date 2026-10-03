@@ -98,9 +98,13 @@ through the latest Node 24 release.
   code or in tests.
 - An issue's number is the trailing ` #N` of its frontmatter `title`; the
   visible headings drop it, while `<title>`, feeds and search keep the full
-  title. The contents page's excerpt is the frontmatter `summary` unless that
-  is empty or the `本期话题：…` / `This week's topic: …` boilerplate, in which
-  case it is the first paragraph of the 话题/Topic section.
+  title. Every published issue has a one-line frontmatter `summary` of its
+  own (Chinese 20–48 characters ending in `。`, English 50–110 ending in `.`,
+  no ellipsis), which `tests/post-summaries.test.ts` enforces. The contents
+  page shows it whole under the title, never truncated or clamped, and it is
+  the post's meta description. Only an empty or boilerplate summary
+  (`本期话题：…` / `This week's topic: …`), as a draft may have, falls back to
+  the shortened first paragraph of the 话题/Topic section.
 - No cards: separate with rules. There are three weights: a hairline
   (`border-site-line`), a 1px ink rule (`border-site-rule`), and the double
   rule under a page's `<h1>`. `bg-site-surface` is for overlays, form fields

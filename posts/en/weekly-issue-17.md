@@ -3,7 +3,7 @@ title: "Reflections on One Year as a VPS Enthusiast #17"
 date: "2024-03-30"
 slug: "weekly-issue-17"
 tags: ["weekly"]
-summary: "This week's topic: Reflections on one year as a VPS enthusiast"
+summary: "A year of self-hosting took me from 3 VPS to 50+; the hobby is fun but costly, so I aim for 30-40 in 2024."
 draft: false
 showtoc: true
 audio:

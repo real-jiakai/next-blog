@@ -3,7 +3,7 @@ title: "Which AI Emotional Companion to Choose? #21"
 date: "2024-09-30"
 slug: "weekly-issue-21"
 tags: ["weekly"]
-summary: "This week's topic: Which AI emotional companion to choose?"
+summary: "GPT's voice mode disappoints, ChatGLM sounds machine-translated, but Doubao's phone calls make it my pick."
 draft: false
 showtoc: true
 audio:

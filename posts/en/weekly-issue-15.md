@@ -3,7 +3,7 @@ title: "Today I Learned #15"
 date: "2023-02-28"
 tags: ["weekly"]
 slug: "weekly-issue-15"
-summary: "This week's topic: Today I Learned"
+summary: "Learning in public is the fastest way to learn; a chain of TIL projects leads me to start one on my blog."
 showtoc: true
 audio:
   name: "The Meaning of Travel"

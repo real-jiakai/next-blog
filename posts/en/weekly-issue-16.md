@@ -3,7 +3,7 @@ title: "Solutions for Graduating into Unemployment #16"
 date: "2023-07-10"
 slug: "weekly-issue-16"
 tags: ["weekly"]
-summary: "This week's topic: Solutions for graduating into unemployment"
+summary: "My roommates' outcomes frame why graduates struggle to find work, from lofty expectations to who you know."
 draft: false
 showtoc: true
 audio:
