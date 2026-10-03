@@ -153,7 +153,13 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 	return (
 		<>
 			{comments.length > 0 ? (
-				<div ref={listRef} className="comment-list space-y-4">
+				// One hairline between two comments, and none under the heading.
+				// It sits midway: 16px of margin above it, and below it 4px plus
+				// the name's own 12px of padding.
+				<div
+					ref={listRef}
+					className="comment-list space-y-4 [&>.comment+.comment]:border-t [&>.comment+.comment]:border-site-line [&>.comment+.comment]:pt-1"
+				>
 					{hasMore && (
 						<div>
 							{/* aria-disabled, not disabled: a disabled button drops the
@@ -179,9 +185,9 @@ export default function CommentList({ quoteComment, updateList, dict, lang }: Co
 							key={comment.id}
 							id={`comment-${comment.id}`}
 							tabIndex={-1}
-							className="comment scroll-mt-24 flex flex-col border-t border-site-line pt-4"
+							className="comment scroll-mt-24 flex flex-col"
 						>
-							<div className="flex justify-between items-center mb-2 border-b border-site-line">
+							<div className="flex justify-between items-center mb-2">
 								<div className="flex items-center space-x-2">
 									{comment.avatar && (
 										// A server-made data: URI; there is nothing to optimize.

@@ -10,7 +10,8 @@ const headings = [{ id: 'cover' }, { id: 'topic' }, { id: 'links' }]
 
 // A page 3000px tall in an 800px window, scrolled to `scrollY`, with each
 // heading `top` pixels below the viewport's top and a 96px scroll margin
-// (scroll-mt-24 at the default font size).
+// (scroll-mt-24 at the default font size; h2s carry scroll-mt-20, which the
+// spy reads the same way).
 function page(
 	tops: Record<string, number | null>,
 	{ scrollY = 400, hash = '' }: { scrollY?: number, hash?: string } = {},

@@ -1,7 +1,8 @@
 import type { Locale } from '@/lib/i18n-config'
 
-// Straight apostrophe on purpose: Noto Sans SC sets U+2019 full-width, and
-// this default is also the English contents page's tagline.
+// Straight apostrophe on purpose: English copy on this site uses straight
+// quotes (AGENTS.md). This default is the meta and Open Graph description and
+// the llms.txt summary.
 const defaultDescriptions: Record<Locale, string> = {
 	zh: '专注于分享互联网上有趣的东西。',
 	en: '周见 (Zhōu Jiàn) is Jiakai Gu\'s bilingual periodical of things seen on the internet: one topic per issue, with interesting finds, links and quotes.',
@@ -9,8 +10,8 @@ const defaultDescriptions: Record<Locale, string> = {
 
 /**
  * The site description in a locale: its own setting, then the shared one,
- * then a built-in default. The meta description and the contents page's
- * tagline both use it.
+ * then a built-in default. It is the meta and Open Graph description; the
+ * contents page's standfirst is a dictionary string instead.
  */
 export function getSiteDescription(lang: Locale): string {
 	return (

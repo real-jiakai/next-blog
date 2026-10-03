@@ -76,9 +76,21 @@ describe('About page', () => {
 		const since = formatMonthYear(String(firstDate), lang)
 		expect(text).toContain(
 			lang === 'zh'
-				? `自${since}创刊以来，已出 ${count} 期，不定期更新。`
+				? `自${since}创刊以来不定期出刊，至今共 ${count} 期。`
 				: `${count} issues have appeared since ${since}, on no fixed schedule.`,
 		)
+	})
+
+	it.each([['zh', zh], ['en', en]] as const)('explains in %s why the first issues lost their images', async (lang, dict) => {
+		const html = await renderHtml(lang)
+		const stats = html.indexOf(lang === 'zh' ? '创刊以来' : 'issues have appeared')
+		const note = html.indexOf(`>${dict.about.LostImages.replace(/'/g, '&#x27;')}</p>`)
+
+		expect(dict.about.LostImages).toContain('竹白')
+		expect(dict.about.LostImages).toMatch(/1–8/)
+		// After the run of issues it qualifies.
+		expect(stats).toBeGreaterThan(-1)
+		expect(note).toBeGreaterThan(stats)
 	})
 
 	it('names the periodical in English without the old translation', async () => {

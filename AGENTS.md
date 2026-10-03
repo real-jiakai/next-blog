@@ -25,10 +25,15 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `components/` — UI components; client boundaries are intentionally narrow.
 - `components/SiteHeader/` — the header with the centred brand; its shortcut,
   idle-mount and theme helpers live in `interaction.ts`.
-- `components/SiteFooter/` — the colophon footer.
+- `components/SiteFooter/` — the colophon: the copyright, from the first
+  post's year to the newest, and the source link. It repeats nothing the
+  page shows elsewhere: the brand and About are in the header, the run of
+  issues on the contents page, and the feed in the header from md up, so the
+  footer's feed link shows only below md. It centres on phones.
 - `components/Masthead/`, `LeadIssue/`, `IssueCover/`, `IssueIndex/` — the
-  contents page: heading and folio, the newest issue, its cover, and the
-  back issues grouped by year.
+  contents page: heading, standfirst and folio (founded, cadence; no links,
+  no issue range), the newest issue, its cover, and the back issues grouped
+  by year.
 - `components/PostHeader/`, `PostNav/` — a post's kicker, title and BGM
   block, and its previous/next issue links.
 - `components/ArticleToc/interaction.ts` — the table of contents' scroll-spy,
@@ -88,14 +93,21 @@ through the latest Node 24 release.
 - Public Chinese URLs never include `/zh`; use `getLocalePath` for links.
 - The home page is the complete contents list; there is no pagination and no
   archive route (`/page/N` and `/archive` are 308s to the contents page, and
-  old `/archive#2024` links land on that year's section). Every count, issue
-  range and year on it is computed from the posts; never hard-code one, in
-  code or in tests.
+  old `/archive#2024` links land on that year's section). Every count, number
+  and year on it (the back-issue count, the lead's numeral, the founding
+  month, the year headings) is computed from the posts; never hard-code one,
+  in code or in tests.
 - An issue's number is the trailing ` #N` of its frontmatter `title`; the
   visible headings drop it, while `<title>`, feeds and search keep the full
-  title. The contents page's excerpt is the frontmatter `summary` unless that
-  is empty or the `本期话题：…` / `This week's topic: …` boilerplate, in which
-  case it is the first paragraph of the 话题/Topic section.
+  title. Every published issue has a one-line frontmatter `summary` of its
+  own (Chinese 20–48 characters ending in `。`, English 50–110 ending in `.`,
+  no ellipsis), which `tests/post-summaries.test.ts` enforces. The contents
+  page shows it whole under the title, never truncated or clamped, and it is
+  the post's meta description. Drafts never reach the contents page, so the
+  fallback for an empty or boilerplate summary (`本期话题：…` /
+  `This week's topic: …`), the shortened first paragraph of the 话题/Topic
+  section or else the title, is only a safety net for a published issue that
+  slipped past the test.
 - No cards: separate with rules. There are three weights: a hairline
   (`border-site-line`), a 1px ink rule (`border-site-rule`), and the double
   rule under a page's `<h1>`. `bg-site-surface` is for overlays, form fields
@@ -188,12 +200,13 @@ key. Comment secrets are runtime-only: `SUPABASE_URL`,
 trusted `COMMENT_CLIENT_IP_HEADER`, and optional SMTP settings. Never place
 secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
 
-`NEXT_PUBLIC_SITE_TITLE` is the brand in both languages: the header, footer,
+`NEXT_PUBLIC_SITE_TITLE` is the brand in both languages: the header,
 `<title>` suffix and `og:site_name`. `NEXT_PUBLIC_SITE_TITLE_EN`
 (`周见 · Zhōu Jiàn`) is the English pages' default `<title>`, the English
 feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
 the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
-`NEXT_PUBLIC_SITE_DESCRIPTION` and double as the contents page's tagline.
+`NEXT_PUBLIC_SITE_DESCRIPTION` and are the meta and Open Graph description;
+the contents page prints the `Standfirst` dictionary string instead.
 
 `next/image` optimizes the contents page's lead cover. It accepts exactly the
 cover URLs in `lib/cover-urls.json`, with no query string, rather than the

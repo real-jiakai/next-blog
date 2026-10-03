@@ -3,7 +3,7 @@ title: "The Chosen One—Trump #20"
 date: "2024-07-24"
 slug: "weekly-issue-20"
 tags: ["weekly"]
-summary: "This week's topic: The Chosen One—Trump"
+summary: "Amused by Trump since 2020, I know he'll be tougher on China but hope he wins for four more years of fun."
 draft: false
 showtoc: true
 audio:

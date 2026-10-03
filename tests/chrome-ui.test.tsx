@@ -14,7 +14,6 @@ import { bindSearchShortcut, toggledTheme, whenIdle } from '@/components/SiteHea
 import en from '@/lib/dictionaries/en.json'
 import zh from '@/lib/dictionaries/zh.json'
 import { i18n } from '@/lib/i18n-config'
-import { formatIssueRange } from '@/lib/issues'
 import { getAllPostMetadata, getIssueStats } from '@/lib/posts'
 import { isApplePlatform, isSearchShortcut } from '@/lib/search'
 
@@ -121,35 +120,61 @@ afterEach(() => {
 })
 
 describe('SiteFooter', () => {
-	it('ends the copyright range at the newest post, not the build date', () => {
+	const postYears = () =>
+		i18n.locales.flatMap((locale) => getAllPostMetadata(locale).map((post) => post.year))
+
+	it('runs the copyright from the first post to the newest, not to the build date', () => {
 		vi.useFakeTimers({ toFake: ['Date'] })
 		vi.setSystemTime(new Date('2099-06-01T00:00:00Z'))
-		const newest = Math.max(
-			...i18n.locales.flatMap((locale) => getAllPostMetadata(locale).map((post) => post.year))
-		)
+		const first = Math.min(...postYears())
+		const last = Math.max(...postYears())
 
 		const html = renderToStaticMarkup(<SiteFooter lang="en" dict={en} />)
 
 		// An en dash: the years are a range.
-		expect(html).toContain(`© 2022–${newest}`)
+		expect(first).toBeLessThan(last)
+		expect(html).toContain(`© ${first}–${last}`)
 		expect(html).not.toContain('2099')
 	})
 
-	it.each(['zh', 'en'] as const)('names the periodical and its run of issues in %s', (lang) => {
-		const range = formatIssueRange(dicts[lang].common, getIssueStats(lang))
-		const html = renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />)
+	it.each(['zh', 'en'] as const)('leaves the brand and the run of issues to the rest of the page in %s', (lang) => {
+		const text = textOf(renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />))
+		const { first, last } = getIssueStats(lang)
 
-		expect(range).toBeTruthy()
-		expect(textOf(html)).toContain(` · ${range}`)
+		expect(text).not.toContain(process.env.NEXT_PUBLIC_SITE_TITLE || '周见')
+		expect(text).not.toContain(`${first}–${last} `)
+		expect(text).not.toMatch(/第 \d+–\d+ 期|Nos\. \d/)
 	})
 
-	it('links the feed, the repository and About for the page language', () => {
-		const html = renderToStaticMarkup(<SiteFooter lang="en" dict={en} />)
+	it.each(['zh', 'en'] as const)('shows each of About and the feed once at every width in %s', (lang) => {
+		const footer = renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />)
+		const header = renderHeader(lang, lang === 'en' ? '/en' : '/')
+		const feed = lang === 'en' ? 'href="/en/index.xml"' : 'href="/index.xml"'
+		// The anchor carrying `href`, whatever order React writes its
+		// attributes in; a missing anchor fails rather than reading as ''.
+		const classesOf = (html: string, href: string) => {
+			const tag = html.match(new RegExp(`<a\\b[^>]*${href}[^>]*>`))?.[0]
+			expect(tag).toBeDefined()
+			return (tag!.match(/class="([^"]*)"/)?.[1] ?? '').split(' ')
+		}
 
-		expect(html).toMatch(/<a href="\/en\/index.xml" type="application\/atom\+xml"[^>]*>RSS<\/a>/)
-		expect(html).toMatch(/<a\b[^>]*href="\/en\/about"[^>]*>About<\/a>/)
-		expect(renderToStaticMarkup(<SiteFooter lang="zh" dict={zh} />)).toMatch(
-			/<a\b[^>]*href="\/about"[^>]*>关于<\/a>/
+		// About lives in the header at every width, never in the footer.
+		expect(header).toContain(lang === 'en' ? 'href="/en/about"' : 'href="/about"')
+		expect(classesOf(header, lang === 'en' ? 'href="/en/about"' : 'href="/about"')).not.toContain('hidden')
+		expect(footer).not.toMatch(/href="[^"]*\/about"/)
+		// The feed: the header's from md up, the footer's below md, never both.
+		expect(classesOf(header, feed)).toEqual(expect.arrayContaining(['hidden', 'md:inline-flex']))
+		expect(classesOf(footer, feed)).toContain('md:hidden')
+		expect(classesOf(footer, feed)).not.toContain('hidden')
+		expect(footer.match(/<a\b/g)).toHaveLength(2)
+	})
+
+	it('centres the colophon on phones and splits it from md up', () => {
+		const html = renderToStaticMarkup(<SiteFooter lang="zh" dict={zh} />)
+		const grid = html.match(/<footer\b[^>]*>\s*<div class="([^"]*)"/)?.[1] ?? ''
+
+		expect(grid.split(' ')).toEqual(
+			expect.arrayContaining(['text-center', 'justify-items-center', 'md:text-left', 'md:grid-cols-[1fr_auto]'])
 		)
 	})
 

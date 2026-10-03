@@ -91,6 +91,8 @@ export default async function About({
 							})}
 						</p>
 					)}
+					{/* Why the early issues refer to pictures that are not there. */}
+					<p className={`${prose} mt-5`}>{about.LostImages}</p>
 					<p className={`${prose} mt-5`}>
 						{about.RSSSubscribe}{' '}
 						<a

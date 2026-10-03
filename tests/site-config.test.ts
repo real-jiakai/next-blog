@@ -33,8 +33,8 @@ describe('getSiteDescription', () => {
 		expect(english).toMatch(/^周见 \(Zhōu Jiàn\) is /)
 		// It names an irregular periodical, not the old weekly newsletter.
 		expect(english).not.toMatch(/weekly|newsletter|Insights/i)
-		// The contents page prints it in Noto Sans SC, whose curly quotes
-		// are full-width.
+		// English copy uses straight quotes by site convention, so it reads
+		// the same wherever the description is shown.
 		expect(english).not.toMatch(/[\u2018-\u201f]/)
 	})
 })

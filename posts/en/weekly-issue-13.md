@@ -3,7 +3,7 @@ title: "The Bad Habit of Hoarding Information #13"
 date: "2023-01-20"
 tags: ['weekly']
 slug: "weekly-issue-13"
-summary: "This week's topic: The bad habit of hoarding information"
+summary: "Bookmarks pile up unread, so I save only what I've read and argue for producing knowledge, not hoarding it."
 showtoc: true
 audio:
    name: 'You Have Me'

@@ -4,7 +4,7 @@ import { Locale, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSiteOpenGraph } from '@/lib/metadata'
 import { getIssueIndex, getIssueStats } from '@/lib/posts'
-import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
+import { getSiteTitle } from '@/lib/site-config'
 import Layout from '@/components/Layout'
 import Masthead from '@/components/Masthead'
 import LeadIssue from '@/components/LeadIssue'
@@ -52,7 +52,7 @@ export default async function Home({
 		return (
 			<Layout lang={lang} dict={dict}>
 				<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
-					<Masthead lang={lang} dict={dict} stats={stats} tagline={getSiteDescription(lang)} />
+					<Masthead lang={lang} dict={dict} stats={stats} />
 					<p className="m-0 mt-10 text-[1.0625rem] text-site-muted">
 						{dict.common.NoPostsAvailable}
 					</p>
@@ -72,7 +72,7 @@ export default async function Home({
 	return (
 		<Layout lang={lang} dict={dict}>
 			<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
-				<Masthead lang={lang} dict={dict} stats={stats} tagline={getSiteDescription(lang)} />
+				<Masthead lang={lang} dict={dict} stats={stats} />
 				<LeadIssue lang={lang} dict={dict} issue={lead} />
 				{back.length > 0 && (
 					<IssueIndex lang={lang} dict={dict} issues={back} leadYear={lead.year} />

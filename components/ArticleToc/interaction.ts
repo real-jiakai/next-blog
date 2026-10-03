@@ -32,9 +32,10 @@ type SpyWindow = Pick<
 	| 'cancelAnimationFrame'
 >
 
-// Headings carry scroll-mt-24 for the sticky header. It is rem-based, so it
-// grows with the reader's font size; a heading counts as "reached" once its
-// top passes its own resolved scroll margin, plus a small buffer.
+// Headings carry scroll-mt-20 (h2) or scroll-mt-24 for the sticky header.
+// The margin is rem-based, so it grows with the reader's font size; a heading
+// counts as "reached" once its top passes its own resolved scroll margin,
+// plus a small buffer.
 const REACHED_BUFFER = 16
 
 /**

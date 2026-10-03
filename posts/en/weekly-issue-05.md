@@ -3,7 +3,7 @@ title: "How to Efficiently Prepare for Graduate School Exams? #5"
 date: "2022-05-09"
 slug: "weekly-issue-05"
 tags: ["weekly"]
-summary: "This week's topic: How to efficiently prepare for graduate school entrance exams?"
+summary: "Ever more lost in math, I review my errors, seek a top student's tips, mind my pace and plan daily runs."
 showtoc: true
 audio:
   name: "Friends"

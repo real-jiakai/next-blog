@@ -127,7 +127,7 @@
        rule, as the sections of a printed periodical do, and links are ink
        with an accent underline, so the colour marks where a link is without
        recolouring what it says. Kept in this layer so that the utilities
-       renderPost puts on nodes (sr-only on the footnote heading, scroll-mt-24,
+       renderPost puts on nodes (sr-only on the footnote heading, scroll-mt-20/24,
        an autoplay clip's margins) still win. */
     .article-content {
         @apply text-site-copy;
@@ -154,9 +154,11 @@
         margin-top: 0.75rem;
     }
 
+    /* One measure above the rule, below it and under the heading, so a
+       department's rule sits midway between the sections it divides. */
     .article-content h2 {
-        margin: 3.5rem 0 1.25rem;
-        padding-top: 1.25rem;
+        margin: 2rem 0;
+        padding-top: 2rem;
         border-top: 1px solid var(--site-rule);
         font-size: 1.375rem;
         line-height: 1.3;
@@ -399,6 +401,22 @@
     .comment-content pre {
         @apply my-3 p-3 overflow-x-auto text-sm bg-site-surface-muted;
         border-radius: 0;
+    }
+
+    /* A quote opens with its attribution ("引用某人的留言：") in a text-only
+       <pre>, which lib/commentQuote writes and stored comments keep. It reads
+       as a caption, not as code. Real code always has a <code> inside, so a
+       quote that opens with a code block keeps the code style; this is the
+       same test stripLeadingQuote applies when quoting. */
+    .comment-content blockquote > pre:first-child:not(:has(*)) {
+        @apply m-0 p-0 text-sm text-site-muted bg-transparent font-sans whitespace-normal;
+        overflow: visible;
+    }
+
+    /* Older quotes left a <br> after the leading quote, which only added a
+       blank line before the reply. */
+    .comment-content > blockquote:first-child + br {
+        display: none;
     }
 
     .comment-content code:not(pre code) {

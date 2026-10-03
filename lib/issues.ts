@@ -74,8 +74,9 @@ export function parseIssueTitle(title: string): { displayTitle: string; issue: n
 }
 
 /**
- * Every issue's frontmatter summary so far is just "本期话题：<title>", which
- * would print the title twice. Such a summary is replaced by an excerpt.
+ * The issues' frontmatter summaries used to be just "本期话题：<title>", which
+ * would print the title twice. Such a summary, or none, is replaced by an
+ * excerpt.
  */
 export function isBoilerplateSummary(summary: string | undefined | null): boolean {
 	const value = (summary ?? '').trim()
@@ -109,7 +110,8 @@ const CJK = '[\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\u3000-\\u
 // lookarounds let three lines in a row all join.
 const cjkLineBreak = new RegExp(`(?<=${CJK})[^\\S\\n]*\\n[^\\S\\n]*(?=${CJK})`, 'gu')
 
-function normalizeWhitespace(text: string): string {
+/** Collapses whitespace, dropping a line break between two CJK characters. */
+export function normalizeWhitespace(text: string): string {
 	return text.replace(cjkLineBreak, '').replace(/\s+/g, ' ').trim()
 }
 
@@ -117,7 +119,10 @@ const ZH_EXCERPT_LENGTH = 90
 const EN_EXCERPT_LENGTH = 200
 const EN_EXCERPT_MIN_LENGTH = 150
 
-/** Shortens an excerpt to the length the contents page shows, by code point. */
+/**
+ * Shortens a fallback excerpt (an issue without a summary of its own) to the
+ * length the contents page shows, by code point.
+ */
 export function truncateExcerpt(text: string, locale: Locale): string {
 	const normalized = normalizeWhitespace(text)
 	const characters = Array.from(normalized)
@@ -234,20 +239,6 @@ export function groupByYear<T extends { year: number }>(entries: T[]): { year: n
 		}
 	}
 	return [...groups].map(([year, grouped]) => ({ year, entries: grouped }))
-}
-
-/**
- * The run of issue numbers ("第 1–23 期"), or a single "第 1 期" while the run
- * has only one number; null when no issue carries a number.
- */
-export function formatIssueRange(
-	templates: { IssueN: string, IssueRange: string },
-	{ first, last }: Pick<IssueStats, 'first' | 'last'>,
-): string | null {
-	if (first === null || last === null) return null
-	return first === last
-		? fillTemplate(templates.IssueN, { n: first })
-		: fillTemplate(templates.IssueRange, { first, last })
 }
 
 /** Fills `{name}` slots in a dictionary string. */

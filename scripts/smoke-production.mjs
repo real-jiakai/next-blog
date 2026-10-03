@@ -37,14 +37,22 @@ function requestRsc(pathname) {
 	return request(pathname, { rsc: '1', 'next-url': '/zh/about' })
 }
 
-// The run of issue numbers the contents page's folio should print, from the
-// same posts the build read ("第 1–23 期" today, one more with each issue).
-function issueRange(locale) {
+// The newest issue's number, which the contents page sets as the lead's
+// numeral, from the same posts the build read.
+function latestIssue(locale) {
 	const numbers = getSortedPostsData(locale, path.join(process.cwd(), 'posts'))
 		.map((post) => /#(\d+)\s*$/.exec(post.title)?.[1])
 		.filter(Boolean)
 		.map(Number)
-	return [Math.min(...numbers), Math.max(...numbers)]
+	return Math.max(...numbers)
+}
+
+// The year of the first post in either language, where the colophon's
+// copyright begins.
+function firstPostYear() {
+	return Math.min(...['zh', 'en'].flatMap((locale) =>
+		getSortedPostsData(locale, path.join(process.cwd(), 'posts')).map((post) => post.date.getUTCFullYear())
+	))
 }
 
 function hasExited(child) {
@@ -162,7 +170,7 @@ try {
 	// back-to-top button hands focus to) and the colophon's year range.
 	for (const pathname of ['/', '/en', '/about', '/en/about', '/2024/07/weekly-issue-20']) {
 		const html = await (await request(pathname)).text()
-		for (const expected of ['id="site-brand"', '© 2022–']) {
+		for (const expected of ['id="site-brand"', `© ${firstPostYear()}–`]) {
 			if (!html.includes(expected)) {
 				throw new Error(`${pathname}: the page chrome is missing ${expected}`)
 			}
@@ -170,10 +178,10 @@ try {
 	}
 
 	const homeHtml = await (await request('/')).text()
-	// The contents page: one heading, the run of issues, every issue listed by
-	// year, and no pager or summary boilerplate left over from the post list.
-	const [first, last] = issueRange('zh')
-	for (const expected of ['id="issues"', '<h1', `第 ${first}–${last} 期`]) {
+	// The contents page: one heading, the folio, the newest issue as the lead,
+	// every issue listed by year, and no pager, summary boilerplate or feed
+	// link the header already carries.
+	for (const expected of ['id="issues"', '<h1', '创刊 · 不定期出刊', `>${latestIssue('zh')}</p>`]) {
 		if (!homeHtml.includes(expected)) {
 			throw new Error(`/: the contents page is missing ${expected}`)
 		}
@@ -181,14 +189,13 @@ try {
 	if ((homeHtml.match(/<h1\b/g) || []).length !== 1) {
 		throw new Error('/: expected exactly one <h1>')
 	}
-	for (const unexpected of ['本期话题：', 'href="/page/', 'href="/archive']) {
+	for (const unexpected of ['本期话题：', 'href="/page/', 'href="/archive', 'RSS 订阅']) {
 		if (homeHtml.includes(unexpected)) {
 			throw new Error(`/: the contents page still contains ${unexpected}`)
 		}
 	}
 	const englishHomeHtml = await (await request('/en')).text()
-	const [firstEn, lastEn] = issueRange('en')
-	for (const expected of ['>Contents<', `Nos. ${firstEn}–${lastEn}`]) {
+	for (const expected of ['>Contents<', ' · Published irregularly', `>${latestIssue('en')}</p>`]) {
 		if (!englishHomeHtml.includes(expected)) {
 			throw new Error(`/en: the contents page is missing ${expected}`)
 		}

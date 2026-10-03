@@ -3,7 +3,7 @@ title: "Are You Being Trapped in a Filter Bubble? #4"
 date: "2022-04-29"
 tags: ["weekly"]
 slug: "weekly-issue-04"
-summary: "This week's topic: Are you being trapped in a filter bubble?"
+summary: "Algorithms left to spin a cocoon narrow your view, so take the initiative: train them and seek information."
 showtoc: true
 ---
 

@@ -2,6 +2,10 @@ import type { ReactNode } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { IssueEntry, IssueStats } from '@/lib/issues'
+import en from '@/lib/dictionaries/en.json'
+import zh from '@/lib/dictionaries/zh.json'
+import { formatMonthYear } from '@/lib/formatDate'
+import { getSiteDescription } from '@/lib/site-config'
 
 // Flipped by the empty-state tests: the page then sees a locale with no posts,
 // while every other export of lib/posts stays real.
@@ -42,6 +46,8 @@ function escapeHtml(text: string) {
 		.replace(/'/g, '&#x27;')
 }
 
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
 function textOf(html: string) {
 	return html
 		.replace(/<[^>]+>/g, '')
@@ -52,9 +58,11 @@ function textOf(html: string) {
 		.replace(/&amp;/g, '&')
 }
 
+const dicts = { zh, en } as const
+
 const labels = {
-	zh: { contents: '目录', issue: (n: number) => `第 ${n} 期：`, range: (a: number, b: number) => `第 ${a}–${b} 期` },
-	en: { contents: 'Contents', issue: (n: number) => `No. ${n}: `, range: (a: number, b: number) => `Nos. ${a}–${b}` },
+	zh: { contents: '目录', issue: (n: number) => `第 ${n} 期：` },
+	en: { contents: 'Contents', issue: (n: number) => `No. ${n}: ` },
 } as const
 
 afterEach(() => {
@@ -81,9 +89,24 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		expect(lead.issue).not.toBeNull()
 		expect(numeral).toBe(String(lead.issue))
 		expect(article).toContain(`href="${lead.href}"`)
-		// The excerpt comes from the essay, not the title repeated.
+		// The issue's own summary, whole: not the title repeated, not cut.
 		expect(lead.excerpt).not.toBe(lead.displayTitle)
 		expect(textOf(article)).toContain(lead.excerpt)
+		expect(article).not.toContain('line-clamp')
+	})
+
+	it('shows every back issue\'s summary whole', async () => {
+		const html = await render(lang)
+		const index = html.match(/<section id="issues"[\s\S]*<\/section>/)?.[0] ?? ''
+
+		for (const issue of back) {
+			const line = new RegExp(`<p class="([^"]*)">${escapeRegExp(escapeHtml(issue.excerpt))}</p>`)
+			const classes = index.match(line)?.[1]
+			expect(classes).toBeDefined()
+			// CSS truncation would print an ellipsis the summary does not have,
+			// and hiding it would leave phones without it.
+			expect(classes).not.toMatch(/\b(truncate|line-clamp-\d|hidden)\b/)
+		}
 	})
 
 	it('serves the lead cover through the image optimizer', async () => {
@@ -138,11 +161,30 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		expect(rows).toHaveLength(back.length)
 	})
 
-	it('gives the run of issues in the folio', async () => {
-		const { first, last } = getIssueStats(lang)
+	it('says what the periodical is, when it was founded and how often it appears', async () => {
+		const { firstDate } = getIssueStats(lang)
+		const dict = dicts[lang].common
+		const html = await render(lang)
+		const masthead = html.match(/<header class="pt-10[\s\S]*?<\/header>/)?.[0] ?? ''
 
-		expect(first).not.toBeNull()
-		expect(textOf(await render(lang))).toContain(labels[lang].range(first!, last!))
+		expect(firstDate).not.toBeNull()
+		expect(textOf(masthead)).toContain(dict.Standfirst)
+		expect(textOf(masthead)).toContain(
+			`${dict.FoundedIn.replace('{date}', formatMonthYear(firstDate!, lang))} · ${dict.Cadence}`,
+		)
+	})
+
+	it('repeats nothing the header or the lead already shows', async () => {
+		const html = await render(lang)
+		const masthead = html.match(/<header class="pt-10[\s\S]*?<\/header>/)?.[0] ?? ''
+
+		expect(masthead).not.toBe('')
+		// No feed or About link: both are in the sticky header.
+		expect(masthead).not.toContain('<a')
+		// No run of issue numbers: the lead's numeral and the list show it.
+		expect(textOf(masthead)).not.toMatch(/第 \d+–\d+ 期|Nos\. \d/)
+		// The site description is the meta description, not printed here.
+		expect(textOf(masthead)).not.toContain(getSiteDescription(lang))
 	})
 
 	it('says so when the locale has no posts, and points to the other one', async () => {

@@ -3,7 +3,7 @@ title: "你经历过SEO污染吗？ #2"
 date: "2022-04-15"
 tags: ["weekly"]
 slug: "weekly-issue-02"
-summary: "本期话题：你经历过SEO污染吗？"
+summary: "采集站让搜索结果满是垃圾，连我的文章也被采集了；好在uBlacklist能在谷歌、必应屏蔽它们。"
 showtoc: true
 ---
 

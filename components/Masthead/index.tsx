@@ -1,30 +1,28 @@
 import type { Locale } from '@/lib/i18n-config'
 import type { CommonDictionary } from '@/lib/dictionaries'
 import { formatMonthYear } from '@/lib/formatDate'
-import { fillTemplate, formatIssueRange } from '@/lib/issues'
+import { fillTemplate } from '@/lib/issues'
 import type { IssueStats } from '@/lib/issues'
 
 interface MastheadProps {
 	lang: Locale
 	dict: { common: CommonDictionary }
 	stats: IssueStats
-	tagline: string
 }
 
-const linkClass =
-	'underline decoration-site-line underline-offset-4 transition-colors hover:text-site-heading hover:decoration-site-accent'
-
 /**
- * The contents page's head: its heading, the site's tagline, a double rule,
- * and a folio line with the run of issues, when it began and how often it
- * appears. Every figure comes from the posts at build time.
+ * The contents page's head: its heading, a standfirst saying what the
+ * periodical is, a double rule, and a folio line with when it was founded and
+ * how often it appears. It repeats nothing the page already shows: the brand
+ * is in the header, the feed and About are in the header too, and the run of
+ * issues is the lead's numeral and the list below. The founding date comes
+ * from the posts at build time.
  */
-export default function Masthead({ lang, dict, stats, tagline }: MastheadProps) {
-	const range = formatIssueRange(dict.common, stats)
+export default function Masthead({ lang, dict, stats }: MastheadProps) {
 	const founded = stats.firstDate
 		? fillTemplate(dict.common.FoundedIn, { date: formatMonthYear(stats.firstDate, lang) })
 		: null
-	const run = [range, founded].filter(Boolean).join(' · ')
+	const folio = [founded, dict.common.Cadence].filter(Boolean).join(' · ')
 
 	return (
 		<header className="pt-10 md:pt-14">
@@ -32,24 +30,14 @@ export default function Masthead({ lang, dict, stats, tagline }: MastheadProps) 
 				<h1 className="m-0 text-[2rem] font-bold tracking-tight text-site-heading md:text-[2.5rem]">
 					{dict.common.Contents}
 				</h1>
-				<p className="m-0 max-w-[26rem] text-[0.9375rem] text-site-muted text-pretty md:text-right">
-					{tagline}
+				<p className="m-0 max-w-[32rem] text-[0.9375rem] text-site-muted text-balance md:ml-auto md:text-right">
+					{dict.common.Standfirst}
 				</p>
 			</div>
 			<div className="mt-3 border-t-[3px] border-double border-site-rule" />
 			{stats.count > 0 && (
-				<p className="m-0 flex flex-wrap justify-between gap-x-6 gap-y-0.5 border-b border-site-line py-2 text-[0.75rem] tracking-[0.12em] text-site-muted tabular-nums md:text-[0.8125rem]">
-					<span>{run}</span>
-					<span>
-						{dict.common.Cadence} ·{' '}
-						<a
-							href={lang === 'en' ? '/en/index.xml' : '/index.xml'}
-							type="application/atom+xml"
-							className={linkClass}
-						>
-							{dict.common.RssSubscribe}
-						</a>
-					</span>
+				<p className="m-0 border-b border-site-line py-2 text-[0.75rem] tracking-[0.12em] text-site-muted text-balance tabular-nums md:text-[0.8125rem]">
+					{folio}
 				</p>
 			)}
 		</header>

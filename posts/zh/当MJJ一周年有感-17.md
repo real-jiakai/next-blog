@@ -3,7 +3,7 @@ title: "当MJJ一周年有感 #17"
 date: "2024-03-30"
 slug: "weekly-issue-17"
 tags: ["weekly"]
-summary: "本期话题：当MJJ一周年有感"
+summary: "一年自建下来，VPS从3台攒到50多台，乐在其中也花了不少钱，2024年想减到30至40台。"
 draft: false
 showtoc: true
 audio:

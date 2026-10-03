@@ -3,7 +3,7 @@ title: "The Trap of the Information Age—Over-Consuming Content #8"
 date: "2022-05-27"
 tags: ["weekly"]
 slug: "weekly-issue-08"
-summary: "This week's topic: The trap of the information age—over-consuming content"
+summary: "Fearing thin issues, I made myself read every feed daily, until a roommate showed me I could stop when tired."
 showtoc: true
 audio:
   name: "Handwritten Memories of the Past"

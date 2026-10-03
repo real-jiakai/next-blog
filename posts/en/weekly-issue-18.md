@@ -3,7 +3,7 @@ title: "The Dilemma of Pursuing a Master's at a Non-Elite University #18"
 date: "2024-05-05"
 slug: "weekly-issue-18"
 tags: ["weekly"]
-summary: "This week's topic: The dilemma of pursuing a master's at a non-elite university"
+summary: "All third-years but one went home for non-NLP jobs; I build dev skills and aim to publish early, then intern."
 draft: false
 showtoc: true
 audio:
