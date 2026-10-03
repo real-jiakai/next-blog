@@ -25,7 +25,9 @@ export default function Masthead({ lang, dict, stats }: MastheadProps) {
 	const folio = [founded, dict.common.Cadence].filter(Boolean).join(' · ')
 
 	return (
-		<header className="pt-10 md:pt-14">
+		// Even padding above and below: the space under the folio is the
+		// masthead's, not the lead's, so the two gaps around it match.
+		<header className="py-8 lg:py-10">
 			<div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1">
 				<h1 className="m-0 text-[2rem] font-bold tracking-tight text-site-heading md:text-[2.5rem]">
 					{dict.common.Contents}
