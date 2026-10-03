@@ -165,7 +165,7 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		const { firstDate } = getIssueStats(lang)
 		const dict = dicts[lang].common
 		const html = await render(lang)
-		const masthead = html.match(/<header class="pt-10[\s\S]*?<\/header>/)?.[0] ?? ''
+		const masthead = html.match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? ''
 
 		expect(firstDate).not.toBeNull()
 		expect(textOf(masthead)).toContain(dict.Standfirst)
@@ -174,9 +174,21 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		)
 	})
 
+	it('pads the masthead evenly, and the lead adds nothing above itself', async () => {
+		const html = await render(lang)
+		const masthead = html.match(/<header class="([^"]*)"/)?.[1].split(' ') ?? []
+		const lead = html.match(/<article\b[^>]*class="([^"]*)"/)?.[1].split(' ') ?? []
+
+		// The gap under the folio is the masthead's bottom padding, so it
+		// matches the gap above the heading at every width.
+		expect(masthead).toEqual(expect.arrayContaining(['py-8', 'lg:py-10']))
+		expect(masthead.filter((name) => /^(?:\w+:)?p[tb]-/.test(name))).toEqual([])
+		expect(lead.filter((name) => /^(?:\w+:)?(?:pt|py|p)-/.test(name))).toEqual([])
+	})
+
 	it('repeats nothing the header or the lead already shows', async () => {
 		const html = await render(lang)
-		const masthead = html.match(/<header class="pt-10[\s\S]*?<\/header>/)?.[0] ?? ''
+		const masthead = html.match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? ''
 
 		expect(masthead).not.toBe('')
 		// No feed or About link: both are in the sticky header.

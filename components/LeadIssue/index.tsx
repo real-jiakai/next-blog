@@ -42,7 +42,7 @@ export default function LeadIssue({ lang, dict, issue }: LeadIssueProps) {
 		<article
 			id={String(issue.year)}
 			aria-labelledby="lead-title"
-			className={`grid scroll-mt-18 gap-x-5 border-b border-site-rule pb-10 pt-8 lg:gap-x-8 lg:pt-10 ${columns}`}
+			className={`grid scroll-mt-18 gap-x-5 border-b border-site-rule pb-10 lg:gap-x-8 ${columns}`}
 			style={style}
 		>
 			{hasNumber && (

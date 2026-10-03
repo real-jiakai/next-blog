@@ -66,7 +66,7 @@ export default async function About({
 
 	return (
 		<Layout lang={lang} dict={dict}>
-			<div className="mx-auto w-full max-w-4xl px-4 pb-20 pt-10 md:px-6 md:pt-14">
+			<div className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 md:px-6 lg:pt-10">
 				<div className="max-w-[42rem]">
 					<h1 className="m-0 text-[2rem] font-bold tracking-tight text-site-heading md:text-[2.5rem]">
 						{about.About}

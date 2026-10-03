@@ -53,7 +53,7 @@ export default async function Home({
 			<Layout lang={lang} dict={dict}>
 				<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
 					<Masthead lang={lang} dict={dict} stats={stats} />
-					<p className="m-0 mt-10 text-[1.0625rem] text-site-muted">
+					<p className="m-0 text-[1.0625rem] text-site-muted">
 						{dict.common.NoPostsAvailable}
 					</p>
 					<Link
