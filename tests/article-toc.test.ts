@@ -65,6 +65,29 @@ describe('the contents scroll-spy', () => {
 		).toBe('topic')
 	})
 
+	it('keeps a clicked heading active at the bottom when it starts on screen below the line', () => {
+		expect(
+			activeHeadingId(
+				headings,
+				page({ cover: -1800, topic: 300, links: 500 }, { scrollY: 2200, hash: '#topic' }),
+			),
+		).toBe('topic')
+		// A hash naming a heading the reader has scrolled past does not hold.
+		expect(
+			activeHeadingId(
+				headings,
+				page({ cover: -1800, topic: 96, links: 500 }, { scrollY: 2200, hash: '#cover' }),
+			),
+		).toBe('links')
+		// Nor does one naming something other than a heading.
+		expect(
+			activeHeadingId(
+				headings,
+				page({ cover: -1800, topic: 300, links: 500 }, { scrollY: 2200, hash: '#comments' }),
+			),
+		).toBe('links')
+	})
+
 	it('decodes the hash to compare it with the heading ids', () => {
 		const zhHeadings = [{ id: '封面图' }, { id: '话题' }, { id: '链享' }]
 		const bottom = page(
@@ -154,7 +177,7 @@ describe('reading the live page', () => {
 	it('follows a click between the last two entries that cannot scroll', () => {
 		const { win, listeners, frames } = fakeWindow({
 			cover: { top: -1800, scrollMarginTop: 96 },
-			topic: { top: 96, scrollMarginTop: 96 },
+			topic: { top: 300, scrollMarginTop: 96 },
 			links: { top: 500, scrollMarginTop: 96 },
 		}, 2200)
 		win.location.hash = '#topic'
