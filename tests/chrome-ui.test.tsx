@@ -150,8 +150,13 @@ describe('SiteFooter', () => {
 		const footer = renderToStaticMarkup(<SiteFooter lang={lang} dict={dicts[lang]} />)
 		const header = renderHeader(lang, lang === 'en' ? '/en' : '/')
 		const feed = lang === 'en' ? 'href="/en/index.xml"' : 'href="/index.xml"'
-		const classesOf = (html: string, href: string) =>
-			(html.match(new RegExp(`<a ${href}[^>]*class="([^"]*)"`))?.[1] ?? '').split(' ')
+		// The anchor carrying `href`, whatever order React writes its
+		// attributes in; a missing anchor fails rather than reading as ''.
+		const classesOf = (html: string, href: string) => {
+			const tag = html.match(new RegExp(`<a\\b[^>]*${href}[^>]*>`))?.[0]
+			expect(tag).toBeDefined()
+			return (tag!.match(/class="([^"]*)"/)?.[1] ?? '').split(' ')
+		}
 
 		// About lives in the header at every width, never in the footer.
 		expect(header).toContain(lang === 'en' ? 'href="/en/about"' : 'href="/about"')

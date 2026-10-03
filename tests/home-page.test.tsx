@@ -5,6 +5,7 @@ import type { IssueEntry, IssueStats } from '@/lib/issues'
 import en from '@/lib/dictionaries/en.json'
 import zh from '@/lib/dictionaries/zh.json'
 import { formatMonthYear } from '@/lib/formatDate'
+import { getSiteDescription } from '@/lib/site-config'
 
 // Flipped by the empty-state tests: the page then sees a locale with no posts,
 // while every other export of lib/posts stays real.
@@ -183,7 +184,7 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 		// No run of issue numbers: the lead's numeral and the list show it.
 		expect(textOf(masthead)).not.toMatch(/第 \d+–\d+ 期|Nos\. \d/)
 		// The site description is the meta description, not printed here.
-		expect(textOf(masthead)).not.toContain('专注于分享互联网上有趣的东西')
+		expect(textOf(masthead)).not.toContain(getSiteDescription(lang))
 	})
 
 	it('says so when the locale has no posts, and points to the other one', async () => {
