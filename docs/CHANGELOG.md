@@ -1,3 +1,49 @@
+# [1.5.0](https://github.com/real-jiakai/next-blog/compare/v1.4.1...v1.5.0) (2026-10-03)
+
+
+### Bug Fixes
+
+* **about:** date 竹白's closing announcement, not its shutdown, to February ([cf25704](https://github.com/real-jiakai/next-blog/commit/cf25704ab071d193f70e43940b611d0a77738975))
+* **comments:** keep quoted code as code and centre the rule between comments ([da0fc21](https://github.com/real-jiakai/next-blog/commit/da0fc2142fce8a06598765ffb545012c7365cd48))
+* **comments:** one rule between comments, and quotes read as quotes ([71aa6f3](https://github.com/real-jiakai/next-blog/commit/71aa6f3422d32fa19162cfcd582942f31c044a80))
+* **footer:** centre the colophon on phones and drop the repeated links ([9190e81](https://github.com/real-jiakai/next-blog/commit/9190e818312ceaaf9419c87b449e05df32398021))
+* **footer:** keep the feed link on phones, where the header hides it ([3ee60b9](https://github.com/real-jiakai/next-blog/commit/3ee60b95942e39143ad3abac1fda3912da22aa4a))
+* **home:** give row focus room, guard cover hosts, count one issue ([a97d883](https://github.com/real-jiakai/next-blog/commit/a97d88329266168f3ff36b7d09f844914c4cc4f5))
+* **home:** join a summary's CJK line breaks as excerpts always did ([44ce7bb](https://github.com/real-jiakai/next-blog/commit/44ce7bb5b1d9b01d0d4328c2d0229899447223dd))
+* **home:** keep the standfirst flush right and balance the folio ([7d6ead1](https://github.com/real-jiakai/next-blog/commit/7d6ead19764893608d0bdb0d359d8079059dbf70))
+* **home:** skip stand-in subheadings, size narrow covers, name one shortcut ([d8ec38c](https://github.com/real-jiakai/next-blog/commit/d8ec38cada2db6c05724f8a0489d9e7eba4571f1))
+* **images:** allow the optimizer only the listed cover URLs ([c007a18](https://github.com/real-jiakai/next-blog/commit/c007a18494f53fbe8c65199794e5f78f9f87a8fd))
+* **post:** land heading links clear of the previous section ([db37c15](https://github.com/real-jiakai/next-blog/commit/db37c15e7358689884d01588ad203e822332bd54)), closes [#heading](https://github.com/real-jiakai/next-blog/issues/heading)
+* **posts:** date issues 7, 10 and 13 no earlier than what they describe ([f654e49](https://github.com/real-jiakai/next-blog/commit/f654e493341853890f8e80f9e407f9758a75d9f5))
+* **posts:** keep issue 2's summary to what the post says ([0bb5935](https://github.com/real-jiakai/next-blog/commit/0bb5935cc7feb1df3c911a209cbfcd6ab13f7c7a))
+* **post:** space a department's rule evenly between sections ([dd64dff](https://github.com/real-jiakai/next-blog/commit/dd64dff651c35090f057dab48df006bc7e04fc95))
+* **posts:** say the third-year has a chance at a PhD, and spell out four ([555ed97](https://github.com/real-jiakai/next-blog/commit/555ed9799b63503e069b5bad17dc43e15c471cc5))
+* **posts:** settle the last four summaries and keep two to two lines ([d574e0d](https://github.com/real-jiakai/next-blog/commit/d574e0d00263cc83b85f9e67c3de931cde065c47)), closes [#5](https://github.com/real-jiakai/next-blog/issues/5) [#8](https://github.com/real-jiakai/next-blog/issues/8) [#18](https://github.com/real-jiakai/next-blog/issues/18) [#23](https://github.com/real-jiakai/next-blog/issues/23) [#14](https://github.com/real-jiakai/next-blog/issues/14) [#16](https://github.com/real-jiakai/next-blog/issues/16)
+* **posts:** sharpen eleven summaries after a line-by-line check ([46a6884](https://github.com/real-jiakai/next-blog/commit/46a68847de468f106c526f78b24bbfb3fa924947)), closes [#6](https://github.com/real-jiakai/next-blog/issues/6) [#10](https://github.com/real-jiakai/next-blog/issues/10) [#4](https://github.com/real-jiakai/next-blog/issues/4) [#19](https://github.com/real-jiakai/next-blog/issues/19) [#22](https://github.com/real-jiakai/next-blog/issues/22)
+* **posts:** write the dashes in issues 8 and 20 as —— ([012fb64](https://github.com/real-jiakai/next-blog/commit/012fb6407ea367bbdd5efbcd9f4bb72cff8b2fad))
+* **routing:** answer router fetches of unknown pages with a plain 404 ([040011d](https://github.com/real-jiakai/next-blog/commit/040011d085275e351595e40388ca24e71ec9dde5))
+* **seo:** stop llms.txt from introducing the site twice ([a5bac61](https://github.com/real-jiakai/next-blog/commit/a5bac6193c3294f1c9eba1a0c66460af96b9a73c))
+
+
+### Features
+
+* **about:** explain why the first eight issues lost their images ([9bc1c9d](https://github.com/real-jiakai/next-blog/commit/9bc1c9dab0a2d9569782e8119cd5089edc150d24))
+* **chrome:** centred-brand header, colophon footer, 404 and scroll-to-top ([6865fba](https://github.com/real-jiakai/next-blog/commit/6865fbaa1a9ffd6de6b620cdedc24e6c4bc4b5c4))
+* **comments:** draw avatars on the server and show commenter websites ([bab0691](https://github.com/real-jiakai/next-blog/commit/bab06919381c48adc8025a9eb53cdd8e47b04d0f))
+* **design:** tokens, fonts, base-layer reset, focus and motion rules ([65b618e](https://github.com/real-jiakai/next-blog/commit/65b618e6240598e1550cb38487894951764c178e))
+* **home:** a masthead that says what 周见 is, and a footer that repeats nothing ([2ab7737](https://github.com/real-jiakai/next-blog/commit/2ab77378ffc999a97e9339d7c777772db1047b5c))
+* **home:** contents page with masthead, lead issue and year index; drop pagination and archive ([906c841](https://github.com/real-jiakai/next-blog/commit/906c8416a7bc1e13c5ee47cdec11940c1fd3aff4))
+* **home:** show each issue's summary whole on the contents page ([b39d304](https://github.com/real-jiakai/next-blog/commit/b39d304ff5d6146d8597b657f1b1dee063f208a4))
+* **i18n:** English naming, About copy, feed labels and stylesheet ([b00c0d0](https://github.com/real-jiakai/next-blog/commit/b00c0d0f00e83c69f850f2a77374f996cc3894b1))
+* **post:** issue kicker, BGM block, department rules, rail TOC and prev/next issues ([bd287aa](https://github.com/real-jiakai/next-blog/commit/bd287aafafe7f134565672f5c7c1cf4c9e93e23b))
+* **posts:** give every issue a one-line summary of its own ([9b81405](https://github.com/real-jiakai/next-blog/commit/9b81405a369721325388adf83add046cbef50c24))
+
+
+### Performance Improvements
+
+* **posts:** turn the two local GIFs into looping muted videos ([1380c8e](https://github.com/real-jiakai/next-blog/commit/1380c8e1991c8a945fff8ca609455abc935f118c))
+* **ui:** replace the MUI icons with inline SVGs ([07c8fb3](https://github.com/real-jiakai/next-blog/commit/07c8fb33faa992ed43979d95e3735cc7682424eb))
+
 ## [1.4.1](https://github.com/real-jiakai/next-blog/compare/v1.4.0...v1.4.1) (2026-10-02)
 
 
