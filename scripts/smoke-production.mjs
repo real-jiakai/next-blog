@@ -306,6 +306,22 @@ try {
 	}
 	await clipAsset.body?.cancel()
 
+	// The GIFs these clips replaced lead to the clips' posters, which old
+	// feed entries can still show as images.
+	for (const name of ['2023-01-26-curry-throws-his-mouthpiece', 'zuckerberg_awkward_stare_2025']) {
+		const gif = `/gif/${name}.gif`
+		const poster = `/video/${name}.webp`
+		const response = await request(gif)
+		expectStatus(gif, response, 308)
+		expectLocation(gif, response, poster)
+		const posterAsset = await request(poster)
+		expectStatus(poster, posterAsset, 200)
+		if (posterAsset.headers.get('content-type') !== 'image/webp') {
+			throw new Error(`${poster}: expected Content-Type image/webp`)
+		}
+		await posterAsset.body?.cancel()
+	}
+
 	// Pagination and the archive are folded into the contents page.
 	for (const [pathname, location] of [
 		['/page/1', '/'],

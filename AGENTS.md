@@ -55,8 +55,9 @@ local Markdown posts, Supabase comments, and standalone Docker output.
  `next.config.mjs`, route handlers, and server-rendered pages and components.
 - `scripts/generate-rss.mjs` — deterministic Atom feed generation.
 - `supabase/migrations/` — database changes required before deployment.
-- `next.config.mjs` — locale redirects/rewrites, standalone output, headers,
-  and the image optimizer's host allowlist.
+- `next.config.mjs` — locale redirects/rewrites, the redirects from retired
+  URLs (pagination, the archive, the two GIFs that became videos),
+  standalone output, headers, and the image optimizer's host allowlist.
 - `.github/workflows/ci.yml` — pull-request and branch quality gate.
 - `.github/workflows/release.yml` — gated semantic release from `main`.
 
