@@ -25,9 +25,12 @@ function splitIssueTemplate(template: string): [string, string] {
 
 /**
  * The top of an issue: a kicker with its number, date and reading time, the
- * title without the number, the issue's song with its player, and an ink rule
- * where the body begins. The kicker's number is hidden from assistive
- * technology because the title opens with it, visually hidden, instead.
+ * title without the number, and the issue's song with its player. No rule
+ * closes it: most issues open with a note on their song, which belongs with
+ * the player, so the first department's rule closes the two together (see
+ * `.article-content > h2:first-child` in app/globals.css). The kicker's
+ * number is hidden from assistive technology because the title opens with
+ * it, visually hidden, instead.
  */
 export default function PostHeader({ lang, dict, title, date, minutes, audio }: PostHeaderProps) {
 	const { displayTitle, issue } = parseIssueTitle(title)
@@ -76,7 +79,6 @@ export default function PostHeader({ lang, dict, title, date, minutes, audio }: 
 					/>
 				</section>
 			)}
-			<div className="mt-8 border-t border-site-rule" />
 		</header>
 	)
 }
