@@ -2,9 +2,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 
-// How 《周见》 is named in each language: the brand stays 周见 everywhere a
-// name is shown beside other text, and only a title that stands alone in
-// English adds the romanisation.
+// How 《周见》 is named in each language: the brand stays 周见 after a page's
+// own title and as og:site_name, and only an English title that leads with
+// the site's name (the default <title>, the contents page, the feed and
+// llms.txt) adds the romanisation.
 vi.stubEnv('NEXT_PUBLIC_SITE_TITLE', '周见')
 vi.stubEnv('NEXT_PUBLIC_SITE_TITLE_EN', '周见 · Zhōu Jiàn')
 vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_EN', 'English description.')

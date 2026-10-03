@@ -1,11 +1,19 @@
 import type { ReactNode } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import type { IssueEntry, IssueStats } from '@/lib/issues'
 import en from '@/lib/dictionaries/en.json'
 import zh from '@/lib/dictionaries/zh.json'
 import { formatMonthYear } from '@/lib/formatDate'
 import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
+
+// A fixed origin, so the structured data's URL is checked against a known
+// value whatever NEXT_PUBLIC_SITE_URL the shell or CI sets.
+vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://example.com')
+
+afterAll(() => {
+	vi.unstubAllEnvs()
+})
 
 // Flipped by the empty-state tests: the page then sees a locale with no posts,
 // while every other export of lib/posts stays real.
@@ -82,7 +90,7 @@ describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 			'@context': 'https://schema.org',
 			'@type': 'WebSite',
 			name: getSiteTitle('zh'),
-			url: lang === 'zh' ? 'https://gujiakai.top/' : 'https://gujiakai.top/en',
+			url: lang === 'zh' ? 'https://example.com/' : 'https://example.com/en',
 			description: getSiteDescription(lang),
 			inLanguage: lang === 'zh' ? 'zh-CN' : 'en',
 		})
