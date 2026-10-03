@@ -1,3 +1,22 @@
+# [1.6.0](https://github.com/real-jiakai/next-blog/compare/v1.5.2...v1.6.0) (2026-10-03)
+
+
+### Bug Fixes
+
+* **posts:** call the periodical 周见 in the early English issues ([7da8b45](https://github.com/real-jiakai/next-blog/commit/7da8b4577710d05d25a680288ed60771e7cc232b))
+* **posts:** write 闲鱼, the marketplace, in issue 15 ([653f11d](https://github.com/real-jiakai/next-blog/commit/653f11d3349568f3fe3b6a4aa52a70003becc48f))
+* **redirects:** send the two retired GIF URLs to their posters ([84d1f82](https://github.com/real-jiakai/next-blog/commit/84d1f822493e8274bf057e4da9aeccc685ada845))
+* **rss:** date the styled feed by publication, refuse impossible days ([6906160](https://github.com/real-jiakai/next-blog/commit/6906160041541e3e043526be0a479cd783d5a3fa))
+* **toc:** follow a hash change as well as scrolling ([4c9df24](https://github.com/real-jiakai/next-blog/commit/4c9df24441fbed4c40a7a85bd35f964a88dc7b01))
+* **toc:** honour a clicked closing section at the bottom of a page ([fc3aa65](https://github.com/real-jiakai/next-blog/commit/fc3aa659c0c1e0a705d48ac64f4fd9b2b9c7acea))
+
+
+### Features
+
+* **posts:** an optional updated date for substantive revisions ([bac36a1](https://github.com/real-jiakai/next-blog/commit/bac36a143a5a71f937848754df4a6d0cde179737))
+* **seo:** describe issues and the site with JSON-LD ([908a104](https://github.com/real-jiakai/next-blog/commit/908a1043c1ed35e6da20611c429c4893dc005736))
+* **seo:** say what the site is in the contents page's title ([9e009d1](https://github.com/real-jiakai/next-blog/commit/9e009d1b75fc6953809560bea4d878fbdc3988e1))
+
 ## [1.5.2](https://github.com/real-jiakai/next-blog/compare/v1.5.1...v1.5.2) (2026-10-03)
 
 
