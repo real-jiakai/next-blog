@@ -81,7 +81,6 @@ export interface PostMetadata {
 }
 
 export interface PostContent {
-  filename: string
   showtoc: boolean
   contentMarkdown: string
   audio: PostFrontmatter['audio'] | null
@@ -277,7 +276,6 @@ export const getPostDataByFileName = cache(async function getPostDataByFileName(
 	const showtoc = data.showtoc === undefined ? false : data.showtoc
 
 	return {
-		filename,
 		showtoc,
 		contentMarkdown,
 		audio: data.audio || null,

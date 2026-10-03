@@ -172,13 +172,12 @@ describe.each(['zh', 'en'] as const)('post page (%s)', (lang) => {
 		expect(header).not.toMatch(/\bborder-/)
 	})
 
-	it('offers the post\'s source for editing', async () => {
+	it('ends on its neighbours\' hairlines, with no ink rule above them and no edit link', async () => {
 		const html = await render(lang, newest)
-		const link = linksOf(html).find((anchor) => anchor.includes('/edit/main/posts/')) ?? ''
 
-		expect(link).toMatch(new RegExp(`/edit/main/posts/${lang}/[^"]+\\.md"`))
-		expect(link).toContain('target="_blank"')
-		expect(textOf(link)).toBe(`${dict.EditThisPage} ↗`)
+		expect(navOf(html, dict.PostNavigation)).toContain('border-site-line')
+		expect(html).not.toContain('border-site-rule')
+		expect(html).not.toContain('/edit/')
 	})
 })
 

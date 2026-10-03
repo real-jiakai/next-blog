@@ -132,9 +132,6 @@ export default async function Post({
 		wordsPerMinute: WORDS_PER_MINUTE[lang],
 	})
 	const { content, headings } = renderPostMarkdown(postData.contentMarkdown, lang)
-	const githubRepository =
-		process.env.NEXT_PUBLIC_GITHUB_REPO ||
-		'https://github.com/real-jiakai/next-blog'
 
 	// The contents page's order (newest first), so the neighbours here are the
 	// rows above and below this issue there. Previous = older (#22 before
@@ -172,18 +169,7 @@ export default async function Post({
 						lightboxLabels={dict.lightbox}
 					/>
 
-					<footer className="mt-16 border-t border-site-rule pt-5">
-						<a
-							href={`${githubRepository}/edit/main/posts/${lang}/${encodeURIComponent(postData.filename)}`}
-							className="text-[0.8125rem] text-site-muted underline decoration-site-line underline-offset-4 transition-colors hover:text-site-heading hover:decoration-site-accent"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{dict.common.EditThisPage}
-							<span aria-hidden> ↗</span>
-						</a>
-						<PostNav dict={dict} prev={prevIssue} next={nextIssue} />
-					</footer>
+					<PostNav dict={dict} prev={prevIssue} next={nextIssue} />
 
 					{process.env.NEXT_PUBLIC_SHOW_COMMENT === 'true' && (
 						<section className="mt-16 border-t border-site-line pt-8">
