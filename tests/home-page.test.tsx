@@ -5,7 +5,7 @@ import type { IssueEntry, IssueStats } from '@/lib/issues'
 import en from '@/lib/dictionaries/en.json'
 import zh from '@/lib/dictionaries/zh.json'
 import { formatMonthYear } from '@/lib/formatDate'
-import { getSiteDescription } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
 
 // Flipped by the empty-state tests: the page then sees a locale with no posts,
 // while every other export of lib/posts stays real.
@@ -72,6 +72,21 @@ afterEach(() => {
 describe.each(['zh', 'en'] as const)('contents page (%s)', (lang) => {
 	const issues = getIssueIndex(lang)
 	const [lead, ...back] = issues
+
+	it('describes the site as a WebSite in its own language', async () => {
+		const html = await render(lang)
+		const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+
+		expect(blocks).toHaveLength(1)
+		expect(JSON.parse(blocks[0][1])).toEqual({
+			'@context': 'https://schema.org',
+			'@type': 'WebSite',
+			name: getSiteTitle('zh'),
+			url: lang === 'zh' ? 'https://gujiakai.top/' : 'https://gujiakai.top/en',
+			description: getSiteDescription(lang),
+			inLanguage: lang === 'zh' ? 'zh-CN' : 'en',
+		})
+	})
 
 	it('has one h1, the contents heading', async () => {
 		const html = await render(lang)

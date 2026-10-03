@@ -95,7 +95,7 @@ image optimizer accepts exactly those cover URLs, not the whole of
 After a substantive revision of a published issue (new or rewritten text, a
 new summary, links that matter), add `updated: "YYYY-MM-DD"` under `date`,
 quoted and no earlier than it. It becomes the post's sitemap `lastmod`, its
-`article:modified_time` and its feed entry's `<updated>`;
+`article:modified_time` and `dateModified`, and its feed entry's `<updated>`;
 `date` stays the day it was first published. Leave it out for typo fixes:
 feed readers may show an entry whose `<updated>` moved as new again.
 

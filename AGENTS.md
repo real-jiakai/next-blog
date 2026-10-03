@@ -48,6 +48,11 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `lib/renderPost.tsx` — sanitized post Markdown rendering and heading data.
   It adds no classes to links; `.article-content` styles them.
 - `lib/renderComment.ts` — sanitized comment Markdown rendering.
+- `lib/structured-data.ts`, `components/JsonLd/` — the JSON-LD on each post
+  (BlogPosting) and home page (WebSite). Every field repeats what the page
+  or its meta tags already say; the author is `siteAuthor` in
+  `lib/site-config.ts`. `serializeJsonLd` escapes `<`, so post text cannot
+  close the script block.
 - `lib/commentSecurity.ts` — comment origin, Turnstile, limits, and verification.
 - `lib/commentAvatar.ts` — server-side identicons that `comSelect` returns.
 - `posts/zh/`, `posts/en/` — Markdown content.
@@ -143,8 +148,8 @@ through the latest Node 24 release.
 - Tags may remain in historical frontmatter but have no public route or UI.
 - A post's optional frontmatter `updated` ("YYYY-MM-DD", quoted, not before
   `date`) marks its last substantive revision. It drives the post's sitemap
-  `lastmod`, `article:modified_time` and the feed entry's `<updated>`,
-  beside an unchanged `<published>`. Set it only for a
+  `lastmod`, `article:modified_time`, JSON-LD `dateModified` and the feed
+  entry's `<updated>`, beside an unchanged `<published>`. Set it only for a
   real revision, never for a typo, and never backfill it: readers may show an
   entry whose `<updated>` changed as new.
 - Drafts must be excluded from lists, static params, direct post lookup,

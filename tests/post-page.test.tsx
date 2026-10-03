@@ -18,7 +18,7 @@ vi.mock('@/components/APlayer/DynamicAPlayer', () => ({
 	default: ({ audio }: { audio: { name: string } }) => <div data-player={audio.name} />,
 }))
 
-const { default: Post } = await import('@/app/[lang]/[year]/[month]/[slug]/page')
+const { default: Post, generateMetadata } = await import('@/app/[lang]/[year]/[month]/[slug]/page')
 const { default: PostHeader } = await import('@/components/PostHeader')
 const { default: PostNav } = await import('@/components/PostNav')
 const { getIssueIndex, getSortedPostsData } = await import('@/lib/posts')
@@ -180,6 +180,36 @@ describe.each(['zh', 'en'] as const)('post page (%s)', (lang) => {
 
 		expect(padding(withSong)).toBe('pb-5')
 		expect(padding(withoutSong)).toBe('pb-8')
+	})
+
+	it('describes the issue as a BlogPosting that matches its meta tags', async () => {
+		const html = await render(lang, newest)
+		const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+		const data = JSON.parse(blocks[0]?.[1] ?? '{}')
+		const params = {
+			lang,
+			year: newest.date.slice(0, 4),
+			month: newest.date.slice(5, 7),
+			slug: newest.slug,
+		}
+		const metadata = await generateMetadata({ params: Promise.resolve(params) })
+		const ogImage = [metadata.openGraph?.images].flat()[0] as { url: string } | undefined
+
+		expect(blocks).toHaveLength(1)
+		expect(data).toMatchObject({
+			'@type': 'BlogPosting',
+			headline: newest.title,
+			description: metadata.description,
+			url: metadata.alternates?.canonical,
+			datePublished: newest.date,
+			dateModified: newest.date,
+			inLanguage: lang === 'zh' ? 'zh-CN' : 'en',
+			author: { '@type': 'Person', name: 'Jiakai Gu' },
+		})
+		expect(ogImage).toBeDefined()
+		expect(data.image).toEqual([new URL(ogImage!.url, 'https://gujiakai.top/').href])
+		// No post records a revision yet, so none claims a modified time.
+		expect(metadata.openGraph).not.toHaveProperty('modifiedTime', expect.anything())
 	})
 
 	it('ends on its neighbours\' hairlines, with no ink rule above them and no edit link', async () => {

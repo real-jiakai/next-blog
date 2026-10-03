@@ -16,8 +16,11 @@ import Comment from '@/components/Comment'
 import PostHeader from '@/components/PostHeader'
 import PostNav from '@/components/PostNav'
 import { renderPostMarkdown } from '@/lib/renderPost'
-import { getSiteDescription, getSiteTitle } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle, getSiteUrl } from '@/lib/site-config'
+import { blogPostingJsonLd } from '@/lib/structured-data'
+import JsonLd from '@/components/JsonLd'
 import postImageDimensions from '@/lib/post-image-dimensions.json'
+import type { PostContent } from '@/lib/posts'
 
 const ARTICLE_CONTAINER_ID = 'article-content'
 
@@ -33,6 +36,20 @@ interface PostParams {
   year: string
   month: string
   slug: string
+}
+
+// What the meta tags and the structured data both say about an issue.
+function describePost(postData: PostContent, { lang, year, month, slug }: PostParams) {
+	const postPath = `/${year}/${month}/${encodeURIComponent(slug)}`
+	const url = `${getSiteUrl()}${getLocalePath(lang, postPath)}`
+	const description = postData.summary || getSiteDescription(lang)
+	// Issues open with a cover image; earlier ones without any keep a
+	// text-only card. Relative sources resolve against metadataBase.
+	const cover = /!\[([^\]]*)\]\(\s*<?([^\s)>]+)/.exec(postData.contentMarkdown)
+	const images = cover
+		? [{ url: cover[2], alt: cover[1] || postData.title, ...knownImageDimensions[cover[2]] }]
+		: undefined
+	return { postPath, url, description, images }
 }
 
 export async function generateStaticParams({
@@ -67,20 +84,9 @@ export async function generateMetadata({
 		notFound()
 	}
 
-	const siteUrl = (
-		process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top'
-	).replace(/\/$/, '')
-	const postPath = `/${year}/${month}/${encodeURIComponent(slug)}`
+	const { postPath, url, description, images } = describePost(postData, { lang, year, month, slug })
 	const translated =
 		getPostFilenameByParams(year, month, slug, lang === 'zh' ? 'en' : 'zh') !== null
-	const url = `${siteUrl}${getLocalePath(lang, postPath)}`
-	const description = postData.summary || getSiteDescription(lang)
-	// Issues open with a cover image; earlier ones without any keep a
-	// text-only card. Relative sources resolve against metadataBase.
-	const cover = /!\[([^\]]*)\]\(\s*<?([^\s)>]+)/.exec(postData.contentMarkdown)
-	const images = cover
-		? [{ url: cover[2], alt: cover[1] || postData.title, ...knownImageDimensions[cover[2]] }]
-		: undefined
 
 	return {
 		title: postData.title,
@@ -88,7 +94,7 @@ export async function generateMetadata({
 		alternates: {
 			canonical: url,
 			// Only a post published in both languages has a counterpart to point at.
-			languages: translated ? getLanguageAlternates(postPath, siteUrl) : undefined,
+			languages: translated ? getLanguageAlternates(postPath, getSiteUrl()) : undefined,
 			types: {
 				'application/atom+xml': lang === 'en' ? '/en/index.xml' : '/index.xml',
 			},
@@ -145,8 +151,21 @@ export default async function Post({
 	const prevIssue = currentIndex === -1 ? null : issues[currentIndex + 1] ?? null
 	const nextIssue = currentIndex > 0 ? issues[currentIndex - 1] : null
 
+	const { url, description, images } = describePost(postData, { lang, year, month, slug })
+	const structuredData = blogPostingJsonLd({
+		lang,
+		url,
+		title: postData.title,
+		description,
+		datePublished: postData.date,
+		dateModified: postData.updated,
+		image: images ? new URL(images[0].url, `${getSiteUrl()}/`).href : undefined,
+		site: { name: getSiteTitle('zh'), url: `${getSiteUrl()}${getLocalePath(lang)}` },
+	})
+
 	return (
 		<Layout lang={lang} dict={dict}>
+			<JsonLd data={structuredData} />
 			{/* The header's container, so the article's left edge lines up with
 			    the bar's. From lg the contents list takes a column of its own
 			    beside the 42rem measure; below lg there is none. w-full because

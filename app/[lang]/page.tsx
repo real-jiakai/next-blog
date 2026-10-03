@@ -4,7 +4,9 @@ import { Locale, getLanguageAlternates, getLocalePath } from '@/lib/i18n-config'
 import { getDictionary } from '@/lib/dictionaries'
 import { getSiteOpenGraph } from '@/lib/metadata'
 import { getIssueIndex, getIssueStats } from '@/lib/posts'
-import { getSiteTitle } from '@/lib/site-config'
+import { getSiteDescription, getSiteTitle, getSiteUrl } from '@/lib/site-config'
+import { webSiteJsonLd } from '@/lib/structured-data'
+import JsonLd from '@/components/JsonLd'
 import Layout from '@/components/Layout'
 import Masthead from '@/components/Masthead'
 import LeadIssue from '@/components/LeadIssue'
@@ -44,6 +46,12 @@ export default async function Home({
 	const issues = getIssueIndex(lang)
 	const stats = getIssueStats(lang)
 	const [lead, ...back] = issues
+	const structuredData = webSiteJsonLd({
+		lang,
+		name: getSiteTitle('zh'),
+		url: `${getSiteUrl()}${getLocalePath(lang)}`,
+		description: getSiteDescription(lang),
+	})
 
 	if (!lead) {
 		// Point at the other locale's contents, in that locale's own words.
@@ -51,6 +59,7 @@ export default async function Home({
 		const otherDict = await getDictionary(other)
 		return (
 			<Layout lang={lang} dict={dict}>
+				<JsonLd data={structuredData} />
 				<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
 					<Masthead lang={lang} dict={dict} stats={stats} />
 					<p className="m-0 text-[1.0625rem] text-site-muted">
@@ -71,6 +80,7 @@ export default async function Home({
 
 	return (
 		<Layout lang={lang} dict={dict}>
+			<JsonLd data={structuredData} />
 			<div className="mx-auto w-full max-w-4xl px-4 pb-20 md:px-6">
 				<Masthead lang={lang} dict={dict} stats={stats} />
 				<LeadIssue lang={lang} dict={dict} issue={lead} />
