@@ -1,3 +1,13 @@
+## [1.5.2](https://github.com/real-jiakai/next-blog/compare/v1.5.1...v1.5.2) (2026-10-03)
+
+
+### Bug Fixes
+
+* **post:** drop the edit-on-GitHub link ([44c8095](https://github.com/real-jiakai/next-blog/commit/44c8095841f83b4c5900f678b9de7b5a6fbc2961))
+* **post:** keep 2rem under the title of an issue with no song ([e6dead1](https://github.com/real-jiakai/next-blog/commit/e6dead1b97e514c6b718bb497d1d09acc81d5294))
+* **post:** let the song note sit with the player, under one rule ([35542bc](https://github.com/real-jiakai/next-blog/commit/35542bc57f802bb0a4b5e2e9467619d86c90f9ac))
+* **posts:** give issues 9 and 10 their cover heading ([1f18872](https://github.com/real-jiakai/next-blog/commit/1f18872237400d422cda9b5d0be5206b9720c23f))
+
 ## [1.5.1](https://github.com/real-jiakai/next-blog/compare/v1.5.0...v1.5.1) (2026-10-03)
 
 
