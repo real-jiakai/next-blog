@@ -3,7 +3,7 @@ title: "The Dilemma of Pursuing a Master's at a Non-Elite University #18"
 date: "2024-05-05"
 slug: "weekly-issue-18"
 tags: ["weekly"]
-summary: "Third-year seniors go home for jobs outside NLP; the way out is to learn dev and publish early to intern."
+summary: "All third-years but one went home for non-NLP jobs; I build dev skills and aim to publish early, then intern."
 draft: false
 showtoc: true
 audio:

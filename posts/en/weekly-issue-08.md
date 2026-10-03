@@ -3,7 +3,7 @@ title: "The Trap of the Information Age—Over-Consuming Content #8"
 date: "2022-05-27"
 tags: ["weekly"]
 slug: "weekly-issue-08"
-summary: "Fearing thin issues, I scrolled every feed daily, until a roommate's reply showed me I could stop when tired."
+summary: "Fearing thin issues, I made myself read every feed daily, until a roommate showed me I could stop when tired."
 showtoc: true
 audio:
   name: "Handwritten Memories of the Past"

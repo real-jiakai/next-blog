@@ -3,7 +3,7 @@ title: "Does the Internet Have Memory? #14"
 date: "2023-01-27"
 slug: "weekly-issue-14"
 tags: ["weekly"]
-summary: "Personal sites can vanish once offline; regularly submitting yours to the Internet Archive leaves more traces."
+summary: "Offline personal sites can vanish; regularly submitting yours to the Internet Archive leaves more traces."
 showtoc: true
 audio:
    name: 'Mother and Daughter'

@@ -3,7 +3,7 @@ title: "How to Efficiently Prepare for Graduate School Exams? #5"
 date: "2022-05-09"
 slug: "weekly-issue-05"
 tags: ["weekly"]
-summary: "Lost in math drills, I review errors, seek a senior's advice, keep my pace and plan daily runs to de-stress."
+summary: "Ever more lost in math, I review my errors, seek a top student's tips, mind my pace and plan daily runs."
 showtoc: true
 audio:
   name: "Friends"
