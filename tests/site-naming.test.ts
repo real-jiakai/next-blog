@@ -1,8 +1,11 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 
-// How 《周见》 is named in each language: the brand stays 周见 everywhere a
-// name is shown beside other text, and only a title that stands alone in
-// English adds the romanisation.
+// How 《周见》 is named in each language: the brand stays 周见 after a page's
+// own title and as og:site_name, and only an English title that leads with
+// the site's name (the default <title>, the contents page, the feed and
+// llms.txt) adds the romanisation.
 vi.stubEnv('NEXT_PUBLIC_SITE_TITLE', '周见')
 vi.stubEnv('NEXT_PUBLIC_SITE_TITLE_EN', '周见 · Zhōu Jiàn')
 vi.stubEnv('NEXT_PUBLIC_SITE_DESCRIPTION_EN', 'English description.')
@@ -40,9 +43,11 @@ describe('site naming', () => {
 		})
 	})
 
-	it('titles each contents page with its language\'s name and nothing after it', async () => {
-		expect((await homeMetadata(params('zh'))).title).toEqual({ absolute: '周见' })
-		expect((await homeMetadata(params('en'))).title).toEqual({ absolute: '周见 · Zhōu Jiàn' })
+	it('titles each contents page with its language\'s name and what the site is', async () => {
+		expect((await homeMetadata(params('zh'))).title).toEqual({ absolute: '周见 | 记录网上见闻的个人刊物' })
+		expect((await homeMetadata(params('en'))).title).toEqual({
+			absolute: '周见 · Zhōu Jiàn | A personal periodical of things seen online',
+		})
 	})
 
 	it('names the site in Open Graph by its brand in both languages', () => {
@@ -57,5 +62,17 @@ describe('site naming', () => {
 		// summary is that description alone rather than a second introduction.
 		expect(intro).toBe('> English description.')
 		expect(locales).toBe('Chinese pages live at the site root; English pages live under /en.')
+	})
+
+	// The early issues were translated with a made-up English name for the
+	// periodical; the brand is 周见 in English too.
+	it('calls the periodical 周见 in every English issue', () => {
+		const directory = path.join(process.cwd(), 'posts', 'en')
+		const named = fs
+			.readdirSync(directory)
+			.filter((file) => file.endsWith('.md'))
+			.filter((file) => /Weekly Insights/i.test(fs.readFileSync(path.join(directory, file), 'utf8')))
+
+		expect(named).toEqual([])
 	})
 })

@@ -7,7 +7,7 @@ summary: "Algorithms left to spin a cocoon narrow your view, so take the initiat
 showtoc: true
 ---
 
-Welcome to the fourth issue of "Weekly Insights." This week's topic is "Are you being trapped in a filter bubble?"
+Welcome to the fourth issue of 周见. This week's topic is "Are you being trapped in a filter bubble?"
 
 <center><b>Cover image: Filter Bubble</b></center>
 

@@ -63,4 +63,13 @@ describe('sitemap', () => {
 			expect.arrayContaining(['https://example.com/', 'https://example.com/en']),
 		)
 	})
+
+	it('dates a post by its last substantive revision, and the contents by the newest issue', () => {
+		posts.zh[2] = { ...post('a', '2026-01-01'), updated: '2026-04-01' }
+		const byUrl = new Map(sitemap().map((entry) => [entry.url, entry]))
+
+		expect(byUrl.get('https://example.com/2026/01/a')?.lastModified).toEqual(new Date('2026-04-01'))
+		expect(byUrl.get('https://example.com/2026/02/b')?.lastModified).toEqual(new Date('2026-02-01'))
+		expect(byUrl.get('https://example.com/')?.lastModified).toEqual(new Date('2026-03-01'))
+	})
 })

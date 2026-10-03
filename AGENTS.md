@@ -48,6 +48,11 @@ local Markdown posts, Supabase comments, and standalone Docker output.
 - `lib/renderPost.tsx` — sanitized post Markdown rendering and heading data.
   It adds no classes to links; `.article-content` styles them.
 - `lib/renderComment.ts` — sanitized comment Markdown rendering.
+- `lib/structured-data.ts`, `components/JsonLd/` — the JSON-LD on each post
+  (BlogPosting) and home page (WebSite). Every field repeats what the page
+  or its meta tags already say; the author is `siteAuthor` in
+  `lib/site-config.ts`. `serializeJsonLd` escapes `<`, so post text cannot
+  close the script block.
 - `lib/commentSecurity.ts` — comment origin, Turnstile, limits, and verification.
 - `lib/commentAvatar.ts` — server-side identicons that `comSelect` returns.
 - `posts/zh/`, `posts/en/` — Markdown content.
@@ -55,8 +60,9 @@ local Markdown posts, Supabase comments, and standalone Docker output.
  `next.config.mjs`, route handlers, and server-rendered pages and components.
 - `scripts/generate-rss.mjs` — deterministic Atom feed generation.
 - `supabase/migrations/` — database changes required before deployment.
-- `next.config.mjs` — locale redirects/rewrites, standalone output, headers,
-  and the image optimizer's host allowlist.
+- `next.config.mjs` — locale redirects/rewrites, the redirects from retired
+  URLs (pagination, the archive, the two GIFs that became videos),
+  standalone output, headers, and the image optimizer's host allowlist.
 - `.github/workflows/ci.yml` — pull-request and branch quality gate.
 - `.github/workflows/release.yml` — gated semantic release from `main`.
 
@@ -140,6 +146,12 @@ through the latest Node 24 release.
   optimizer is pinned to those covers rather than to whole hosts; any other
   URL is refused, and the lead then shows an empty tinted box.
 - Tags may remain in historical frontmatter but have no public route or UI.
+- A post's optional frontmatter `updated` ("YYYY-MM-DD", quoted, not before
+  `date`) marks its last substantive revision. It drives the post's sitemap
+  `lastmod`, `article:modified_time`, JSON-LD `dateModified` and the feed
+  entry's `<updated>`, beside an unchanged `<published>`. Set it only for a
+  real revision, never for a typo, and never backfill it: readers may show an
+  entry whose `<updated>` changed as new.
 - Drafts must be excluded from lists, static params, direct post lookup,
   sitemap, and feeds.
 - Run `pnpm images:metadata` after changing post image URLs and commit the
@@ -206,7 +218,9 @@ secrets in `NEXT_PUBLIC_*`, Docker build arguments, Git, or generated output.
 feed's title and the `llms.txt` heading, and falls back to `NEXT_PUBLIC_SITE_TITLE`; never use it for
 the brand. `NEXT_PUBLIC_SITE_DESCRIPTION_ZH` and `_EN` fall back to
 `NEXT_PUBLIC_SITE_DESCRIPTION` and are the meta and Open Graph description;
-the contents page prints the `Standfirst` dictionary string instead.
+the contents page prints the `Standfirst` dictionary string instead. The
+contents page's `<title>` is the language's site title, then ` | ` and the
+`Tagline` dictionary string (`周见 | 记录网上见闻的个人刊物`).
 
 `next/image` optimizes the contents page's lead cover. It accepts exactly the
 cover URLs in `lib/cover-urls.json`, with no query string, rather than the

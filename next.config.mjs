@@ -84,9 +84,22 @@ export default withBundleAnalyzer({
 	// old pagination and archive URLs lead there; the more specific `/zh`
 	// rules come first so they take one hop, not two. A link to an archive
 	// year (`/archive#2024`) keeps its fragment across the redirect and lands
-	// on that year's section of the contents page.
+	// on that year's section of the contents page. Issues 14 and 22 used to
+	// show two GIFs from /gif/, which became looping videos; feeds and
+	// readers that kept the old entries still ask for the GIFs, so each one
+	// leads to its video's poster, a still an <img> can show.
 	async redirects() {
 		return [
+			{
+				source: '/gif/2023-01-26-curry-throws-his-mouthpiece.gif',
+				destination: '/video/2023-01-26-curry-throws-his-mouthpiece.webp',
+				permanent: true,
+			},
+			{
+				source: '/gif/zuckerberg_awkward_stare_2025.gif',
+				destination: '/video/zuckerberg_awkward_stare_2025.webp',
+				permanent: true,
+			},
 			{ source: '/page/:page(\\d+)', destination: '/', permanent: true },
 			{ source: '/en/page/:page(\\d+)', destination: '/en', permanent: true },
 			{ source: '/zh/page/:page(\\d+)', destination: '/', permanent: true },

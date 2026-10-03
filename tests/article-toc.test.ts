@@ -65,6 +65,29 @@ describe('the contents scroll-spy', () => {
 		).toBe('topic')
 	})
 
+	it('keeps a clicked heading active at the bottom when it starts on screen below the line', () => {
+		expect(
+			activeHeadingId(
+				headings,
+				page({ cover: -1800, topic: 300, links: 500 }, { scrollY: 2200, hash: '#topic' }),
+			),
+		).toBe('topic')
+		// A hash naming a heading the reader has scrolled past does not hold.
+		expect(
+			activeHeadingId(
+				headings,
+				page({ cover: -1800, topic: 96, links: 500 }, { scrollY: 2200, hash: '#cover' }),
+			),
+		).toBe('links')
+		// Nor does one naming something other than a heading.
+		expect(
+			activeHeadingId(
+				headings,
+				page({ cover: -1800, topic: 300, links: 500 }, { scrollY: 2200, hash: '#comments' }),
+			),
+		).toBe('links')
+	})
+
 	it('decodes the hash to compare it with the heading ids', () => {
 		const zhHeadings = [{ id: '封面图' }, { id: '话题' }, { id: '链享' }]
 		const bottom = page(
@@ -138,6 +161,7 @@ describe('reading the live page', () => {
 		expect(onChange).toHaveBeenLastCalledWith('cover')
 		listeners.get('scroll')!()
 		listeners.get('resize')!()
+		listeners.get('hashchange')!()
 		expect(frames).toHaveLength(1)
 		frames[0]()
 		expect(onChange).toHaveBeenCalledTimes(2)
@@ -146,5 +170,29 @@ describe('reading the live page', () => {
 		stop()
 		expect(win.cancelAnimationFrame).toHaveBeenCalledTimes(1)
 		expect(listeners.size).toBe(0)
+	})
+
+	// Scrolled to the end, the last two sections both start on screen, so a
+	// click between their entries changes the hash and nothing else.
+	it('follows a click between the last two entries that cannot scroll', () => {
+		const { win, listeners, frames } = fakeWindow({
+			cover: { top: -1800, scrollMarginTop: 96 },
+			topic: { top: 300, scrollMarginTop: 96 },
+			links: { top: 500, scrollMarginTop: 96 },
+		}, 2200)
+		win.location.hash = '#topic'
+		const onChange = vi.fn()
+		trackActiveHeading(win as unknown as Window, headings, onChange)
+		expect(onChange).toHaveBeenLastCalledWith('topic')
+
+		win.location.hash = '#links'
+		listeners.get('hashchange')!()
+		frames[0]()
+		expect(onChange).toHaveBeenLastCalledWith('links')
+
+		win.location.hash = '#topic'
+		listeners.get('hashchange')!()
+		frames[1]()
+		expect(onChange).toHaveBeenLastCalledWith('topic')
 	})
 })

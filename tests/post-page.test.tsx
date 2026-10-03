@@ -18,10 +18,25 @@ vi.mock('@/components/APlayer/DynamicAPlayer', () => ({
 	default: ({ audio }: { audio: { name: string } }) => <div data-player={audio.name} />,
 }))
 
-const { default: Post } = await import('@/app/[lang]/[year]/[month]/[slug]/page')
+// Lets a test give the post it renders a recorded revision, since no
+// published issue has one to read.
+const revision = vi.hoisted(() => ({ updated: null as string | null }))
+vi.mock('@/lib/posts', async (importOriginal) => {
+	const posts = await importOriginal<typeof import('@/lib/posts')>()
+	return {
+		...posts,
+		getPostDataByFileName: async (...args: Parameters<typeof posts.getPostDataByFileName>) => {
+			const post = await posts.getPostDataByFileName(...args)
+			return post && revision.updated ? { ...post, updated: revision.updated } : post
+		},
+	}
+})
+
+const { default: Post, generateMetadata } = await import('@/app/[lang]/[year]/[month]/[slug]/page')
 const { default: PostHeader } = await import('@/components/PostHeader')
 const { default: PostNav } = await import('@/components/PostNav')
-const { getIssueIndex, getSortedPostsData } = await import('@/lib/posts')
+const { getIssueIndex, getPostDataByFileName, getSortedPostsData } = await import('@/lib/posts')
+const { getSiteUrl } = await import('@/lib/site-config')
 
 const dicts = { zh, en } as const
 
@@ -180,6 +195,61 @@ describe.each(['zh', 'en'] as const)('post page (%s)', (lang) => {
 
 		expect(padding(withSong)).toBe('pb-5')
 		expect(padding(withoutSong)).toBe('pb-8')
+	})
+
+	// The newest issue's JSON-LD and meta tags, as the page renders them.
+	async function describeNewest() {
+		const params = {
+			lang,
+			year: newest.date.slice(0, 4),
+			month: newest.date.slice(5, 7),
+			slug: newest.slug,
+		}
+		const html = await render(lang, newest)
+		const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+		const metadata = await generateMetadata({ params: Promise.resolve(params) })
+		const post = await getPostDataByFileName(params.year, params.month, params.slug, lang)
+		return {
+			blocks,
+			data: JSON.parse(blocks[0]?.[1] ?? '{}'),
+			metadata,
+			modifiedTime: (metadata.openGraph as { modifiedTime?: string } | undefined)?.modifiedTime,
+			updated: post?.updated ?? undefined,
+		}
+	}
+
+	it('describes the issue as a BlogPosting that matches its meta tags', async () => {
+		const { blocks, data, metadata, modifiedTime, updated } = await describeNewest()
+		const ogImage = [metadata.openGraph?.images].flat()[0] as { url: string } | undefined
+
+		expect(blocks).toHaveLength(1)
+		expect(data).toMatchObject({
+			'@type': 'BlogPosting',
+			headline: newest.title,
+			description: metadata.description,
+			url: metadata.alternates?.canonical,
+			datePublished: newest.date,
+			dateModified: updated ?? newest.date,
+			inLanguage: lang === 'zh' ? 'zh-CN' : 'en',
+			author: { '@type': 'Person', name: 'Jiakai Gu' },
+		})
+		expect(ogImage).toBeDefined()
+		expect(data.image).toEqual([new URL(ogImage!.url, `${getSiteUrl()}/`).href])
+		// Only a recorded revision claims a modified time.
+		expect(modifiedTime).toBe(updated)
+	})
+
+	it('dates a revised issue by its revision, in its meta tags and its JSON-LD alike', async () => {
+		const updated = `${Number(newest.date.slice(0, 4)) + 1}-01-01`
+		revision.updated = updated
+		try {
+			const { data, modifiedTime } = await describeNewest()
+
+			expect(data).toMatchObject({ datePublished: newest.date, dateModified: updated })
+			expect(modifiedTime).toBe(updated)
+		} finally {
+			revision.updated = null
+		}
 	})
 
 	it('ends on its neighbours\' hairlines, with no ink rule above them and no edit link', async () => {

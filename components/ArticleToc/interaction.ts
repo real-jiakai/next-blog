@@ -42,9 +42,9 @@ const REACHED_BUFFER = 16
  * The id of the heading the reader is in: the last one at or above the
  * offset line, or '' before the first. A closing heading with little below it
  * never reaches the line, so the bottom of a page that scrolls counts as
- * reaching the last one, unless the reader jumped to the heading that did
- * reach it: clicking a short second-to-last section lands on the same bottom
- * scroll.
+ * reaching the last one, unless the hash names the reached heading or one
+ * below it: there, clicking any of the closing sections lands on the same
+ * bottom scroll, and only the hash says which one the reader chose.
  */
 export function activeHeadingId(headings: readonly { id: string }[], page: ReadingPosition): string {
 	let current = ''
@@ -70,7 +70,8 @@ export function activeHeadingId(headings: readonly { id: string }[], page: Readi
 		page.scrollY > 0 &&
 		page.viewportHeight + page.scrollY >= page.documentHeight - 2
 	) {
-		current = headings[headings.length - 1].id
+		const ids = headings.map((heading) => heading.id)
+		current = ids.indexOf(target) > ids.indexOf(current) ? target : ids[ids.length - 1]
 	}
 	return current
 }
@@ -100,7 +101,10 @@ export function readPosition(win: Pick<SpyWindow, 'document' | 'getComputedStyle
 
 /**
  * Reports the active heading at once, and again at most once a frame while
- * the page scrolls or resizes. Returns the function that stops listening.
+ * the page scrolls or resizes, or its hash changes: at the bottom of a page,
+ * clicking between the last two entries may not scroll at all, and only the
+ * hash says which of them the reader chose. Returns the function that stops
+ * listening.
  */
 export function trackActiveHeading(
 	win: SpyWindow,
@@ -121,11 +125,13 @@ export function trackActiveHeading(
 
 	win.addEventListener('scroll', schedule, { passive: true })
 	win.addEventListener('resize', schedule, { passive: true })
+	win.addEventListener('hashchange', schedule)
 	update()
 
 	return () => {
 		win.removeEventListener('scroll', schedule)
 		win.removeEventListener('resize', schedule)
+		win.removeEventListener('hashchange', schedule)
 		if (frameId !== null) {
 			win.cancelAnimationFrame(frameId)
 		}

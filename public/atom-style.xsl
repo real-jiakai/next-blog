@@ -235,7 +235,7 @@
               </a>
             </h2>
             <div class="entry-meta">
-              <xsl:value-of select="substring(atom:updated, 1, 10)"/>
+              <xsl:value-of select="substring(atom:published, 1, 10)"/>
             </div>
             <div class="entry-content">
               <xsl:choose>

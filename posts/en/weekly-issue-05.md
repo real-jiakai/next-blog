@@ -12,7 +12,7 @@ audio:
   cover: "https://vip2.loli.net/2023/04/27/SQUAqT64L8EDNac.webp"
 ---
 
-Welcome to the fifth issue of "Weekly Insights." This week's topic is "How to efficiently prepare for graduate school entrance exams?"
+Welcome to the fifth issue of 周见. This week's topic is "How to efficiently prepare for graduate school entrance exams?"
 
 ## Topic: How to Efficiently Prepare for Graduate School Exams?
 

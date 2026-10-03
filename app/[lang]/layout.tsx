@@ -37,7 +37,8 @@ export async function generateMetadata({
 			? new URL(process.env.NEXT_PUBLIC_SITE_URL)
 			: undefined,
 		// A page's own title is followed by the bare brand in both languages;
-		// only a page without one shows English's romanised name.
+		// only titles that lead with the site's name (this default and the
+		// contents page's) show English's romanised name.
 		title: {
 			default: getSiteTitle(lang),
 			template: `%s | ${getSiteTitle('zh')}`,

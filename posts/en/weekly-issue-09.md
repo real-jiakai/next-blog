@@ -14,7 +14,7 @@ audio:
 
 Weekly BGM [Dragon Boat Festival Special].
 
-Welcome to the ninth issue of "Weekly Insights." This week's topic is "Technology first or tinkering first?"
+Welcome to the ninth issue of 周见. This week's topic is "Technology first or tinkering first?"
 
 ## Cover Image
 

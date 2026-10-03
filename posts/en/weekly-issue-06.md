@@ -12,7 +12,7 @@ audio:
   cover: "https://vip2.loli.net/2023/04/27/ygQt1weoVFnSMmv.webp"
 ---
 
-Welcome to the sixth issue of "Weekly Insights." This week's topic is "Have you achieved music freedom?"
+Welcome to the sixth issue of 周见. This week's topic is "Have you achieved music freedom?"
 
 ## Topic: Have You Achieved Music Freedom?
 

@@ -84,6 +84,35 @@ describe('getPostFilenameByParams', () => {
 	})
 })
 
+describe('the updated date', () => {
+	it('carries a substantive revision\'s date, and nothing for a post never revised', async () => {
+		writePost('a.md', { title: 'A', date: '2024-01-01', updated: '2024-03-02', slug: 'a', summary: '' })
+		writePost('b.md', { title: 'B', date: '2024-02-01', slug: 'b', summary: '' })
+		const { getSortedPostsData, getPostDataByFileName } = await loadPosts()
+
+		const posts = getSortedPostsData('zh')
+		expect(posts.find((post) => post.slug === 'a')).toHaveProperty('updated', '2024-03-02')
+		expect(posts.find((post) => post.slug === 'b')).not.toHaveProperty('updated')
+		expect((await getPostDataByFileName('2024', '01', 'a', 'zh'))?.updated).toBe('2024-03-02')
+		expect((await getPostDataByFileName('2024', '02', 'b', 'zh'))?.updated).toBeNull()
+	})
+
+	it.each([
+		['unquoted, which YAML reads as a Date', 'updated: 2024-03-02', /quote it/],
+		['malformed', 'updated: "2024-13-02"', /Invalid post updated in bad\.md: 2024-13-02/],
+		['before the post\'s own date', 'updated: "2023-12-31"', /2023-12-31 is before its date 2024-01-01/],
+	])('fails the build when it is %s', async (_, line, message) => {
+		fs.writeFileSync(
+			path.join(root, 'posts', 'zh', 'bad.md'),
+			`---\ntitle: "Bad"\ndate: "2024-01-01"\n${line}\nslug: "bad"\nsummary: ""\n---\n\nBody\n`,
+		)
+		const { getSortedPostsData, getAllPostMetadata } = await loadPosts()
+
+		expect(() => getSortedPostsData('zh')).toThrow(message)
+		expect(() => getAllPostMetadata('zh')).toThrow(message)
+	})
+})
+
 describe('getIssueIndex', () => {
 	const topic = '## 话题：标题\n\n这是话题下面的第一段正文，足够长，可以用作摘要。\n'
 

@@ -302,12 +302,31 @@ export function readFeedConfig(environment = process.env) {
 	}
 }
 
-function parsePostDate(value, source) {
+function parsePostDate(value, source, field = 'date') {
 	const date = value instanceof Date ? value : new Date(`${value}T00:00:00.000Z`)
-	if (Number.isNaN(date.getTime())) {
-		throw new Error(`Invalid post date in ${source}`)
+	// A day the month does not have (2024-02-30) would roll forward into
+	// the next month; lib/posts refuses it, so the feed does too.
+	if (
+		Number.isNaN(date.getTime()) ||
+		(typeof value === 'string' && date.toISOString().slice(0, 10) !== value)
+	) {
+		throw new Error(`Invalid post ${field} in ${source}: ${value}`)
 	}
 	return date
+}
+
+// The optional date of a post's last substantive revision, held to the same
+// rules as lib/posts: a quoted YYYY-MM-DD no earlier than the post's date.
+function parseUpdatedDate(value, date, source) {
+	if (value == null) return null
+	if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+		throw new Error(`Invalid post updated date in ${source}: quote it, as updated: "YYYY-MM-DD"`)
+	}
+	const updated = parsePostDate(value, source, 'updated')
+	if (updated.getTime() < date.getTime()) {
+		throw new Error(`Invalid post updated date in ${source}: ${value} is before its date`)
+	}
+	return updated
 }
 
 function frontmatterText(value) {
@@ -337,10 +356,12 @@ export function getSortedPostsData(locale, postsBase) {
 			if (!data.title || !data.slug || !data.date) {
 				throw new Error(`Missing title, slug, or date in ${source}`)
 			}
+			const date = parsePostDate(data.date, source)
 			return [
 				{
 					title: String(data.title),
-					date: parsePostDate(data.date, source),
+					date,
+					updated: parseUpdatedDate(data.updated, date, source),
 					slug: String(data.slug),
 					audio: parseAudio(data.audio),
 					contentMarkdown: content,
@@ -364,9 +385,16 @@ export function selectFeedPosts(posts) {
 	return posts.slice(0, MAX_FEED_ITEMS)
 }
 
+// An entry's <updated> is its last substantive revision, or its publication
+// when it has none. Feed readers may show a changed <updated> as news, so only
+// a post's `updated` frontmatter moves it.
+function lastChanged(post) {
+	return post.updated ?? post.date
+}
+
 function newestPostDate(posts) {
 	if (posts.length === 0) return new Date(0)
-	return new Date(Math.max(...posts.map((post) => post.date.getTime())))
+	return new Date(Math.max(...posts.map((post) => lastChanged(post).getTime())))
 }
 
 function escapeHtml(value) {
@@ -437,7 +465,8 @@ export function createAtomFeed(posts, locale, config) {
 				),
 			),
 			link,
-			date: post.date,
+			date: lastChanged(post),
+			published: post.date,
 		})
 	}
 

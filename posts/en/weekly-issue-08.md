@@ -12,7 +12,7 @@ audio:
   cover: "https://vip2.loli.net/2023/04/27/iw9Qj6gUFVCvOo7.webp"
 ---
 
-Welcome to the eighth issue of "Weekly Insights." This week's topic is "The trap of the information age—over-consuming content."
+Welcome to the eighth issue of 周见. This week's topic is "The trap of the information age—over-consuming content."
 
 ## 🔍Gitee Event Sequel
 

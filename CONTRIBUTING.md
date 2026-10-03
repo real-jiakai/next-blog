@@ -92,6 +92,13 @@ in `lib/post-image-dimensions.json` and listed in `lib/cover-urls.json`. The
 image optimizer accepts exactly those cover URLs, not the whole of
 `cdn.sa.net` or `vip2.loli.net`, because anyone can upload to both hosts.
 
+After a substantive revision of a published issue (new or rewritten text, a
+new summary, links that matter), add `updated: "YYYY-MM-DD"` under `date`,
+quoted and no earlier than it. It becomes the post's sitemap `lastmod`, its
+`article:modified_time` and `dateModified`, and its feed entry's `<updated>`;
+`date` stays the day it was first published. Leave it out for typo fixes:
+feed readers may show an entry whose `<updated>` moved as new again.
+
 Use filenames that are valid on Windows, macOS, and Linux. In particular, avoid `?`, `*`, `:`, `"`, `<`, `>`, `|`, and path separators.
 
 Post content is read while Next.js builds the site. After adding or changing a post, rebuild and redeploy the application; mounting a different `posts` directory into an already-built container does not refresh static pages, the sitemap, or feeds.

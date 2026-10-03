@@ -103,8 +103,18 @@ describe('image optimizer', () => {
 })
 
 describe('locale route configuration', () => {
-	it('canonicalizes explicit Chinese prefixes and folds pagination and the archive into the contents', async () => {
+	it('canonicalizes explicit Chinese prefixes, folds pagination and the archive into the contents, and sends the retired GIFs to their posters', async () => {
 		expect(await nextConfig.redirects()).toEqual([
+			{
+				source: '/gif/2023-01-26-curry-throws-his-mouthpiece.gif',
+				destination: '/video/2023-01-26-curry-throws-his-mouthpiece.webp',
+				permanent: true,
+			},
+			{
+				source: '/gif/zuckerberg_awkward_stare_2025.gif',
+				destination: '/video/zuckerberg_awkward_stare_2025.webp',
+				permanent: true,
+			},
 			{ source: '/page/:page(\\d+)', destination: '/', permanent: true },
 			{ source: '/en/page/:page(\\d+)', destination: '/en', permanent: true },
 			{ source: '/zh/page/:page(\\d+)', destination: '/', permanent: true },

@@ -45,12 +45,13 @@ describe('collectSources', () => {
 	it('collects exactly the keys of the committed manifest from the current posts', () => {
 		const postsRoot = path.join(process.cwd(), 'posts')
 		const sources = new Set()
-		for (const locale of fs.readdirSync(postsRoot)) {
-			for (const file of fs.readdirSync(path.join(postsRoot, locale))) {
-				if (!file.endsWith('.md')) continue
-				const markdown = fs.readFileSync(path.join(postsRoot, locale, file), 'utf8')
-				for (const source of collectSources(markdown)) sources.add(source)
-			}
+		// Every Markdown file under posts/, as the script walks it. Anything
+		// else there, such as macOS's .DS_Store, is skipped, not read as a
+		// locale directory.
+		for (const file of fs.readdirSync(postsRoot, { recursive: true })) {
+			if (!file.endsWith('.md')) continue
+			const markdown = fs.readFileSync(path.join(postsRoot, file), 'utf8')
+			for (const source of collectSources(markdown)) sources.add(source)
 		}
 
 		expect([...sources].sort()).toEqual(Object.keys(postImageDimensions).sort())

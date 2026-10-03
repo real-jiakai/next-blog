@@ -36,3 +36,16 @@ export function getSiteTitle(lang: Locale): string {
 		'Blog'
 	)
 }
+
+/** The site's origin, without a trailing slash, for absolute URLs. */
+export function getSiteUrl(): string {
+	return (process.env.NEXT_PUBLIC_SITE_URL || 'https://gujiakai.top').replace(/\/+$/, '')
+}
+
+// Who writes the periodical, as structured data credits it: the name the
+// English site description already uses, and the profile the About page
+// links to.
+export const siteAuthor = {
+	name: 'Jiakai Gu',
+	url: 'https://github.com/real-jiakai',
+} as const
