@@ -16,6 +16,8 @@ Weekly BGM [Dragon Boat Festival Special].
 
 Welcome to the ninth issue of "Weekly Insights." This week's topic is "Technology first or tinkering first?"
 
+## Cover Image
+
 ![Cover image: Coding time](https://vip2.loli.net/2022/11/12/3NoeEwjuitYS7Fa.jpg)
 <center><b>(Cover image: Coding time)</b></center>
 
