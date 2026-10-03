@@ -3,7 +3,7 @@ title: "Have You Achieved Music Freedom? #6"
 date: "2022-05-10"
 tags: ["weekly"]
 slug: "weekly-issue-06"
-summary: "Musicians must eat: free listening, paid downloads, and a firm no to QQ Music paywalling Jay Chou's classics."
+summary: "I favor a free-to-listen, pay-to-download model but firmly oppose QQ Music paywalling Jay Chou's classics."
 showtoc: true
 audio:
   name: "The Saltwater Room"

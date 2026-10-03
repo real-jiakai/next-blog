@@ -3,7 +3,7 @@ title: "Technology First or Tinkering First? #9"
 date: "2022-06-03"
 slug: "weekly-issue-09"
 tags: ["weekly"]
-summary: "A classmate quits his blog to study Java; I think tech and tinkering feed each other, and I'd tinker first."
+summary: "A classmate drops his blog to study Java; I think tech and tinkering feed each other, and I'd tinker first."
 showtoc: true
 audio:
   name: "Li Sao"

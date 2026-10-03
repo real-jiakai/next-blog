@@ -3,7 +3,7 @@ title: "Say No to Homogenization #3"
 date: "2022-04-22"
 slug: "weekly-issue-03"
 tags: ["weekly"]
-summary: "Homogenized schooling blurs our goals; I point to self-taught Weng Tianxin and urge deciding what you want."
+summary: "Uniform schooling blurs our goals; citing self-taught Weng Tianxin, I urge anyone adrift to set a goal early."
 showtoc: true
 audio:
   name: "Me"

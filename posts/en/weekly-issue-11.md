@@ -3,7 +3,7 @@ title: "Hello 2023 #11"
 date: "2023-01-02"
 tags: ["weekly"]
 slug: "weekly-issue-11"
-summary: "In a hard 2022 I gave up coding for the grad-school exam, doubt I made it, and will likely start work midyear."
+summary: "2022 was hard: I gave up coding for the grad-school exam, doubt I passed, and will likely start work midyear."
 showtoc: true
 audio:
   name: "Fish"
