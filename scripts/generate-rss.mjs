@@ -302,10 +302,15 @@ export function readFeedConfig(environment = process.env) {
 	}
 }
 
-function parsePostDate(value, source) {
+function parsePostDate(value, source, field = 'date') {
 	const date = value instanceof Date ? value : new Date(`${value}T00:00:00.000Z`)
-	if (Number.isNaN(date.getTime())) {
-		throw new Error(`Invalid post date in ${source}`)
+	// A day the month does not have (2024-02-30) would roll forward into
+	// the next month; lib/posts refuses it, so the feed does too.
+	if (
+		Number.isNaN(date.getTime()) ||
+		(typeof value === 'string' && date.toISOString().slice(0, 10) !== value)
+	) {
+		throw new Error(`Invalid post ${field} in ${source}: ${value}`)
 	}
 	return date
 }
@@ -317,7 +322,7 @@ function parseUpdatedDate(value, date, source) {
 	if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
 		throw new Error(`Invalid post updated date in ${source}: quote it, as updated: "YYYY-MM-DD"`)
 	}
-	const updated = parsePostDate(value, source)
+	const updated = parsePostDate(value, source, 'updated')
 	if (updated.getTime() < date.getTime()) {
 		throw new Error(`Invalid post updated date in ${source}: ${value} is before its date`)
 	}

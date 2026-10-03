@@ -283,6 +283,7 @@ describe('post loading', () => {
 	it.each([
 		['unquoted', 'updated: 2025-03-04', 'quote it'],
 		['before the post\'s date', 'updated: "2025-02-02"', 'is before its date'],
+		['not a day of its month', 'updated: "2025-02-30"', 'Invalid post updated'],
 	])('rejects an updated date that is %s, as the site does', (_, line, message) => {
 		const postsBase = writePosts({ 'post.md': withUpdated(line) })
 
@@ -291,6 +292,15 @@ describe('post loading', () => {
 })
 
 describe('Atom output', () => {
+	// The styled feed page dates each entry as the issue page does, by its
+	// publication; a revision moves only <updated>.
+	it.each(['public/atom-style.xsl', 'public/en/atom-style.xsl'])('shows each entry\'s publication date in %s', (file) => {
+		const xsl = fs.readFileSync(path.join(process.cwd(), file), 'utf8')
+
+		expect(xsl).toContain('<xsl:value-of select="substring(atom:published, 1, 10)"/>')
+		expect(xsl).not.toContain('atom:updated')
+	})
+
 	// Readers may show an entry whose <updated> changed as news, so only a
 	// post's own `updated` date moves it.
 	it('dates an entry by its last revision and keeps its publication', () => {
