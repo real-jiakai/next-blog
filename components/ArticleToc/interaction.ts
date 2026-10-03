@@ -100,7 +100,10 @@ export function readPosition(win: Pick<SpyWindow, 'document' | 'getComputedStyle
 
 /**
  * Reports the active heading at once, and again at most once a frame while
- * the page scrolls or resizes. Returns the function that stops listening.
+ * the page scrolls or resizes, or its hash changes: at the bottom of a page,
+ * clicking between the last two entries may not scroll at all, and only the
+ * hash says which of them the reader chose. Returns the function that stops
+ * listening.
  */
 export function trackActiveHeading(
 	win: SpyWindow,
@@ -121,11 +124,13 @@ export function trackActiveHeading(
 
 	win.addEventListener('scroll', schedule, { passive: true })
 	win.addEventListener('resize', schedule, { passive: true })
+	win.addEventListener('hashchange', schedule)
 	update()
 
 	return () => {
 		win.removeEventListener('scroll', schedule)
 		win.removeEventListener('resize', schedule)
+		win.removeEventListener('hashchange', schedule)
 		if (frameId !== null) {
 			win.cancelAnimationFrame(frameId)
 		}
