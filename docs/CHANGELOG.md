@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/real-jiakai/next-blog/compare/v1.5.0...v1.5.1) (2026-10-03)
+
+
+### Bug Fixes
+
+* **home:** pad the masthead evenly above and below ([88b2dd7](https://github.com/real-jiakai/next-blog/commit/88b2dd70eb19df454b67423a3f1ad4b3031805ec))
+
 # [1.5.0](https://github.com/real-jiakai/next-blog/compare/v1.4.1...v1.5.0) (2026-10-03)
 
 
