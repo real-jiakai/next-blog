@@ -3,7 +3,7 @@ title: "Have You Experienced SEO Pollution? #2"
 date: "2022-04-15"
 tags: ["weekly"]
 slug: "weekly-issue-02"
-summary: "Scraper sites flood search with junk, copying my post the next day; uBlacklist hides them on Google and Bing."
+summary: "Scraper sites flood search with junk and have copied my post too; uBlacklist hides them on Google and Bing."
 showtoc: true
 ---
 
