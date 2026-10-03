@@ -141,6 +141,12 @@ through the latest Node 24 release.
   optimizer is pinned to those covers rather than to whole hosts; any other
   URL is refused, and the lead then shows an empty tinted box.
 - Tags may remain in historical frontmatter but have no public route or UI.
+- A post's optional frontmatter `updated` ("YYYY-MM-DD", quoted, not before
+  `date`) marks its last substantive revision. It drives the post's sitemap
+  `lastmod`, `article:modified_time` and the feed entry's `<updated>`,
+  beside an unchanged `<published>`. Set it only for a
+  real revision, never for a typo, and never backfill it: readers may show an
+  entry whose `<updated>` changed as new.
 - Drafts must be excluded from lists, static params, direct post lookup,
   sitemap, and feeds.
 - Run `pnpm images:metadata` after changing post image URLs and commit the

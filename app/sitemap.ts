@@ -13,6 +13,12 @@ function absoluteUrl(locale: Locale, path = ''): string {
 	return `${baseUrl}${getLocalePath(locale, path)}`
 }
 
+// A post's last substantive change: its `updated` date if it has one,
+// otherwise the day it was published.
+function lastChanged(post: PostData): string {
+	return post.updated ?? post.date
+}
+
 function getPostPath(post: PostData): string {
 	const [year, month] = post.date.split('-')
 	return `/${year}/${month}/${encodeURIComponent(post.slug)}`
@@ -61,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			const postPath = getPostPath(post)
 			entries.push({
 				url: absoluteUrl(locale, postPath),
-				lastModified: new Date(post.date),
+				lastModified: new Date(lastChanged(post)),
 				changeFrequency: 'monthly',
 				priority: 0.6,
 				alternates: languageAlternates(

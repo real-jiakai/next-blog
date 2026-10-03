@@ -30,10 +30,10 @@ function getPostsDirectory(locale: Locale): string {
 	return path.join(postsBaseDirectory, locale)
 }
 
-function getPostYearMonth(date: string, filename: string) {
+function getPostYearMonth(date: string, filename: string, field = 'date') {
 	const match = /^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.exec(date)
 	if (!match) {
-		throw new Error(`Invalid post date in ${filename}: ${date}`)
+		throw new Error(`Invalid post ${field} in ${filename}: ${date}`)
 	}
 	const year = Number(match[1])
 	const month = Number(match[2])
@@ -44,14 +44,34 @@ function getPostYearMonth(date: string, filename: string) {
 		parsed.getUTCMonth() + 1 !== month ||
 		parsed.getUTCDate() !== day
 	) {
-		throw new Error(`Invalid post date in ${filename}: ${date}`)
+		throw new Error(`Invalid post ${field} in ${filename}: ${date}`)
 	}
 	return { year, month }
+}
+
+/**
+ * The optional `updated` date of a substantive revision, checked: a quoted
+ * YYYY-MM-DD (YAML reads a bare date as a Date object) no earlier than the
+ * post's `date`. Undefined when the post has never been revised that way.
+ */
+function getPostUpdated(data: PostFrontmatter, filename: string): string | undefined {
+	const { updated } = data
+	if (updated === undefined || updated === null) return undefined
+	if (typeof updated !== 'string') {
+		throw new Error(`Invalid post updated in ${filename}: quote it, as updated: "YYYY-MM-DD"`)
+	}
+	getPostYearMonth(updated, filename, 'updated')
+	if (updated < data.date) {
+		throw new Error(`Invalid post updated in ${filename}: ${updated} is before its date ${data.date}`)
+	}
+	return updated
 }
 
 export interface PostFrontmatter {
   title: string
   date: string
+  // The last substantive revision, if any (see getPostUpdated).
+  updated?: string
   slug: string
   summary: string
   draft?: boolean
@@ -67,6 +87,7 @@ export interface PostFrontmatter {
 
 export interface PostData {
   date: string
+  updated?: string
   summary: string
   slug: string
   title: string
@@ -86,6 +107,7 @@ export interface PostContent {
   audio: PostFrontmatter['audio'] | null
   title: string
   date: string
+  updated: string | null
   summary: string
 }
 
@@ -139,13 +161,17 @@ function readPublishedPosts(locale: Locale): PublishedPost[] {
 
 // 获取排序后的文章数据
 export function getSortedPostsData(locale: Locale = i18n.defaultLocale): PostData[] {
-	return readPublishedPosts(locale).map(({ data }) => ({
-		date: data.date,
-		summary: data.summary,
-		slug: data.slug,
-		title: data.title,
-		draft: data.draft,
-	}))
+	return readPublishedPosts(locale).map(({ data, fileName }) => {
+		const updated = getPostUpdated(data, fileName)
+		return {
+			date: data.date,
+			...(updated ? { updated } : {}),
+			summary: data.summary,
+			slug: data.slug,
+			title: data.title,
+			draft: data.draft,
+		}
+	})
 }
 
 /**
@@ -219,6 +245,7 @@ export function getAllPostMetadata(locale: Locale = i18n.defaultLocale): PostMet
 		}
 
 		const { year, month } = getPostYearMonth(data.date, fileName)
+		getPostUpdated(data, fileName)
 
 		return [{
 			year,
@@ -281,6 +308,7 @@ export const getPostDataByFileName = cache(async function getPostDataByFileName(
 		audio: data.audio || null,
 		title: data.title,
 		date: data.date,
+		updated: getPostUpdated(data, filename) ?? null,
 		summary: data.summary,
 	}
 })

@@ -102,6 +102,8 @@ export async function generateMetadata({
 			locale: lang === 'zh' ? 'zh_CN' : 'en_US',
 			alternateLocale: translated ? (lang === 'zh' ? ['en_US'] : ['zh_CN']) : undefined,
 			publishedTime: postData.date,
+			// Only a substantive revision sets it; see AGENTS.md.
+			modifiedTime: postData.updated ?? undefined,
 			images,
 		},
 		twitter: {

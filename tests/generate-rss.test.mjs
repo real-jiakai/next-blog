@@ -269,9 +269,42 @@ describe('post loading', () => {
 			url: 'https://music.example.com/song.mp3',
 		})
 	})
+
+	const withUpdated = (line) =>
+		`---\ntitle: "Post"\nslug: "post"\ndate: "2025-02-03"\n${line}\n---\nBody`
+
+	it('reads the date of a substantive revision, and none without one', () => {
+		expect(getSortedPostsData('zh', writePosts({ 'post.md': withUpdated('updated: "2025-03-04"') }))[0].updated)
+			.toEqual(new Date('2025-03-04T00:00:00.000Z'))
+		expect(getSortedPostsData('zh', writePosts({ 'post.md': withUpdated('draft: false') }))[0].updated)
+			.toBeNull()
+	})
+
+	it.each([
+		['unquoted', 'updated: 2025-03-04', 'quote it'],
+		['before the post\'s date', 'updated: "2025-02-02"', 'is before its date'],
+	])('rejects an updated date that is %s, as the site does', (_, line, message) => {
+		const postsBase = writePosts({ 'post.md': withUpdated(line) })
+
+		expect(() => getSortedPostsData('zh', postsBase)).toThrow(message)
+	})
 })
 
 describe('Atom output', () => {
+	// Readers may show an entry whose <updated> changed as news, so only a
+	// post's own `updated` date moves it.
+	it('dates an entry by its last revision and keeps its publication', () => {
+		const revised = post({ updated: new Date('2025-04-05T00:00:00.000Z') })
+		const feed = createAtomFeed([revised, post({ slug: 'plain', date: new Date('2025-01-01T00:00:00.000Z') })], 'en', config)
+		const [header, first, second] = feed.split('<entry>')
+
+		expect(header).toContain('<updated>2025-04-05T00:00:00.000Z</updated>')
+		expect(first).toContain('<updated>2025-04-05T00:00:00.000Z</updated>')
+		expect(first).toContain('<published>2025-02-03T00:00:00.000Z</published>')
+		expect(second).toContain('<updated>2025-01-01T00:00:00.000Z</updated>')
+		expect(second).toContain('<published>2025-01-01T00:00:00.000Z</published>')
+	})
+
 	it('uses the newest post date rather than build time', () => {
 		const posts = [post()]
 
