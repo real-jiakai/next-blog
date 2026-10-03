@@ -30,13 +30,13 @@ export default function Masthead({ lang, dict, stats }: MastheadProps) {
 				<h1 className="m-0 text-[2rem] font-bold tracking-tight text-site-heading md:text-[2.5rem]">
 					{dict.common.Contents}
 				</h1>
-				<p className="m-0 max-w-[34rem] text-[0.9375rem] text-site-muted text-balance md:text-right">
+				<p className="m-0 max-w-[32rem] text-[0.9375rem] text-site-muted text-balance md:ml-auto md:text-right">
 					{dict.common.Standfirst}
 				</p>
 			</div>
 			<div className="mt-3 border-t-[3px] border-double border-site-rule" />
 			{stats.count > 0 && (
-				<p className="m-0 border-b border-site-line py-2 text-[0.75rem] tracking-[0.12em] text-site-muted tabular-nums md:text-[0.8125rem]">
+				<p className="m-0 border-b border-site-line py-2 text-[0.75rem] tracking-[0.12em] text-site-muted text-balance tabular-nums md:text-[0.8125rem]">
 					{folio}
 				</p>
 			)}
