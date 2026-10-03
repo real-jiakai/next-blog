@@ -12,7 +12,7 @@ audio:
   cover: "https://vip2.loli.net/2023/04/27/hwFKnmbTl7jrBQu.webp"
 ---
 
-Welcome to the seventh issue of "Weekly Insights." This week's topic is "This is very un-open-source."
+Welcome to the seventh issue of 周见. This week's topic is "This is very un-open-source."
 
 ## Topic: This Is Very Un-Open-Source
 

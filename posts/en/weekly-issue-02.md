@@ -7,7 +7,7 @@ summary: "Scraper sites flood search with junk and have copied my post too; uBla
 showtoc: true
 ---
 
-Welcome to the second issue of "Weekly Insights." This week's topic is "Have you experienced SEO pollution?"
+Welcome to the second issue of 周见. This week's topic is "Have you experienced SEO pollution?"
 
 ## Topic: Have You Experienced SEO Pollution?
 

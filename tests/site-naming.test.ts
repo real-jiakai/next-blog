@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 
 // How 《周见》 is named in each language: the brand stays 周见 everywhere a
@@ -57,5 +59,17 @@ describe('site naming', () => {
 		// summary is that description alone rather than a second introduction.
 		expect(intro).toBe('> English description.')
 		expect(locales).toBe('Chinese pages live at the site root; English pages live under /en.')
+	})
+
+	// The early issues were translated with a made-up English name for the
+	// periodical; the brand is 周见 in English too.
+	it('calls the periodical 周见 in every English issue', () => {
+		const directory = path.join(process.cwd(), 'posts', 'en')
+		const named = fs
+			.readdirSync(directory)
+			.filter((file) => file.endsWith('.md'))
+			.filter((file) => /Weekly Insights/i.test(fs.readFileSync(path.join(directory, file), 'utf8')))
+
+		expect(named).toEqual([])
 	})
 })

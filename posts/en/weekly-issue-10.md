@@ -14,7 +14,7 @@ audio:
 
 Weekly BGM [College Entrance Exam Season Special].
 
-Welcome to the tenth issue of "Weekly Insights." This week's topic is "My past years."
+Welcome to the tenth issue of 周见. This week's topic is "My past years."
 
 ## Cover Image
 

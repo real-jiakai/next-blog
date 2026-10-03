@@ -12,7 +12,7 @@ audio:
   cover: "https://vip2.loli.net/2023/04/27/4WSodMy2YhOwvQ8.webp"
 ---
 
-Welcome to the third issue of "Weekly Insights." This week's topic is "Say no to homogenization."
+Welcome to the third issue of 周见. This week's topic is "Say no to homogenization."
 
 ## Topic: Reject Homogenization
 
