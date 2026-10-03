@@ -25,16 +25,21 @@ function splitIssueTemplate(template: string): [string, string] {
 
 /**
  * The top of an issue: a kicker with its number, date and reading time, the
- * title without the number, the issue's song with its player, and an ink rule
- * where the body begins. The kicker's number is hidden from assistive
- * technology because the title opens with it, visually hidden, instead.
+ * title without the number, and the issue's song with its player. No rule
+ * closes it: most issues open with a note on their song, which belongs with
+ * the player, so the first department's rule closes the two together (see
+ * `.article-content > h2:first-child` in app/globals.css). The body follows
+ * the player at paragraph spacing; without a song it follows the title at
+ * the 2rem the player would have had. The kicker's number is hidden from
+ * assistive technology because the title opens with it, visually hidden,
+ * instead.
  */
 export default function PostHeader({ lang, dict, title, date, minutes, audio }: PostHeaderProps) {
 	const { displayTitle, issue } = parseIssueTitle(title)
 	const [before, after] = splitIssueTemplate(dict.common.IssueN)
 
 	return (
-		<header className="pb-5">
+		<header className={audio ? 'pb-5' : 'pb-8'}>
 			<p className="m-0 flex flex-wrap items-baseline gap-x-2 text-[0.8125rem] tracking-[0.14em] text-site-muted">
 				{issue !== null && (
 					<>
@@ -76,7 +81,6 @@ export default function PostHeader({ lang, dict, title, date, minutes, audio }: 
 					/>
 				</section>
 			)}
-			<div className="mt-8 border-t border-site-rule" />
 		</header>
 	)
 }

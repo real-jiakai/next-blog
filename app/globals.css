@@ -172,12 +172,12 @@
         }
     }
 
-    /* The post header's rule already stands above a body that opens with a
-       department; a second one would stack beneath it. */
+    /* The post header ends 1.25rem (its pb-5) below an issue's player; a
+       body that opens with a department makes that up to the 2rem every
+       department's rule has above it. (Without a song the header ends 2rem
+       below the title, pb-8, and every such issue opens with a note.) */
     .article-content > h2:first-child {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
+        margin-top: 0.75rem;
     }
 
     .article-content h3 {

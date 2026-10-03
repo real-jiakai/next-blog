@@ -16,6 +16,8 @@ Weekly BGM [College Entrance Exam Season Special].
 
 Welcome to the tenth issue of "Weekly Insights." This week's topic is "My past years."
 
+## Cover Image
+
 ![2019 college entrance exam send-off scene at my high school](https://vip2.loli.net/2022/09/20/BrVsEMzPYmdnSF8.jpg)
 
 <center><b>(Cover image: 2019 college entrance exam send-off scene at my high school)</b></center>

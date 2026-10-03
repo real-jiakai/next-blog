@@ -11,10 +11,10 @@ interface PostNavProps {
 }
 
 /**
- * The previous and next issue, each under its own hairline: a muted label with
- * the issue's number, then its title without the number (the label already
- * says it). The newer issue keeps to the right-hand column even when there is
- * no older one beside it.
+ * The previous and next issue, each under its own hairline, which also closes
+ * the issue's body: a muted label with the issue's number, then its title
+ * without the number (the label already says it). The newer issue keeps to
+ * the right-hand column even when there is no older one beside it.
  */
 export default function PostNav({ dict, prev, next }: PostNavProps) {
 	if (!prev && !next) return null
@@ -23,7 +23,7 @@ export default function PostNav({ dict, prev, next }: PostNavProps) {
 		entry.issue === null ? '' : ` · ${fillTemplate(dict.common.IssueN, { n: entry.issue })}`
 
 	return (
-		<nav aria-label={dict.common.PostNavigation} className="mt-6 grid gap-6 sm:grid-cols-2">
+		<nav aria-label={dict.common.PostNavigation} className="mt-16 grid gap-6 sm:grid-cols-2">
 			{prev && (
 				<Link href={prev.href} className="group min-w-0 border-t border-site-line pt-4">
 					<span className="block text-[0.8125rem] tracking-[0.12em] text-site-muted">

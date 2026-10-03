@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import type { ReactNode } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
@@ -159,13 +161,46 @@ describe.each(['zh', 'en'] as const)('post page (%s)', (lang) => {
 		expect(html).not.toMatch(/\b(?:bg|border|outline|ring|decoration)-blue-/)
 	})
 
-	it('offers the post\'s source for editing', async () => {
-		const html = await render(lang, newest)
-		const link = linksOf(html).find((anchor) => anchor.includes('/edit/main/posts/')) ?? ''
+	// Most issues open with a note on their song, which reads with the player
+	// above it; the first department's rule closes the two together.
+	it('closes the header with no rule of its own', async () => {
+		const html = await render(lang, issues.find((entry) => entry.song)!)
+		const header = html.match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? ''
 
-		expect(link).toMatch(new RegExp(`/edit/main/posts/${lang}/[^"]+\\.md"`))
-		expect(link).toContain('target="_blank"')
-		expect(textOf(link)).toBe(`${dict.EditThisPage} ↗`)
+		expect(header).toContain('<section')
+		expect(header).not.toMatch(/\bborder-/)
+	})
+
+	// The note follows the player at paragraph spacing; without a song the
+	// body keeps the 2rem below the title that the player would have had.
+	it('pads the header to what follows it', async () => {
+		const withSong = await render(lang, issues.find((entry) => entry.song)!)
+		const withoutSong = await render(lang, issues.find((entry) => !entry.song)!)
+		const padding = (html: string) => html.match(/<header class="([^"]*)"/)?.[1]
+
+		expect(padding(withSong)).toBe('pb-5')
+		expect(padding(withoutSong)).toBe('pb-8')
+	})
+
+	it('ends on its neighbours\' hairlines, with no ink rule above them and no edit link', async () => {
+		const html = await render(lang, newest)
+
+		expect(navOf(html, dict.PostNavigation)).toContain('border-site-line')
+		expect(html).not.toContain('border-site-rule')
+		expect(html).not.toContain('/edit/')
+	})
+})
+
+describe('the first department of a post body', () => {
+	const css = readFileSync(path.join(process.cwd(), 'app/globals.css'), 'utf8')
+
+	// With no rule under the post header, a body that opens with a department
+	// keeps that department's rule; only its margin is trimmed.
+	it('keeps its rule', () => {
+		const rule = css.match(/\.article-content > h2:first-child\s*\{([^}]*)\}/)?.[1]
+
+		expect(rule).toBeDefined()
+		expect(rule).not.toMatch(/border|padding/)
 	})
 })
 
