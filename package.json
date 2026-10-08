@@ -29,7 +29,7 @@
     "feed": "^5.2.1",
     "gray-matter": "^4.0.3",
     "identicon.js": "^2.3.3",
-    "meilisearch": "^0.60.0",
+    "meilisearch": "^0.62.0",
     "next": "^16.3.7",
     "next-themes": "^0.4.6",
     "nodemailer": "^10.0.13",
